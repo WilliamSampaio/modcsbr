@@ -87,7 +87,7 @@ mod/modcsbr/dlls/cs.so
 
 Current machine status: dependencies are installed and the first Linux build succeeded, producing a 32-bit `cs.so`.
 
-Rebuild is only needed after changing the GameDLL C++ code or when you want a fresh `cs.so`. HUD/crosshair/health/ammo issues are client-side and should be checked with a clean mod reinstall first.
+Rebuild is only needed after changing the GameDLL C++ code or when you want a fresh `cs.so`. HUD/crosshair/health/ammo issues and an empty `Create Server` > `Game` tab are client-side and should be checked with a clean mod reinstall first.
 
 ## Install The Mod Into Steam CS 1.6
 
@@ -116,6 +116,8 @@ MODCSBR_ASSET_MODE=copy scripts/install/modcsbr-steam-linux.sh --reset
 ```
 
 This deletes the installed `modcsbr` folder and recreates it, copying client HUD files from `cstrike` instead of linking them.
+
+It also restores `settings.scr`, which feeds the game options shown in the `Create Server` > `Game` tab.
 
 You can also reset and launch in one command:
 

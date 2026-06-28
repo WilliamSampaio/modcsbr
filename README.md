@@ -209,7 +209,7 @@ dlls/cs.so
 
 ## Resetar E Reinstalar O Mod
 
-Se o HUD nao aparecer, faca uma instalacao limpa do mod. Isso apaga a pasta `modcsbr` instalada na Steam e recria tudo.
+Se o HUD nao aparecer ou a aba `Game` do `Create Server` ficar vazia, faca uma instalacao limpa do mod. Isso apaga a pasta `modcsbr` instalada na Steam e recria tudo.
 
 Primeiro feche o CS 1.6.
 
@@ -219,7 +219,7 @@ Depois rode:
 MODCSBR_ASSET_MODE=copy scripts/install/modcsbr-steam-linux.sh --reset
 ```
 
-Esse modo copia os arquivos do `cstrike` para `modcsbr` em vez de usar links. E mais pesado, mas e melhor para tirar duvida com HUD/client.
+Esse modo copia os arquivos do `cstrike` para `modcsbr` em vez de usar links. E mais pesado, mas e melhor para tirar duvida com HUD/client e tambem repara o `settings.scr`, que alimenta as opcoes da aba `Game` no `Create Server`.
 
 Depois abra:
 

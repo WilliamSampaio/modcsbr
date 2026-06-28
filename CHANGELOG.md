@@ -15,6 +15,7 @@ All notable project changes will be documented here.
 - Removed the forced `-soft` renderer flag after Steam launch worked without it.
 - Changed Steam launch AppID back to Half-Life `70` so `-game modcsbr` loads the custom mod folder correctly.
 - Documented WSL/llvmpipe performance limits and added runtime graphics warnings to the Linux environment check.
+- Restored CS `settings.scr`/`user.scr` installation so the `Create Server` game options appear in `modcsbr`.
 - Added `game_init.cfg` marker output for ReGameDLL validation from the Steam client console.
 - Added clean reinstall support for the Steam `modcsbr` folder with copied CS client/HUD assets.
 - Changed the launcher to open the CS menu by default because `New Game` initializes the HUD correctly.

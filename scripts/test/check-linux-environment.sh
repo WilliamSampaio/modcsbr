@@ -116,6 +116,14 @@ if [ -n "$HALF_LIFE_DIR_DETECTED" ]; then
 		fi
 	done
 
+	MOD_SETTINGS_FILE="$HALF_LIFE_DIR_DETECTED/modcsbr/settings.scr"
+	if [ -f "$MOD_SETTINGS_FILE" ] && grep -q '"mp_roundtime"' "$MOD_SETTINGS_FILE"; then
+		printf 'OK: modcsbr settings.scr has CS create-server game options.\n'
+	else
+		printf 'Warning: modcsbr settings.scr is missing CS create-server game options.\n'
+		printf 'Fix: run MODCSBR_ASSET_MODE=copy scripts/install/modcsbr-steam-linux.sh --reset\n'
+	fi
+
 	if find "$STEAM_DIR" -path '*/i386-linux-gnu/libopenal.so.1' -print -quit 2>/dev/null | grep -q .; then
 		printf 'OK: found Steam Runtime i386 libopenal.so.1.\n'
 	else

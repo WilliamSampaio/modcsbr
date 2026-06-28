@@ -70,6 +70,19 @@ install_entry_if_exists() {
 	fi
 }
 
+install_settings_script_if_needed() {
+	local source="$1"
+	local target="$2"
+
+	if [ ! -f "$source" ]; then
+		return
+	fi
+
+	if [ ! -f "$target" ] || ! grep -q '"mp_roundtime"' "$target"; then
+		cp -a "$source" "$target"
+	fi
+}
+
 HALF_LIFE_DIR="$(detect_half_life_dir)"
 CSTRIKE_DIR="$HALF_LIFE_DIR/cstrike"
 DEST_DIR="$HALF_LIFE_DIR/$MOD_NAME"
@@ -107,9 +120,11 @@ for entry in cl_dlls events gfx maps media models overviews resource sound sprit
 	install_entry_if_exists "$CSTRIKE_DIR/$entry" "$DEST_DIR/$entry"
 done
 
-for file in commandmenu.txt game_init.cfg server.cfg titles.txt; do
+for file in commandmenu.txt game_init.cfg server.cfg titles.txt user.scr; do
 	install_entry_if_exists "$CSTRIKE_DIR/$file" "$DEST_DIR/$file"
 done
+
+install_settings_script_if_needed "$CSTRIKE_DIR/settings.scr" "$DEST_DIR/settings.scr"
 
 printf 'Installed %s mod skeleton at: %s\n' "$MOD_NAME" "$DEST_DIR"
 printf 'Game DLL path: %s\n' "$DEST_DIR/dlls/cs.so"
