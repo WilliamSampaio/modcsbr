@@ -47,11 +47,15 @@ Do not use x64 for Steam CS 1.6 / GoldSrc.
 ## Validation Log
 
 - ReGameDLL_CS revision: `781a68ae1c6fb652cf4fbc894970b4fb4dde19f9`
-- Build status: blocked until Linux build dependencies are installed
-- Generated library: pending
-- Build time: pending
+- Build status: successful on Linux
+- Generated library: `upstream/ReGameDLL_CS/build/regamedll/cs.so`
+- Repository copy: `mod/modcsbr/dlls/cs.so`
+- Steam install copy: `~/.steam/debian-installation/steamapps/common/Half-Life/modcsbr/dlls/cs.so`
+- Binary check: `ELF 32-bit LSB shared object, Intel 80386`
+- Build time: about 64 seconds on the first local build
 - Problems encountered:
-  - `cmake`, `gcc`, `g++`, and `make` are not currently available in PATH.
-  - `scripts/install/linux-build-deps-ubuntu.sh --install` requires an interactive `sudo` password outside this Codex session.
+  - GCC 13.3 emits upstream warnings such as `-Woverloaded-virtual` and `-Wmaybe-uninitialized`.
+  - Linker emits a `DT_TEXTREL` warning.
+  - No build-stopping errors encountered.
 
-Update this section after building and record the exact `cs.so` path produced by CMake.
+Next validation step: launch Steam CS 1.6 with `modcsbr` and run `game version` in the console.

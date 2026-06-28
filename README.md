@@ -21,6 +21,31 @@ Voce precisa ter:
 - este repositorio baixado;
 - senha de `sudo`, porque vamos instalar pacotes de compilacao.
 
+## Onde O Projeto Deve Ficar
+
+Trabalhe no disco Linux `ext4`, nao dentro de `/mnt/c`.
+
+Nesta maquina, o ambiente correto esta em `/dev/sdd`:
+
+```text
+/home/william/modcsbr
+```
+
+Isso importa porque build C/C++ fica bem mais confiavel e rapido no filesystem Linux.
+
+Para conferir:
+
+```bash
+scripts/test/check-linux-environment.sh
+```
+
+O resultado bom deve dizer:
+
+```text
+OK: repo is on the Linux filesystem.
+OK: repo filesystem is on /dev/sdd.
+```
+
 O Counter-Strike 1.6 da Steam normalmente fica aqui:
 
 ```text
@@ -218,6 +243,26 @@ Depois tente compilar de novo:
 scripts/build/regamedll-linux.sh
 ```
 
+## Se O Projeto Estiver Em /mnt/c
+
+Nao compile dentro de uma pasta como:
+
+```text
+/mnt/c/...
+```
+
+Coloque o projeto no Linux, por exemplo:
+
+```text
+/home/william/modcsbr
+```
+
+Depois rode:
+
+```bash
+scripts/test/check-linux-environment.sh
+```
+
 ## Se O Jogo Abrir O CS Normal
 
 Confira se esta pasta existe:
@@ -256,6 +301,7 @@ scripts/
     linux-build-deps-ubuntu.sh
     modcsbr-steam-linux.sh
   test/
+    check-linux-environment.sh
     launch-modcsbr-steam-linux.sh
 upstream/
   ReGameDLL_CS/

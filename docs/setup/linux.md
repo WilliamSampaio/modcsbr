@@ -7,10 +7,28 @@ This is the primary setup path for `modcsbr`.
 Current target machine:
 
 - Distribution: Ubuntu 24.04
+- Linux storage device: `/dev/sdd`
+- Repository path: `/home/william/modcsbr`
 - Steam path detected: `~/.steam/debian-installation`
 - Half-Life / CS 1.6 path detected: `~/.steam/debian-installation/steamapps/common/Half-Life`
 - Base CS folder: `cstrike`
 - Mod folder: `modcsbr`
+
+Keep the repository on the Linux `ext4` filesystem. Do not build from `/mnt/c`.
+
+Check the environment with:
+
+```bash
+scripts/test/check-linux-environment.sh
+```
+
+The expected healthy result is:
+
+```text
+OK: repo is on the Linux filesystem.
+OK: repo filesystem is on /dev/sdd.
+OK: found hl_linux and cstrike.
+```
 
 ## Install Build Dependencies
 
@@ -46,7 +64,7 @@ The script runs the upstream build and copies the resulting library to:
 mod/modcsbr/dlls/cs.so
 ```
 
-Current machine note: the build cannot run until `cmake`, `gcc`, `g++`, `make`, and 32-bit multilib packages are installed. The dependency script is ready, but it needs an interactive `sudo` password.
+Current machine status: dependencies are installed and the first Linux build succeeded, producing a 32-bit `cs.so`.
 
 ## Install The Mod Into Steam CS 1.6
 
