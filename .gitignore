@@ -1,0 +1,13 @@
+.vs/
+*.suo
+*.user
+*.obj
+*.pdb
+*.ilk
+*.exe
+*.dll
+*.so
+build/
+dist/
+server/
+steam/
