@@ -111,10 +111,12 @@ scripts/test/launch-modcsbr-steam-linux.sh
 The script starts:
 
 ```text
-steam -applaunch 10 -game modcsbr -console -dev
+steam -applaunch 70 -game modcsbr -console -dev
 ```
 
-Use AppID `10` for Counter-Strike 1.6. AppID `70` is Half-Life and can launch without the CS HUD/client context.
+Use AppID `70` to validate the custom mod folder. It opens Half-Life while respecting `-game modcsbr`.
+
+AppID `10` opens Counter-Strike 1.6 directly. In that mode Steam can load the `cstrike` context instead of the `modcsbr` folder, so it is not the main validation path for this project.
 
 The script also sets `LD_LIBRARY_PATH` to the Half-Life folder and Steam Runtime i386 libraries so `hl_linux` can load `libsteam_api.so`, `hw.so`, and `libopenal.so.1`.
 
@@ -149,6 +151,8 @@ modcsbr: client autoexec.cfg loaded
 ```
 
 This confirms the game launched with the `modcsbr` folder.
+
+If the console only says `execing autoexec.cfg` and does not show this marker, it probably executed another folder's `autoexec.cfg`. Check that the launcher is using AppID `70`.
 
 Then start a map through `New Game`, open the console, and look for:
 

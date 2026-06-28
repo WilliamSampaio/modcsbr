@@ -221,10 +221,12 @@ Esse script instala o mod e pede para a Steam abrir o Half-Life com `modcsbr`.
 Por baixo, ele usa algo equivalente a:
 
 ```text
-steam -applaunch 10 -game modcsbr -console -dev
+steam -applaunch 70 -game modcsbr -console -dev
 ```
 
-O AppID `10` e importante: ele abre o Counter-Strike 1.6. Usar AppID `70` abre Half-Life e pode fazer o HUD do CS nao carregar corretamente.
+O AppID `70` e importante para validar o mod: ele abre o Half-Life respeitando `-game modcsbr`.
+
+O AppID `10` abre o Counter-Strike 1.6. Ele pode carregar o contexto do `cstrike` e ignorar o `autoexec.cfg` do `modcsbr`, entao nao use AppID `10` para confirmar se a pasta do mod foi carregada.
 
 Por dentro, o script tambem ajusta:
 
@@ -274,7 +276,7 @@ MODCSBR_LAUNCH_METHOD=direct scripts/test/launch-modcsbr-steam-linux.sh
 
 No WSL, prefira o modo padrao via Steam. Chamar `hl_linux` direto pode crashar mesmo com o CS original.
 
-Se algum dia precisar trocar o AppID manualmente:
+O padrao ja e AppID `70`. Se quiser abrir o contexto direto do Counter-Strike para comparar comportamento, use AppID `10`, mas essa nao e a validacao principal do `modcsbr`:
 
 ```bash
 MODCSBR_STEAM_APP_ID=10 scripts/test/launch-modcsbr-steam-linux.sh
@@ -289,6 +291,8 @@ modcsbr: client autoexec.cfg loaded
 ```
 
 Se ela aparecer, o CS abriu usando a pasta `modcsbr`.
+
+Se o console mostrar apenas `execing autoexec.cfg` sem a linha acima, provavelmente ele executou outro `autoexec.cfg`, como `valve/autoexec.cfg` ou `cstrike/autoexec.cfg`. Confira se o launcher esta usando AppID `70`.
 
 Depois inicie um mapa pelo menu `New Game`.
 

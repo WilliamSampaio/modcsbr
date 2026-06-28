@@ -57,8 +57,14 @@ if [ -n "$HALF_LIFE_DIR_DETECTED" ]; then
 
 	STEAM_DIR="$(cd "$HALF_LIFE_DIR_DETECTED/../../.." && pwd)"
 	STEAMAPPS_DIR="$(cd "$HALF_LIFE_DIR_DETECTED/../.." && pwd)"
+	if [ -f "$STEAMAPPS_DIR/appmanifest_70.acf" ]; then
+		printf 'OK: Half-Life Steam AppID 70 is installed for mod launch.\n'
+	else
+		printf 'Missing: %s/appmanifest_70.acf. Install Half-Life in Steam.\n' "$STEAMAPPS_DIR"
+	fi
+
 	if [ -f "$STEAMAPPS_DIR/appmanifest_10.acf" ]; then
-		printf 'OK: Counter-Strike Steam AppID 10 is installed.\n'
+		printf 'OK: Counter-Strike Steam AppID 10 is installed for CS assets.\n'
 	else
 		printf 'Missing: %s/appmanifest_10.acf. Install Counter-Strike 1.6 in Steam.\n' "$STEAMAPPS_DIR"
 	fi

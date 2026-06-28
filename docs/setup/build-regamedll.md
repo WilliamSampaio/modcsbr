@@ -60,12 +60,12 @@ Do not use x64 for Steam CS 1.6 / GoldSrc.
 - Launch notes:
   - Direct `hl_linux` launch needed explicit library paths for `libsteam_api.so`, `hw.so`, and Steam Runtime i386 `libopenal.so.1`.
   - Direct `hl_linux` still crashed in this WSLg environment, and the same crash reproduced with stock `cstrike`.
-  - The project launcher now defaults to `steam -applaunch 10 -game modcsbr`.
+  - The project launcher now defaults to `steam -applaunch 70 -game modcsbr`.
   - Steam launch worked without forcing `-soft`; use `-soft` only as a manual fallback argument.
-  - AppID `10` is required for the Counter-Strike client/HUD context; AppID `70` is Half-Life.
+  - AppID `70` is required to validate that Steam respected `-game modcsbr`; AppID `10` can open the Counter-Strike context instead of the custom mod folder.
   - Starting a map from the CS `New Game` menu initializes the HUD correctly; direct `+map` launch is optional via `MODCSBR_AUTO_MAP=1`.
 
-Next validation step: launch Steam CS 1.6 with `modcsbr`, confirm `modcsbr: client autoexec.cfg loaded`, start a map through `New Game`, and look for `modcsbr: ReGameDLL game_init.cfg loaded` in the console.
+Next validation step: launch Steam Half-Life with `-game modcsbr`, confirm `modcsbr: client autoexec.cfg loaded`, start a map through `New Game`, and look for `modcsbr: ReGameDLL game_init.cfg loaded` in the console.
 
 If the GameDLL is already built and only the HUD is missing, do not rebuild first. Reset the installed mod with copied assets:
 

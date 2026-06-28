@@ -4,7 +4,7 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 MOD_NAME="${MOD_NAME:-modcsbr}"
 MODCSBR_LAUNCH_METHOD="${MODCSBR_LAUNCH_METHOD:-steam}"
-MODCSBR_STEAM_APP_ID="${MODCSBR_STEAM_APP_ID:-10}"
+MODCSBR_STEAM_APP_ID="${MODCSBR_STEAM_APP_ID:-70}"
 MODCSBR_AUTO_MAP="${MODCSBR_AUTO_MAP:-0}"
 INSTALL_ARGS=()
 LAUNCH_ARGS=()
@@ -93,13 +93,15 @@ case "$MODCSBR_LAUNCH_METHOD" in
 
 		if [ ! -f "$STEAMAPPS_DIR/appmanifest_${MODCSBR_STEAM_APP_ID}.acf" ]; then
 			printf 'Missing Steam app manifest: %s\n' "$STEAMAPPS_DIR/appmanifest_${MODCSBR_STEAM_APP_ID}.acf" >&2
-			printf 'Counter-Strike 1.6 should use MODCSBR_STEAM_APP_ID=10.\n' >&2
+			printf 'Install Half-Life in Steam or set MODCSBR_STEAM_APP_ID manually.\n' >&2
 			exit 1
 		fi
 
+		printf 'Launching %s through Steam AppID %s.\n' "$MOD_NAME" "$MODCSBR_STEAM_APP_ID"
 		exec steam -applaunch "$MODCSBR_STEAM_APP_ID" -game "$MOD_NAME" -console -dev "${LAUNCH_ARGS[@]}"
 		;;
 	direct)
+		printf 'Launching %s directly through hl_linux.\n' "$MOD_NAME"
 		exec ./hl_linux -steam -game "$MOD_NAME" -console -dev "${LAUNCH_ARGS[@]}"
 		;;
 	*)
