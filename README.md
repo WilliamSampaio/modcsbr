@@ -20,8 +20,10 @@ A ideia e simples:
 - [Ambiente De Desenvolvimento No Windows](#ambiente-de-desenvolvimento-no-windows)
 - [Compilar O ReGameDLL_CS](#compilar-o-regamedll_cs)
 - [Instalar O Mod No Counter-Strike 1.6](#instalar-o-mod-no-counter-strike-16)
+- [Instalar O Mod No Counter-Strike 1.6 No Windows](#instalar-o-mod-no-counter-strike-16-no-windows)
 - [Resetar E Reinstalar O Mod](#resetar-e-reinstalar-o-mod)
 - [Abrir O Jogo Com O Mod](#abrir-o-jogo-com-o-mod)
+- [Abrir O Jogo Com O Mod No Windows](#abrir-o-jogo-com-o-mod-no-windows)
 - [Conferir Se Funcionou](#conferir-se-funcionou)
 - [Se O Jogo Nao Achar A Pasta Da Steam](#se-o-jogo-nao-achar-a-pasta-da-steam)
 - [Se A Build Reclamar De Ferramentas Faltando](#se-a-build-reclamar-de-ferramentas-faltando)
@@ -278,6 +280,49 @@ O arquivo `liblist.gam` diz ao jogo para carregar:
 dlls/cs.so
 ```
 
+## Instalar O Mod No Counter-Strike 1.6 No Windows
+
+No Windows, primeiro gere a GameDLL diagnostica:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/build/regamedll-windows.ps1
+```
+
+Depois instale o mod na pasta oficial da Steam:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/install/modcsbr-steam-windows.ps1
+```
+
+O script tenta detectar a Steam pelo registro do Windows e pelo arquivo `steamapps\libraryfolders.vdf`.
+
+O destino normal e:
+
+```text
+C:\Program Files (x86)\Steam\steamapps\common\Half-Life\modcsbr
+```
+
+Dentro dessa pasta deve existir:
+
+```text
+liblist.gam
+dlls\mp.dll
+```
+
+Se sua Steam estiver em outro lugar, informe a pasta que contem `hl.exe` e `cstrike\`:
+
+```powershell
+$env:HALF_LIFE_DIR = "D:\SteamLibrary\steamapps\common\Half-Life"
+powershell -ExecutionPolicy Bypass -File scripts/install/modcsbr-steam-windows.ps1
+```
+
+Por padrao, no Windows os assets sao copiados do `cstrike` para `modcsbr`. Para tentar links/junctions:
+
+```powershell
+$env:MODCSBR_ASSET_MODE = "link"
+powershell -ExecutionPolicy Bypass -File scripts/install/modcsbr-steam-windows.ps1
+```
+
 ## Resetar E Reinstalar O Mod
 
 Se o HUD nao aparecer ou a aba `Game` do `Create Server` ficar vazia, faca uma instalacao limpa do mod. Isso apaga a pasta `modcsbr` instalada na Steam e recria tudo.
@@ -376,6 +421,38 @@ O padrao ja e AppID `70`. Se quiser abrir o contexto direto do Counter-Strike pa
 
 ```bash
 MODCSBR_STEAM_APP_ID=10 scripts/test/launch-modcsbr-steam-linux.sh
+```
+
+## Abrir O Jogo Com O Mod No Windows
+
+Para instalar e abrir pela Steam nativa do Windows:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/test/launch-modcsbr-steam-windows.ps1
+```
+
+Por baixo, ele usa algo equivalente a:
+
+```text
+steam.exe -applaunch 70 -game modcsbr -console -dev
+```
+
+Para resetar a pasta instalada e abrir de novo:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/test/launch-modcsbr-steam-windows.ps1 -Reset
+```
+
+Para iniciar direto em um mapa:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/test/launch-modcsbr-steam-windows.ps1 -AutoMap -Map de_inferno
+```
+
+Para validar o comando sem abrir a Steam:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/test/launch-modcsbr-steam-windows.ps1 -NoLaunch
 ```
 
 ## Conferir Se Funcionou
@@ -533,10 +610,12 @@ scripts/
   install/
     linux-build-deps-ubuntu.sh
     modcsbr-steam-linux.sh
+    modcsbr-steam-windows.ps1
   test/
     check-linux-environment.sh
     check-windows-environment.ps1
     launch-modcsbr-steam-linux.sh
+    launch-modcsbr-steam-windows.ps1
 upstream/
   ReGameDLL_CS/
 ```

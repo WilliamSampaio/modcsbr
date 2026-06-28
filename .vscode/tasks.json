@@ -54,6 +54,40 @@
       "detail": "Builds upstream ReGameDLL_CS with MSBuild as Release | Win32 for Windows diagnostics."
     },
     {
+      "label": "modcsbr: install into Steam CS 1.6 Windows",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}/scripts/install/modcsbr-steam-windows.ps1"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build",
+      "problemMatcher": [],
+      "detail": "Installs liblist.gam, mp.dll, and copied assets into the Windows Steam Half-Life/modcsbr folder."
+    },
+    {
+      "label": "modcsbr: launch Steam CS 1.6 Windows",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}/scripts/test/launch-modcsbr-steam-windows.ps1"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build",
+      "problemMatcher": [],
+      "detail": "Installs and launches Half-Life through Steam with -game modcsbr on Windows."
+    },
+    {
       "label": "modcsbr: install into Steam CS 1.6",
       "type": "shell",
       "command": "${workspaceFolder}/scripts/install/modcsbr-steam-linux.sh",

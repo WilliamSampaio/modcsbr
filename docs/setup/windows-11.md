@@ -247,6 +247,39 @@ powershell -ExecutionPolicy Bypass -File scripts/test/check-windows-environment.
 
 If PowerShell says the `.ps1` file is not digitally signed, keep using the commands above with `-ExecutionPolicy Bypass -File`. This bypass applies only to that process and does not change the machine-wide execution policy.
 
+## 10. Install And Launch The Mod
+
+After the Windows diagnostic build produces `mp.dll`, install the mod into the Steam Half-Life folder:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/install/modcsbr-steam-windows.ps1
+```
+
+The installer detects Steam from the Windows registry and Steam library folders. It expects the Half-Life folder to contain:
+
+```text
+hl.exe
+cstrike\
+```
+
+Launch through Steam:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/test/launch-modcsbr-steam-windows.ps1
+```
+
+Validate the install and launch command without opening Steam:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/test/launch-modcsbr-steam-windows.ps1 -NoLaunch
+```
+
+Use a custom Half-Life path with:
+
+```powershell
+$env:HALF_LIFE_DIR = "D:\SteamLibrary\steamapps\common\Half-Life"
+```
+
 ## Troubleshooting
 
 If `cl` is not found:

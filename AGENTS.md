@@ -21,6 +21,8 @@ This repository is for `modcsbr`, a Counter-Strike 1.6 / GoldSrc custom mod base
 - ReGameDLL build script: `scripts/build/regamedll-linux.sh`
 - Windows diagnostic build script: `scripts/build/regamedll-windows.ps1`
 - Steam install script: `scripts/install/modcsbr-steam-linux.sh`
+- Windows Steam install script: `scripts/install/modcsbr-steam-windows.ps1`
 - Linux environment check: `scripts/test/check-linux-environment.sh`
 - Windows environment check: `scripts/test/check-windows-environment.ps1`
 - Launch test script: `scripts/test/launch-modcsbr-steam-linux.sh`
+- Windows launch test script: `scripts/test/launch-modcsbr-steam-windows.ps1`

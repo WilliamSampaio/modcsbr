@@ -20,9 +20,13 @@ A developer on Windows can:
 - read `docs/setup/windows-11.md` as the setup guide;
 - run `powershell -ExecutionPolicy Bypass -File scripts/test/check-windows-environment.ps1` from PowerShell to verify Git, VS Code, MSVC, MSBuild, and the upstream solution;
 - run `powershell -ExecutionPolicy Bypass -File scripts/build/regamedll-windows.ps1` from Developer PowerShell for VS 2022 to build the upstream MSVC solution as `Release | Win32`;
+- run `powershell -ExecutionPolicy Bypass -File scripts/install/modcsbr-steam-windows.ps1` to install the mod into the Windows Steam Half-Life folder;
+- run `powershell -ExecutionPolicy Bypass -File scripts/test/launch-modcsbr-steam-windows.ps1` to launch Half-Life through Steam with `-game modcsbr`;
 - use VS Code tasks for Windows check/build actions.
 
 The Windows build produces the upstream Windows GameDLL artifact, normally `mp.dll`. It does not replace the Linux `cs.so` baseline and should not be copied into `mod/modcsbr/dlls`.
+
+The Windows installer may copy that `mp.dll` into the installed Steam `Half-Life\modcsbr\dlls\mp.dll` path because `liblist.gam` points Windows GoldSrc to `dlls\mp.dll`.
 
 ## Technical Notes
 
@@ -47,7 +51,19 @@ The Windows build produces the upstream Windows GameDLL artifact, normally `mp.d
    ```
 
 3. Confirm the script reports a Win32 build artifact under `upstream/ReGameDLL_CS`.
-4. Confirm Linux baseline remains documented and built with:
+4. Install into Windows Steam:
+
+   ```powershell
+   powershell -ExecutionPolicy Bypass -File scripts/install/modcsbr-steam-windows.ps1
+   ```
+
+5. Launch through Windows Steam:
+
+   ```powershell
+   powershell -ExecutionPolicy Bypass -File scripts/test/launch-modcsbr-steam-windows.ps1
+   ```
+
+6. Confirm Linux baseline remains documented and built with:
 
    ```bash
    scripts/build/regamedll-linux.sh
