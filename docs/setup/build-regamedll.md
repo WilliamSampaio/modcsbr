@@ -60,7 +60,8 @@ Do not use x64 for Steam CS 1.6 / GoldSrc.
 - Launch notes:
   - Direct `hl_linux` launch needed explicit library paths for `libsteam_api.so`, `hw.so`, and Steam Runtime i386 `libopenal.so.1`.
   - Direct `hl_linux` still crashed in this WSLg environment, and the same crash reproduced with stock `cstrike`.
-  - The project launcher now defaults to `steam -applaunch 70 -game modcsbr`.
+  - The project launcher now defaults to `steam -applaunch 10 -game modcsbr`.
   - Steam launch worked without forcing `-soft`; use `-soft` only as a manual fallback argument.
+  - AppID `10` is required for the Counter-Strike client/HUD context; AppID `70` is Half-Life.
 
 Next validation step: launch Steam CS 1.6 with `modcsbr` and run `game version` in the console.

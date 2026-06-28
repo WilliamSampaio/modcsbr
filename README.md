@@ -186,8 +186,10 @@ Esse script instala o mod e pede para a Steam abrir o Half-Life com `modcsbr`.
 Por baixo, ele usa algo equivalente a:
 
 ```text
-steam -applaunch 70 -game modcsbr -console -dev +map de_dust2
+steam -applaunch 10 -game modcsbr -console -dev +map de_dust2
 ```
+
+O AppID `10` e importante: ele abre o Counter-Strike 1.6. Usar AppID `70` abre Half-Life e pode fazer o HUD do CS nao carregar corretamente.
 
 Por dentro, o script tambem ajusta:
 
@@ -226,6 +228,12 @@ MODCSBR_LAUNCH_METHOD=direct scripts/test/launch-modcsbr-steam-linux.sh
 ```
 
 No WSL, prefira o modo padrao via Steam. Chamar `hl_linux` direto pode crashar mesmo com o CS original.
+
+Se algum dia precisar trocar o AppID manualmente:
+
+```bash
+MODCSBR_STEAM_APP_ID=10 scripts/test/launch-modcsbr-steam-linux.sh
+```
 
 ## Conferir Se Funcionou
 

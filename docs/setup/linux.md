@@ -93,8 +93,10 @@ scripts/test/launch-modcsbr-steam-linux.sh
 The script starts:
 
 ```text
-steam -applaunch 70 -game modcsbr -console -dev +map de_dust2
+steam -applaunch 10 -game modcsbr -console -dev +map de_dust2
 ```
+
+Use AppID `10` for Counter-Strike 1.6. AppID `70` is Half-Life and can launch without the CS HUD/client context.
 
 The script also sets `LD_LIBRARY_PATH` to the Half-Life folder and Steam Runtime i386 libraries so `hl_linux` can load `libsteam_api.so`, `hw.so`, and `libopenal.so.1`.
 

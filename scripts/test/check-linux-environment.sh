@@ -56,11 +56,34 @@ if [ -n "$HALF_LIFE_DIR_DETECTED" ]; then
 	printf 'OK: found hl_linux and cstrike.\n'
 
 	STEAM_DIR="$(cd "$HALF_LIFE_DIR_DETECTED/../../.." && pwd)"
+	STEAMAPPS_DIR="$(cd "$HALF_LIFE_DIR_DETECTED/../.." && pwd)"
+	if [ -f "$STEAMAPPS_DIR/appmanifest_10.acf" ]; then
+		printf 'OK: Counter-Strike Steam AppID 10 is installed.\n'
+	else
+		printf 'Missing: %s/appmanifest_10.acf. Install Counter-Strike 1.6 in Steam.\n' "$STEAMAPPS_DIR"
+	fi
+
 	for required_file in "$HALF_LIFE_DIR_DETECTED/libsteam_api.so" "$HALF_LIFE_DIR_DETECTED/hw.so"; do
 		if [ -f "$required_file" ]; then
 			printf 'OK: found %s\n' "$required_file"
 		else
 			printf 'Missing: %s\n' "$required_file"
+		fi
+	done
+
+	for cs_file in "$HALF_LIFE_DIR_DETECTED/cstrike/cl_dlls/client.so" "$HALF_LIFE_DIR_DETECTED/cstrike/sprites/hud.txt"; do
+		if [ -f "$cs_file" ]; then
+			printf 'OK: found CS client/HUD file %s\n' "$cs_file"
+		else
+			printf 'Missing: %s\n' "$cs_file"
+		fi
+	done
+
+	for mod_file in "$HALF_LIFE_DIR_DETECTED/modcsbr/cl_dlls/client.so" "$HALF_LIFE_DIR_DETECTED/modcsbr/sprites/hud.txt"; do
+		if [ -f "$mod_file" ]; then
+			printf 'OK: modcsbr can see %s\n' "$mod_file"
+		else
+			printf 'Missing from modcsbr view: %s\n' "$mod_file"
 		fi
 	done
 

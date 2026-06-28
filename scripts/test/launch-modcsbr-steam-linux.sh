@@ -4,6 +4,7 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 MOD_NAME="${MOD_NAME:-modcsbr}"
 MODCSBR_LAUNCH_METHOD="${MODCSBR_LAUNCH_METHOD:-steam}"
+MODCSBR_STEAM_APP_ID="${MODCSBR_STEAM_APP_ID:-10}"
 
 detect_half_life_dir() {
 	if [ -n "${HALF_LIFE_DIR:-}" ]; then
@@ -43,6 +44,7 @@ add_library_path() {
 
 HALF_LIFE_DIR="$(detect_half_life_dir)"
 STEAM_DIR="$(cd "$HALF_LIFE_DIR/../../.." && pwd)"
+STEAMAPPS_DIR="$(cd "$HALF_LIFE_DIR/../.." && pwd)"
 cd "$HALF_LIFE_DIR"
 
 for required_file in libsteam_api.so hw.so; do
@@ -71,7 +73,13 @@ case "$MODCSBR_LAUNCH_METHOD" in
 			exit 1
 		fi
 
-		exec steam -applaunch 70 -game "$MOD_NAME" -console -dev +map "${MAP:-de_dust2}" "$@"
+		if [ ! -f "$STEAMAPPS_DIR/appmanifest_${MODCSBR_STEAM_APP_ID}.acf" ]; then
+			printf 'Missing Steam app manifest: %s\n' "$STEAMAPPS_DIR/appmanifest_${MODCSBR_STEAM_APP_ID}.acf" >&2
+			printf 'Counter-Strike 1.6 should use MODCSBR_STEAM_APP_ID=10.\n' >&2
+			exit 1
+		fi
+
+		exec steam -applaunch "$MODCSBR_STEAM_APP_ID" -game "$MOD_NAME" -console -dev +map "${MAP:-de_dust2}" "$@"
 		;;
 	direct)
 		exec ./hl_linux -steam -game "$MOD_NAME" -console -dev +map "${MAP:-de_dust2}" "$@"
