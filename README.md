@@ -1,42 +1,270 @@
 # modcsbr
 
-Custom Counter-Strike 1.6 / GoldSrc mod project based on ReGameDLL_CS.
+`modcsbr` e o nome temporario do nosso mod de Counter-Strike 1.6 para Linux.
 
-## Goals
+A ideia e simples:
 
-- Keep the original ReGameDLL_CS source isolated under `upstream/`.
-- Build the unmodified Linux GameDLL first, validating the development environment before custom changes.
-- Test through the Steam CS 1.6 installation on this Linux machine.
-- Track custom gameplay changes through specs before implementation.
+1. pegar o codigo original do ReGameDLL_CS;
+2. compilar a biblioteca Linux `cs.so`;
+3. instalar essa biblioteca como um mod separado chamado `modcsbr`;
+4. abrir o Counter-Strike 1.6 da Steam usando esse mod;
+5. so depois disso comecar a alterar codigo.
 
-## Repository Layout
+## O Que Voce Precisa Ter
 
-- `.github/workflows/` - future CI automation.
-- `.vscode/` - local editor tasks and recommendations.
-- `docs/` - setup, architecture, and research notes.
-- `mod/modcsbr/` - mod assets and test layout.
-- `scripts/` - build, install, and test helpers.
-- `specs/` - feature specs grouped by status.
-- `upstream/ReGameDLL_CS/` - ReGameDLL_CS submodule.
+Use Ubuntu Linux. Este projeto foi preparado na maquina com Ubuntu 24.04.
 
-## Build Target
+Voce precisa ter:
 
-Primary target:
+- Steam instalada;
+- Counter-Strike 1.6 instalado pela Steam;
+- este repositorio baixado;
+- senha de `sudo`, porque vamos instalar pacotes de compilacao.
 
-- OS: Linux
-- Compiler: GCC
-- Architecture: 32-bit x86
-- Output: `cs.so`
+O Counter-Strike 1.6 da Steam normalmente fica aqui:
 
-Counter-Strike 1.6 / GoldSrc is a 32-bit ecosystem, so do not build the GameDLL as x64.
+```text
+~/.steam/debian-installation/steamapps/common/Half-Life
+```
 
-## Linux Quick Start
+Dentro dessa pasta deve existir:
+
+```text
+cstrike/
+hl_linux
+```
+
+Se esses dois existem, o jogo esta no lugar certo.
+
+## Comecando Do Zero
+
+Abra um terminal.
+
+Entre na pasta onde voce guarda seus projetos:
+
+```bash
+cd ~/dev
+```
+
+Baixe o projeto:
+
+```bash
+git clone git@github.com:WilliamSampaio/modcsbr.git modcsbr
+```
+
+Entre na pasta:
+
+```bash
+cd modcsbr
+```
+
+Mude para a branch de desenvolvimento:
+
+```bash
+git checkout develop
+```
+
+Baixe o codigo do ReGameDLL_CS:
+
+```bash
+git submodule update --init --recursive
+```
+
+Pronto. Agora o codigo original deve existir em:
+
+```text
+upstream/ReGameDLL_CS
+```
+
+## Instalar As Ferramentas De Build
+
+Antes de compilar, instale os pacotes necessarios:
 
 ```bash
 scripts/install/linux-build-deps-ubuntu.sh --install
+```
+
+Esse comando vai pedir sua senha do Linux.
+
+Ele instala coisas como:
+
+- `cmake`;
+- `gcc`;
+- `g++`;
+- `make`;
+- suporte para compilar codigo 32-bit.
+
+Isso e importante porque Counter-Strike 1.6 / GoldSrc usa biblioteca 32-bit.
+
+## Compilar O ReGameDLL_CS
+
+Agora compile:
+
+```bash
 scripts/build/regamedll-linux.sh
+```
+
+Se tudo der certo, no final voce deve ver algo parecido com:
+
+```text
+Built: .../upstream/ReGameDLL_CS/build/regamedll/cs.so
+Copied: .../mod/modcsbr/dlls/cs.so
+```
+
+O arquivo importante e:
+
+```text
+mod/modcsbr/dlls/cs.so
+```
+
+Esse arquivo e a GameDLL Linux compilada.
+
+## Instalar O Mod No Counter-Strike 1.6
+
+Agora copie o mod para a pasta do jogo:
+
+```bash
 scripts/install/modcsbr-steam-linux.sh
+```
+
+O script tenta encontrar o Counter-Strike automaticamente.
+
+O destino normal e:
+
+```text
+~/.steam/debian-installation/steamapps/common/Half-Life/modcsbr
+```
+
+Dentro dessa pasta deve existir:
+
+```text
+liblist.gam
+dlls/cs.so
+```
+
+O arquivo `liblist.gam` diz ao jogo para carregar:
+
+```text
+dlls/cs.so
+```
+
+## Abrir O Jogo Com O Mod
+
+Para testar:
+
+```bash
 scripts/test/launch-modcsbr-steam-linux.sh
 ```
 
-See `docs/setup/linux.md` for the full workflow.
+Esse script abre o jogo assim:
+
+```text
+./hl_linux -steam -game modcsbr -console -dev +map de_dust2
+```
+
+Para abrir outro mapa:
+
+```bash
+MAP=de_inferno scripts/test/launch-modcsbr-steam-linux.sh
+```
+
+## Conferir Se Funcionou
+
+Quando o jogo abrir, abra o console.
+
+Digite:
+
+```text
+game version
+```
+
+Se aparecer a versao do ReGameDLL_CS, deu certo: o CS 1.6 carregou o `modcsbr/dlls/cs.so`.
+
+## Se O Jogo Nao Achar A Pasta Da Steam
+
+Se sua Steam estiver em outro lugar, diga ao script onde fica a pasta `Half-Life`.
+
+Exemplo:
+
+```bash
+HALF_LIFE_DIR="/caminho/para/Half-Life" scripts/install/modcsbr-steam-linux.sh
+```
+
+E para abrir:
+
+```bash
+HALF_LIFE_DIR="/caminho/para/Half-Life" scripts/test/launch-modcsbr-steam-linux.sh
+```
+
+A pasta certa e a que contem `hl_linux` e `cstrike/`.
+
+## Se A Build Reclamar De Ferramentas Faltando
+
+Se aparecer algo como:
+
+```text
+Missing required tool: cmake
+```
+
+rode:
+
+```bash
+scripts/install/linux-build-deps-ubuntu.sh --install
+```
+
+Depois tente compilar de novo:
+
+```bash
+scripts/build/regamedll-linux.sh
+```
+
+## Se O Jogo Abrir O CS Normal
+
+Confira se esta pasta existe:
+
+```text
+~/.steam/debian-installation/steamapps/common/Half-Life/modcsbr
+```
+
+Confira se ela tem:
+
+```text
+liblist.gam
+dlls/cs.so
+```
+
+Depois abra de novo com:
+
+```bash
+scripts/test/launch-modcsbr-steam-linux.sh
+```
+
+## Estrutura Do Projeto
+
+```text
+docs/
+  setup/
+    linux.md
+mod/
+  modcsbr/
+    liblist.gam
+    dlls/
+scripts/
+  build/
+    regamedll-linux.sh
+  install/
+    linux-build-deps-ubuntu.sh
+    modcsbr-steam-linux.sh
+  test/
+    launch-modcsbr-steam-linux.sh
+upstream/
+  ReGameDLL_CS/
+```
+
+## Regra Mais Importante
+
+Primeiro faca o ReGameDLL_CS original compilar e abrir no jogo.
+
+So depois comece a mudar codigo.
+
+Assim, se algo quebrar no futuro, voce sabe que o ambiente Linux, a Steam, o CS 1.6 e o carregamento do mod ja estavam funcionando.
