@@ -16,6 +16,44 @@
       "detail": "Builds upstream ReGameDLL_CS for Linux x86 and copies cs.so into mod/modcsbr/dlls."
     },
     {
+      "label": "ReGameDLL: check Windows environment",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}/scripts/test/check-windows-environment.ps1"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build",
+      "problemMatcher": [],
+      "detail": "Checks Git, VS Code, MSVC, MSBuild, and ReGameDLL_CS paths on Windows."
+    },
+    {
+      "label": "ReGameDLL: build Windows Release Win32",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}/scripts/build/regamedll-windows.ps1",
+        "-Configuration",
+        "Release",
+        "-Platform",
+        "Win32"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build",
+      "problemMatcher": "$msCompile",
+      "detail": "Builds upstream ReGameDLL_CS with MSBuild as Release | Win32 for Windows diagnostics."
+    },
+    {
       "label": "modcsbr: install into Steam CS 1.6",
       "type": "shell",
       "command": "${workspaceFolder}/scripts/install/modcsbr-steam-linux.sh",

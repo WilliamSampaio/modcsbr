@@ -1,6 +1,6 @@
 # modcsbr
 
-`modcsbr` e o nome temporario do nosso mod de Counter-Strike 1.6 para Linux.
+`modcsbr` e o nome temporario do nosso mod de Counter-Strike 1.6 baseado no ReGameDLL_CS.
 
 A ideia e simples:
 
@@ -10,9 +10,30 @@ A ideia e simples:
 4. abrir o Counter-Strike 1.6 da Steam usando esse mod;
 5. so depois disso comecar a alterar codigo.
 
+## Sumario
+
+- [O Que Voce Precisa Ter](#o-que-voce-precisa-ter)
+- [Onde O Projeto Deve Ficar](#onde-o-projeto-deve-ficar)
+- [Sobre Rodar O Jogo No WSL](#sobre-rodar-o-jogo-no-wsl)
+- [Comecando Do Zero](#comecando-do-zero)
+- [Instalar As Ferramentas De Build](#instalar-as-ferramentas-de-build)
+- [Ambiente De Desenvolvimento No Windows](#ambiente-de-desenvolvimento-no-windows)
+- [Compilar O ReGameDLL_CS](#compilar-o-regamedll_cs)
+- [Instalar O Mod No Counter-Strike 1.6](#instalar-o-mod-no-counter-strike-16)
+- [Resetar E Reinstalar O Mod](#resetar-e-reinstalar-o-mod)
+- [Abrir O Jogo Com O Mod](#abrir-o-jogo-com-o-mod)
+- [Conferir Se Funcionou](#conferir-se-funcionou)
+- [Se O Jogo Nao Achar A Pasta Da Steam](#se-o-jogo-nao-achar-a-pasta-da-steam)
+- [Se A Build Reclamar De Ferramentas Faltando](#se-a-build-reclamar-de-ferramentas-faltando)
+- [Se O Projeto Estiver Em /mnt/c](#se-o-projeto-estiver-em-mntc)
+- [Se O Jogo Abrir O CS Normal](#se-o-jogo-abrir-o-cs-normal)
+- [Se Aparecer Erro De libsteam_api.so, hw.so Ou libopenal.so.1](#se-aparecer-erro-de-libsteam_apiso-hwso-ou-libopenalso1)
+- [Estrutura Do Projeto](#estrutura-do-projeto)
+- [Regra Mais Importante](#regra-mais-importante)
+
 ## O Que Voce Precisa Ter
 
-Use Ubuntu Linux. Este projeto foi preparado na maquina com Ubuntu 24.04.
+O caminho principal de build e Ubuntu Linux. Este projeto foi preparado na maquina com Ubuntu 24.04.
 
 Voce precisa ter:
 
@@ -20,6 +41,18 @@ Voce precisa ter:
 - Counter-Strike 1.6 instalado pela Steam;
 - este repositorio baixado;
 - senha de `sudo`, porque vamos instalar pacotes de compilacao.
+
+No Windows 11, o ambiente e usado para editar, navegar codigo e fazer builds diagnosticas com MSVC `Release | Win32`. A `cs.so` canonica do mod continua sendo gerada no Linux. Veja:
+
+```text
+docs/setup/windows-11.md
+```
+
+Para checar o ambiente Windows:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/test/check-windows-environment.ps1
+```
 
 ## Onde O Projeto Deve Ficar
 
@@ -145,6 +178,44 @@ Ele instala coisas como:
 - suporte para compilar codigo 32-bit.
 
 Isso e importante porque Counter-Strike 1.6 / GoldSrc usa biblioteca 32-bit.
+
+## Ambiente De Desenvolvimento No Windows
+
+Use Windows para VS Code, IntelliSense MSVC x86 e diagnosticos do upstream.
+
+Guia completo:
+
+```text
+docs/setup/windows-11.md
+```
+
+Check rapido:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/test/check-windows-environment.ps1
+```
+
+Build diagnostica do upstream com MSBuild:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/build/regamedll-windows.ps1
+```
+
+Se o PowerShell disser que o `.ps1` nao esta assinado digitalmente, use os comandos acima com `-ExecutionPolicy Bypass -File`. Isso libera apenas essa execucao e nao muda a politica global do Windows.
+
+Esse build gera a GameDLL Windows do ReGameDLL_CS, normalmente `mp.dll`. Ele nao substitui:
+
+```text
+mod/modcsbr/dlls/cs.so
+```
+
+Se o MSBuild reclamar do toolset antigo `v100` / Visual Studio 2010, use o wrapper acima. Ele forca `VisualStudioVersion=17.0` e detecta um toolset Win32 instalado, como `v145` ou `v143`, sem alterar os arquivos do upstream.
+
+Para validar o mod Linux, continue usando:
+
+```bash
+scripts/build/regamedll-linux.sh
+```
 
 ## Compilar O ReGameDLL_CS
 
@@ -450,6 +521,7 @@ scripts/test/launch-modcsbr-steam-linux.sh -soft
 docs/
   setup/
     linux.md
+    windows-11.md
 mod/
   modcsbr/
     liblist.gam
@@ -457,11 +529,13 @@ mod/
 scripts/
   build/
     regamedll-linux.sh
+    regamedll-windows.ps1
   install/
     linux-build-deps-ubuntu.sh
     modcsbr-steam-linux.sh
   test/
     check-linux-environment.sh
+    check-windows-environment.ps1
     launch-modcsbr-steam-linux.sh
 upstream/
   ReGameDLL_CS/

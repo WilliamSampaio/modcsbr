@@ -1,7 +1,7 @@
 {
   "C_Cpp.default.cppStandard": "c++14",
   "C_Cpp.default.cStandard": "c11",
-  "C_Cpp.default.intelliSenseMode": "linux-gcc-x86",
+  "C_Cpp.default.intelliSenseMode": "windows-msvc-x86",
   "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
   "C_Cpp.errorSquiggles": "enabled",
   "files.associations": {
