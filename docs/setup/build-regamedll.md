@@ -57,5 +57,9 @@ Do not use x64 for Steam CS 1.6 / GoldSrc.
   - GCC 13.3 emits upstream warnings such as `-Woverloaded-virtual` and `-Wmaybe-uninitialized`.
   - Linker emits a `DT_TEXTREL` warning.
   - No build-stopping errors encountered.
+- Launch notes:
+  - Direct `hl_linux` launch needed explicit library paths for `libsteam_api.so`, `hw.so`, and Steam Runtime i386 `libopenal.so.1`.
+  - Direct `hl_linux` still crashed in this WSLg environment, and the same crash reproduced with stock `cstrike`.
+  - The project launcher now defaults to `steam -applaunch 70 -game modcsbr`.
 
 Next validation step: launch Steam CS 1.6 with `modcsbr` and run `game version` in the console.

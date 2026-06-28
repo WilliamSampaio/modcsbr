@@ -181,10 +181,28 @@ Para testar:
 scripts/test/launch-modcsbr-steam-linux.sh
 ```
 
-Esse script abre o jogo assim:
+Esse script instala o mod e pede para a Steam abrir o Half-Life com `modcsbr`.
+
+Por baixo, ele usa algo equivalente a:
 
 ```text
-./hl_linux -steam -game modcsbr -console -dev +map de_dust2
+steam -applaunch 70 -game modcsbr -soft -console -dev +map de_dust2
+```
+
+Por dentro, o script tambem ajusta:
+
+```text
+LD_LIBRARY_PATH
+LC_ALL
+LANG
+```
+
+Isso evita erros como:
+
+```text
+Error:libsteam_api.so: cannot open shared object file: No such file or directory
+Could not load hw.so.
+Error:libopenal.so.1: cannot open shared object file: No such file or directory
 ```
 
 Para abrir outro mapa:
@@ -192,6 +210,22 @@ Para abrir outro mapa:
 ```bash
 MAP=de_inferno scripts/test/launch-modcsbr-steam-linux.sh
 ```
+
+Por padrao, o script usa `-soft`. Isso ajuda no WSLg quando o OpenGL/EGL falha.
+
+Para tentar OpenGL depois:
+
+```bash
+MODCSBR_RENDERER=gl scripts/test/launch-modcsbr-steam-linux.sh
+```
+
+Para debug avancado, tambem existe o modo direto:
+
+```bash
+MODCSBR_LAUNCH_METHOD=direct scripts/test/launch-modcsbr-steam-linux.sh
+```
+
+No WSL, prefira o modo padrao via Steam. Chamar `hl_linux` direto pode crashar mesmo com o CS original.
 
 ## Conferir Se Funcionou
 
@@ -282,6 +316,35 @@ Depois abra de novo com:
 
 ```bash
 scripts/test/launch-modcsbr-steam-linux.sh
+```
+
+## Se Aparecer Erro De libsteam_api.so, hw.so Ou libopenal.so.1
+
+Rode:
+
+```bash
+scripts/test/check-linux-environment.sh
+```
+
+Depois tente abrir pelo script do projeto:
+
+```bash
+scripts/test/launch-modcsbr-steam-linux.sh
+```
+
+Nao abra `hl_linux` manualmente enquanto estiver testando o mod. O script prepara o mod e, por padrao, deixa a Steam iniciar o runtime correto.
+
+Se aparecer:
+
+```text
+Failed to create SDL Window
+MESA: error: ZINK: failed to choose pdev
+```
+
+use o renderer software:
+
+```bash
+MODCSBR_RENDERER=soft scripts/test/launch-modcsbr-steam-linux.sh
 ```
 
 ## Estrutura Do Projeto

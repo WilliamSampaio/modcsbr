@@ -44,10 +44,31 @@ else
 fi
 
 print_section "Steam CS 1.6"
+if command -v steam >/dev/null 2>&1; then
+	printf 'OK: steam command -> %s\n' "$(command -v steam)"
+else
+	printf 'Missing: steam command. The launcher can still use MODCSBR_LAUNCH_METHOD=direct for debugging.\n'
+fi
+
 HALF_LIFE_DIR_DETECTED="$(detect_half_life_dir || true)"
 if [ -n "$HALF_LIFE_DIR_DETECTED" ]; then
 	printf 'Half-Life path: %s\n' "$HALF_LIFE_DIR_DETECTED"
 	printf 'OK: found hl_linux and cstrike.\n'
+
+	STEAM_DIR="$(cd "$HALF_LIFE_DIR_DETECTED/../../.." && pwd)"
+	for required_file in "$HALF_LIFE_DIR_DETECTED/libsteam_api.so" "$HALF_LIFE_DIR_DETECTED/hw.so"; do
+		if [ -f "$required_file" ]; then
+			printf 'OK: found %s\n' "$required_file"
+		else
+			printf 'Missing: %s\n' "$required_file"
+		fi
+	done
+
+	if find "$STEAM_DIR" -path '*/i386-linux-gnu/libopenal.so.1' -print -quit 2>/dev/null | grep -q .; then
+		printf 'OK: found Steam Runtime i386 libopenal.so.1.\n'
+	else
+		printf 'Missing: Steam Runtime i386 libopenal.so.1.\n'
+	fi
 else
 	printf 'Warning: could not find Steam Half-Life. Set HALF_LIFE_DIR=/path/to/Half-Life.\n'
 fi

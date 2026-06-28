@@ -93,7 +93,21 @@ scripts/test/launch-modcsbr-steam-linux.sh
 The script starts:
 
 ```text
-./hl_linux -steam -game modcsbr -console -dev +map de_dust2
+steam -applaunch 70 -game modcsbr -soft -console -dev +map de_dust2
+```
+
+The script also sets `LD_LIBRARY_PATH` to the Half-Life folder and Steam Runtime i386 libraries so `hl_linux` can load `libsteam_api.so`, `hw.so`, and `libopenal.so.1`.
+
+The default renderer is software (`-soft`) for better WSLg compatibility. To try OpenGL, run:
+
+```bash
+MODCSBR_RENDERER=gl scripts/test/launch-modcsbr-steam-linux.sh
+```
+
+The default launch method is through Steam. To debug the raw `hl_linux` binary:
+
+```bash
+MODCSBR_LAUNCH_METHOD=direct scripts/test/launch-modcsbr-steam-linux.sh
 ```
 
 Change the map with:

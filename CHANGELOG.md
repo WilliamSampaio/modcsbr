@@ -10,3 +10,5 @@ All notable project changes will be documented here.
 - Added Linux build, Steam install, and launch scripts for `modcsbr`.
 - Added Linux storage/environment check for `/dev/sdd`.
 - Validated the first Linux ReGameDLL_CS build and Steam `modcsbr` install.
+- Fixed the Linux launcher environment for Steam `libsteam_api.so` and `hw.so` loading.
+- Changed the launcher default to Steam `-applaunch 70`, keeping direct `hl_linux` as a debug mode.
