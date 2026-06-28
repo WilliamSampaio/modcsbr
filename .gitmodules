@@ -1,0 +1,3 @@
+[submodule "upstream/ReGameDLL_CS"]
+	path = upstream/ReGameDLL_CS
+	url = https://github.com/rehlds/ReGameDLL_CS.git

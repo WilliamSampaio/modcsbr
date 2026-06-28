@@ -1,0 +1,42 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "ReGameDLL: build Release Win32",
+      "type": "shell",
+      "command": "msbuild",
+      "args": [
+        "${workspaceFolder}\\upstream\\ReGameDLL_CS\\msvc\\ReGameDLL.sln",
+        "/m",
+        "/p:Configuration=Release",
+        "/p:Platform=Win32"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": "$msCompile",
+      "detail": "Requires VS Code to be opened from Developer PowerShell for VS 2022."
+    },
+    {
+      "label": "ReGameDLL: clean Release Win32",
+      "type": "shell",
+      "command": "msbuild",
+      "args": [
+        "${workspaceFolder}\\upstream\\ReGameDLL_CS\\msvc\\ReGameDLL.sln",
+        "/t:Clean",
+        "/p:Configuration=Release",
+        "/p:Platform=Win32"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build",
+      "problemMatcher": "$msCompile",
+      "detail": "Requires VS Code to be opened from Developer PowerShell for VS 2022."
+    }
+  ]
+}

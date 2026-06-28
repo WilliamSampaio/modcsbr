@@ -1,0 +1,20 @@
+{
+  "C_Cpp.default.cppStandard": "c++14",
+  "C_Cpp.default.cStandard": "c11",
+  "C_Cpp.default.intelliSenseMode": "windows-msvc-x86",
+  "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+  "C_Cpp.errorSquiggles": "enabled",
+  "files.associations": {
+    "*.h": "cpp",
+    "*.hpp": "cpp",
+    "*.cpp": "cpp",
+    "*.c": "c"
+  },
+  "files.exclude": {
+    "**/.vs": true,
+    "**/Debug": true,
+    "**/Release": true,
+    "**/build": true
+  },
+  "cmake.sourceDirectory": "C:/dev/modcsbr/upstream/ReGameDLL_CS"
+}
