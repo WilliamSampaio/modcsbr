@@ -30,6 +30,27 @@ OK: repo filesystem is on /dev/sdd.
 OK: found hl_linux and cstrike.
 ```
 
+## WSL Performance
+
+WSL is good for building `cs.so`, installing the mod, and confirming that Steam loads `modcsbr`.
+
+It is not a good performance target for CS 1.6 gameplay. If the game console prints:
+
+```text
+GL_RENDERER: llvmpipe
+```
+
+the game is using Mesa software rendering on the CPU. Expect very low FPS, bad frame pacing, input lag, and unstable mouse behavior.
+
+Use WSL only for smoke validation:
+
+```text
+modcsbr: client autoexec.cfg loaded
+modcsbr: ReGameDLL game_init.cfg loaded
+```
+
+For real gameplay testing, use native Linux with GPU acceleration or Windows Steam.
+
 ## Install Build Dependencies
 
 Preview the required packages:

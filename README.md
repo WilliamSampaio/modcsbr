@@ -46,6 +46,31 @@ OK: repo is on the Linux filesystem.
 OK: repo filesystem is on /dev/sdd.
 ```
 
+## Sobre Rodar O Jogo No WSL
+
+Use o WSL para compilar, instalar e fazer teste rapido de carregamento do mod.
+
+Nao use WSL como referencia de performance do jogo. Se o console mostrar algo como:
+
+```text
+GL_RENDERER: llvmpipe
+```
+
+o jogo esta renderizando por CPU, nao pela GPU. Nesse modo e normal ter FPS ruim, input atrasado e mouse instavel.
+
+Para jogar e testar sensibilidade/mira de verdade, prefira:
+
+- Linux nativo com driver de GPU funcionando;
+- Windows com Steam nativa;
+- dual boot Linux/Windows.
+
+No WSL, valide apenas se aparecem os marcadores:
+
+```text
+modcsbr: client autoexec.cfg loaded
+modcsbr: ReGameDLL game_init.cfg loaded
+```
+
 O Counter-Strike 1.6 da Steam normalmente fica aqui:
 
 ```text

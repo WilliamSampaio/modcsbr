@@ -43,6 +43,29 @@ else
 	printf 'Note: repo filesystem is not reported as /dev/sdd. Check if this is expected.\n'
 fi
 
+print_section "Runtime Graphics"
+if grep -qi microsoft /proc/version 2>/dev/null; then
+	printf 'Warning: WSL detected. Use it for builds and smoke tests, not performance testing.\n'
+	printf 'Note: WSLg can use software rendering and may cause low FPS or unstable mouse input in GoldSrc.\n'
+fi
+
+if command -v glxinfo >/dev/null 2>&1; then
+	OPENGL_RENDERER="$(glxinfo -B 2>/dev/null | awk -F': ' '/OpenGL renderer string/ {print $2; exit}')"
+	if [ -n "$OPENGL_RENDERER" ]; then
+		printf 'OpenGL renderer: %s\n' "$OPENGL_RENDERER"
+		case "$OPENGL_RENDERER" in
+			*llvmpipe*|*softpipe*)
+				printf 'Warning: software OpenGL renderer detected. Expect poor game performance and mouse issues.\n'
+				;;
+		esac
+	else
+		printf 'Note: glxinfo is installed, but the OpenGL renderer could not be detected.\n'
+	fi
+else
+	printf 'Note: glxinfo not installed; cannot detect the OpenGL renderer automatically.\n'
+	printf 'Tip: if the game log says GL_RENDERER: llvmpipe, rendering is CPU-based and will be slow.\n'
+fi
+
 print_section "Steam CS 1.6"
 if command -v steam >/dev/null 2>&1; then
 	printf 'OK: steam command -> %s\n' "$(command -v steam)"
