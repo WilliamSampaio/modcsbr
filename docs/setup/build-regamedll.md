@@ -65,7 +65,7 @@ Do not use x64 for Steam CS 1.6 / GoldSrc.
   - AppID `10` is required for the Counter-Strike client/HUD context; AppID `70` is Half-Life.
   - Starting a map from the CS `New Game` menu initializes the HUD correctly; direct `+map` launch is optional via `MODCSBR_AUTO_MAP=1`.
 
-Next validation step: launch Steam CS 1.6 with `modcsbr` and run `game_version` in the client console.
+Next validation step: launch Steam CS 1.6 with `modcsbr`, start a map through `New Game`, and look for `modcsbr: ReGameDLL game_init.cfg loaded` in the console.
 
 If the GameDLL is already built and only the HUD is missing, do not rebuild first. Reset the installed mod with copied assets:
 

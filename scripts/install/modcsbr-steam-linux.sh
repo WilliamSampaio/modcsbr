@@ -89,6 +89,10 @@ fi
 mkdir -p "$DEST_DIR/dlls"
 cp "$ROOT_DIR/mod/modcsbr/liblist.gam" "$DEST_DIR/liblist.gam"
 
+if [ -f "$ROOT_DIR/mod/modcsbr/game_init.cfg" ]; then
+	cp "$ROOT_DIR/mod/modcsbr/game_init.cfg" "$DEST_DIR/game_init.cfg"
+fi
+
 if [ -f "$ROOT_DIR/mod/modcsbr/dlls/cs.so" ]; then
 	cp "$ROOT_DIR/mod/modcsbr/dlls/cs.so" "$DEST_DIR/dlls/cs.so"
 else

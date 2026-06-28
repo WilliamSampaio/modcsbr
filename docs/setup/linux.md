@@ -142,12 +142,12 @@ If the HUD is missing when using direct `+map`, use the menu `New Game` flow.
 
 ## Validation
 
-In the game console, run:
+Start a map through `New Game`, open the console, and look for:
 
 ```text
-game_version
+modcsbr: ReGameDLL game_init.cfg loaded
 ```
 
-Expected result: the console prints the ReGameDLL_CS version, confirming that `modcsbr/dlls/cs.so` is loaded.
+Expected result: the line appears after the local server starts. This confirms that ReGameDLL executed `modcsbr/game_init.cfg`.
 
-`game version` is a server command. In the Steam client console it may print `Unknown command: game`.
+`game version` is a server command and `game_version` is a server cvar. In the Steam client console they may print `Unknown command`.

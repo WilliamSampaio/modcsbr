@@ -282,20 +282,21 @@ MODCSBR_STEAM_APP_ID=10 scripts/test/launch-modcsbr-steam-linux.sh
 
 ## Conferir Se Funcionou
 
-Quando o jogo abrir, abra o console.
+Quando o jogo abrir, inicie um mapa pelo menu `New Game`.
 
-Digite:
+Abra o console e procure esta linha:
 
 ```text
-game_version
+modcsbr: ReGameDLL game_init.cfg loaded
 ```
 
-Se aparecer a versao do ReGameDLL_CS, deu certo: o CS 1.6 carregou o `modcsbr/dlls/cs.so`.
+Se ela aparecer, deu certo: o ReGameDLL carregou o `modcsbr/game_init.cfg` ao iniciar o servidor local.
 
-Nao use `game version` no console do cliente. Esse e um comando de servidor registrado pela GameDLL e pode aparecer como:
+Nao use `game version` ou `game_version` como validacao principal no console do cliente. Esses comandos/cvars pertencem ao lado servidor da GameDLL e podem aparecer como:
 
 ```text
 Unknown command: game
+Unknown command: game_version
 ```
 
 ## Se O Jogo Nao Achar A Pasta Da Steam
