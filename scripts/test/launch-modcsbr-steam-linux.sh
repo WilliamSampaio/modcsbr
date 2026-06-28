@@ -5,6 +5,7 @@ ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 MOD_NAME="${MOD_NAME:-modcsbr}"
 MODCSBR_LAUNCH_METHOD="${MODCSBR_LAUNCH_METHOD:-steam}"
 MODCSBR_STEAM_APP_ID="${MODCSBR_STEAM_APP_ID:-10}"
+MODCSBR_AUTO_MAP="${MODCSBR_AUTO_MAP:-0}"
 INSTALL_ARGS=()
 LAUNCH_ARGS=()
 
@@ -79,6 +80,10 @@ done < <(find "$STEAM_DIR" -path '*/i386-linux-gnu/libopenal.so.1' -print 2>/dev
 add_library_path "$HALF_LIFE_DIR"
 export LD_LIBRARY_PATH
 
+if [ "$MODCSBR_AUTO_MAP" = "1" ]; then
+	LAUNCH_ARGS+=(+map "${MAP:-de_dust2}")
+fi
+
 case "$MODCSBR_LAUNCH_METHOD" in
 	steam)
 		if ! command -v steam >/dev/null 2>&1; then
@@ -92,10 +97,10 @@ case "$MODCSBR_LAUNCH_METHOD" in
 			exit 1
 		fi
 
-		exec steam -applaunch "$MODCSBR_STEAM_APP_ID" -game "$MOD_NAME" -console -dev +map "${MAP:-de_dust2}" "${LAUNCH_ARGS[@]}"
+		exec steam -applaunch "$MODCSBR_STEAM_APP_ID" -game "$MOD_NAME" -console -dev "${LAUNCH_ARGS[@]}"
 		;;
 	direct)
-		exec ./hl_linux -steam -game "$MOD_NAME" -console -dev +map "${MAP:-de_dust2}" "${LAUNCH_ARGS[@]}"
+		exec ./hl_linux -steam -game "$MOD_NAME" -console -dev "${LAUNCH_ARGS[@]}"
 		;;
 	*)
 		printf 'Invalid MODCSBR_LAUNCH_METHOD: %s. Use steam or direct.\n' "$MODCSBR_LAUNCH_METHOD" >&2

@@ -221,7 +221,7 @@ Esse script instala o mod e pede para a Steam abrir o Half-Life com `modcsbr`.
 Por baixo, ele usa algo equivalente a:
 
 ```text
-steam -applaunch 10 -game modcsbr -console -dev +map de_dust2
+steam -applaunch 10 -game modcsbr -console -dev
 ```
 
 O AppID `10` e importante: ele abre o Counter-Strike 1.6. Usar AppID `70` abre Half-Life e pode fazer o HUD do CS nao carregar corretamente.
@@ -242,11 +242,21 @@ Could not load hw.so.
 Error:libopenal.so.1: cannot open shared object file: No such file or directory
 ```
 
-Para abrir outro mapa:
+Por padrao, o launcher abre no menu. Entre em:
+
+```text
+New Game
+```
+
+e inicie o mapa por la. Esse fluxo inicializa corretamente o HUD do cliente do CS.
+
+Para iniciar direto em um mapa, use:
 
 ```bash
-MAP=de_inferno scripts/test/launch-modcsbr-steam-linux.sh
+MODCSBR_AUTO_MAP=1 MAP=de_inferno scripts/test/launch-modcsbr-steam-linux.sh
 ```
+
+Se o HUD sumir quando iniciar direto por `+map`, volte ao fluxo pelo menu `New Game`.
 
 O launcher nao forca renderer. Ele deixa a Steam/GoldSrc escolher o caminho normal.
 

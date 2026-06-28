@@ -16,3 +16,4 @@ All notable project changes will be documented here.
 - Changed Steam launch AppID from Half-Life `70` to Counter-Strike `10` so the CS HUD/client loads correctly.
 - Corrected ReGameDLL validation docs to use the `game_version` cvar in the client console.
 - Added clean reinstall support for the Steam `modcsbr` folder with copied CS client/HUD assets.
+- Changed the launcher to open the CS menu by default because `New Game` initializes the HUD correctly.

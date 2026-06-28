@@ -111,7 +111,7 @@ scripts/test/launch-modcsbr-steam-linux.sh
 The script starts:
 
 ```text
-steam -applaunch 10 -game modcsbr -console -dev +map de_dust2
+steam -applaunch 10 -game modcsbr -console -dev
 ```
 
 Use AppID `10` for Counter-Strike 1.6. AppID `70` is Half-Life and can launch without the CS HUD/client context.
@@ -130,11 +130,15 @@ The default launch method is through Steam. To debug the raw `hl_linux` binary:
 MODCSBR_LAUNCH_METHOD=direct scripts/test/launch-modcsbr-steam-linux.sh
 ```
 
-Change the map with:
+By default, the launcher opens the CS menu. Start a map through `New Game`; this initializes the CS client HUD correctly.
+
+To start directly on a map:
 
 ```bash
-MAP=de_inferno scripts/test/launch-modcsbr-steam-linux.sh
+MODCSBR_AUTO_MAP=1 MAP=de_inferno scripts/test/launch-modcsbr-steam-linux.sh
 ```
+
+If the HUD is missing when using direct `+map`, use the menu `New Game` flow.
 
 ## Validation
 

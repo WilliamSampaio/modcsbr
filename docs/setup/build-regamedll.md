@@ -63,6 +63,7 @@ Do not use x64 for Steam CS 1.6 / GoldSrc.
   - The project launcher now defaults to `steam -applaunch 10 -game modcsbr`.
   - Steam launch worked without forcing `-soft`; use `-soft` only as a manual fallback argument.
   - AppID `10` is required for the Counter-Strike client/HUD context; AppID `70` is Half-Life.
+  - Starting a map from the CS `New Game` menu initializes the HUD correctly; direct `+map` launch is optional via `MODCSBR_AUTO_MAP=1`.
 
 Next validation step: launch Steam CS 1.6 with `modcsbr` and run `game_version` in the client console.
 
