@@ -142,7 +142,15 @@ If the HUD is missing when using direct `+map`, use the menu `New Game` flow.
 
 ## Validation
 
-Start a map through `New Game`, open the console, and look for:
+When the game opens, the client console should show:
+
+```text
+modcsbr: client autoexec.cfg loaded
+```
+
+This confirms the game launched with the `modcsbr` folder.
+
+Then start a map through `New Game`, open the console, and look for:
 
 ```text
 modcsbr: ReGameDLL game_init.cfg loaded

@@ -17,3 +17,4 @@ All notable project changes will be documented here.
 - Added `game_init.cfg` marker output for ReGameDLL validation from the Steam client console.
 - Added clean reinstall support for the Steam `modcsbr` folder with copied CS client/HUD assets.
 - Changed the launcher to open the CS menu by default because `New Game` initializes the HUD correctly.
+- Added a client `autoexec.cfg` marker to confirm the Steam client launched the `modcsbr` folder.

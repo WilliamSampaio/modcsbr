@@ -282,7 +282,15 @@ MODCSBR_STEAM_APP_ID=10 scripts/test/launch-modcsbr-steam-linux.sh
 
 ## Conferir Se Funcionou
 
-Quando o jogo abrir, inicie um mapa pelo menu `New Game`.
+Quando o jogo abrir, abra o console e procure esta linha:
+
+```text
+modcsbr: client autoexec.cfg loaded
+```
+
+Se ela aparecer, o CS abriu usando a pasta `modcsbr`.
+
+Depois inicie um mapa pelo menu `New Game`.
 
 Abra o console e procure esta linha:
 
