@@ -6,4 +6,5 @@ All notable project changes will be documented here.
 
 - Created base project structure.
 - Added ReGameDLL_CS as an upstream submodule entry.
-- Documented the intended MSVC v143 / Win32 build target.
+- Switched the active setup path to Linux.
+- Added Linux build, Steam install, and launch scripts for `modcsbr`.

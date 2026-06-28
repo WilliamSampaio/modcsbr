@@ -1,51 +1,57 @@
-# Build ReGameDLL_CS
+# Build ReGameDLL_CS On Linux
 
 This document records the baseline build of the original, unmodified ReGameDLL_CS.
 
 ## Required Environment
 
-- Operating system: Windows 11
-- IDE/toolchain: Visual Studio 2022
-- MSVC toolset: v143
-- Platform: Win32 / x86
-- Configuration: Release
-- Solution: `upstream\ReGameDLL_CS\msvc\ReGameDLL.sln`
+- Operating system: Ubuntu 24.04
+- Toolchain: GCC/G++ with multilib
+- Build system: CMake + Make
+- Platform: Linux 32-bit x86
+- Output: `cs.so`
 
-Do not use x64. Counter-Strike 1.6, HLDS, and the GoldSrc GameDLL are 32-bit.
+Do not use x64 for Steam CS 1.6 / GoldSrc.
 
 ## Build Steps
 
-1. Initialize the submodule:
+1. Install dependencies:
 
-   ```powershell
+   ```bash
+   scripts/install/linux-build-deps-ubuntu.sh --install
+   ```
+
+2. Initialize the submodule:
+
+   ```bash
    git submodule update --init --recursive
    ```
 
-2. Open the solution:
+3. Build:
 
-   ```text
-   upstream\ReGameDLL_CS\msvc\ReGameDLL.sln
+   ```bash
+   scripts/build/regamedll-linux.sh
    ```
 
-3. Select:
+4. Install into the Steam CS 1.6 folder:
 
-   ```text
-   Configuration: Release
-   Platform: Win32
+   ```bash
+   scripts/install/modcsbr-steam-linux.sh
    ```
 
-4. Run:
+5. Launch:
 
-   ```text
-   Build > Build Solution
+   ```bash
+   scripts/test/launch-modcsbr-steam-linux.sh
    ```
 
 ## Validation Log
 
 - ReGameDLL_CS revision: `781a68ae1c6fb652cf4fbc894970b4fb4dde19f9`
-- Build status: pending local Windows validation
-- Generated DLL: pending
+- Build status: blocked until Linux build dependencies are installed
+- Generated library: pending
 - Build time: pending
-- Problems encountered: pending
+- Problems encountered:
+  - `cmake`, `gcc`, `g++`, and `make` are not currently available in PATH.
+  - `scripts/install/linux-build-deps-ubuntu.sh --install` requires an interactive `sudo` password outside this Codex session.
 
-Update this section after building on Windows and record the exact `mp.dll` path produced by Visual Studio.
+Update this section after building and record the exact `cs.so` path produced by CMake.

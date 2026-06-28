@@ -8,7 +8,7 @@ The project separates original third-party code from custom mod files.
 
 ## Mod Files
 
-`mod/mycs` is reserved for the local mod layout used during testing:
+`mod/modcsbr` is reserved for the local mod layout used during testing:
 
 - `dlls/` - compiled GameDLL output copied for tests.
 - `models/` - model assets.
@@ -16,6 +16,14 @@ The project separates original third-party code from custom mod files.
 - `sprites/` - sprite assets.
 - `resource/` - UI/resource files.
 - `maps/` - map files.
+
+The Steam test install lives outside the repository under the Half-Life folder:
+
+```text
+~/.steam/debian-installation/steamapps/common/Half-Life/modcsbr
+```
+
+The installed mod uses `modcsbr/liblist.gam`, loads `dlls/cs.so`, and falls back to the stock `cstrike` assets.
 
 ## Specs
 

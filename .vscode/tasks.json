@@ -2,15 +2,9 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "ReGameDLL: build Release Win32",
+      "label": "ReGameDLL: build Linux",
       "type": "shell",
-      "command": "msbuild",
-      "args": [
-        "${workspaceFolder}\\upstream\\ReGameDLL_CS\\msvc\\ReGameDLL.sln",
-        "/m",
-        "/p:Configuration=Release",
-        "/p:Platform=Win32"
-      ],
+      "command": "${workspaceFolder}/scripts/build/regamedll-linux.sh",
       "options": {
         "cwd": "${workspaceFolder}"
       },
@@ -18,25 +12,29 @@
         "kind": "build",
         "isDefault": true
       },
-      "problemMatcher": "$msCompile",
-      "detail": "Requires VS Code to be opened from Developer PowerShell for VS 2022."
+      "problemMatcher": "$gcc",
+      "detail": "Builds upstream ReGameDLL_CS for Linux x86 and copies cs.so into mod/modcsbr/dlls."
     },
     {
-      "label": "ReGameDLL: clean Release Win32",
+      "label": "modcsbr: install into Steam CS 1.6",
       "type": "shell",
-      "command": "msbuild",
-      "args": [
-        "${workspaceFolder}\\upstream\\ReGameDLL_CS\\msvc\\ReGameDLL.sln",
-        "/t:Clean",
-        "/p:Configuration=Release",
-        "/p:Platform=Win32"
-      ],
+      "command": "${workspaceFolder}/scripts/install/modcsbr-steam-linux.sh",
       "options": {
         "cwd": "${workspaceFolder}"
       },
       "group": "build",
-      "problemMatcher": "$msCompile",
-      "detail": "Requires VS Code to be opened from Developer PowerShell for VS 2022."
+      "problemMatcher": [],
+      "detail": "Installs liblist.gam, cs.so, and asset links into the Steam Half-Life/modcsbr folder."
+    },
+    {
+      "label": "modcsbr: launch Steam CS 1.6",
+      "type": "shell",
+      "command": "${workspaceFolder}/scripts/test/launch-modcsbr-steam-linux.sh",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "detail": "Launches hl_linux with -game modcsbr."
     }
   ]
 }
