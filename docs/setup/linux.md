@@ -66,6 +66,8 @@ mod/modcsbr/dlls/cs.so
 
 Current machine status: dependencies are installed and the first Linux build succeeded, producing a 32-bit `cs.so`.
 
+Rebuild is only needed after changing the GameDLL C++ code or when you want a fresh `cs.so`. HUD/crosshair/health/ammo issues are client-side and should be checked with a clean mod reinstall first.
+
 ## Install The Mod Into Steam CS 1.6
 
 ```bash
@@ -82,6 +84,22 @@ Set a custom install location with:
 
 ```bash
 HALF_LIFE_DIR="/path/to/Half-Life" scripts/install/modcsbr-steam-linux.sh
+```
+
+## Reset And Reinstall The Mod
+
+Close CS 1.6 first, then run:
+
+```bash
+MODCSBR_ASSET_MODE=copy scripts/install/modcsbr-steam-linux.sh --reset
+```
+
+This deletes the installed `modcsbr` folder and recreates it, copying client HUD files from `cstrike` instead of linking them.
+
+You can also reset and launch in one command:
+
+```bash
+MODCSBR_ASSET_MODE=copy scripts/test/launch-modcsbr-steam-linux.sh --reset
 ```
 
 ## Launch Test
@@ -123,7 +141,9 @@ MAP=de_inferno scripts/test/launch-modcsbr-steam-linux.sh
 In the game console, run:
 
 ```text
-game version
+game_version
 ```
 
 Expected result: the console prints the ReGameDLL_CS version, confirming that `modcsbr/dlls/cs.so` is loaded.
+
+`game version` is a server command. In the Steam client console it may print `Unknown command: game`.

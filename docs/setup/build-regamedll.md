@@ -64,4 +64,10 @@ Do not use x64 for Steam CS 1.6 / GoldSrc.
   - Steam launch worked without forcing `-soft`; use `-soft` only as a manual fallback argument.
   - AppID `10` is required for the Counter-Strike client/HUD context; AppID `70` is Half-Life.
 
-Next validation step: launch Steam CS 1.6 with `modcsbr` and run `game version` in the console.
+Next validation step: launch Steam CS 1.6 with `modcsbr` and run `game_version` in the client console.
+
+If the GameDLL is already built and only the HUD is missing, do not rebuild first. Reset the installed mod with copied assets:
+
+```bash
+MODCSBR_ASSET_MODE=copy scripts/install/modcsbr-steam-linux.sh --reset
+```

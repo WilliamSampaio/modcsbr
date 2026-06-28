@@ -144,6 +144,15 @@ mod/modcsbr/dlls/cs.so
 
 Esse arquivo e a GameDLL Linux compilada.
 
+Voce so precisa rebuildar quando mudar codigo C++ da GameDLL ou quando quiser garantir uma `cs.so` nova. Problemas de HUD normalmente nao exigem rebuild, porque HUD, mira, vida e municao vem dos arquivos cliente do CS:
+
+```text
+cl_dlls/client.so
+sprites/hud.txt
+sprites/*.spr
+resource/
+```
+
 ## Instalar O Mod No Counter-Strike 1.6
 
 Agora copie o mod para a pasta do jogo:
@@ -171,6 +180,32 @@ O arquivo `liblist.gam` diz ao jogo para carregar:
 
 ```text
 dlls/cs.so
+```
+
+## Resetar E Reinstalar O Mod
+
+Se o HUD nao aparecer, faca uma instalacao limpa do mod. Isso apaga a pasta `modcsbr` instalada na Steam e recria tudo.
+
+Primeiro feche o CS 1.6.
+
+Depois rode:
+
+```bash
+MODCSBR_ASSET_MODE=copy scripts/install/modcsbr-steam-linux.sh --reset
+```
+
+Esse modo copia os arquivos do `cstrike` para `modcsbr` em vez de usar links. E mais pesado, mas e melhor para tirar duvida com HUD/client.
+
+Depois abra:
+
+```bash
+scripts/test/launch-modcsbr-steam-linux.sh
+```
+
+Atalho para resetar e abrir em seguida:
+
+```bash
+MODCSBR_ASSET_MODE=copy scripts/test/launch-modcsbr-steam-linux.sh --reset
 ```
 
 ## Abrir O Jogo Com O Mod
@@ -242,10 +277,16 @@ Quando o jogo abrir, abra o console.
 Digite:
 
 ```text
-game version
+game_version
 ```
 
 Se aparecer a versao do ReGameDLL_CS, deu certo: o CS 1.6 carregou o `modcsbr/dlls/cs.so`.
+
+Nao use `game version` no console do cliente. Esse e um comando de servidor registrado pela GameDLL e pode aparecer como:
+
+```text
+Unknown command: game
+```
 
 ## Se O Jogo Nao Achar A Pasta Da Steam
 

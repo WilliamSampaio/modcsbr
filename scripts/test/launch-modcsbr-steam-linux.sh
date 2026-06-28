@@ -5,6 +5,19 @@ ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 MOD_NAME="${MOD_NAME:-modcsbr}"
 MODCSBR_LAUNCH_METHOD="${MODCSBR_LAUNCH_METHOD:-steam}"
 MODCSBR_STEAM_APP_ID="${MODCSBR_STEAM_APP_ID:-10}"
+INSTALL_ARGS=()
+LAUNCH_ARGS=()
+
+for arg in "$@"; do
+	case "$arg" in
+		--reset)
+			INSTALL_ARGS+=("$arg")
+			;;
+		*)
+			LAUNCH_ARGS+=("$arg")
+			;;
+	esac
+done
 
 detect_half_life_dir() {
 	if [ -n "${HALF_LIFE_DIR:-}" ]; then
@@ -40,7 +53,7 @@ add_library_path() {
 	fi
 }
 
-"$ROOT_DIR/scripts/install/modcsbr-steam-linux.sh"
+"$ROOT_DIR/scripts/install/modcsbr-steam-linux.sh" "${INSTALL_ARGS[@]}"
 
 HALF_LIFE_DIR="$(detect_half_life_dir)"
 STEAM_DIR="$(cd "$HALF_LIFE_DIR/../../.." && pwd)"
@@ -79,10 +92,10 @@ case "$MODCSBR_LAUNCH_METHOD" in
 			exit 1
 		fi
 
-		exec steam -applaunch "$MODCSBR_STEAM_APP_ID" -game "$MOD_NAME" -console -dev +map "${MAP:-de_dust2}" "$@"
+		exec steam -applaunch "$MODCSBR_STEAM_APP_ID" -game "$MOD_NAME" -console -dev +map "${MAP:-de_dust2}" "${LAUNCH_ARGS[@]}"
 		;;
 	direct)
-		exec ./hl_linux -steam -game "$MOD_NAME" -console -dev +map "${MAP:-de_dust2}" "$@"
+		exec ./hl_linux -steam -game "$MOD_NAME" -console -dev +map "${MAP:-de_dust2}" "${LAUNCH_ARGS[@]}"
 		;;
 	*)
 		printf 'Invalid MODCSBR_LAUNCH_METHOD: %s. Use steam or direct.\n' "$MODCSBR_LAUNCH_METHOD" >&2
