@@ -4,6 +4,8 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 MOD_NAME="${MOD_NAME:-modcsbr}"
 MODCSBR_ASSET_MODE="${MODCSBR_ASSET_MODE:-link}"
+MODCSBR_ENABLE_ZBOT="${MODCSBR_ENABLE_ZBOT:-1}"
+MODCSBR_ENABLE_HOSTAGE_AI="${MODCSBR_ENABLE_HOSTAGE_AI:-1}"
 RESET_MOD=0
 
 for arg in "$@"; do
@@ -11,12 +13,24 @@ for arg in "$@"; do
 		--reset)
 			RESET_MOD=1
 			;;
+		--no-zbot)
+			MODCSBR_ENABLE_ZBOT=0
+			;;
+		--no-hostage-ai)
+			MODCSBR_ENABLE_HOSTAGE_AI=0
+			;;
+		--no-regamedll-extras)
+			MODCSBR_ENABLE_ZBOT=0
+			MODCSBR_ENABLE_HOSTAGE_AI=0
+			;;
 		--help|-h)
-			printf 'Usage: %s [--reset]\n\n' "$0"
+			printf 'Usage: %s [--reset] [--no-zbot] [--no-hostage-ai] [--no-regamedll-extras]\n\n' "$0"
 			printf 'Environment:\n'
 			printf '  HALF_LIFE_DIR=/path/to/Half-Life\n'
 			printf '  MOD_NAME=modcsbr\n'
 			printf '  MODCSBR_ASSET_MODE=link|copy\n'
+			printf '  MODCSBR_ENABLE_ZBOT=1|0\n'
+			printf '  MODCSBR_ENABLE_HOSTAGE_AI=1|0\n'
 			exit 0
 			;;
 		*)
@@ -83,6 +97,71 @@ install_settings_script_if_needed() {
 	fi
 }
 
+extract_regamedll_extra_if_enabled() {
+	local enabled="$1"
+	local archive="$2"
+	local label="$3"
+
+	if [ "$enabled" != "1" ]; then
+		printf 'Skipped %s extra.\n' "$label"
+		return
+	fi
+
+	if [ ! -f "$archive" ]; then
+		printf 'Warning: missing %s archive: %s\n' "$label" "$archive" >&2
+		return
+	fi
+
+	if ! command -v unzip >/dev/null 2>&1; then
+		printf 'Missing required tool: unzip\n' >&2
+		printf 'On Ubuntu, run: scripts/install/linux-build-deps-ubuntu.sh --install\n' >&2
+		exit 127
+	fi
+
+	local tmp_dir
+	tmp_dir="$(mktemp -d)"
+	unzip -q -o "$archive" -d "$tmp_dir"
+
+	if [ -d "$tmp_dir/cstrike" ]; then
+		cp -a "$tmp_dir/cstrike/." "$DEST_DIR/"
+	else
+		printf 'Warning: %s archive did not contain a cstrike folder.\n' "$label" >&2
+	fi
+
+	rm -rf "$tmp_dir"
+	printf 'Installed %s extra.\n' "$label"
+}
+
+configure_regamedll_extras() {
+	local config="$DEST_DIR/game_init.cfg"
+	local tmp_file
+	tmp_file="$(mktemp)"
+
+	touch "$config"
+	awk '
+		/^\/\/ BEGIN modcsbr ReGameDLL extras$/ { skip = 1; next }
+		/^\/\/ END modcsbr ReGameDLL extras$/ { skip = 0; next }
+		skip != 1 { print }
+	' "$config" > "$tmp_file"
+	mv "$tmp_file" "$config"
+
+	{
+		printf '\n// BEGIN modcsbr ReGameDLL extras\n'
+		if [ "$MODCSBR_ENABLE_ZBOT" = "1" ]; then
+			printf 'bot_enable 1\n'
+		else
+			printf '// bot_enable 1 disabled by MODCSBR_ENABLE_ZBOT=0\n'
+		fi
+
+		if [ "$MODCSBR_ENABLE_HOSTAGE_AI" = "1" ]; then
+			printf 'hostage_ai_enable 1\n'
+		else
+			printf '// hostage_ai_enable 1 disabled by MODCSBR_ENABLE_HOSTAGE_AI=0\n'
+		fi
+		printf '// END modcsbr ReGameDLL extras\n'
+	} >> "$config"
+}
+
 HALF_LIFE_DIR="$(detect_half_life_dir)"
 CSTRIKE_DIR="$HALF_LIFE_DIR/cstrike"
 DEST_DIR="$HALF_LIFE_DIR/$MOD_NAME"
@@ -126,6 +205,12 @@ done
 
 install_settings_script_if_needed "$CSTRIKE_DIR/settings.scr" "$DEST_DIR/settings.scr"
 
+extract_regamedll_extra_if_enabled "$MODCSBR_ENABLE_ZBOT" "$UPSTREAM_DIR/regamedll/extra/zBot/bot_profiles.zip" "zBot for CS 1.6"
+extract_regamedll_extra_if_enabled "$MODCSBR_ENABLE_HOSTAGE_AI" "$UPSTREAM_DIR/regamedll/extra/HostageImprov/host_improv.zip" "CS:CZ hostage AI for CS 1.6"
+configure_regamedll_extras
+
 printf 'Installed %s mod skeleton at: %s\n' "$MOD_NAME" "$DEST_DIR"
 printf 'Game DLL path: %s\n' "$DEST_DIR/dlls/cs.so"
 printf 'Asset mode: %s\n' "$MODCSBR_ASSET_MODE"
+printf 'zBot enabled: %s\n' "$MODCSBR_ENABLE_ZBOT"
+printf 'Hostage AI enabled: %s\n' "$MODCSBR_ENABLE_HOSTAGE_AI"

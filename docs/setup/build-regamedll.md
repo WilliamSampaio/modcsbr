@@ -72,3 +72,10 @@ If the GameDLL is already built and only the HUD is missing, do not rebuild firs
 ```bash
 MODCSBR_ASSET_MODE=copy scripts/install/modcsbr-steam-linux.sh --reset
 ```
+
+Installers enable ReGameDLL_CS optional extras by default:
+
+- zBot for CS 1.6;
+- CS:CZ hostage AI for CS 1.6.
+
+Use `--no-regamedll-extras` on Linux or `-DisableReGameDLLExtras` on Windows to suppress both during install/launch.

@@ -4,7 +4,13 @@ param(
     [string] $ModName = $(if ($env:MOD_NAME) { $env:MOD_NAME } else { "modcsbr" }),
 
     [ValidateSet("copy", "link")]
-    [string] $AssetMode = $(if ($env:MODCSBR_ASSET_MODE) { $env:MODCSBR_ASSET_MODE } else { "copy" })
+    [string] $AssetMode = $(if ($env:MODCSBR_ASSET_MODE) { $env:MODCSBR_ASSET_MODE } else { "copy" }),
+
+    [switch] $DisableZBot,
+
+    [switch] $DisableHostageAI,
+
+    [switch] $DisableReGameDLLExtras
 )
 
 $ErrorActionPreference = "Stop"
@@ -17,6 +23,9 @@ $upstreamDllPath = Join-Path $rootDir "upstream\ReGameDLL_CS\msvc\Release\mp.dll
 if ([string]::IsNullOrWhiteSpace($ModName)) {
     Write-Error "ModName cannot be empty."
 }
+
+$enableZBot = -not $DisableZBot -and -not $DisableReGameDLLExtras -and $env:MODCSBR_ENABLE_ZBOT -ne "0"
+$enableHostageAI = -not $DisableHostageAI -and -not $DisableReGameDLLExtras -and $env:MODCSBR_ENABLE_HOSTAGE_AI -ne "0"
 
 function Get-SteamRootCandidates {
     $candidates = @()
@@ -132,6 +141,97 @@ function Install-SettingsScriptIfNeeded {
     }
 }
 
+function Install-ReGameDLLExtraIfEnabled {
+    param(
+        [bool] $Enabled,
+        [string] $Archive,
+        [string] $Label
+    )
+
+    if (-not $Enabled) {
+        Write-Host "Skipped $Label extra."
+        return
+    }
+
+    if (-not (Test-Path $Archive)) {
+        Write-Warning "Missing $Label archive: $Archive"
+        return
+    }
+
+    Add-Type -AssemblyName System.IO.Compression.FileSystem
+    $tempDir = Join-Path ([System.IO.Path]::GetTempPath()) ("modcsbr-extra-" + [System.Guid]::NewGuid().ToString("N"))
+    New-Item -ItemType Directory -Path $tempDir -Force | Out-Null
+
+    try {
+        [System.IO.Compression.ZipFile]::ExtractToDirectory($Archive, $tempDir)
+        $cstrikeExtractDir = Join-Path $tempDir "cstrike"
+        if (Test-Path $cstrikeExtractDir) {
+            Copy-Item -Path (Join-Path $cstrikeExtractDir "*") -Destination $destDir -Recurse -Force
+        }
+        else {
+            Write-Warning "$Label archive did not contain a cstrike folder."
+        }
+    }
+    finally {
+        if (Test-Path $tempDir) {
+            Remove-Item -LiteralPath $tempDir -Recurse -Force
+        }
+    }
+
+    Write-Host "Installed $Label extra."
+}
+
+function Set-ReGameDLLExtraConfig {
+    param(
+        [bool] $EnableZBot,
+        [bool] $EnableHostageAI
+    )
+
+    $config = Join-Path $destDir "game_init.cfg"
+    if (-not (Test-Path $config)) {
+        New-Item -ItemType File -Path $config -Force | Out-Null
+    }
+
+    $lines = Get-Content -Path $config
+    $filteredLines = New-Object System.Collections.Generic.List[string]
+    $skip = $false
+
+    foreach ($line in $lines) {
+        if ($line -eq "// BEGIN modcsbr ReGameDLL extras") {
+            $skip = $true
+            continue
+        }
+
+        if ($line -eq "// END modcsbr ReGameDLL extras") {
+            $skip = $false
+            continue
+        }
+
+        if (-not $skip) {
+            $filteredLines.Add($line)
+        }
+    }
+
+    $filteredLines.Add("")
+    $filteredLines.Add("// BEGIN modcsbr ReGameDLL extras")
+    if ($EnableZBot) {
+        $filteredLines.Add("bot_enable 1")
+    }
+    else {
+        $filteredLines.Add("// bot_enable 1 disabled by MODCSBR_ENABLE_ZBOT=0")
+    }
+
+    if ($EnableHostageAI) {
+        $filteredLines.Add("hostage_ai_enable 1")
+    }
+    else {
+        $filteredLines.Add("// hostage_ai_enable 1 disabled by MODCSBR_ENABLE_HOSTAGE_AI=0")
+    }
+    $filteredLines.Add("// END modcsbr ReGameDLL extras")
+
+    Set-Content -Path $config -Value $filteredLines -Encoding ASCII
+}
+
 $halfLifeDir = Find-HalfLifeDir
 $cstrikeDir = Join-Path $halfLifeDir "cstrike"
 $destDir = Join-Path $halfLifeDir $ModName
@@ -182,6 +282,12 @@ foreach ($file in @("commandmenu.txt", "game_init.cfg", "server.cfg", "titles.tx
 
 Install-SettingsScriptIfNeeded -Source (Join-Path $cstrikeDir "settings.scr") -Target (Join-Path $destDir "settings.scr")
 
+Install-ReGameDLLExtraIfEnabled -Enabled $enableZBot -Archive (Join-Path $rootDir "upstream\ReGameDLL_CS\regamedll\extra\zBot\bot_profiles.zip") -Label "zBot for CS 1.6"
+Install-ReGameDLLExtraIfEnabled -Enabled $enableHostageAI -Archive (Join-Path $rootDir "upstream\ReGameDLL_CS\regamedll\extra\HostageImprov\host_improv.zip") -Label "CS:CZ hostage AI for CS 1.6"
+Set-ReGameDLLExtraConfig -EnableZBot $enableZBot -EnableHostageAI $enableHostageAI
+
 Write-Host "Installed $ModName mod skeleton at: $destDir"
 Write-Host "Game DLL path: $(Join-Path $destDir 'dlls\mp.dll')"
 Write-Host "Asset mode: $AssetMode"
+Write-Host "zBot enabled: $enableZBot"
+Write-Host "Hostage AI enabled: $enableHostageAI"

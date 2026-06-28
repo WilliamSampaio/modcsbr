@@ -11,6 +11,7 @@ PACKAGES=(
 	g++-multilib
 	libc6-dev
 	libc6-dev-i386
+	unzip
 )
 
 if [ "${1:-}" != "--install" ]; then

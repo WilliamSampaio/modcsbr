@@ -8,6 +8,12 @@ param(
     [ValidateSet("copy", "link")]
     [string] $AssetMode = $(if ($env:MODCSBR_ASSET_MODE) { $env:MODCSBR_ASSET_MODE } else { "copy" }),
 
+    [switch] $DisableZBot,
+
+    [switch] $DisableHostageAI,
+
+    [switch] $DisableReGameDLLExtras,
+
     [switch] $AutoMap,
 
     [switch] $NoLaunch,
@@ -68,6 +74,15 @@ $installParams = @{
 
 if ($Reset) {
     $installParams.Reset = $true
+}
+if ($DisableZBot) {
+    $installParams.DisableZBot = $true
+}
+if ($DisableHostageAI) {
+    $installParams.DisableHostageAI = $true
+}
+if ($DisableReGameDLLExtras) {
+    $installParams.DisableReGameDLLExtras = $true
 }
 
 & $installScript @installParams

@@ -255,6 +255,33 @@ After the Windows diagnostic build produces `mp.dll`, install the mod into the S
 powershell -ExecutionPolicy Bypass -File scripts/install/modcsbr-steam-windows.ps1
 ```
 
+By default, the installer also enables the ReGameDLL_CS optional extras documented upstream:
+
+- zBot for CS 1.6;
+- CS:CZ hostage AI for CS 1.6.
+
+It extracts:
+
+```text
+upstream\ReGameDLL_CS\regamedll\extra\zBot\bot_profiles.zip
+upstream\ReGameDLL_CS\regamedll\extra\HostageImprov\host_improv.zip
+```
+
+and adds this managed block to the installed `modcsbr\game_init.cfg`:
+
+```text
+bot_enable 1
+hostage_ai_enable 1
+```
+
+Suppress both extras with:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/install/modcsbr-steam-windows.ps1 -DisableReGameDLLExtras
+```
+
+Suppress only one extra with `-DisableZBot` or `-DisableHostageAI`.
+
 The installer detects Steam from the Windows registry and Steam library folders. It expects the Half-Life folder to contain:
 
 ```text
@@ -272,6 +299,12 @@ Validate the install and launch command without opening Steam:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File scripts/test/launch-modcsbr-steam-windows.ps1 -NoLaunch
+```
+
+Launch without installing the optional extras:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/test/launch-modcsbr-steam-windows.ps1 -DisableReGameDLLExtras
 ```
 
 Use a custom Half-Life path with:

@@ -280,6 +280,31 @@ O arquivo `liblist.gam` diz ao jogo para carregar:
 dlls/cs.so
 ```
 
+Por padrao, o installer tambem ativa os extras recomendados pelo ReGameDLL_CS:
+
+- zBot for CS 1.6;
+- CS:CZ hostage AI for CS 1.6.
+
+Ele extrai os arquivos dos zips em `upstream/ReGameDLL_CS/regamedll/extra/` e adiciona no `game_init.cfg` instalado:
+
+```text
+bot_enable 1
+hostage_ai_enable 1
+```
+
+Para instalar sem esses extras:
+
+```bash
+scripts/install/modcsbr-steam-linux.sh --no-regamedll-extras
+```
+
+Tambem da para desligar so um deles:
+
+```bash
+scripts/install/modcsbr-steam-linux.sh --no-zbot
+scripts/install/modcsbr-steam-linux.sh --no-hostage-ai
+```
+
 ## Instalar O Mod No Counter-Strike 1.6 No Windows
 
 No Windows, primeiro gere a GameDLL diagnostica:
@@ -307,6 +332,31 @@ Dentro dessa pasta deve existir:
 ```text
 liblist.gam
 dlls\mp.dll
+```
+
+Por padrao, o installer tambem ativa os extras recomendados pelo ReGameDLL_CS:
+
+- zBot for CS 1.6;
+- CS:CZ hostage AI for CS 1.6.
+
+Ele extrai os arquivos dos zips em `upstream\ReGameDLL_CS\regamedll\extra\` e adiciona no `game_init.cfg` instalado:
+
+```text
+bot_enable 1
+hostage_ai_enable 1
+```
+
+Para instalar sem esses extras:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/install/modcsbr-steam-windows.ps1 -DisableReGameDLLExtras
+```
+
+Tambem da para desligar so um deles:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/install/modcsbr-steam-windows.ps1 -DisableZBot
+powershell -ExecutionPolicy Bypass -File scripts/install/modcsbr-steam-windows.ps1 -DisableHostageAI
 ```
 
 Se sua Steam estiver em outro lugar, informe a pasta que contem `hl.exe` e `cstrike\`:
@@ -441,6 +491,12 @@ Para resetar a pasta instalada e abrir de novo:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File scripts/test/launch-modcsbr-steam-windows.ps1 -Reset
+```
+
+Para abrir sem instalar os extras do ReGameDLL_CS:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/test/launch-modcsbr-steam-windows.ps1 -DisableReGameDLLExtras
 ```
 
 Para iniciar direto em um mapa:

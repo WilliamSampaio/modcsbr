@@ -11,7 +11,7 @@ LAUNCH_ARGS=()
 
 for arg in "$@"; do
 	case "$arg" in
-		--reset)
+		--reset|--no-zbot|--no-hostage-ai|--no-regamedll-extras)
 			INSTALL_ARGS+=("$arg")
 			;;
 		*)

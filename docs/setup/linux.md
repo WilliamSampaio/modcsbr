@@ -107,6 +107,33 @@ Set a custom install location with:
 HALF_LIFE_DIR="/path/to/Half-Life" scripts/install/modcsbr-steam-linux.sh
 ```
 
+By default, the installer also enables the ReGameDLL_CS optional extras documented upstream:
+
+- zBot for CS 1.6;
+- CS:CZ hostage AI for CS 1.6.
+
+It extracts:
+
+```text
+upstream/ReGameDLL_CS/regamedll/extra/zBot/bot_profiles.zip
+upstream/ReGameDLL_CS/regamedll/extra/HostageImprov/host_improv.zip
+```
+
+and adds this managed block to the installed `modcsbr/game_init.cfg`:
+
+```text
+bot_enable 1
+hostage_ai_enable 1
+```
+
+Suppress both extras with:
+
+```bash
+scripts/install/modcsbr-steam-linux.sh --no-regamedll-extras
+```
+
+Suppress only one extra with `--no-zbot` or `--no-hostage-ai`.
+
 ## Reset And Reinstall The Mod
 
 Close CS 1.6 first, then run:
