@@ -186,7 +186,7 @@ Esse script instala o mod e pede para a Steam abrir o Half-Life com `modcsbr`.
 Por baixo, ele usa algo equivalente a:
 
 ```text
-steam -applaunch 70 -game modcsbr -soft -console -dev +map de_dust2
+steam -applaunch 70 -game modcsbr -console -dev +map de_dust2
 ```
 
 Por dentro, o script tambem ajusta:
@@ -211,12 +211,12 @@ Para abrir outro mapa:
 MAP=de_inferno scripts/test/launch-modcsbr-steam-linux.sh
 ```
 
-Por padrao, o script usa `-soft`. Isso ajuda no WSLg quando o OpenGL/EGL falha.
+O launcher nao forca renderer. Ele deixa a Steam/GoldSrc escolher o caminho normal.
 
-Para tentar OpenGL depois:
+Se precisar testar renderer software manualmente:
 
 ```bash
-MODCSBR_RENDERER=gl scripts/test/launch-modcsbr-steam-linux.sh
+scripts/test/launch-modcsbr-steam-linux.sh -soft
 ```
 
 Para debug avancado, tambem existe o modo direto:
@@ -341,10 +341,10 @@ Failed to create SDL Window
 MESA: error: ZINK: failed to choose pdev
 ```
 
-use o renderer software:
+teste o renderer software:
 
 ```bash
-MODCSBR_RENDERER=soft scripts/test/launch-modcsbr-steam-linux.sh
+scripts/test/launch-modcsbr-steam-linux.sh -soft
 ```
 
 ## Estrutura Do Projeto

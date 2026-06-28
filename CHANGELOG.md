@@ -12,3 +12,4 @@ All notable project changes will be documented here.
 - Validated the first Linux ReGameDLL_CS build and Steam `modcsbr` install.
 - Fixed the Linux launcher environment for Steam `libsteam_api.so` and `hw.so` loading.
 - Changed the launcher default to Steam `-applaunch 70`, keeping direct `hl_linux` as a debug mode.
+- Removed the forced `-soft` renderer flag after Steam launch worked without it.

@@ -61,5 +61,6 @@ Do not use x64 for Steam CS 1.6 / GoldSrc.
   - Direct `hl_linux` launch needed explicit library paths for `libsteam_api.so`, `hw.so`, and Steam Runtime i386 `libopenal.so.1`.
   - Direct `hl_linux` still crashed in this WSLg environment, and the same crash reproduced with stock `cstrike`.
   - The project launcher now defaults to `steam -applaunch 70 -game modcsbr`.
+  - Steam launch worked without forcing `-soft`; use `-soft` only as a manual fallback argument.
 
 Next validation step: launch Steam CS 1.6 with `modcsbr` and run `game version` in the console.
