@@ -8,6 +8,8 @@ param(
     [ValidateSet("copy", "link")]
     [string] $AssetMode = $(if ($env:MODCSBR_ASSET_MODE) { $env:MODCSBR_ASSET_MODE } else { "copy" }),
 
+    [switch] $FullModCopy,
+
     [switch] $DisableZBot,
 
     [switch] $DisableHostageAI,
@@ -74,6 +76,9 @@ $installParams = @{
 
 if ($Reset) {
     $installParams.Reset = $true
+}
+if ($FullModCopy) {
+    $installParams.FullModCopy = $true
 }
 if ($DisableZBot) {
     $installParams.DisableZBot = $true

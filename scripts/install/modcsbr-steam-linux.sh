@@ -2,8 +2,10 @@
 set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+UPSTREAM_DIR="$ROOT_DIR/upstream/ReGameDLL_CS"
 MOD_NAME="${MOD_NAME:-modcsbr}"
 MODCSBR_ASSET_MODE="${MODCSBR_ASSET_MODE:-link}"
+MODCSBR_FULL_MOD_COPY="${MODCSBR_FULL_MOD_COPY:-0}"
 MODCSBR_ENABLE_ZBOT="${MODCSBR_ENABLE_ZBOT:-1}"
 MODCSBR_ENABLE_HOSTAGE_AI="${MODCSBR_ENABLE_HOSTAGE_AI:-1}"
 RESET_MOD=0
@@ -23,12 +25,16 @@ for arg in "$@"; do
 			MODCSBR_ENABLE_ZBOT=0
 			MODCSBR_ENABLE_HOSTAGE_AI=0
 			;;
+		--full-mod-copy)
+			MODCSBR_FULL_MOD_COPY=1
+			;;
 		--help|-h)
-			printf 'Usage: %s [--reset] [--no-zbot] [--no-hostage-ai] [--no-regamedll-extras]\n\n' "$0"
+			printf 'Usage: %s [--reset] [--full-mod-copy] [--no-zbot] [--no-hostage-ai] [--no-regamedll-extras]\n\n' "$0"
 			printf 'Environment:\n'
 			printf '  HALF_LIFE_DIR=/path/to/Half-Life\n'
 			printf '  MOD_NAME=modcsbr\n'
 			printf '  MODCSBR_ASSET_MODE=link|copy\n'
+			printf '  MODCSBR_FULL_MOD_COPY=1|0\n'
 			printf '  MODCSBR_ENABLE_ZBOT=1|0\n'
 			printf '  MODCSBR_ENABLE_HOSTAGE_AI=1|0\n'
 			exit 0
@@ -95,6 +101,19 @@ install_settings_script_if_needed() {
 	if [ ! -f "$target" ] || ! grep -q '"mp_roundtime"' "$target"; then
 		cp -a "$source" "$target"
 	fi
+}
+
+copy_full_local_mod_if_enabled() {
+	if [ "$MODCSBR_FULL_MOD_COPY" != "1" ]; then
+		return
+	fi
+
+	find "$ROOT_DIR/mod/modcsbr" -mindepth 1 -maxdepth 1 -print0 | while IFS= read -r -d '' source; do
+		local name
+		name="$(basename "$source")"
+		rm -rf "$DEST_DIR/$name"
+		cp -a "$source" "$DEST_DIR/$name"
+	done
 }
 
 extract_regamedll_extra_if_enabled() {
@@ -204,6 +223,7 @@ for file in commandmenu.txt game_init.cfg server.cfg titles.txt user.scr; do
 done
 
 install_settings_script_if_needed "$CSTRIKE_DIR/settings.scr" "$DEST_DIR/settings.scr"
+copy_full_local_mod_if_enabled
 
 extract_regamedll_extra_if_enabled "$MODCSBR_ENABLE_ZBOT" "$UPSTREAM_DIR/regamedll/extra/zBot/bot_profiles.zip" "zBot for CS 1.6"
 extract_regamedll_extra_if_enabled "$MODCSBR_ENABLE_HOSTAGE_AI" "$UPSTREAM_DIR/regamedll/extra/HostageImprov/host_improv.zip" "CS:CZ hostage AI for CS 1.6"
@@ -212,5 +232,6 @@ configure_regamedll_extras
 printf 'Installed %s mod skeleton at: %s\n' "$MOD_NAME" "$DEST_DIR"
 printf 'Game DLL path: %s\n' "$DEST_DIR/dlls/cs.so"
 printf 'Asset mode: %s\n' "$MODCSBR_ASSET_MODE"
+printf 'Full local mod copy: %s\n' "$MODCSBR_FULL_MOD_COPY"
 printf 'zBot enabled: %s\n' "$MODCSBR_ENABLE_ZBOT"
 printf 'Hostage AI enabled: %s\n' "$MODCSBR_ENABLE_HOSTAGE_AI"

@@ -6,6 +6,8 @@ param(
     [ValidateSet("copy", "link")]
     [string] $AssetMode = $(if ($env:MODCSBR_ASSET_MODE) { $env:MODCSBR_ASSET_MODE } else { "copy" }),
 
+    [switch] $FullModCopy = $(if ($env:MODCSBR_FULL_MOD_COPY -eq "1") { $true } else { $false }),
+
     [switch] $DisableZBot,
 
     [switch] $DisableHostageAI,
@@ -138,6 +140,22 @@ function Install-SettingsScriptIfNeeded {
 
     if ((-not (Test-Path $Target)) -or ((Get-Content -Raw $Target) -notmatch '"mp_roundtime"')) {
         Copy-Item -Path $Source -Destination $Target -Force
+    }
+}
+
+function Copy-FullLocalModIfEnabled {
+    if (-not $FullModCopy) {
+        return
+    }
+
+    foreach ($item in Get-ChildItem -Force $modSourceDir) {
+        $target = Join-Path $destDir $item.Name
+
+        if ((Test-Path $target) -or (Get-Item $target -ErrorAction SilentlyContinue)) {
+            Remove-Item -LiteralPath $target -Recurse -Force
+        }
+
+        Copy-Item -LiteralPath $item.FullName -Destination $target -Recurse -Force
     }
 }
 
@@ -281,6 +299,7 @@ foreach ($file in @("commandmenu.txt", "game_init.cfg", "server.cfg", "titles.tx
 }
 
 Install-SettingsScriptIfNeeded -Source (Join-Path $cstrikeDir "settings.scr") -Target (Join-Path $destDir "settings.scr")
+Copy-FullLocalModIfEnabled
 
 Install-ReGameDLLExtraIfEnabled -Enabled $enableZBot -Archive (Join-Path $rootDir "upstream\ReGameDLL_CS\regamedll\extra\zBot\bot_profiles.zip") -Label "zBot for CS 1.6"
 Install-ReGameDLLExtraIfEnabled -Enabled $enableHostageAI -Archive (Join-Path $rootDir "upstream\ReGameDLL_CS\regamedll\extra\HostageImprov\host_improv.zip") -Label "CS:CZ hostage AI for CS 1.6"
@@ -289,5 +308,6 @@ Set-ReGameDLLExtraConfig -EnableZBot $enableZBot -EnableHostageAI $enableHostage
 Write-Host "Installed $ModName mod skeleton at: $destDir"
 Write-Host "Game DLL path: $(Join-Path $destDir 'dlls\mp.dll')"
 Write-Host "Asset mode: $AssetMode"
+Write-Host "Full local mod copy: $FullModCopy"
 Write-Host "zBot enabled: $enableZBot"
 Write-Host "Hostage AI enabled: $enableHostageAI"

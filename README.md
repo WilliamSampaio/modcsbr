@@ -313,6 +313,14 @@ scripts/install/modcsbr-steam-linux.sh --no-zbot
 scripts/install/modcsbr-steam-linux.sh --no-hostage-ai
 ```
 
+Quando precisar copiar todo o conteudo local de `mod/modcsbr` para a pasta instalada do mod, use:
+
+```bash
+scripts/install/modcsbr-steam-linux.sh --full-mod-copy
+```
+
+Esse modo preserva o comportamento normal de fallback para arquivos do `cstrike`, mas substitui no destino as entradas que existem em `mod/modcsbr`.
+
 ## Instalar O Mod No Counter-Strike 1.6 No Windows
 
 No Windows, primeiro gere a GameDLL diagnostica:
@@ -367,6 +375,14 @@ powershell -ExecutionPolicy Bypass -File scripts/install/modcsbr-steam-windows.p
 powershell -ExecutionPolicy Bypass -File scripts/install/modcsbr-steam-windows.ps1 -DisableHostageAI
 ```
 
+Quando precisar copiar todo o conteudo local de `mod\modcsbr` para a pasta instalada do mod, use:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/install/modcsbr-steam-windows.ps1 -FullModCopy
+```
+
+Esse modo substitui no destino as entradas que existem em `mod\modcsbr`, como `models`, `resource`, `sound` e `sprites`.
+
 Se sua Steam estiver em outro lugar, informe a pasta que contem `hl.exe` e `cstrike\`:
 
 ```powershell
@@ -405,6 +421,12 @@ Atalho para resetar e abrir em seguida:
 
 ```bash
 MODCSBR_ASSET_MODE=copy scripts/test/launch-modcsbr-steam-linux.sh --reset
+```
+
+Se quiser resetar e forcar uma copia completa dos arquivos locais do mod:
+
+```bash
+MODCSBR_ASSET_MODE=copy scripts/install/modcsbr-steam-linux.sh --reset --full-mod-copy
 ```
 
 ## Abrir O Jogo Com O Mod

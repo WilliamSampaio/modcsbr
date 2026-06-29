@@ -134,6 +134,14 @@ scripts/install/modcsbr-steam-linux.sh --no-regamedll-extras
 
 Suppress only one extra with `--no-zbot` or `--no-hostage-ai`.
 
+To copy every local file from `mod/modcsbr` into the installed Steam mod folder, run:
+
+```bash
+scripts/install/modcsbr-steam-linux.sh --full-mod-copy
+```
+
+Use this when local mod assets under directories such as `models`, `resource`, `sound`, or `sprites` must replace the installed files.
+
 ## Reset And Reinstall The Mod
 
 Close CS 1.6 first, then run:
@@ -150,6 +158,12 @@ You can also reset and launch in one command:
 
 ```bash
 MODCSBR_ASSET_MODE=copy scripts/test/launch-modcsbr-steam-linux.sh --reset
+```
+
+For a clean reinstall that also copies the full local mod tree:
+
+```bash
+MODCSBR_ASSET_MODE=copy scripts/install/modcsbr-steam-linux.sh --reset --full-mod-copy
 ```
 
 ## Launch Test
