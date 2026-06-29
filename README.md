@@ -161,6 +161,14 @@ Pronto. Agora o codigo original deve existir em:
 upstream/ReGameDLL_CS
 ```
 
+Esse submodule aponta para o fork:
+
+```text
+https://github.com/WilliamSampaio/ReGameDLL_CS.git
+```
+
+Use a branch `modcsbr` desse fork para as alteracoes futuras do GameDLL do mod. O baseline validado continua sendo o ReGameDLL_CS original sem alteracoes, no commit registrado em `docs/setup/build-regamedll.md`.
+
 ## Instalar As Ferramentas De Build
 
 Antes de compilar, instale os pacotes necessarios:
@@ -680,6 +688,6 @@ upstream/
 
 Primeiro faca o ReGameDLL_CS original compilar e abrir no jogo.
 
-So depois comece a mudar codigo.
+So depois comece a mudar codigo na branch `modcsbr` do fork `WilliamSampaio/ReGameDLL_CS`.
 
 Assim, se algo quebrar no futuro, voce sabe que o ambiente Linux, a Steam, o CS 1.6 e o carregamento do mod ja estavam funcionando.

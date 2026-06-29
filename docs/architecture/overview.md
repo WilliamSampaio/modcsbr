@@ -4,7 +4,9 @@ The project separates original third-party code from custom mod files.
 
 ## Upstream
 
-`upstream/ReGameDLL_CS` contains the original ReGameDLL_CS project as a Git submodule. This keeps the external source history separate and makes future upstream updates easier to review.
+`upstream/ReGameDLL_CS` contains the ReGameDLL_CS project as a Git submodule. The submodule URL points to the `WilliamSampaio/ReGameDLL_CS` fork so future mod-specific GameDLL work can happen on the fork's `modcsbr` branch while keeping the external source history separate.
+
+The validated baseline is still the original unmodified ReGameDLL_CS revision recorded in `docs/setup/build-regamedll.md`. Keep custom edits out of the submodule until that baseline has been built, installed, and documented.
 
 ## Mod Files
 

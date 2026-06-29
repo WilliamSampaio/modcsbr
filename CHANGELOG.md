@@ -20,3 +20,5 @@ All notable project changes will be documented here.
 - Added clean reinstall support for the Steam `modcsbr` folder with copied CS client/HUD assets.
 - Changed the launcher to open the CS menu by default because `New Game` initializes the HUD correctly.
 - Added a client `autoexec.cfg` marker to confirm the Steam client launched the `modcsbr` folder.
+- Pointed the ReGameDLL_CS submodule at the `WilliamSampaio/ReGameDLL_CS` fork for future mod-specific branches.
+- Documented the fork's `modcsbr` branch as the destination for future ReGameDLL_CS changes.

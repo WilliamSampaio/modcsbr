@@ -26,6 +26,8 @@ Do not use x64 for Steam CS 1.6 / GoldSrc.
    git submodule update --init --recursive
    ```
 
+   The submodule is sourced from the `WilliamSampaio/ReGameDLL_CS` fork. Use the fork's `modcsbr` branch for future mod-specific ReGameDLL changes, but keep the recorded baseline revision unmodified.
+
 3. Build:
 
    ```bash
@@ -47,6 +49,8 @@ Do not use x64 for Steam CS 1.6 / GoldSrc.
 ## Validation Log
 
 - ReGameDLL_CS revision: `781a68ae1c6fb652cf4fbc894970b4fb4dde19f9`
+- Submodule source: `https://github.com/WilliamSampaio/ReGameDLL_CS.git`
+- Future mod branch: `modcsbr`
 - Build status: successful on Linux
 - Generated library: `upstream/ReGameDLL_CS/build/regamedll/cs.so`
 - Repository copy: `mod/modcsbr/dlls/cs.so`
