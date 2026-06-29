@@ -128,6 +128,55 @@ function Install-EntryIfExists {
     }
 }
 
+function Install-DirectoryContentsIfMissing {
+    param(
+        [string] $Source,
+        [string] $Target
+    )
+
+    if (-not (Test-Path $Source -PathType Container)) {
+        return
+    }
+
+    New-Item -ItemType Directory -Path $Target -Force | Out-Null
+
+    foreach ($item in Get-ChildItem -LiteralPath $Source -Force) {
+        $itemTarget = Join-Path $Target $item.Name
+        if ((Test-Path $itemTarget) -or (Get-Item $itemTarget -ErrorAction SilentlyContinue)) {
+            if ($item.PSIsContainer) {
+                Install-DirectoryContentsIfMissing -Source $item.FullName -Target $itemTarget
+            }
+            continue
+        }
+
+        if ($item.PSIsContainer) {
+            Copy-Item -LiteralPath $item.FullName -Destination $itemTarget -Recurse -Force
+        }
+        else {
+            Copy-Item -LiteralPath $item.FullName -Destination $itemTarget -Force
+        }
+    }
+}
+
+function Copy-DirectoryContents {
+    param(
+        [string] $Source,
+        [string] $Target
+    )
+
+    New-Item -ItemType Directory -Path $Target -Force | Out-Null
+
+    foreach ($item in Get-ChildItem -LiteralPath $Source -Force) {
+        $itemTarget = Join-Path $Target $item.Name
+        if ($item.PSIsContainer) {
+            Copy-DirectoryContents -Source $item.FullName -Target $itemTarget
+        }
+        else {
+            Copy-Item -LiteralPath $item.FullName -Destination $itemTarget -Force
+        }
+    }
+}
+
 function Install-SettingsScriptIfNeeded {
     param(
         [string] $Source,
@@ -150,6 +199,19 @@ function Copy-FullLocalModIfEnabled {
 
     foreach ($item in Get-ChildItem -Force $modSourceDir) {
         $target = Join-Path $destDir $item.Name
+
+        if ($item.PSIsContainer) {
+            $targetItem = Get-Item $target -ErrorAction SilentlyContinue
+            if ($targetItem -and ($targetItem.Attributes -band [System.IO.FileAttributes]::ReparsePoint)) {
+                Remove-Item -LiteralPath $target -Force
+            }
+            elseif ($targetItem -and -not $targetItem.PSIsContainer) {
+                Remove-Item -LiteralPath $target -Force
+            }
+
+            Copy-DirectoryContents -Source $item.FullName -Target $target
+            continue
+        }
 
         if ((Test-Path $target) -or (Get-Item $target -ErrorAction SilentlyContinue)) {
             Remove-Item -LiteralPath $target -Recurse -Force
@@ -279,12 +341,15 @@ foreach ($entry in @("cl_dlls", "events", "gfx", "maps", "media", "models", "ove
     Install-EntryIfExists -Source (Join-Path $cstrikeDir $entry) -Target (Join-Path $destDir $entry)
 }
 
+Install-DirectoryContentsIfMissing -Source (Join-Path $cstrikeDir "resource") -Target (Join-Path $destDir "resource")
+
 foreach ($file in @("commandmenu.txt", "game_init.cfg", "server.cfg", "titles.txt", "user.scr")) {
     Install-EntryIfExists -Source (Join-Path $cstrikeDir $file) -Target (Join-Path $destDir $file)
 }
 
 Install-SettingsScriptIfNeeded -Source (Join-Path $cstrikeDir "settings.scr") -Target (Join-Path $destDir "settings.scr")
 Copy-FullLocalModIfEnabled
+Install-DirectoryContentsIfMissing -Source (Join-Path $cstrikeDir "resource") -Target (Join-Path $destDir "resource")
 
 New-Item -ItemType Directory -Path (Join-Path $destDir "dlls") -Force | Out-Null
 $dllSource = $null

@@ -288,7 +288,7 @@ To copy every local file from `mod\modcsbr` into the installed Steam mod folder,
 powershell -ExecutionPolicy Bypass -File scripts/install/modcsbr-steam-windows.ps1 -FullModCopy
 ```
 
-Use this when local mod assets under directories such as `models`, `resource`, `sound`, or `sprites` must replace the installed files.
+Use this when local mod assets under directories such as `models`, `resource`, `sound`, or `sprites` must replace the installed files. Directory copies are merged so base CS UI resources, including `resource\OptionsSubMultiplayer.res` for the Multiplayer crosshair selector, stay available.
 
 The installer detects Steam from the Windows registry and Steam library folders. It expects the Half-Life folder to contain:
 
@@ -308,6 +308,14 @@ Validate the install and launch command without opening Steam:
 ```powershell
 powershell -ExecutionPolicy Bypass -File scripts/test/launch-modcsbr-steam-windows.ps1 -NoLaunch
 ```
+
+Reset, reinstall, and launch while preserving local `mod\modcsbr` assets:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/test/launch-modcsbr-steam-windows.ps1 -Reset
+```
+
+Use `-Reset -NoFullModCopy` only when you want a clean install without local mod asset overlays.
 
 Launch without installing the optional extras:
 

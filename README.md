@@ -381,7 +381,7 @@ Quando precisar copiar todo o conteudo local de `mod\modcsbr` para a pasta insta
 powershell -ExecutionPolicy Bypass -File scripts/install/modcsbr-steam-windows.ps1 -FullModCopy
 ```
 
-Esse modo substitui no destino as entradas que existem em `mod\modcsbr`, como `models`, `resource`, `sound` e `sprites`.
+Esse modo mescla no destino as entradas que existem em `mod\modcsbr`, como `models`, `resource`, `sound` e `sprites`, sem apagar arquivos base do `cstrike`. Isso preserva arquivos de UI como `resource\OptionsSubMultiplayer.res`, usado pelo seletor de mira nas opcoes Multiplayer.
 
 Se sua Steam estiver em outro lugar, informe a pasta que contem `hl.exe` e `cstrike\`:
 
@@ -409,7 +409,7 @@ Depois rode:
 MODCSBR_ASSET_MODE=copy scripts/install/modcsbr-steam-linux.sh --reset
 ```
 
-Esse modo copia os arquivos do `cstrike` para `modcsbr` em vez de usar links. E mais pesado, mas e melhor para tirar duvida com HUD/client e tambem repara o `settings.scr`, que alimenta as opcoes da aba `Game` no `Create Server`.
+Esse modo copia os arquivos do `cstrike` para `modcsbr` em vez de usar links. E mais pesado, mas e melhor para tirar duvida com HUD/client e tambem repara o `settings.scr`, que alimenta as opcoes da aba `Game` no `Create Server`, e os arquivos base em `resource`, que alimentam opcoes como o seletor de mira.
 
 Depois abra:
 
@@ -423,10 +423,10 @@ Atalho para resetar e abrir em seguida:
 MODCSBR_ASSET_MODE=copy scripts/test/launch-modcsbr-steam-linux.sh --reset
 ```
 
-Se quiser resetar e forcar uma copia completa dos arquivos locais do mod:
+Com `--reset`, o launcher tambem copia os assets locais de `mod/modcsbr` por padrao. Para resetar sem copiar esses assets locais:
 
 ```bash
-MODCSBR_ASSET_MODE=copy scripts/install/modcsbr-steam-linux.sh --reset --full-mod-copy
+MODCSBR_ASSET_MODE=copy scripts/test/launch-modcsbr-steam-linux.sh --reset --no-full-mod-copy
 ```
 
 ## Abrir O Jogo Com O Mod
@@ -521,6 +521,12 @@ Para resetar a pasta instalada e abrir de novo:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File scripts/test/launch-modcsbr-steam-windows.ps1 -Reset
+```
+
+Com `-Reset`, o launcher tambem copia os assets locais de `mod\modcsbr` por padrao, para nao perder backgrounds, `resource`, `models`, `sound` ou `sprites` do mod. Para resetar sem copiar esses assets locais:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/test/launch-modcsbr-steam-windows.ps1 -Reset -NoFullModCopy
 ```
 
 Para abrir sem instalar os extras do ReGameDLL_CS:

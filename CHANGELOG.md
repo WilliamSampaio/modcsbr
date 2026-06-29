@@ -23,3 +23,5 @@ All notable project changes will be documented here.
 - Pointed the ReGameDLL_CS submodule at the `WilliamSampaio/ReGameDLL_CS` fork for future mod-specific branches.
 - Documented the fork's `modcsbr` branch as the destination for future ReGameDLL_CS changes.
 - Reapplied the built GameDLL after full local mod copies in Linux and Windows Steam installs.
+- Preserved base CS `resource` UI files during local mod asset copies so the Multiplayer crosshair selector stays populated.
+- Changed launch-script resets to preserve local mod assets by default, with explicit no-full-copy opt-outs.

@@ -90,6 +90,34 @@ install_entry_if_exists() {
 	fi
 }
 
+install_directory_contents_if_missing() {
+	local source="$1"
+	local target="$2"
+
+	if [ ! -d "$source" ]; then
+		return
+	fi
+
+	mkdir -p "$target"
+	find "$source" -mindepth 1 -print0 | while IFS= read -r -d '' item; do
+		local relative
+		local item_target
+		relative="${item#"$source"/}"
+		item_target="$target/$relative"
+
+		if [ -e "$item_target" ] || [ -L "$item_target" ]; then
+			continue
+		fi
+
+		if [ -d "$item" ]; then
+			mkdir -p "$item_target"
+		else
+			mkdir -p "$(dirname "$item_target")"
+			cp -a "$item" "$item_target"
+		fi
+	done
+}
+
 install_settings_script_if_needed() {
 	local source="$1"
 	local target="$2"
@@ -111,8 +139,16 @@ copy_full_local_mod_if_enabled() {
 	find "$ROOT_DIR/mod/modcsbr" -mindepth 1 -maxdepth 1 -print0 | while IFS= read -r -d '' source; do
 		local name
 		name="$(basename "$source")"
-		rm -rf "$DEST_DIR/$name"
-		cp -a "$source" "$DEST_DIR/$name"
+		if [ -d "$source" ]; then
+			if [ -L "$DEST_DIR/$name" ] || { [ -e "$DEST_DIR/$name" ] && [ ! -d "$DEST_DIR/$name" ]; }; then
+				rm -rf "$DEST_DIR/$name"
+			fi
+			mkdir -p "$DEST_DIR/$name"
+			cp -a "$source/." "$DEST_DIR/$name/"
+		else
+			rm -rf "$DEST_DIR/$name"
+			cp -a "$source" "$DEST_DIR/$name"
+		fi
 	done
 }
 
@@ -212,12 +248,15 @@ for entry in cl_dlls events gfx maps media models overviews resource sound sprit
 	install_entry_if_exists "$CSTRIKE_DIR/$entry" "$DEST_DIR/$entry"
 done
 
+install_directory_contents_if_missing "$CSTRIKE_DIR/resource" "$DEST_DIR/resource"
+
 for file in commandmenu.txt game_init.cfg server.cfg titles.txt user.scr; do
 	install_entry_if_exists "$CSTRIKE_DIR/$file" "$DEST_DIR/$file"
 done
 
 install_settings_script_if_needed "$CSTRIKE_DIR/settings.scr" "$DEST_DIR/settings.scr"
 copy_full_local_mod_if_enabled
+install_directory_contents_if_missing "$CSTRIKE_DIR/resource" "$DEST_DIR/resource"
 
 mkdir -p "$DEST_DIR/dlls"
 if [ -f "$ROOT_DIR/mod/modcsbr/dlls/cs.so" ]; then

@@ -8,10 +8,28 @@ MODCSBR_STEAM_APP_ID="${MODCSBR_STEAM_APP_ID:-70}"
 MODCSBR_AUTO_MAP="${MODCSBR_AUTO_MAP:-0}"
 INSTALL_ARGS=()
 LAUNCH_ARGS=()
+RESET_INSTALL=0
+FULL_MOD_COPY=0
+NO_FULL_MOD_COPY=0
+
+if [ "${MODCSBR_FULL_MOD_COPY:-0}" = "1" ]; then
+	FULL_MOD_COPY=1
+fi
 
 for arg in "$@"; do
 	case "$arg" in
-		--reset|--full-mod-copy|--no-zbot|--no-hostage-ai|--no-regamedll-extras)
+		--reset)
+			RESET_INSTALL=1
+			INSTALL_ARGS+=("$arg")
+			;;
+		--full-mod-copy)
+			FULL_MOD_COPY=1
+			INSTALL_ARGS+=("$arg")
+			;;
+		--no-full-mod-copy)
+			NO_FULL_MOD_COPY=1
+			;;
+		--no-zbot|--no-hostage-ai|--no-regamedll-extras)
 			INSTALL_ARGS+=("$arg")
 			;;
 		*)
@@ -19,6 +37,15 @@ for arg in "$@"; do
 			;;
 	esac
 done
+
+if [ "$FULL_MOD_COPY" = "1" ] && [ "$NO_FULL_MOD_COPY" = "1" ]; then
+	printf 'Use only one of --full-mod-copy or --no-full-mod-copy.\n' >&2
+	exit 1
+fi
+
+if [ "$RESET_INSTALL" = "1" ] && [ "$FULL_MOD_COPY" != "1" ] && [ "$NO_FULL_MOD_COPY" != "1" ]; then
+	INSTALL_ARGS+=(--full-mod-copy)
+fi
 
 detect_half_life_dir() {
 	if [ -n "${HALF_LIFE_DIR:-}" ]; then

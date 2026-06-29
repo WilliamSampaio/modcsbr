@@ -140,7 +140,7 @@ To copy every local file from `mod/modcsbr` into the installed Steam mod folder,
 scripts/install/modcsbr-steam-linux.sh --full-mod-copy
 ```
 
-Use this when local mod assets under directories such as `models`, `resource`, `sound`, or `sprites` must replace the installed files.
+Use this when local mod assets under directories such as `models`, `resource`, `sound`, or `sprites` must replace the installed files. Directory copies are merged so base CS UI resources, including `resource/OptionsSubMultiplayer.res` for the Multiplayer crosshair selector, stay available.
 
 ## Reset And Reinstall The Mod
 
@@ -152,7 +152,7 @@ MODCSBR_ASSET_MODE=copy scripts/install/modcsbr-steam-linux.sh --reset
 
 This deletes the installed `modcsbr` folder and recreates it, copying client HUD files from `cstrike` instead of linking them.
 
-It also restores `settings.scr`, which feeds the game options shown in the `Create Server` > `Game` tab.
+It also restores `settings.scr`, which feeds the game options shown in the `Create Server` > `Game` tab, and missing base files under `resource`, which feed UI controls such as the Multiplayer crosshair selector.
 
 You can also reset and launch in one command:
 
@@ -160,10 +160,10 @@ You can also reset and launch in one command:
 MODCSBR_ASSET_MODE=copy scripts/test/launch-modcsbr-steam-linux.sh --reset
 ```
 
-For a clean reinstall that also copies the full local mod tree:
+With `--reset`, the launcher also copies local `mod/modcsbr` assets by default. Use this only when you want a clean reinstall without local mod asset overlays:
 
 ```bash
-MODCSBR_ASSET_MODE=copy scripts/install/modcsbr-steam-linux.sh --reset --full-mod-copy
+MODCSBR_ASSET_MODE=copy scripts/test/launch-modcsbr-steam-linux.sh --reset --no-full-mod-copy
 ```
 
 ## Launch Test

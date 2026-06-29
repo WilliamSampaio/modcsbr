@@ -8,7 +8,9 @@ param(
     [ValidateSet("copy", "link")]
     [string] $AssetMode = $(if ($env:MODCSBR_ASSET_MODE) { $env:MODCSBR_ASSET_MODE } else { "copy" }),
 
-    [switch] $FullModCopy,
+    [switch] $FullModCopy = $(if ($env:MODCSBR_FULL_MOD_COPY -eq "1") { $true } else { $false }),
+
+    [switch] $NoFullModCopy,
 
     [switch] $DisableZBot,
 
@@ -74,10 +76,16 @@ $installParams = @{
     AssetMode = $AssetMode
 }
 
+if ($PSBoundParameters.ContainsKey("FullModCopy") -and $NoFullModCopy) {
+    Write-Error "Use only one of -FullModCopy or -NoFullModCopy."
+}
+
+$enableFullModCopy = -not $NoFullModCopy -and ($FullModCopy -or $Reset)
+
 if ($Reset) {
     $installParams.Reset = $true
 }
-if ($FullModCopy) {
+if ($enableFullModCopy) {
     $installParams.FullModCopy = $true
 }
 if ($DisableZBot) {
