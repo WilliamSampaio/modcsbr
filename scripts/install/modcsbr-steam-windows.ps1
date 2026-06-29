@@ -100,6 +100,55 @@ function Find-HalfLifeDir {
     Write-Error "Could not find Half-Life Steam install. Set HALF_LIFE_DIR to the folder that contains hl.exe and cstrike."
 }
 
+function Install-PatchedGameUIIfNeeded {
+    $source = Join-Path $halfLifeDir "valve\cl_dlls\GameUI.dll"
+    $target = Join-Path $destDir "cl_dlls\GameUI.dll"
+
+    if (-not (Test-Path $source)) {
+        Write-Warning "GameUI.dll was not found at: $source"
+        return
+    }
+
+    if ($ModName.Length -ne "cstrike".Length) {
+        Write-Warning "Skipping local GameUI.dll patch because ModName '$ModName' is not 7 characters long."
+        return
+    }
+
+    New-Item -ItemType Directory -Path (Split-Path -Parent $target) -Force | Out-Null
+    Copy-Item -Path $source -Destination $target -Force
+
+    $bytes = [System.IO.File]::ReadAllBytes($target)
+    $from = [System.Text.Encoding]::ASCII.GetBytes("cstrike")
+    $to = [System.Text.Encoding]::ASCII.GetBytes($ModName)
+    $replacements = 0
+
+    for ($i = 0; $i -le $bytes.Length - $from.Length; $i++) {
+        $matched = $true
+        for ($j = 0; $j -lt $from.Length; $j++) {
+            if ($bytes[$i + $j] -ne $from[$j]) {
+                $matched = $false
+                break
+            }
+        }
+
+        if ($matched) {
+            for ($j = 0; $j -lt $to.Length; $j++) {
+                $bytes[$i + $j] = $to[$j]
+            }
+            $replacements++
+            $i += $from.Length - 1
+        }
+    }
+
+    if ($replacements -eq 0) {
+        Write-Warning "Local GameUI.dll patch found no cstrike markers."
+        return
+    }
+
+    [System.IO.File]::WriteAllBytes($target, $bytes)
+    Write-Host "Installed local GameUI.dll patch for $ModName ($replacements markers)."
+}
+
 function Install-EntryIfExists {
     param(
         [string] $Source,
@@ -350,6 +399,7 @@ foreach ($file in @("commandmenu.txt", "game_init.cfg", "server.cfg", "titles.tx
 Install-SettingsScriptIfNeeded -Source (Join-Path $cstrikeDir "settings.scr") -Target (Join-Path $destDir "settings.scr")
 Copy-FullLocalModIfEnabled
 Install-DirectoryContentsIfMissing -Source (Join-Path $cstrikeDir "resource") -Target (Join-Path $destDir "resource")
+Install-PatchedGameUIIfNeeded
 
 New-Item -ItemType Directory -Path (Join-Path $destDir "dlls") -Force | Out-Null
 $dllSource = $null

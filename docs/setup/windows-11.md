@@ -290,6 +290,8 @@ powershell -ExecutionPolicy Bypass -File scripts/install/modcsbr-steam-windows.p
 
 Use this when local mod assets under directories such as `models`, `resource`, `sound`, or `sprites` must replace the installed files. Directory copies are merged so base CS UI resources, including `resource\OptionsSubMultiplayer.res` for the Multiplayer crosshair selector, stay available.
 
+The Windows installer also creates a local `modcsbr\cl_dlls\GameUI.dll` copy from `valve\cl_dlls\GameUI.dll` and patches its internal `cstrike` game-directory marker to `modcsbr`. This keeps the Multiplayer crosshair controls populated under `-game modcsbr` without modifying the original Valve file.
+
 The installer detects Steam from the Windows registry and Steam library folders. It expects the Half-Life folder to contain:
 
 ```text

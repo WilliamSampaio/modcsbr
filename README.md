@@ -383,6 +383,8 @@ powershell -ExecutionPolicy Bypass -File scripts/install/modcsbr-steam-windows.p
 
 Esse modo mescla no destino as entradas que existem em `mod\modcsbr`, como `models`, `resource`, `sound` e `sprites`, sem apagar arquivos base do `cstrike`. Isso preserva arquivos de UI como `resource\OptionsSubMultiplayer.res`, usado pelo seletor de mira nas opcoes Multiplayer.
 
+No Windows, o instalador tambem cria uma copia local de `valve\cl_dlls\GameUI.dll` em `modcsbr\cl_dlls\GameUI.dll` e ajusta a deteccao interna de `cstrike` para `modcsbr`. Isso mantem a configuracao de mira do menu Multiplayer populada quando o jogo abre com `-game modcsbr`.
+
 Se sua Steam estiver em outro lugar, informe a pasta que contem `hl.exe` e `cstrike\`:
 
 ```powershell

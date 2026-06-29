@@ -25,3 +25,4 @@ All notable project changes will be documented here.
 - Reapplied the built GameDLL after full local mod copies in Linux and Windows Steam installs.
 - Preserved base CS `resource` UI files during local mod asset copies so the Multiplayer crosshair selector stays populated.
 - Changed launch-script resets to preserve local mod assets by default, with explicit no-full-copy opt-outs.
+- Added a Windows local GameUI.dll patch during install so CS Multiplayer crosshair controls recognize the `modcsbr` game directory.
