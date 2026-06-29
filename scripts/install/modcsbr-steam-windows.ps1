@@ -275,6 +275,18 @@ foreach ($file in @("autoexec.cfg", "game_init.cfg")) {
     }
 }
 
+foreach ($entry in @("cl_dlls", "events", "gfx", "maps", "media", "models", "overviews", "resource", "sound", "sprites")) {
+    Install-EntryIfExists -Source (Join-Path $cstrikeDir $entry) -Target (Join-Path $destDir $entry)
+}
+
+foreach ($file in @("commandmenu.txt", "game_init.cfg", "server.cfg", "titles.txt", "user.scr")) {
+    Install-EntryIfExists -Source (Join-Path $cstrikeDir $file) -Target (Join-Path $destDir $file)
+}
+
+Install-SettingsScriptIfNeeded -Source (Join-Path $cstrikeDir "settings.scr") -Target (Join-Path $destDir "settings.scr")
+Copy-FullLocalModIfEnabled
+
+New-Item -ItemType Directory -Path (Join-Path $destDir "dlls") -Force | Out-Null
 $dllSource = $null
 if (Test-Path $localDllPath) {
     $dllSource = $localDllPath
@@ -289,17 +301,6 @@ if ($dllSource) {
 else {
     Write-Warning "mp.dll does not exist yet. Build first with: powershell -ExecutionPolicy Bypass -File scripts/build/regamedll-windows.ps1"
 }
-
-foreach ($entry in @("cl_dlls", "events", "gfx", "maps", "media", "models", "overviews", "resource", "sound", "sprites")) {
-    Install-EntryIfExists -Source (Join-Path $cstrikeDir $entry) -Target (Join-Path $destDir $entry)
-}
-
-foreach ($file in @("commandmenu.txt", "game_init.cfg", "server.cfg", "titles.txt", "user.scr")) {
-    Install-EntryIfExists -Source (Join-Path $cstrikeDir $file) -Target (Join-Path $destDir $file)
-}
-
-Install-SettingsScriptIfNeeded -Source (Join-Path $cstrikeDir "settings.scr") -Target (Join-Path $destDir "settings.scr")
-Copy-FullLocalModIfEnabled
 
 Install-ReGameDLLExtraIfEnabled -Enabled $enableZBot -Archive (Join-Path $rootDir "upstream\ReGameDLL_CS\regamedll\extra\zBot\bot_profiles.zip") -Label "zBot for CS 1.6"
 Install-ReGameDLLExtraIfEnabled -Enabled $enableHostageAI -Archive (Join-Path $rootDir "upstream\ReGameDLL_CS\regamedll\extra\HostageImprov\host_improv.zip") -Label "CS:CZ hostage AI for CS 1.6"

@@ -282,6 +282,14 @@ powershell -ExecutionPolicy Bypass -File scripts/install/modcsbr-steam-windows.p
 
 Suppress only one extra with `-DisableZBot` or `-DisableHostageAI`.
 
+To copy every local file from `mod\modcsbr` into the installed Steam mod folder, run:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/install/modcsbr-steam-windows.ps1 -FullModCopy
+```
+
+Use this when local mod assets under directories such as `models`, `resource`, `sound`, or `sprites` must replace the installed files.
+
 The installer detects Steam from the Windows registry and Steam library folders. It expects the Half-Life folder to contain:
 
 ```text

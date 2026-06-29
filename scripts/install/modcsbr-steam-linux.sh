@@ -208,12 +208,6 @@ if [ -f "$ROOT_DIR/mod/modcsbr/game_init.cfg" ]; then
 	cp "$ROOT_DIR/mod/modcsbr/game_init.cfg" "$DEST_DIR/game_init.cfg"
 fi
 
-if [ -f "$ROOT_DIR/mod/modcsbr/dlls/cs.so" ]; then
-	cp "$ROOT_DIR/mod/modcsbr/dlls/cs.so" "$DEST_DIR/dlls/cs.so"
-else
-	printf 'Warning: %s does not exist yet. Build first with scripts/build/regamedll-linux.sh.\n' "$ROOT_DIR/mod/modcsbr/dlls/cs.so" >&2
-fi
-
 for entry in cl_dlls events gfx maps media models overviews resource sound sprites; do
 	install_entry_if_exists "$CSTRIKE_DIR/$entry" "$DEST_DIR/$entry"
 done
@@ -224,6 +218,13 @@ done
 
 install_settings_script_if_needed "$CSTRIKE_DIR/settings.scr" "$DEST_DIR/settings.scr"
 copy_full_local_mod_if_enabled
+
+mkdir -p "$DEST_DIR/dlls"
+if [ -f "$ROOT_DIR/mod/modcsbr/dlls/cs.so" ]; then
+	cp "$ROOT_DIR/mod/modcsbr/dlls/cs.so" "$DEST_DIR/dlls/cs.so"
+else
+	printf 'Warning: %s does not exist yet. Build first with scripts/build/regamedll-linux.sh.\n' "$ROOT_DIR/mod/modcsbr/dlls/cs.so" >&2
+fi
 
 extract_regamedll_extra_if_enabled "$MODCSBR_ENABLE_ZBOT" "$UPSTREAM_DIR/regamedll/extra/zBot/bot_profiles.zip" "zBot for CS 1.6"
 extract_regamedll_extra_if_enabled "$MODCSBR_ENABLE_HOSTAGE_AI" "$UPSTREAM_DIR/regamedll/extra/HostageImprov/host_improv.zip" "CS:CZ hostage AI for CS 1.6"
