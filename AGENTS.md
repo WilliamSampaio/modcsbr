@@ -12,6 +12,7 @@ This repository is for `modcsbr`, a Counter-Strike 1.6 / GoldSrc custom mod base
 - Use 32-bit x86 for all GameDLL builds. Do not use x64 for Steam CS 1.6 / GoldSrc.
 - Keep builds on the Linux ext4 filesystem. This machine's repo is expected at `/home/william/modcsbr` on `/dev/sdd`; avoid `/mnt/c` for C/C++ builds.
 - Windows is supported as an editor/MSVC diagnostic environment from `C:\dev\modcsbr`; do not treat Windows `mp.dll` builds as the canonical Linux `cs.so` baseline.
+- Every repository change must update the relevant project documentation in the same turn: `CHANGELOG.md`, `README.md`, docs under `docs/`, and `AGENTS.md` when agent instructions, paths, workflows, or rules change.
 
 ## Important Paths
 
