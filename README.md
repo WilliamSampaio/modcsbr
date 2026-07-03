@@ -15,6 +15,8 @@ The old Steam/GoldSrc launch workflow is not supported. The only supported runti
 runtime/xash3d/xash3d.exe -game modcsbr
 ```
 
+Do not use `runtime/xash3d/xash3d.exe -game cstrike` as a project smoke test. The generated `runtime/xash3d/cstrike` folder is an asset base copied from Steam; its stock `cl_dlls/client.dll` can assert on Steam GameUI state when loaded directly by Xash3D.
+
 ## Status
 
 This repository is being prepared for public collaboration. The current focus is getting a clean Windows Xash3D baseline before gameplay and asset changes grow.
@@ -174,6 +176,12 @@ If Xash3D reports `MenuFactory` is unavailable, rebuild CS16Client and confirm:
 
 ```powershell
 Test-Path runtime\xash3d\modcsbr\cl_dlls\menu.dll
+```
+
+If launching `runtime\xash3d\xash3d.exe -game cstrike` opens a Microsoft Visual C++ assertion dialog for `g_hGameUIModule`, switch back to the supported mod launch path:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/test/launch-modcsbr-xash3d-windows.ps1
 ```
 
 If `cl`, `msbuild`, or `cmake` are missing, reopen the project from Developer PowerShell and confirm the Visual Studio Installer components listed above are installed.

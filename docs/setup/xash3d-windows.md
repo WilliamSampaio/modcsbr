@@ -66,7 +66,7 @@ runtime/xash3d/valve/gfx.wad
 
 If `valve` already exists because it came with the Xash3D package, the installer merges the Steam `valve` files into it instead of skipping the folder.
 
-The installer also copies `steam_api.dll` from the Steam Half-Life folder into the Xash3D root. This is mainly for stock `-game cstrike` smoke tests, because the original Steam `cstrike\cl_dlls\client.dll` expects that DLL beside the engine executable.
+The installer also copies `steam_api.dll` from the Steam Half-Life folder into the Xash3D root for compatibility with copied Steam assets. This does not make stock `-game cstrike` a supported launch target.
 
 The installed `modcsbr` folder is also seeded from the Steam `cstrike` folder before repository mod files and compiled DLLs are applied. This gives the local Xash runtime a complete Counter-Strike-derived mod folder while keeping Steam-owned assets under ignored `runtime/` instead of committing them to Git.
 
@@ -162,6 +162,8 @@ Equivalent command:
 xash3d.exe -game modcsbr -console -dev
 ```
 
+Do not use `xash3d.exe -game cstrike` as a project smoke test. The copied Steam `cstrike` folder is present so `modcsbr` can inherit legal base assets; its stock `cl_dlls/client.dll` can assert on missing Steam GameUI state when loaded directly under Xash3D.
+
 ## Notes
 
 - Keep all runtime binaries under `runtime/xash3d` or another ignored directory.
@@ -196,4 +198,10 @@ powershell -ExecutionPolicy Bypass -File scripts/build/cs16-client-windows.ps1 -
 powershell -ExecutionPolicy Bypass -File scripts/install/modcsbr-xash3d-windows.ps1
 ```
 
-If stock Counter-Strike fails with `can't initialize cl_dlls/client.dll` and `steam_api.dll not found`, reinstall after setting `HALF_LIFE_DIR` to the Steam Half-Life folder. The active mod launch should still use `-game modcsbr`; `-game cstrike` loads the stock Steam CS client DLL.
+If stock Counter-Strike launched with `-game cstrike` opens a Microsoft Visual C++ assertion dialog for `g_hGameUIModule`, close it and use the supported mod launch path instead:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/test/launch-modcsbr-xash3d-windows.ps1
+```
+
+That assertion comes from the copied Steam `cstrike\cl_dlls\client.dll`, not from CS16Client or the `modcsbr` runtime.

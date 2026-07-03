@@ -17,6 +17,7 @@ This repository is for `modcsbr`, a Counter-Strike 1.6 / GoldSrc-family custom m
 - Windows build docs should mention the Visual Studio Installer `Desktop development with C++` workload plus MSBuild, latest MSVC x64/x86 build tools, Windows 11 SDK, CMake tools, C++ test tools, MSVC AddressSanitizer, and vcpkg.
 - Windows CS16Client build docs should also mention Python 3 as `python` in PATH or `py -3` because its CMake configure step requires a Python interpreter.
 - Active runtime target is Windows Xash3D FWGS from `C:\dev\modcsbr`; do not reintroduce Steam/GoldSrc install or launch workflows.
+- Do not use stock `-game cstrike` as a supported Xash3D smoke test; the copied Steam CS client DLL can assert on Steam GameUI state under Xash3D.
 - The initial engine plan uses official Xash3D FWGS binaries under `runtime/xash3d`; build the engine from source only when binaries are insufficient.
 - Keep CS16Client's `menu.dll` installed beside `client.dll` in `cl_dlls`; Xash3D FWGS MainUI expects that layout for `MenuFactory`.
 - Generate the Xash3D `modcsbr` runtime folder by copying the Steam `cstrike` base first, then overlaying repository mod files and compiled DLLs.

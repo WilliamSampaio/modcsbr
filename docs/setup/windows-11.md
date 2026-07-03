@@ -395,6 +395,8 @@ powershell -ExecutionPolicy Bypass -File scripts/install/modcsbr-xash3d-windows.
 
 The installer creates a local ignored runtime under `runtime\xash3d`. It copies Steam `valve` and `cstrike` assets, copies `steam_api.dll` to the runtime root, seeds `runtime\xash3d\modcsbr` from the full Steam `cstrike` folder, then overlays repository mod files and compiled DLLs.
 
+The copied `runtime\xash3d\cstrike` folder is an asset base, not a supported launch target. Use `-game modcsbr`; stock `-game cstrike` can load the Steam CS client DLL directly and assert on missing Steam GameUI state under Xash3D.
+
 Recreate the generated mod folder from scratch:
 
 ```powershell
@@ -482,3 +484,5 @@ If `xash3d.exe` is not found:
 
 - extract official Xash3D FWGS Windows binaries into `runtime\xash3d`;
 - or set `XASH3D_DIR` to the engine directory.
+
+If `runtime\xash3d\xash3d.exe -game cstrike` shows a Microsoft Visual C++ assertion for `g_hGameUIModule`, use the supported `modcsbr` launcher instead. The assertion comes from the stock Steam CS client DLL, while `modcsbr` uses CS16Client's `client.dll` and `menu.dll`.
