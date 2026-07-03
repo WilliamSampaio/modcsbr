@@ -25,6 +25,8 @@ runtime/xash3d/
   modcsbr/
     stock cstrike assets copied locally
     liblist.gam
+    resource/mainui_english.txt
+    resource/modcsbr_english.txt
     cl_dlls/client.dll
     cl_dlls/menu.dll
     dlls/mp.dll
@@ -67,6 +69,8 @@ If `valve` already exists because it came with the Xash3D package, the installer
 The installer also copies `steam_api.dll` from the Steam Half-Life folder into the Xash3D root. This is mainly for stock `-game cstrike` smoke tests, because the original Steam `cstrike\cl_dlls\client.dll` expects that DLL beside the engine executable.
 
 The installed `modcsbr` folder is also seeded from the Steam `cstrike` folder before repository mod files and compiled DLLs are applied. This gives the local Xash runtime a complete Counter-Strike-derived mod folder while keeping Steam-owned assets under ignored `runtime/` instead of committing them to Git.
+
+The repository overlay includes minimal `resource/mainui_english.txt` and `resource/modcsbr_english.txt` dictionaries. CS16Client and MainUI probe those mod-owned files during startup; keeping valid empty dictionaries in the overlay avoids missing-localization warnings while still relying on the copied legal Steam assets for stock Counter-Strike text.
 
 By default assets are copied into the Xash3D runtime. To use directory junctions instead:
 

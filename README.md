@@ -118,12 +118,15 @@ runtime/xash3d/
   modcsbr/
     base copied from cstrike
     files overlaid from mod/modcsbr
+    resource/mainui_english.txt
+    resource/modcsbr_english.txt
     cl_dlls/client.dll
     cl_dlls/menu.dll
     dlls/mp.dll
 ```
 
 `menu.dll` must stay beside `client.dll`; Xash3D FWGS MainUI expects that layout for `MenuFactory`.
+The mod-owned localization files are intentionally small placeholder dictionaries. They silence CS16Client/MainUI missing-file warnings without committing Valve-owned text resources.
 
 ## Repository Layout
 
