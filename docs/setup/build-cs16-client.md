@@ -44,6 +44,8 @@ powershell -ExecutionPolicy Bypass -File scripts/build/cs16-client-windows.ps1 -
 
 `-UpdateSubmodules` initializes the nested CS16Client dependencies under `upstream\cs16-client\3rdparty`, including YaPB, ReGameDLL_CS, MainUI, and MiniUTL.
 
+The nested `upstream\cs16-client\3rdparty\ReGameDLL_CS` checkout is part of CS16Client's dependency graph. It should not be treated as the authoritative `modcsbr` server GameDLL; custom server work belongs in the top-level `upstream\ReGameDLL_CS` submodule.
+
 If you prefer to update them manually:
 
 ```powershell

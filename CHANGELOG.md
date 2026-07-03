@@ -20,3 +20,4 @@ All notable project changes will be documented here.
 - Updated CS16Client MainUI so `New Game` opens local match creation with map selection and bot count for `modcsbr`.
 - Documented the CS16Client Python 3 build dependency and added earlier Windows environment/build checks for `python` or `py -3`.
 - Added mod-owned `mainui_english.txt` and `modcsbr_english.txt` localization placeholders so CS16Client/MainUI stop warning about missing language dictionaries at launch.
+- Clarified that CS16Client's nested `3rdparty/ReGameDLL_CS` submodule is a client build dependency, while `upstream/ReGameDLL_CS` remains the authoritative mod server GameDLL.

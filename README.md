@@ -137,10 +137,12 @@ scripts/build/                Windows build wrappers
 scripts/install/              Xash3D runtime installer
 scripts/test/                 environment and launch checks
 upstream/ReGameDLL_CS/        server GameDLL submodule
-upstream/cs16-client/         client DLL submodule
+upstream/cs16-client/         client DLL submodule with nested 3rdparty build dependencies
 docs/                         setup and architecture notes
 specs/                        spec-driven planning
 ```
+
+The nested `upstream/cs16-client/3rdparty/ReGameDLL_CS` checkout belongs to the CS16Client build. Server GameDLL work for `modcsbr` should stay in the top-level `upstream/ReGameDLL_CS` submodule.
 
 ## Documentation
 

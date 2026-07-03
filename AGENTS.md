@@ -8,6 +8,7 @@ This repository is for `modcsbr`, a Counter-Strike 1.6 / GoldSrc-family custom m
 
 - Keep `upstream/ReGameDLL_CS` as the server GameDLL submodule from `https://github.com/WilliamSampaio/ReGameDLL_CS.git`, tracking branch `modcsbr` for mod-specific work.
 - Keep `upstream/cs16-client` as the client DLL submodule from `https://github.com/WilliamSampaio/cs16-client.git`, tracking branch `modcsbr` for mod-specific work.
+- Treat `upstream/cs16-client/3rdparty/ReGameDLL_CS` as a nested CS16Client build dependency, not as the authoritative server GameDLL working tree for this repo.
 - Treat `rehlds/ReGameDLL_CS` and `Velaron/cs16-client` as original upstream projects, not as the direct working remotes for this repo.
 - Keep `runtime/xash3d` as a local, ignored working directory; do not commit downloaded engine/runtime binaries.
 - Keep Steam-owned `valve`/`cstrike` assets and the generated full `runtime/xash3d/modcsbr` copy local and ignored; do not commit Valve/Counter-Strike assets.
