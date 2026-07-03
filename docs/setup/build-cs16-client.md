@@ -7,6 +7,7 @@ This document records the planned Windows build path for the `WilliamSampaio/cs1
 - Operating system: Windows 11
 - Toolchain: Visual Studio Build Tools / Visual Studio Installer with C++ support
 - Build system: CMake
+- Scripting dependency: Python 3 available as `python` in PATH, or through the Python launcher as `py -3`
 - Platform: Win32/x86
 - Output: `client.dll` and `menu.dll`
 
@@ -98,3 +99,14 @@ runtime/xash3d/modcsbr/cl_dlls/menu.dll
 ```
 
 If Xash3D shows `Error: native object "MenuFactory" is unavailable`, rebuild the CS16Client target and reinstall the Xash runtime. That warning usually means the CS16Client `menu.dll` is missing from `modcsbr\cl_dlls` next to `client.dll`.
+
+The CS16Client MainUI is customized for `modcsbr`: the main menu `New Game` entry opens the local game creation screen, and that screen includes map selection plus a bot count field backed by ReGameDLL_CS `bot_quota`.
+
+If CMake reports that Python is missing, install Python 3 and verify one of:
+
+```powershell
+python --version
+py -3 --version
+```
+
+Expected result: `Python 3.x.x`. If Windows opens the Microsoft Store or resolves `python` to `WindowsApps\python.exe`, disable the app execution aliases for `python.exe` and `python3.exe`.

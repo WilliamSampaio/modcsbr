@@ -41,6 +41,7 @@ Do not commit generated runtime files, engine binaries, or Valve/Counter-Strike 
 - VS Code.
 - Visual Studio Build Tools / Visual Studio Installer with the `Desktop development with C++` workload.
 - CMake from the Visual Studio C++ workload.
+- Python 3 available as `python` in PATH, or through the Python launcher as `py -3`.
 - Official Xash3D FWGS Windows binaries extracted into `runtime/xash3d`.
 - Steam Half-Life / Counter-Strike 1.6 installed locally.
 
@@ -101,6 +102,8 @@ Launch:
 ```powershell
 powershell -ExecutionPolicy Bypass -File scripts/test/launch-modcsbr-xash3d-windows.ps1
 ```
+
+In the main menu, use `New Game` to create a local match. That screen lets you select a map, set max players, and set the bot count.
 
 ## Runtime Layout
 
@@ -169,3 +172,5 @@ Test-Path runtime\xash3d\modcsbr\cl_dlls\menu.dll
 ```
 
 If `cl`, `msbuild`, or `cmake` are missing, reopen the project from Developer PowerShell and confirm the Visual Studio Installer components listed above are installed.
+
+If the CS16Client build reports that Python is missing, install Python 3 with `Add python.exe to PATH` or the Python launcher enabled. If `python --version` points at `WindowsApps\python.exe` or opens the Microsoft Store, disable the Windows app execution aliases for `python.exe` and `python3.exe`.

@@ -41,6 +41,34 @@ function Test-Command {
     return $false
 }
 
+function Resolve-PythonExecutable {
+    $pythonCmd = Get-Command python -ErrorAction SilentlyContinue
+    if ($pythonCmd -and $pythonCmd.Source -notlike "*\WindowsApps\python.exe") {
+        try {
+            $version = & $pythonCmd.Source --version 2>&1
+            if ($LASTEXITCODE -eq 0 -and $version -match "^Python 3\.") {
+                return $pythonCmd.Source
+            }
+        }
+        catch {
+        }
+    }
+
+    $pyCmd = Get-Command py -ErrorAction SilentlyContinue
+    if ($pyCmd) {
+        try {
+            $candidate = & py -3 -c "import sys; print(sys.executable)" 2>$null | Select-Object -First 1
+            if ($LASTEXITCODE -eq 0 -and $candidate -and (Test-Path $candidate)) {
+                return $candidate
+            }
+        }
+        catch {
+        }
+    }
+
+    return $null
+}
+
 if ($IsWindows -or $env:OS -eq "Windows_NT") {
     Write-Ok "running on Windows"
 }
@@ -67,6 +95,15 @@ $null = Test-Command "code" "Install VS Code and enable the code command in PATH
 $null = Test-Command "cmake" "Install Visual Studio C++ tools with CMake support."
 $hasCl = Test-Command "cl" "Open Developer PowerShell for Visual Studio, then run this script again."
 $hasMsbuild = Test-Command "msbuild" "Install Visual Studio C++ tools with MSBuild, then open Developer PowerShell for Visual Studio."
+
+$pythonExecutable = Resolve-PythonExecutable
+if ($pythonExecutable) {
+    $pythonVersion = & $pythonExecutable --version 2>&1
+    Write-Ok "$pythonVersion at $pythonExecutable"
+}
+else {
+    Write-Fail "Python 3 was not found. Install Python 3 with Add python.exe to PATH enabled, or install the Python launcher so py -3 works. Disable the WindowsApps python.exe/python3.exe aliases if they shadow the real interpreter."
+}
 
 if ($hasCl) {
     $clPath = (Get-Command cl).Source

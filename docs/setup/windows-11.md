@@ -13,6 +13,7 @@ Configure Windows 11 so VS Code can:
 - run `cl.exe`;
 - run `msbuild.exe`;
 - run `cmake.exe`;
+- run `python.exe`;
 - build ReGameDLL_CS as `Release | Win32`;
 - build CS16Client as `Release | Win32`;
 - launch `modcsbr` through Xash3D FWGS.
@@ -92,7 +93,55 @@ In `Installation details`, make sure these optional components are selected:
 
 You do not need ATL, MFC, C++/CLI, Clang, or older MSVC toolsets unless a future upstream dependency explicitly requires them.
 
-## 4. Open Developer PowerShell
+## 4. Install Python 3
+
+CS16Client's CMake configure step requires a Python interpreter.
+
+Install Python 3 from:
+
+```text
+https://www.python.org/downloads/windows/
+```
+
+During installation, enable:
+
+```text
+Add python.exe to PATH
+py launcher
+```
+
+Open a new PowerShell and verify:
+
+```powershell
+python --version
+```
+
+Expected result:
+
+```text
+Python 3.x.x
+```
+
+This is also valid:
+
+```powershell
+py -3 --version
+```
+
+If Windows opens the Microsoft Store or resolves `python` to `WindowsApps\python.exe`, disable the Windows app execution aliases:
+
+```text
+Settings > Apps > Advanced app settings > App execution aliases
+```
+
+Turn off the aliases for:
+
+```text
+python.exe
+python3.exe
+```
+
+## 5. Open Developer PowerShell
 
 Open the Visual Studio developer shell from the Start Menu. Depending on the installed version it may be named like:
 
@@ -124,7 +173,15 @@ msbuild -version
 
 Expected result: a version number.
 
-## 5. Open This Project In VS Code
+Verify Python:
+
+```powershell
+python --version
+```
+
+Expected result: `Python 3.x.x`. If you installed only the Python launcher, verify `py -3 --version` instead.
+
+## 6. Open This Project In VS Code
 
 Still inside Developer PowerShell for Visual Studio, run:
 
@@ -146,9 +203,10 @@ Verify again:
 ```powershell
 cl
 msbuild -version
+python --version
 ```
 
-## 6. Install Recommended VS Code Extensions
+## 7. Install Recommended VS Code Extensions
 
 VS Code should detect `.vscode/extensions.json` and suggest the recommended extensions.
 
@@ -165,7 +223,7 @@ If the popup does not appear, open:
 Extensions > Filter > Recommended
 ```
 
-## 7. Check C/C++ IntelliSense
+## 8. Check C/C++ IntelliSense
 
 The project already has `.vscode/settings.json` configured for:
 
@@ -182,7 +240,7 @@ After `upstream/ReGameDLL_CS` is added, open a `.cpp` file from that folder and 
 - right-click `Go to Definition` works;
 - include errors are not shown for standard/MSVC headers.
 
-## 8. Optional Smoke Test
+## 9. Optional Smoke Test
 
 Use this only to confirm the compiler is working outside ReGameDLL.
 
@@ -223,7 +281,7 @@ Expected output:
 MSVC is working
 ```
 
-## 9. Build ReGameDLL_CS From VS Code
+## 10. Build ReGameDLL_CS From VS Code
 
 After `upstream/ReGameDLL_CS` exists, run:
 
@@ -269,7 +327,7 @@ The wrapper copies the newest `mp.dll` into:
 mod\modcsbr\dlls\mp.dll
 ```
 
-## 10. Build CS16Client From VS Code
+## 11. Build CS16Client From VS Code
 
 Initialize the client submodule from the `WilliamSampaio/cs16-client` fork:
 
@@ -315,7 +373,7 @@ powershell -ExecutionPolicy Bypass -File scripts/test/check-windows-environment.
 
 If PowerShell says the `.ps1` file is not digitally signed, keep using the commands above with `-ExecutionPolicy Bypass -File`. This bypass applies only to that process and does not change the machine-wide execution policy.
 
-## 11. Install And Launch With Xash3D FWGS
+## 12. Install And Launch With Xash3D FWGS
 
 Put official Xash3D FWGS Windows binaries in:
 
@@ -412,6 +470,13 @@ If `cmake` is not found:
 
 - install the Visual Studio "C++ CMake tools for Windows" component;
 - reopen Developer PowerShell for Visual Studio.
+
+If the CS16Client build reports that Python is missing:
+
+- install Python 3 with `Add python.exe to PATH` or the Python launcher enabled;
+- reopen Developer PowerShell for Visual Studio;
+- verify `python --version` or `py -3 --version` prints `Python 3.x.x`;
+- disable the Windows app execution aliases for `python.exe` and `python3.exe` if `python` resolves to `WindowsApps\python.exe`.
 
 If `xash3d.exe` is not found:
 

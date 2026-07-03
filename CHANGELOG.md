@@ -17,3 +17,5 @@ All notable project changes will be documented here.
 - Updated Windows environment checks, VS Code tasks, setup docs, architecture docs, specs, and agent notes for the Xash3D-only workflow.
 - Documented the Visual Studio Installer workload/components used for Windows builds.
 - Optimized the README for public GitHub contributors with a shorter quick start, legal asset notice, and contribution guidance.
+- Updated CS16Client MainUI so `New Game` opens local match creation with map selection and bot count for `modcsbr`.
+- Documented the CS16Client Python 3 build dependency and added earlier Windows environment/build checks for `python` or `py -3`.

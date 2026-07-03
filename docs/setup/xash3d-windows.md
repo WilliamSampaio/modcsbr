@@ -144,6 +144,8 @@ Launch:
 powershell -ExecutionPolicy Bypass -File scripts/test/launch-modcsbr-xash3d-windows.ps1
 ```
 
+Use `New Game` in the main menu to create a local match, choose a map, and set the bot count. The same creation screen is also available from `Multiplayer > Create game`.
+
 Launch directly into a map:
 
 ```powershell

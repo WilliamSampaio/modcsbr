@@ -77,14 +77,50 @@ if (-not (Get-Command cmake -ErrorAction SilentlyContinue)) {
     Write-Error "cmake was not found. Install Visual Studio C++ tools with CMake support, then open Developer PowerShell for Visual Studio."
 }
 
+function Resolve-PythonExecutable {
+    $pythonCmd = Get-Command python -ErrorAction SilentlyContinue
+    if ($pythonCmd -and $pythonCmd.Source -notlike "*\WindowsApps\python.exe") {
+        try {
+            $version = & $pythonCmd.Source --version 2>&1
+            if ($LASTEXITCODE -eq 0 -and $version -match "^Python 3\.") {
+                return $pythonCmd.Source
+            }
+        }
+        catch {
+        }
+    }
+
+    $pyCmd = Get-Command py -ErrorAction SilentlyContinue
+    if ($pyCmd) {
+        try {
+            $candidate = & py -3 -c "import sys; print(sys.executable)" 2>$null | Select-Object -First 1
+            if ($LASTEXITCODE -eq 0 -and $candidate -and (Test-Path $candidate)) {
+                return $candidate
+            }
+        }
+        catch {
+        }
+    }
+
+    return $null
+}
+
+$pythonExecutable = Resolve-PythonExecutable
+if (-not $pythonExecutable) {
+    Write-Error "Python 3 was not found. Install Python 3 with 'Add python.exe to PATH' enabled, or install the Python launcher so 'py -3' works. If python resolves to WindowsApps, disable the python.exe/python3.exe app execution aliases."
+}
+
+$pythonVersion = & $pythonExecutable --version 2>&1
+
 Write-Host "Configuring CS16Client..."
 Write-Host "Source: $SourceDir"
 Write-Host "Build: $BuildDir"
 Write-Host "Install: $InstallDir"
 Write-Host "Configuration: $Configuration"
 Write-Host "Platform: $Platform"
+Write-Host "Python: $pythonExecutable ($pythonVersion)"
 
-& cmake -A $Platform -S $SourceDir -B $BuildDir
+& cmake -A $Platform -S $SourceDir -B $BuildDir "-DPython_EXECUTABLE:FILEPATH=$pythonExecutable"
 if ($LASTEXITCODE -ne 0) {
     exit $LASTEXITCODE
 }
