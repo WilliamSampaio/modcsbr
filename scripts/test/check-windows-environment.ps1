@@ -2,6 +2,8 @@ $ErrorActionPreference = "Stop"
 
 $rootDir = Resolve-Path (Join-Path $PSScriptRoot "..\..")
 $upstreamDir = Join-Path $rootDir "upstream\ReGameDLL_CS"
+$cs16ClientDir = Join-Path $rootDir "upstream\cs16-client"
+$xashDir = if ($env:XASH3D_DIR) { $env:XASH3D_DIR } else { Join-Path $rootDir "runtime\xash3d" }
 $solutionPath = Join-Path $upstreamDir "msvc\ReGameDLL.sln"
 $settingsPath = Join-Path $rootDir ".vscode\settings.json"
 
@@ -62,6 +64,7 @@ else {
 
 $null = Test-Command "git" "Install Git for Windows."
 $null = Test-Command "code" "Install VS Code and enable the code command in PATH."
+$null = Test-Command "cmake" "Install Visual Studio C++ tools with CMake support."
 $hasCl = Test-Command "cl" "Open Developer PowerShell for VS 2022, then run this script again."
 $hasMsbuild = Test-Command "msbuild" "Install Visual Studio C++ tools with MSBuild, then open Developer PowerShell for VS 2022."
 
@@ -109,7 +112,22 @@ else {
 }
 
 Write-Host ""
-Write-Host "Note: Windows is for editor/MSVC diagnostics. Build the canonical Linux GameDLL with scripts/build/regamedll-linux.sh from the Linux ext4 checkout."
+if (Test-Path $cs16ClientDir) {
+    Write-Ok "found external cs16-client source"
+}
+else {
+    Write-Warn "missing upstream\cs16-client. Run: git submodule sync --recursive; git submodule update --init --recursive"
+}
+
+if (Test-Path (Join-Path $xashDir "xash3d.exe")) {
+    Write-Ok "found Xash3D FWGS executable at $(Join-Path $xashDir 'xash3d.exe')"
+}
+else {
+    Write-Warn "missing xash3d.exe. Put official Xash3D FWGS Windows binaries in $xashDir or set XASH3D_DIR."
+}
+
+Write-Host ""
+Write-Host "Note: Windows Xash3D FWGS is the active runtime path. Build server with scripts/build/regamedll-windows.ps1, build client with scripts/build/cs16-client-windows.ps1, then launch with scripts/test/launch-modcsbr-xash3d-windows.ps1."
 
 if ($hasError) {
     exit 1

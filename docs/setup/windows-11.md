@@ -1,8 +1,8 @@
 # Windows 11 C/C++ Development Setup
 
-This project uses Visual Studio's MSVC toolchain for Windows diagnostics and VS Code as the editor.
+This project uses Visual Studio's MSVC toolchain for Windows builds and VS Code as the editor.
 
-The canonical `modcsbr` GameDLL is still the Linux 32-bit `cs.so` built from the Linux ext4 checkout. Windows builds are useful for IntelliSense, compiler smoke checks, and upstream `Release | Win32` diagnostics.
+The active initial runtime is Xash3D FWGS on Windows. Windows builds produce the server `mp.dll` from ReGameDLL_CS and the client `client.dll` from CS16Client.
 
 ## Goal
 
@@ -12,9 +12,12 @@ Configure Windows 11 so VS Code can:
 - find MSVC headers and libraries;
 - run `cl.exe`;
 - run `msbuild.exe`;
-- optionally build ReGameDLL_CS as `Release | Win32`.
+- run `cmake.exe`;
+- build ReGameDLL_CS as `Release | Win32`;
+- build CS16Client as `Release | Win32`;
+- launch `modcsbr` through Xash3D FWGS.
 
-The Windows build normally produces `mp.dll`; do not copy it over `mod/modcsbr/dlls/cs.so`.
+The Windows server build produces `mod/modcsbr/dlls/mp.dll`. The Linux `cs.so` path is retained only for legacy Steam tests.
 
 ## 1. Install Git
 
@@ -210,6 +213,13 @@ MSVC is working
 
 After `upstream/ReGameDLL_CS` exists, run:
 
+```powershell
+git submodule sync --recursive
+git submodule update --init --recursive
+```
+
+Then run:
+
 ```text
 Terminal > Run Build Task
 ```
@@ -239,6 +249,49 @@ You can run the same build from Developer PowerShell:
 powershell -ExecutionPolicy Bypass -File scripts/build/regamedll-windows.ps1
 ```
 
+The wrapper copies the newest `mp.dll` into:
+
+```text
+mod\modcsbr\dlls\mp.dll
+```
+
+## 10. Build CS16Client From VS Code
+
+Initialize the client submodule from the `WilliamSampaio/cs16-client` fork:
+
+```powershell
+git submodule sync --recursive
+git submodule update --init --recursive
+```
+
+The submodule lives at `upstream\cs16-client` and tracks branch `modcsbr`.
+
+Run:
+
+```text
+Terminal > Run Build Task
+```
+
+Select:
+
+```text
+CS16Client: build Windows Release Win32
+```
+
+Or run directly:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/build/cs16-client-windows.ps1 -UpdateSubmodules
+```
+
+`-UpdateSubmodules` fills the nested `upstream\cs16-client\3rdparty` dependencies required by CMake.
+
+The wrapper copies the newest `client.dll` into:
+
+```text
+mod\modcsbr\cl_dlls\client.dll
+```
+
 For a quick environment check:
 
 ```powershell
@@ -247,9 +300,60 @@ powershell -ExecutionPolicy Bypass -File scripts/test/check-windows-environment.
 
 If PowerShell says the `.ps1` file is not digitally signed, keep using the commands above with `-ExecutionPolicy Bypass -File`. This bypass applies only to that process and does not change the machine-wide execution policy.
 
-## 10. Install And Launch The Mod
+## 11. Install And Launch With Xash3D FWGS
 
-After the Windows diagnostic build produces `mp.dll`, install the mod into the Steam Half-Life folder:
+Put official Xash3D FWGS Windows binaries in:
+
+```text
+runtime\xash3d
+```
+
+The folder should contain:
+
+```text
+xash3d.exe
+```
+
+Install:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/install/modcsbr-xash3d-windows.ps1
+```
+
+Validate the launch command without opening the game:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/test/launch-modcsbr-xash3d-windows.ps1 -NoLaunch
+```
+
+Launch:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/test/launch-modcsbr-xash3d-windows.ps1
+```
+
+Use a custom Xash3D path with:
+
+```powershell
+$env:XASH3D_DIR = "D:\Games\xash3d-fwgs"
+```
+
+Use a custom Steam Half-Life asset path with:
+
+```powershell
+$env:HALF_LIFE_DIR = "D:\SteamLibrary\steamapps\common\Half-Life"
+```
+
+See:
+
+```text
+docs/setup/xash3d-windows.md
+docs/setup/build-cs16-client.md
+```
+
+## 12. Legacy Steam Install And Launch
+
+After the Windows server build produces `mp.dll`, install the mod into the Steam Half-Life folder:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File scripts/install/modcsbr-steam-windows.ps1
@@ -364,3 +468,13 @@ If MSBuild reports `MSB8020` for `v143` on Visual Studio Build Tools 18:
 
 - keep using the wrapper; it should auto-detect `v145`;
 - run `scripts/test/check-windows-environment.ps1` to confirm the toolchain path if the error persists.
+
+If `cmake` is not found:
+
+- install the Visual Studio "C++ CMake tools for Windows" component;
+- reopen Developer PowerShell for VS 2022.
+
+If `xash3d.exe` is not found:
+
+- extract official Xash3D FWGS Windows binaries into `runtime\xash3d`;
+- or set `XASH3D_DIR` to the engine directory.

@@ -15,6 +15,7 @@ $ErrorActionPreference = "Stop"
 $rootDir = Resolve-Path (Join-Path $PSScriptRoot "..\..")
 $upstreamDir = Join-Path $rootDir "upstream\ReGameDLL_CS"
 $solutionPath = Join-Path $upstreamDir "msvc\ReGameDLL.sln"
+$modDllDir = Join-Path $rootDir "mod\modcsbr\dlls"
 
 if (-not (Test-Path $solutionPath)) {
     Write-Error "Missing upstream solution: $solutionPath. Run: git submodule update --init --recursive"
@@ -82,9 +83,12 @@ $artifact = Get-ChildItem -Path $upstreamDir -Recurse -File -Filter "mp.dll" |
 
 if ($artifact) {
     Write-Host "Built: $($artifact.FullName)"
+    New-Item -ItemType Directory -Path $modDllDir -Force | Out-Null
+    Copy-Item -LiteralPath $artifact.FullName -Destination (Join-Path $modDllDir "mp.dll") -Force
+    Write-Host "Copied: $(Join-Path $modDllDir 'mp.dll')"
 }
 else {
     Write-Warning "Build finished, but mp.dll was not found under $upstreamDir."
 }
 
-Write-Host "Windows builds are diagnostic only. Keep mod/modcsbr/dlls/cs.so produced by scripts/build/regamedll-linux.sh."
+Write-Host "Windows Xash3D FWGS runtime uses mod/modcsbr/dlls/mp.dll. Linux Steam legacy tests still use mod/modcsbr/dlls/cs.so."

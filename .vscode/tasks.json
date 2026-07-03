@@ -33,6 +33,27 @@
       "detail": "Checks Git, VS Code, MSVC, MSBuild, and ReGameDLL_CS paths on Windows."
     },
     {
+      "label": "CS16Client: build Windows Release Win32",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}/scripts/build/cs16-client-windows.ps1",
+        "-Configuration",
+        "Release",
+        "-Platform",
+        "Win32"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build",
+      "problemMatcher": "$msCompile",
+      "detail": "Builds WilliamSampaio/cs16-client branch modcsbr as Release | Win32 and copies client.dll into mod/modcsbr/cl_dlls."
+    },
+    {
       "label": "ReGameDLL: build Windows Release Win32",
       "type": "shell",
       "command": "powershell",
@@ -51,7 +72,41 @@
       },
       "group": "build",
       "problemMatcher": "$msCompile",
-      "detail": "Builds upstream ReGameDLL_CS with MSBuild as Release | Win32 for Windows diagnostics."
+      "detail": "Builds upstream ReGameDLL_CS with MSBuild as Release | Win32 and copies mp.dll into mod/modcsbr/dlls."
+    },
+    {
+      "label": "modcsbr: install into Xash3D FWGS Windows",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}/scripts/install/modcsbr-xash3d-windows.ps1"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build",
+      "problemMatcher": [],
+      "detail": "Installs mod files, client.dll, mp.dll, and Steam-owned base assets into runtime/xash3d."
+    },
+    {
+      "label": "modcsbr: launch Xash3D FWGS Windows",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}/scripts/test/launch-modcsbr-xash3d-windows.ps1"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build",
+      "problemMatcher": [],
+      "detail": "Installs and launches Xash3D FWGS with -game modcsbr on Windows."
     },
     {
       "label": "modcsbr: install into Steam CS 1.6 Windows",

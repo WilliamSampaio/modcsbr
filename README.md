@@ -1,14 +1,17 @@
 # modcsbr
 
-`modcsbr` e o nome temporario do nosso mod de Counter-Strike 1.6 baseado no ReGameDLL_CS.
+`modcsbr` e o nome temporario do nosso mod de Counter-Strike 1.6 para Xash3D FWGS, usando CS16Client no lado cliente e ReGameDLL_CS no lado servidor.
 
-A ideia e simples:
+A rota atual e simples:
 
-1. pegar o codigo original do ReGameDLL_CS;
-2. compilar a biblioteca Linux `cs.so`;
-3. instalar essa biblioteca como um mod separado chamado `modcsbr`;
-4. abrir o Counter-Strike 1.6 da Steam usando esse mod;
-5. so depois disso comecar a alterar codigo.
+1. usar binarios oficiais do Xash3D FWGS como runtime inicial;
+2. usar assets legais do Half-Life/Counter-Strike 1.6 da Steam (`valve` e `cstrike`);
+3. compilar o server GameDLL do ReGameDLL_CS como `mp.dll` Win32;
+4. compilar o client do fork `WilliamSampaio/cs16-client` como `client.dll` Win32;
+5. instalar tudo em `runtime/xash3d/modcsbr`;
+6. abrir o jogo com `xash3d.exe -game modcsbr`.
+
+Os scripts antigos de Steam/`hl.exe` continuam no repositorio como caminho legado e comparativo, mas o alvo inicial de desenvolvimento agora e Windows + Xash3D FWGS.
 
 ## Sumario
 
@@ -18,12 +21,15 @@ A ideia e simples:
 - [Comecando Do Zero](#comecando-do-zero)
 - [Instalar As Ferramentas De Build](#instalar-as-ferramentas-de-build)
 - [Ambiente De Desenvolvimento No Windows](#ambiente-de-desenvolvimento-no-windows)
-- [Compilar O ReGameDLL_CS](#compilar-o-regamedll_cs)
-- [Instalar O Mod No Counter-Strike 1.6](#instalar-o-mod-no-counter-strike-16)
-- [Instalar O Mod No Counter-Strike 1.6 No Windows](#instalar-o-mod-no-counter-strike-16-no-windows)
+- [Runtime Xash3D FWGS No Windows](#runtime-xash3d-fwgs-no-windows)
+- [Compilar O Cliente CS16Client](#compilar-o-cliente-cs16client)
+- [Instalar E Abrir Pelo Xash3D FWGS](#instalar-e-abrir-pelo-xash3d-fwgs)
+- [Compilar O ReGameDLL_CS No Linux Legado](#compilar-o-regamedll_cs-no-linux-legado)
+- [Instalar O Mod No Counter-Strike 1.6 Legado](#instalar-o-mod-no-counter-strike-16-legado)
+- [Instalar O Mod No Counter-Strike 1.6 No Windows Legado](#instalar-o-mod-no-counter-strike-16-no-windows-legado)
 - [Resetar E Reinstalar O Mod](#resetar-e-reinstalar-o-mod)
-- [Abrir O Jogo Com O Mod](#abrir-o-jogo-com-o-mod)
-- [Abrir O Jogo Com O Mod No Windows](#abrir-o-jogo-com-o-mod-no-windows)
+- [Abrir O Jogo Com O Mod Legado](#abrir-o-jogo-com-o-mod-legado)
+- [Abrir O Jogo Com O Mod No Windows Legado](#abrir-o-jogo-com-o-mod-no-windows-legado)
 - [Conferir Se Funcionou](#conferir-se-funcionou)
 - [Se O Jogo Nao Achar A Pasta Da Steam](#se-o-jogo-nao-achar-a-pasta-da-steam)
 - [Se A Build Reclamar De Ferramentas Faltando](#se-a-build-reclamar-de-ferramentas-faltando)
@@ -35,6 +41,33 @@ A ideia e simples:
 
 ## O Que Voce Precisa Ter
 
+O caminho principal agora comeca no Windows 11 com Xash3D FWGS.
+
+Voce precisa ter:
+
+- Steam instalada com Half-Life/Counter-Strike 1.6 para fornecer os assets `valve` e `cstrike`;
+- binarios oficiais Windows do Xash3D FWGS extraidos em `runtime/xash3d` ou em uma pasta apontada por `XASH3D_DIR`;
+- Visual Studio 2022 ou Build Tools com C++/CMake/MSBuild;
+- Git e CMake;
+- este repositorio baixado.
+
+Guias principais:
+
+```text
+docs/setup/windows-11.md
+docs/setup/xash3d-windows.md
+docs/setup/build-cs16-client.md
+docs/setup/build-regamedll.md
+```
+
+Para checar o ambiente Windows:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/test/check-windows-environment.ps1
+```
+
+## Caminho Linux Legado
+
 O caminho principal de build e Ubuntu Linux. Este projeto foi preparado na maquina com Ubuntu 24.04.
 
 Voce precisa ter:
@@ -44,7 +77,7 @@ Voce precisa ter:
 - este repositorio baixado;
 - senha de `sudo`, porque vamos instalar pacotes de compilacao.
 
-No Windows 11, o ambiente e usado para editar, navegar codigo e fazer builds diagnosticas com MSVC `Release | Win32`. A `cs.so` canonica do mod continua sendo gerada no Linux. Veja:
+No Windows 11, o ambiente agora e usado para editar, buildar o server `mp.dll`, buildar o client `client.dll` e rodar pelo Xash3D FWGS. Veja:
 
 ```text
 docs/setup/windows-11.md
@@ -152,6 +185,7 @@ git checkout develop
 Baixe o codigo do ReGameDLL_CS:
 
 ```bash
+git submodule sync --recursive
 git submodule update --init --recursive
 ```
 
@@ -161,13 +195,13 @@ Pronto. Agora o codigo original deve existir em:
 upstream/ReGameDLL_CS
 ```
 
-Esse submodule aponta para o fork:
+Esse submodule aponta para o seu fork:
 
 ```text
 https://github.com/WilliamSampaio/ReGameDLL_CS.git
 ```
 
-Use a branch `modcsbr` desse fork para as alteracoes futuras do GameDLL do mod. O baseline validado continua sendo o ReGameDLL_CS original sem alteracoes, no commit registrado em `docs/setup/build-regamedll.md`.
+Use a branch `modcsbr` desse fork para alteracoes futuras do GameDLL do mod. O projeto original `rehlds/ReGameDLL_CS` fica como upstream conceitual para merges/rebases quando necessario.
 
 ## Instalar As Ferramentas De Build
 
@@ -191,7 +225,7 @@ Isso e importante porque Counter-Strike 1.6 / GoldSrc usa biblioteca 32-bit.
 
 ## Ambiente De Desenvolvimento No Windows
 
-Use Windows para VS Code, IntelliSense MSVC x86 e diagnosticos do upstream.
+Use Windows para VS Code, IntelliSense MSVC x86, build do server `mp.dll`, build do client `client.dll` e execucao inicial no Xash3D FWGS.
 
 Guia completo:
 
@@ -205,7 +239,7 @@ Check rapido:
 powershell -ExecutionPolicy Bypass -File scripts/test/check-windows-environment.ps1
 ```
 
-Build diagnostica do upstream com MSBuild:
+Build do server GameDLL com MSBuild:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File scripts/build/regamedll-windows.ps1
@@ -213,7 +247,13 @@ powershell -ExecutionPolicy Bypass -File scripts/build/regamedll-windows.ps1
 
 Se o PowerShell disser que o `.ps1` nao esta assinado digitalmente, use os comandos acima com `-ExecutionPolicy Bypass -File`. Isso libera apenas essa execucao e nao muda a politica global do Windows.
 
-Esse build gera a GameDLL Windows do ReGameDLL_CS, normalmente `mp.dll`. Ele nao substitui:
+Esse build gera a GameDLL Windows do ReGameDLL_CS, normalmente `mp.dll`, e copia para:
+
+```text
+mod/modcsbr/dlls/mp.dll
+```
+
+No fluxo Xash3D Windows, esse e o server GameDLL carregado pelo jogo. Ele nao substitui o artefato Linux legado:
 
 ```text
 mod/modcsbr/dlls/cs.so
@@ -227,7 +267,110 @@ Para validar o mod Linux, continue usando:
 scripts/build/regamedll-linux.sh
 ```
 
-## Compilar O ReGameDLL_CS
+## Runtime Xash3D FWGS No Windows
+
+Baixe os binarios oficiais do Xash3D FWGS e extraia para:
+
+```text
+runtime/xash3d
+```
+
+A pasta deve conter:
+
+```text
+runtime/xash3d/xash3d.exe
+```
+
+O instalador Xash tenta detectar a Steam e copiar ou linkar os assets da pasta Half-Life para o runtime:
+
+```text
+runtime/xash3d/valve
+runtime/xash3d/cstrike
+```
+
+O arquivo base mais importante para o Xash iniciar e:
+
+```text
+runtime/xash3d/valve/gfx.wad
+```
+
+Se aparecer `Host_InitCommon: couldn't load gfx.wad`, rode novamente o instalador depois de apontar `HALF_LIFE_DIR` para a pasta Steam Half-Life.
+
+Se a Steam estiver em outro disco, informe a pasta que contem `valve` e `cstrike`:
+
+```powershell
+$env:HALF_LIFE_DIR = "D:\SteamLibrary\steamapps\common\Half-Life"
+```
+
+Se os binarios do Xash estiverem em outro lugar:
+
+```powershell
+$env:XASH3D_DIR = "D:\Games\xash3d-fwgs"
+```
+
+## Compilar O Cliente CS16Client
+
+O cliente tambem entra como submodule do seu fork, na branch `modcsbr`:
+
+```powershell
+git submodule sync --recursive
+git submodule update --init --recursive
+```
+
+Compile Win32:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/build/cs16-client-windows.ps1 -UpdateSubmodules
+```
+
+O script usa CMake com `-A Win32` a partir de `upstream\cs16-client`, atualiza os submodules aninhados de `3rdparty` quando `-UpdateSubmodules` e usado, instala em `build\windows\cs16-client-install` e copia o resultado para:
+
+```text
+mod/modcsbr/cl_dlls/client.dll
+```
+
+## Instalar E Abrir Pelo Xash3D FWGS
+
+Depois de compilar server e client:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/build/regamedll-windows.ps1
+powershell -ExecutionPolicy Bypass -File scripts/build/cs16-client-windows.ps1 -UpdateSubmodules
+```
+
+Instale no runtime Xash:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/install/modcsbr-xash3d-windows.ps1
+```
+
+Valide o comando sem abrir o jogo:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/test/launch-modcsbr-xash3d-windows.ps1 -NoLaunch
+```
+
+Abra o jogo:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/test/launch-modcsbr-xash3d-windows.ps1
+```
+
+Com mapa automatico:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/test/launch-modcsbr-xash3d-windows.ps1 -AutoMap -Map de_dust2
+```
+
+Por baixo, o launcher chama algo equivalente a:
+
+```text
+xash3d.exe -game modcsbr -console -dev
+```
+
+## Compilar O ReGameDLL_CS No Linux Legado
+
+Use esta secao apenas para o caminho legado Steam/Linux. Para o fluxo ativo Windows/Xash3D, use `scripts/build/regamedll-windows.ps1`.
 
 Agora compile:
 
@@ -259,7 +402,7 @@ sprites/*.spr
 resource/
 ```
 
-## Instalar O Mod No Counter-Strike 1.6
+## Instalar O Mod No Counter-Strike 1.6 Legado
 
 Agora copie o mod para a pasta do jogo:
 
@@ -321,9 +464,11 @@ scripts/install/modcsbr-steam-linux.sh --full-mod-copy
 
 Esse modo preserva o comportamento normal de fallback para arquivos do `cstrike`, mas substitui no destino as entradas que existem em `mod/modcsbr`.
 
-## Instalar O Mod No Counter-Strike 1.6 No Windows
+## Instalar O Mod No Counter-Strike 1.6 No Windows Legado
 
-No Windows, primeiro gere a GameDLL diagnostica:
+Este e o caminho legado via Steam `hl.exe`. Para o fluxo ativo, use Xash3D FWGS.
+
+No Windows, primeiro gere a GameDLL:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File scripts/build/regamedll-windows.ps1
@@ -431,7 +576,7 @@ Com `--reset`, o launcher tambem copia os assets locais de `mod/modcsbr` por pad
 MODCSBR_ASSET_MODE=copy scripts/test/launch-modcsbr-steam-linux.sh --reset --no-full-mod-copy
 ```
 
-## Abrir O Jogo Com O Mod
+## Abrir O Jogo Com O Mod Legado
 
 Para testar:
 
@@ -505,7 +650,7 @@ O padrao ja e AppID `70`. Se quiser abrir o contexto direto do Counter-Strike pa
 MODCSBR_STEAM_APP_ID=10 scripts/test/launch-modcsbr-steam-linux.sh
 ```
 
-## Abrir O Jogo Com O Mod No Windows
+## Abrir O Jogo Com O Mod No Windows Legado
 
 Para instalar e abrir pela Steam nativa do Windows:
 
@@ -691,33 +836,41 @@ scripts/test/launch-modcsbr-steam-linux.sh -soft
 ```text
 docs/
   setup/
+    build-cs16-client.md
     linux.md
     windows-11.md
+    xash3d-windows.md
 mod/
   modcsbr/
     liblist.gam
     dlls/
 scripts/
   build/
+    cs16-client-windows.ps1
     regamedll-linux.sh
     regamedll-windows.ps1
   install/
     linux-build-deps-ubuntu.sh
+    modcsbr-xash3d-windows.ps1
     modcsbr-steam-linux.sh
     modcsbr-steam-windows.ps1
   test/
     check-linux-environment.sh
     check-windows-environment.ps1
+    launch-modcsbr-xash3d-windows.ps1
     launch-modcsbr-steam-linux.sh
     launch-modcsbr-steam-windows.ps1
+runtime/
+  xash3d/        (local ignored engine/runtime)
 upstream/
   ReGameDLL_CS/
+  cs16-client/
 ```
 
 ## Regra Mais Importante
 
-Primeiro faca o ReGameDLL_CS original compilar e abrir no jogo.
+Primeiro faca o runtime Xash3D FWGS abrir o `modcsbr` com o client CS16Client e o server ReGameDLL_CS originais.
 
-So depois comece a mudar codigo na branch `modcsbr` do fork `WilliamSampaio/ReGameDLL_CS`.
+So depois comece a mudar codigo de gameplay, client ou engine.
 
-Assim, se algo quebrar no futuro, voce sabe que o ambiente Linux, a Steam, o CS 1.6 e o carregamento do mod ja estavam funcionando.
+Assim, se algo quebrar no futuro, voce sabe que o ambiente Windows, o Xash3D FWGS, os assets base, o client e a GameDLL ja estavam carregando corretamente.

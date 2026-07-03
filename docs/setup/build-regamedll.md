@@ -1,8 +1,54 @@
-# Build ReGameDLL_CS On Linux
+# Build ReGameDLL_CS
 
-This document records the baseline build of the original, unmodified ReGameDLL_CS.
+This document records the server GameDLL build path for the original, unmodified ReGameDLL_CS.
 
-## Required Environment
+The active initial runtime is Windows Xash3D FWGS, which uses `mp.dll`. The Linux `cs.so` baseline remains documented below as a legacy Steam/GoldSrc validation path.
+
+## Windows Xash3D FWGS Build
+
+### Required Environment
+
+- Operating system: Windows 11
+- Toolchain: Visual Studio 2022 or Build Tools
+- Build system: MSBuild
+- Platform: Win32/x86
+- Output: `mp.dll`
+
+### Build Steps
+
+Open Developer PowerShell for VS 2022 and run:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/build/regamedll-windows.ps1
+```
+
+Expected repository output:
+
+```text
+mod/modcsbr/dlls/mp.dll
+```
+
+The Xash3D installer copies that file into:
+
+```text
+runtime/xash3d/modcsbr/dlls/mp.dll
+```
+
+### Validation
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/test/launch-modcsbr-xash3d-windows.ps1 -NoLaunch
+```
+
+Then launch:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/test/launch-modcsbr-xash3d-windows.ps1
+```
+
+## Linux Legacy Build
+
+### Required Environment
 
 - Operating system: Ubuntu 24.04
 - Toolchain: GCC/G++ with multilib
@@ -12,7 +58,7 @@ This document records the baseline build of the original, unmodified ReGameDLL_C
 
 Do not use x64 for Steam CS 1.6 / GoldSrc.
 
-## Build Steps
+### Build Steps
 
 1. Install dependencies:
 
@@ -23,10 +69,11 @@ Do not use x64 for Steam CS 1.6 / GoldSrc.
 2. Initialize the submodule:
 
    ```bash
+   git submodule sync --recursive
    git submodule update --init --recursive
    ```
 
-   The submodule is sourced from the `WilliamSampaio/ReGameDLL_CS` fork. Use the fork's `modcsbr` branch for future mod-specific ReGameDLL changes, but keep the recorded baseline revision unmodified.
+   The submodule is sourced from `https://github.com/WilliamSampaio/ReGameDLL_CS.git` and tracks branch `modcsbr`. Keep the recorded baseline revision documented before making mod-specific ReGameDLL changes.
 
 3. Build:
 
@@ -46,10 +93,11 @@ Do not use x64 for Steam CS 1.6 / GoldSrc.
    scripts/test/launch-modcsbr-steam-linux.sh
    ```
 
-## Validation Log
+### Validation Log
 
 - ReGameDLL_CS revision: `781a68ae1c6fb652cf4fbc894970b4fb4dde19f9`
 - Submodule source: `https://github.com/WilliamSampaio/ReGameDLL_CS.git`
+- Original upstream project: `https://github.com/rehlds/ReGameDLL_CS.git`
 - Future mod branch: `modcsbr`
 - Build status: successful on Linux
 - Generated library: `upstream/ReGameDLL_CS/build/regamedll/cs.so`

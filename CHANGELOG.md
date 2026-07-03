@@ -4,6 +4,15 @@ All notable project changes will be documented here.
 
 ## Unreleased
 
+- Switched the active initial runtime plan from Steam `hl.exe` to Windows Xash3D FWGS.
+- Restored the ReGameDLL_CS submodule metadata to the `WilliamSampaio/ReGameDLL_CS` fork and branch `modcsbr`.
+- Added `WilliamSampaio/cs16-client` as an `upstream/cs16-client` submodule on branch `modcsbr`.
+- Added Windows CS16Client build support with `scripts/build/cs16-client-windows.ps1`.
+- Added CS16Client nested submodule checks and `-UpdateSubmodules` support for `3rdparty` dependencies.
+- Added Windows Xash3D FWGS install and launch scripts for `runtime/xash3d`.
+- Fixed Xash3D asset installation to merge Steam `valve`/`cstrike` assets into existing runtime folders and validate `valve/gfx.wad`.
+- Added Xash3D FWGS and CS16Client setup docs plus an approved runtime spec.
+- Updated Windows environment checks and VS Code tasks for client, server, and Xash3D runtime workflows.
 - Created base project structure.
 - Added ReGameDLL_CS as an upstream submodule entry.
 - Switched the active setup path to Linux.
@@ -23,6 +32,5 @@ All notable project changes will be documented here.
 - Pointed the ReGameDLL_CS submodule at the `WilliamSampaio/ReGameDLL_CS` fork for future mod-specific branches.
 - Documented the fork's `modcsbr` branch as the destination for future ReGameDLL_CS changes.
 - Reapplied the built GameDLL after full local mod copies in Linux and Windows Steam installs.
-- Preserved base CS `resource` UI files during local mod asset copies so the Multiplayer crosshair selector stays populated.
 - Changed launch-script resets to preserve local mod assets by default, with explicit no-full-copy opt-outs.
 - Added a Windows local GameUI.dll patch during install so CS Multiplayer crosshair controls recognize the `modcsbr` game directory.
