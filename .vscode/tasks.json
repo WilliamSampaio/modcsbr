@@ -2,20 +2,6 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "ReGameDLL: build Linux",
-      "type": "shell",
-      "command": "${workspaceFolder}/scripts/build/regamedll-linux.sh",
-      "options": {
-        "cwd": "${workspaceFolder}"
-      },
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      },
-      "problemMatcher": "$gcc",
-      "detail": "Builds upstream ReGameDLL_CS for Linux x86 and copies cs.so into mod/modcsbr/dlls."
-    },
-    {
       "label": "ReGameDLL: check Windows environment",
       "type": "shell",
       "command": "powershell",
@@ -30,7 +16,7 @@
       },
       "group": "build",
       "problemMatcher": [],
-      "detail": "Checks Git, VS Code, MSVC, MSBuild, and ReGameDLL_CS paths on Windows."
+      "detail": "Checks Git, VS Code, MSVC, MSBuild, CS16Client, ReGameDLL_CS, and Xash3D paths on Windows."
     },
     {
       "label": "CS16Client: build Windows Release Win32",
@@ -51,7 +37,7 @@
       },
       "group": "build",
       "problemMatcher": "$msCompile",
-      "detail": "Builds WilliamSampaio/cs16-client branch modcsbr as Release | Win32 and copies client.dll into mod/modcsbr/cl_dlls."
+      "detail": "Builds WilliamSampaio/cs16-client branch modcsbr as Release | Win32 and copies client.dll/menu.dll into mod/modcsbr/cl_dlls."
     },
     {
       "label": "ReGameDLL: build Windows Release Win32",
@@ -72,7 +58,7 @@
       },
       "group": "build",
       "problemMatcher": "$msCompile",
-      "detail": "Builds upstream ReGameDLL_CS with MSBuild as Release | Win32 and copies mp.dll into mod/modcsbr/dlls."
+      "detail": "Builds ReGameDLL_CS with MSBuild as Release | Win32 and copies mp.dll into mod/modcsbr/dlls."
     },
     {
       "label": "modcsbr: install into Xash3D FWGS Windows",
@@ -89,7 +75,7 @@
       },
       "group": "build",
       "problemMatcher": [],
-      "detail": "Installs mod files, client.dll, mp.dll, and Steam-owned base assets into runtime/xash3d."
+      "detail": "Generates runtime/xash3d/modcsbr from Steam cstrike assets, then overlays mod files and built DLLs."
     },
     {
       "label": "modcsbr: launch Xash3D FWGS Windows",
@@ -107,61 +93,6 @@
       "group": "build",
       "problemMatcher": [],
       "detail": "Installs and launches Xash3D FWGS with -game modcsbr on Windows."
-    },
-    {
-      "label": "modcsbr: install into Steam CS 1.6 Windows",
-      "type": "shell",
-      "command": "powershell",
-      "args": [
-        "-ExecutionPolicy",
-        "Bypass",
-        "-File",
-        "${workspaceFolder}/scripts/install/modcsbr-steam-windows.ps1"
-      ],
-      "options": {
-        "cwd": "${workspaceFolder}"
-      },
-      "group": "build",
-      "problemMatcher": [],
-      "detail": "Installs liblist.gam, mp.dll, and copied assets into the Windows Steam Half-Life/modcsbr folder."
-    },
-    {
-      "label": "modcsbr: launch Steam CS 1.6 Windows",
-      "type": "shell",
-      "command": "powershell",
-      "args": [
-        "-ExecutionPolicy",
-        "Bypass",
-        "-File",
-        "${workspaceFolder}/scripts/test/launch-modcsbr-steam-windows.ps1"
-      ],
-      "options": {
-        "cwd": "${workspaceFolder}"
-      },
-      "group": "build",
-      "problemMatcher": [],
-      "detail": "Installs and launches Half-Life through Steam with -game modcsbr on Windows."
-    },
-    {
-      "label": "modcsbr: install into Steam CS 1.6",
-      "type": "shell",
-      "command": "${workspaceFolder}/scripts/install/modcsbr-steam-linux.sh",
-      "options": {
-        "cwd": "${workspaceFolder}"
-      },
-      "group": "build",
-      "problemMatcher": [],
-      "detail": "Installs liblist.gam, cs.so, and asset links into the Steam Half-Life/modcsbr folder."
-    },
-    {
-      "label": "modcsbr: launch Steam CS 1.6",
-      "type": "shell",
-      "command": "${workspaceFolder}/scripts/test/launch-modcsbr-steam-linux.sh",
-      "options": {
-        "cwd": "${workspaceFolder}"
-      },
-      "problemMatcher": [],
-      "detail": "Launches hl_linux with -game modcsbr."
     }
   ]
 }

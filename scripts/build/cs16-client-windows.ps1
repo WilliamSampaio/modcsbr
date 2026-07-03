@@ -74,7 +74,7 @@ if ($missingNestedFiles.Count -gt 0) {
 }
 
 if (-not (Get-Command cmake -ErrorAction SilentlyContinue)) {
-    Write-Error "cmake was not found. Install Visual Studio C++ tools with CMake support, then open Developer PowerShell for VS 2022."
+    Write-Error "cmake was not found. Install Visual Studio C++ tools with CMake support, then open Developer PowerShell for Visual Studio."
 }
 
 Write-Host "Configuring CS16Client..."
@@ -99,20 +99,27 @@ if ($LASTEXITCODE -ne 0) {
     exit $LASTEXITCODE
 }
 
-$clientDll = Get-ChildItem -Path $InstallDir, $BuildDir -Recurse -File -Filter "client.dll" -ErrorAction SilentlyContinue |
-    Sort-Object LastWriteTime -Descending |
-    Select-Object -First 1
+$clientArtifacts = @(
+    @{ Name = "client.dll"; Label = "client DLL" },
+    @{ Name = "menu.dll"; Label = "menu DLL" }
+)
 
-if ($clientDll) {
-    Write-Host "Built client DLL: $($clientDll.FullName)"
+foreach ($artifact in $clientArtifacts) {
+    $foundArtifact = Get-ChildItem -Path $InstallDir, $BuildDir -Recurse -File -Filter $artifact.Name -ErrorAction SilentlyContinue |
+        Sort-Object LastWriteTime -Descending |
+        Select-Object -First 1
 
-    if (-not $NoInstallToMod) {
-        $targetDir = Join-Path $rootDir "mod\modcsbr\cl_dlls"
-        New-Item -ItemType Directory -Path $targetDir -Force | Out-Null
-        Copy-Item -LiteralPath $clientDll.FullName -Destination (Join-Path $targetDir "client.dll") -Force
-        Write-Host "Copied client DLL to: $(Join-Path $targetDir 'client.dll')"
+    if ($foundArtifact) {
+        Write-Host "Built $($artifact.Label): $($foundArtifact.FullName)"
+
+        if (-not $NoInstallToMod) {
+            $targetDir = Join-Path $rootDir "mod\modcsbr\cl_dlls"
+            New-Item -ItemType Directory -Path $targetDir -Force | Out-Null
+            Copy-Item -LiteralPath $foundArtifact.FullName -Destination (Join-Path $targetDir $artifact.Name) -Force
+            Write-Host "Copied $($artifact.Label) to: $(Join-Path $targetDir $artifact.Name)"
+        }
     }
-}
-else {
-    Write-Warning "Build finished, but client.dll was not found under $InstallDir or $BuildDir."
+    else {
+        Write-Warning "Build finished, but $($artifact.Name) was not found under $InstallDir or $BuildDir."
+    }
 }

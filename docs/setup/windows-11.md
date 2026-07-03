@@ -2,7 +2,7 @@
 
 This project uses Visual Studio's MSVC toolchain for Windows builds and VS Code as the editor.
 
-The active initial runtime is Xash3D FWGS on Windows. Windows builds produce the server `mp.dll` from ReGameDLL_CS and the client `client.dll` from CS16Client.
+The supported runtime is Xash3D FWGS on Windows. Windows builds produce the server `mp.dll` from ReGameDLL_CS and the client `client.dll` from CS16Client.
 
 ## Goal
 
@@ -17,7 +17,7 @@ Configure Windows 11 so VS Code can:
 - build CS16Client as `Release | Win32`;
 - launch `modcsbr` through Xash3D FWGS.
 
-The Windows server build produces `mod/modcsbr/dlls/mp.dll`. The Linux `cs.so` path is retained only for legacy Steam tests.
+The Windows server build produces `mod/modcsbr/dlls/mp.dll`.
 
 ## 1. Install Git
 
@@ -61,31 +61,45 @@ Add to PATH
 
 ## 3. Install Visual Studio C++ Toolchain
 
-Install Visual Studio 2022 Community or Visual Studio Build Tools:
+Install Visual Studio Build Tools or Visual Studio Community with the Visual Studio Installer:
 
 ```text
 https://visualstudio.microsoft.com/vs/community/
 ```
 
-In the installer, select this workload:
+This project has been validated with Visual Studio Installer / Build Tools 18.x. Visual Studio 2022 Build Tools should also work when the same C++ components are installed.
+
+In the installer, open `Workloads` and select:
 
 ```text
 Desktop development with C++
 ```
 
-Make sure these components are selected:
+The installer includes these baseline items with the workload:
 
-- MSVC v143 C++ build tools;
-- Windows 10/11 SDK;
+- MSBuild tools;
+- Visual Studio C++ redistributable update;
+- core C++ desktop build resources.
+
+In `Installation details`, make sure these optional components are selected:
+
+- MSVC build tools for x64/x86, latest available version;
+- Windows 11 SDK `10.0.26100.8249` or newer;
 - C++ CMake tools for Windows;
-- MSBuild.
+- C++ test tools core features;
+- MSVC AddressSanitizer;
+- vcpkg package manager.
+
+You do not need ATL, MFC, C++/CLI, Clang, or older MSVC toolsets unless a future upstream dependency explicitly requires them.
 
 ## 4. Open Developer PowerShell
 
-Open this from the Start Menu:
+Open the Visual Studio developer shell from the Start Menu. Depending on the installed version it may be named like:
 
 ```text
+Developer PowerShell for VS
 Developer PowerShell for VS 2022
+Developer PowerShell for VS 2026
 ```
 
 This shell loads the MSVC environment variables needed by `cl.exe` and `msbuild.exe`.
@@ -112,7 +126,7 @@ Expected result: a version number.
 
 ## 5. Open This Project In VS Code
 
-Still inside `Developer PowerShell for VS 2022`, run:
+Still inside Developer PowerShell for Visual Studio, run:
 
 ```powershell
 cd C:\dev\modcsbr
@@ -286,10 +300,11 @@ powershell -ExecutionPolicy Bypass -File scripts/build/cs16-client-windows.ps1 -
 
 `-UpdateSubmodules` fills the nested `upstream\cs16-client\3rdparty` dependencies required by CMake.
 
-The wrapper copies the newest `client.dll` into:
+The wrapper copies the newest `client.dll` and `menu.dll` into:
 
 ```text
 mod\modcsbr\cl_dlls\client.dll
+mod\modcsbr\cl_dlls\menu.dll
 ```
 
 For a quick environment check:
@@ -318,6 +333,14 @@ Install:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File scripts/install/modcsbr-xash3d-windows.ps1
+```
+
+The installer creates a local ignored runtime under `runtime\xash3d`. It copies Steam `valve` and `cstrike` assets, copies `steam_api.dll` to the runtime root, seeds `runtime\xash3d\modcsbr` from the full Steam `cstrike` folder, then overlays repository mod files and compiled DLLs.
+
+Recreate the generated mod folder from scratch:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/install/modcsbr-xash3d-windows.ps1 -Reset
 ```
 
 Validate the launch command without opening the game:
@@ -351,103 +374,19 @@ docs/setup/xash3d-windows.md
 docs/setup/build-cs16-client.md
 ```
 
-## 12. Legacy Steam Install And Launch
-
-After the Windows server build produces `mp.dll`, install the mod into the Steam Half-Life folder:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File scripts/install/modcsbr-steam-windows.ps1
-```
-
-By default, the installer also enables the ReGameDLL_CS optional extras documented upstream:
-
-- zBot for CS 1.6;
-- CS:CZ hostage AI for CS 1.6.
-
-It extracts:
-
-```text
-upstream\ReGameDLL_CS\regamedll\extra\zBot\bot_profiles.zip
-upstream\ReGameDLL_CS\regamedll\extra\HostageImprov\host_improv.zip
-```
-
-and adds this managed block to the installed `modcsbr\game_init.cfg`:
-
-```text
-bot_enable 1
-hostage_ai_enable 1
-```
-
-Suppress both extras with:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File scripts/install/modcsbr-steam-windows.ps1 -DisableReGameDLLExtras
-```
-
-Suppress only one extra with `-DisableZBot` or `-DisableHostageAI`.
-
-To copy every local file from `mod\modcsbr` into the installed Steam mod folder, run:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File scripts/install/modcsbr-steam-windows.ps1 -FullModCopy
-```
-
-Use this when local mod assets under directories such as `models`, `resource`, `sound`, or `sprites` must replace the installed files. Directory copies are merged so base CS UI resources, including `resource\OptionsSubMultiplayer.res` for the Multiplayer crosshair selector, stay available.
-
-The Windows installer also creates a local `modcsbr\cl_dlls\GameUI.dll` copy from `valve\cl_dlls\GameUI.dll` and patches its internal `cstrike` game-directory marker to `modcsbr`. This keeps the Multiplayer crosshair controls populated under `-game modcsbr` without modifying the original Valve file.
-
-The installer detects Steam from the Windows registry and Steam library folders. It expects the Half-Life folder to contain:
-
-```text
-hl.exe
-cstrike\
-```
-
-Launch through Steam:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File scripts/test/launch-modcsbr-steam-windows.ps1
-```
-
-Validate the install and launch command without opening Steam:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File scripts/test/launch-modcsbr-steam-windows.ps1 -NoLaunch
-```
-
-Reset, reinstall, and launch while preserving local `mod\modcsbr` assets:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File scripts/test/launch-modcsbr-steam-windows.ps1 -Reset
-```
-
-Use `-Reset -NoFullModCopy` only when you want a clean install without local mod asset overlays.
-
-Launch without installing the optional extras:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File scripts/test/launch-modcsbr-steam-windows.ps1 -DisableReGameDLLExtras
-```
-
-Use a custom Half-Life path with:
-
-```powershell
-$env:HALF_LIFE_DIR = "D:\SteamLibrary\steamapps\common\Half-Life"
-```
-
 ## Troubleshooting
 
 If `cl` is not found:
 
 - close VS Code;
-- open `Developer PowerShell for VS 2022`;
+- open Developer PowerShell for Visual Studio;
 - run `code .` from `C:\dev\modcsbr`.
 
 If `msbuild` is not found:
 
 - confirm Visual Studio C++ tools are installed;
 - confirm MSBuild was selected in the Visual Studio Installer;
-- reopen VS Code from `Developer PowerShell for VS 2022`.
+- reopen VS Code from Developer PowerShell for Visual Studio.
 
 If IntelliSense uses the wrong architecture:
 
@@ -472,7 +411,7 @@ If MSBuild reports `MSB8020` for `v143` on Visual Studio Build Tools 18:
 If `cmake` is not found:
 
 - install the Visual Studio "C++ CMake tools for Windows" component;
-- reopen Developer PowerShell for VS 2022.
+- reopen Developer PowerShell for Visual Studio.
 
 If `xash3d.exe` is not found:
 

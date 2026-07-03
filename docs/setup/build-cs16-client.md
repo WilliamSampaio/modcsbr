@@ -5,10 +5,10 @@ This document records the planned Windows build path for the `WilliamSampaio/cs1
 ## Required Environment
 
 - Operating system: Windows 11
-- Toolchain: Visual Studio 2022 or Build Tools with C++ support
+- Toolchain: Visual Studio Build Tools / Visual Studio Installer with C++ support
 - Build system: CMake
 - Platform: Win32/x86
-- Output: `client.dll`
+- Output: `client.dll` and `menu.dll`
 
 ## Source Layout
 
@@ -35,7 +35,7 @@ and tracks branch `modcsbr`. The original upstream project is `https://github.co
 
 ## Build Steps
 
-Open Developer PowerShell for VS 2022 from `C:\dev\modcsbr` and run:
+Open Developer PowerShell for Visual Studio from `C:\dev\modcsbr` and run:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File scripts/build/cs16-client-windows.ps1 -UpdateSubmodules
@@ -57,10 +57,11 @@ cmake --build build\windows\cs16-client --config Release
 cmake --install build\windows\cs16-client --config Release --prefix build\windows\cs16-client-install
 ```
 
-Then it copies the newest `client.dll` to:
+Then it copies the newest `client.dll` and `menu.dll` to:
 
 ```text
 mod/modcsbr/cl_dlls/client.dll
+mod/modcsbr/cl_dlls/menu.dll
 ```
 
 ## Custom Paths
@@ -93,4 +94,7 @@ Expected installed runtime path:
 
 ```text
 runtime/xash3d/modcsbr/cl_dlls/client.dll
+runtime/xash3d/modcsbr/cl_dlls/menu.dll
 ```
+
+If Xash3D shows `Error: native object "MenuFactory" is unavailable`, rebuild the CS16Client target and reinstall the Xash runtime. That warning usually means the CS16Client `menu.dll` is missing from `modcsbr\cl_dlls` next to `client.dll`.

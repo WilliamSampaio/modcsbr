@@ -2,7 +2,7 @@
 
 ## Goal
 
-Move the active `modcsbr` development target from Steam `hl.exe` to Xash3D FWGS on Windows, with separate client and server builds.
+Run `modcsbr` on Xash3D FWGS on Windows, with separate client and server builds.
 
 ## Player-Facing Behavior
 
@@ -14,19 +14,21 @@ xash3d.exe -game modcsbr -console -dev
 
 The runtime should load:
 
-- CS16Client as the client DLL;
+- CS16Client as the client DLL and menu DLL;
 - ReGameDLL_CS as the server GameDLL;
 - Steam-owned CS 1.6 assets from `valve` and `cstrike`.
 
 ## Technical Notes
 
 - Use official Xash3D FWGS binaries first, placed under `runtime/xash3d` or a directory pointed to by `XASH3D_DIR`.
+- Generate `runtime/xash3d/modcsbr` from the Steam `cstrike` asset base, then overlay repository mod files and compiled DLLs.
 - Keep `upstream/cs16-client` as a client DLL submodule pointed at `https://github.com/WilliamSampaio/cs16-client.git`, tracking branch `modcsbr`.
 - Keep `upstream/ReGameDLL_CS` as a server GameDLL submodule pointed at `https://github.com/WilliamSampaio/ReGameDLL_CS.git`, tracking branch `modcsbr`.
 - Build Windows artifacts as Win32/x86:
   - `mod/modcsbr/cl_dlls/client.dll`;
+  - `mod/modcsbr/cl_dlls/menu.dll`;
   - `mod/modcsbr/dlls/mp.dll`.
-- Keep Steam `hl.exe` scripts as legacy comparison helpers.
+- Do not reintroduce Steam/GoldSrc install or launch workflows.
 
 ## Test Plan
 

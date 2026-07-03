@@ -174,6 +174,37 @@ function Assert-XashBaseAssets {
     }
 }
 
+function Install-HalfLifeRuntimeSupportFiles {
+    param(
+        [string] $SourceRoot,
+        [string] $TargetRoot
+    )
+
+    foreach ($fileName in @("steam_api.dll")) {
+        $sourceFile = Join-Path $SourceRoot $fileName
+        if (Test-Path $sourceFile) {
+            Copy-Item -LiteralPath $sourceFile -Destination (Join-Path $TargetRoot $fileName) -Force
+        }
+        else {
+            Write-Warning "Missing Half-Life runtime support file: $sourceFile"
+        }
+    }
+}
+
+function Install-ModBaseAssets {
+    param(
+        [string] $SourceRoot,
+        [string] $TargetRoot
+    )
+
+    if (-not (Test-Path $SourceRoot -PathType Container)) {
+        Write-Warning "Missing Counter-Strike base directory for mod copy: $SourceRoot"
+        return
+    }
+
+    Copy-DirectoryContents -Source $SourceRoot -Target $TargetRoot
+}
+
 function Find-FirstFile {
     param(
         [string[]] $Roots,
@@ -297,6 +328,7 @@ $detectedHalfLifeDir = Find-HalfLifeDir
 if ($detectedHalfLifeDir) {
     Install-BaseDirectory -Source (Join-Path $detectedHalfLifeDir "valve") -Target (Join-Path $xashDirResolved "valve")
     Install-BaseDirectory -Source (Join-Path $detectedHalfLifeDir "cstrike") -Target (Join-Path $xashDirResolved "cstrike")
+    Install-HalfLifeRuntimeSupportFiles -SourceRoot $detectedHalfLifeDir -TargetRoot $xashDirResolved
 }
 elseif ((-not (Test-Path (Join-Path $xashDirResolved "valve"))) -or (-not (Test-Path (Join-Path $xashDirResolved "cstrike")))) {
     Write-Warning "Could not find Steam Half-Life assets. Xash3D needs valve and cstrike under $xashDirResolved."
@@ -306,6 +338,21 @@ Assert-XashBaseAssets -RuntimeDir $xashDirResolved
 
 if ($Reset -and (Test-Path $modDir)) {
     Remove-Item -LiteralPath $modDir -Recurse -Force
+}
+
+$modBaseSourceDir = $null
+if ($detectedHalfLifeDir) {
+    $modBaseSourceDir = Join-Path $detectedHalfLifeDir "cstrike"
+}
+elseif (Test-Path (Join-Path $xashDirResolved "cstrike")) {
+    $modBaseSourceDir = Join-Path $xashDirResolved "cstrike"
+}
+
+if ($modBaseSourceDir) {
+    Install-ModBaseAssets -SourceRoot $modBaseSourceDir -TargetRoot $modDir
+}
+else {
+    Write-Warning "Could not find cstrike assets to seed $ModName. The installed mod may be missing stock CS assets."
 }
 
 Copy-DirectoryContents -Source $modSourceDir -Target $modDir
@@ -329,6 +376,11 @@ $clientDll = Find-FirstFile -Roots @(
     $ClientInstallDir,
     (Join-Path $rootDir "build\windows\cs16-client")
 ) -Filter "client.dll"
+$menuDll = Find-FirstFile -Roots @(
+    (Join-Path $modSourceDir "cl_dlls"),
+    $ClientInstallDir,
+    (Join-Path $rootDir "build\windows\cs16-client")
+) -Filter "menu.dll"
 
 if ($clientDll) {
     $clientTargetDir = Join-Path $modDir "cl_dlls"
@@ -337,6 +389,15 @@ if ($clientDll) {
 }
 else {
     Write-Warning "client.dll does not exist yet. Build it with: powershell -ExecutionPolicy Bypass -File scripts\build\cs16-client-windows.ps1"
+}
+
+if ($menuDll) {
+    $clientTargetDir = Join-Path $modDir "cl_dlls"
+    New-Item -ItemType Directory -Path $clientTargetDir -Force | Out-Null
+    Copy-Item -LiteralPath $menuDll -Destination (Join-Path $clientTargetDir "menu.dll") -Force
+}
+else {
+    Write-Warning "menu.dll does not exist yet. Build it with: powershell -ExecutionPolicy Bypass -File scripts\build\cs16-client-windows.ps1"
 }
 
 Install-ReGameDLLExtraIfEnabled -Enabled $enableZBot -Archive (Join-Path $rootDir "upstream\ReGameDLL_CS\regamedll\extra\zBot\bot_profiles.zip") -Label "zBot for CS 1.6"
@@ -348,3 +409,4 @@ Write-Host "Xash3D directory: $xashDirResolved"
 Write-Host "Asset mode: $AssetMode"
 Write-Host "Server DLL: $(Join-Path $modDir 'dlls\mp.dll')"
 Write-Host "Client DLL: $(Join-Path $modDir 'cl_dlls\client.dll')"
+Write-Host "Menu DLL: $(Join-Path $modDir 'cl_dlls\menu.dll')"

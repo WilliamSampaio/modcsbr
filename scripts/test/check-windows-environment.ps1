@@ -65,8 +65,8 @@ else {
 $null = Test-Command "git" "Install Git for Windows."
 $null = Test-Command "code" "Install VS Code and enable the code command in PATH."
 $null = Test-Command "cmake" "Install Visual Studio C++ tools with CMake support."
-$hasCl = Test-Command "cl" "Open Developer PowerShell for VS 2022, then run this script again."
-$hasMsbuild = Test-Command "msbuild" "Install Visual Studio C++ tools with MSBuild, then open Developer PowerShell for VS 2022."
+$hasCl = Test-Command "cl" "Open Developer PowerShell for Visual Studio, then run this script again."
+$hasMsbuild = Test-Command "msbuild" "Install Visual Studio C++ tools with MSBuild, then open Developer PowerShell for Visual Studio."
 
 if ($hasCl) {
     $clPath = (Get-Command cl).Source
@@ -74,7 +74,7 @@ if ($hasCl) {
         Write-Ok "MSVC environment appears to target x86/Win32"
     }
     else {
-        Write-Warn "cl is available, but the shell does not clearly report x86. Prefer Developer PowerShell for VS 2022 with Win32/x86 tools."
+        Write-Warn "cl is available, but the shell does not clearly report x86. Prefer Developer PowerShell for Visual Studio with Win32/x86 tools."
     }
 }
 

@@ -22,7 +22,7 @@ if (-not (Test-Path $solutionPath)) {
 }
 
 if (-not (Get-Command msbuild -ErrorAction SilentlyContinue)) {
-    Write-Error "msbuild was not found. Open Developer PowerShell for VS 2022 and run this script again."
+    Write-Error "msbuild was not found. Open Developer PowerShell for Visual Studio and run this script again."
 }
 
 function Resolve-PlatformToolset {
@@ -91,4 +91,4 @@ else {
     Write-Warning "Build finished, but mp.dll was not found under $upstreamDir."
 }
 
-Write-Host "Windows Xash3D FWGS runtime uses mod/modcsbr/dlls/mp.dll. Linux Steam legacy tests still use mod/modcsbr/dlls/cs.so."
+Write-Host "Windows Xash3D FWGS runtime uses mod/modcsbr/dlls/mp.dll."

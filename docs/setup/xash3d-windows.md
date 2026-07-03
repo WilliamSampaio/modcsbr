@@ -1,6 +1,6 @@
 # Xash3D FWGS Windows Runtime
 
-This is the active initial runtime path for `modcsbr`.
+This is the supported runtime path for `modcsbr`.
 
 ## Goal
 
@@ -8,7 +8,7 @@ Run `modcsbr` on Windows with:
 
 - Xash3D FWGS official Windows binaries as the engine runtime;
 - Steam-owned `valve` and `cstrike` assets copied or linked into the Xash3D directory;
-- `WilliamSampaio/cs16-client` branch `modcsbr` built as `cl_dlls/client.dll`;
+- `WilliamSampaio/cs16-client` branch `modcsbr` built as `cl_dlls/client.dll` and `cl_dlls/menu.dll`;
 - `WilliamSampaio/ReGameDLL_CS` branch `modcsbr` built as `dlls/mp.dll`.
 
 The first phase uses downloaded Xash3D FWGS binaries. Build the engine from source only if the binary runtime blocks mod development.
@@ -23,8 +23,10 @@ runtime/xash3d/
   valve/
   cstrike/
   modcsbr/
+    stock cstrike assets copied locally
     liblist.gam
     cl_dlls/client.dll
+    cl_dlls/menu.dll
     dlls/mp.dll
 ```
 
@@ -51,6 +53,7 @@ The folder must contain:
 ```text
 valve/
 cstrike/
+steam_api.dll
 ```
 
 At minimum, Xash3D must be able to find:
@@ -61,6 +64,10 @@ runtime/xash3d/valve/gfx.wad
 
 If `valve` already exists because it came with the Xash3D package, the installer merges the Steam `valve` files into it instead of skipping the folder.
 
+The installer also copies `steam_api.dll` from the Steam Half-Life folder into the Xash3D root. This is mainly for stock `-game cstrike` smoke tests, because the original Steam `cstrike\cl_dlls\client.dll` expects that DLL beside the engine executable.
+
+The installed `modcsbr` folder is also seeded from the Steam `cstrike` folder before repository mod files and compiled DLLs are applied. This gives the local Xash runtime a complete Counter-Strike-derived mod folder while keeping Steam-owned assets under ignored `runtime/` instead of committing them to Git.
+
 By default assets are copied into the Xash3D runtime. To use directory junctions instead:
 
 ```powershell
@@ -69,7 +76,7 @@ $env:MODCSBR_ASSET_MODE = "link"
 
 ## Build Server
 
-From Developer PowerShell for VS 2022:
+From Developer PowerShell for Visual Studio:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File scripts/build/regamedll-windows.ps1
@@ -100,6 +107,7 @@ Expected repository output:
 
 ```text
 mod/modcsbr/cl_dlls/client.dll
+mod/modcsbr/cl_dlls/menu.dll
 ```
 
 ## Install
@@ -113,6 +121,8 @@ Reset the installed Xash mod folder:
 ```powershell
 powershell -ExecutionPolicy Bypass -File scripts/install/modcsbr-xash3d-windows.ps1 -Reset
 ```
+
+Use `-Reset` after changing the base Steam assets or when you want a clean generated mod folder. The normal install merges updated files into the existing runtime folder.
 
 Suppress optional ReGameDLL extras:
 
@@ -150,7 +160,7 @@ xash3d.exe -game modcsbr -console -dev
 
 - Keep all runtime binaries under `runtime/xash3d` or another ignored directory.
 - Keep the Xash3D, CS16Client, and ReGameDLL builds aligned to Win32/x86 unless all loaded game libraries are rebuilt together for another architecture.
-- Do not patch `hl.exe` or rely on Steam `-applaunch` for this active path; the Steam scripts remain legacy helpers.
+- Do not rely on Steam/GoldSrc launch workflows; Xash3D FWGS is the only supported runtime path.
 
 ## Troubleshooting
 
@@ -166,3 +176,18 @@ If it returns `False`, set `HALF_LIFE_DIR` to the Steam Half-Life folder and rei
 $env:HALF_LIFE_DIR = "C:\Program Files (x86)\Steam\steamapps\common\Half-Life"
 powershell -ExecutionPolicy Bypass -File scripts/install/modcsbr-xash3d-windows.ps1
 ```
+
+If Xash3D shows `Error: native object "MenuFactory" is unavailable`, confirm that the CS16Client menu DLL is installed beside the client DLL:
+
+```powershell
+Test-Path runtime\xash3d\modcsbr\cl_dlls\menu.dll
+```
+
+If it returns `False`, rebuild CS16Client and reinstall the runtime:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/build/cs16-client-windows.ps1 -UpdateSubmodules
+powershell -ExecutionPolicy Bypass -File scripts/install/modcsbr-xash3d-windows.ps1
+```
+
+If stock Counter-Strike fails with `can't initialize cl_dlls/client.dll` and `steam_api.dll not found`, reinstall after setting `HALF_LIFE_DIR` to the Steam Half-Life folder. The active mod launch should still use `-game modcsbr`; `-game cstrike` loads the stock Steam CS client DLL.
