@@ -23,3 +23,4 @@ All notable project changes will be documented here.
 - Clarified that CS16Client's nested `3rdparty/ReGameDLL_CS` submodule is a client build dependency, while `upstream/ReGameDLL_CS` remains the authoritative mod server GameDLL.
 - Documented that stock `-game cstrike` is not a supported Xash3D launch path because the Steam CS client DLL can assert on missing Steam GameUI state.
 - Added a development helper script to switch editable submodules from detached `HEAD` onto their `modcsbr` branches.
+- Added Portuguese (Brazil) and Spanish README/user documentation, with language links from the main README.

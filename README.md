@@ -1,5 +1,11 @@
 # modcsbr
 
+## Languages
+
+- English: this file
+- Portugues (Brasil): [README.pt-BR.md](README.pt-BR.md)
+- Espanol: [README.es.md](README.es.md)
+
 `modcsbr` is a Counter-Strike 1.6 / GoldSrc-family custom mod targeting Xash3D FWGS on Windows.
 
 The project uses:
@@ -156,11 +162,26 @@ The nested `upstream/cs16-client/3rdparty/ReGameDLL_CS` checkout belongs to the 
 
 ## Documentation
 
-- [Windows setup](docs/setup/windows-11.md)
-- [Xash3D FWGS runtime](docs/setup/xash3d-windows.md)
-- [Build ReGameDLL_CS](docs/setup/build-regamedll.md)
-- [Build CS16Client](docs/setup/build-cs16-client.md)
-- [Architecture overview](docs/architecture/overview.md)
+- Windows setup:
+  [English](docs/setup/windows-11.md) |
+  [Portugues](docs/setup/windows-11.pt-BR.md) |
+  [Espanol](docs/setup/windows-11.es.md)
+- Xash3D FWGS runtime:
+  [English](docs/setup/xash3d-windows.md) |
+  [Portugues](docs/setup/xash3d-windows.pt-BR.md) |
+  [Espanol](docs/setup/xash3d-windows.es.md)
+- Build ReGameDLL_CS:
+  [English](docs/setup/build-regamedll.md) |
+  [Portugues](docs/setup/build-regamedll.pt-BR.md) |
+  [Espanol](docs/setup/build-regamedll.es.md)
+- Build CS16Client:
+  [English](docs/setup/build-cs16-client.md) |
+  [Portugues](docs/setup/build-cs16-client.pt-BR.md) |
+  [Espanol](docs/setup/build-cs16-client.es.md)
+- Architecture overview:
+  [English](docs/architecture/overview.md) |
+  [Portugues](docs/architecture/overview.pt-BR.md) |
+  [Espanol](docs/architecture/overview.es.md)
 - [Approved runtime spec](specs/approved/xash3d-fwgs-windows-runtime.md)
 
 ## Contributing
