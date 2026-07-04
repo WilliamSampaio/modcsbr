@@ -1,0 +1,14 @@
+// overview description file for de_sampa.bsp by RuBones
+
+global 
+{
+	ZOOM	1.27
+	ORIGIN	-160	-32	176
+	ROTATED	0
+}
+
+layer 
+{
+	IMAGE	"overviews/de_sampa.bmp"
+	HEIGHT	-256
+}
