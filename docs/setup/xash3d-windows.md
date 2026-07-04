@@ -101,6 +101,12 @@ git submodule sync --recursive
 git submodule update --init --recursive
 ```
 
+For development work, switch the primary submodules to their `modcsbr` branches:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/dev/switch-modcsbr-branches.ps1
+```
+
 Build:
 
 ```powershell

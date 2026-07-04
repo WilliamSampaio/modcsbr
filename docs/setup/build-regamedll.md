@@ -20,6 +20,12 @@ Open Developer PowerShell for Visual Studio and run:
 powershell -ExecutionPolicy Bypass -File scripts/build/regamedll-windows.ps1
 ```
 
+For source changes, keep the submodule checkout on the development branch instead of detached `HEAD`:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/dev/switch-modcsbr-branches.ps1
+```
+
 Expected repository output:
 
 ```text

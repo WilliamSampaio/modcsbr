@@ -34,6 +34,18 @@ https://github.com/WilliamSampaio/cs16-client.git
 
 and tracks branch `modcsbr`. The original upstream project is `https://github.com/Velaron/cs16-client`.
 
+After submodule initialization, switch the editable checkout from detached `HEAD` to the development branch:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/dev/switch-modcsbr-branches.ps1
+```
+
+This keeps `upstream\cs16-client` on `modcsbr` for commits. If `3rdparty\mainui_cpp` is later forked for mod-specific menu work, create/push its `modcsbr` branch first and then run:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/dev/switch-modcsbr-branches.ps1 -IncludeMainUI
+```
+
 ## Build Steps
 
 Open Developer PowerShell for Visual Studio from `C:\dev\modcsbr` and run:

@@ -69,6 +69,14 @@ git submodule sync --recursive
 git submodule update --init --recursive
 ```
 
+Put the primary development submodules on their `modcsbr` branches before editing them:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/dev/switch-modcsbr-branches.ps1
+```
+
+Use `-IncludeMainUI` as well after the nested `mainui_cpp` submodule is forked and has a `modcsbr` branch.
+
 If Steam Half-Life is not in the default location, point the scripts at the folder that contains `valve`, `cstrike`, and `steam_api.dll`:
 
 ```powershell

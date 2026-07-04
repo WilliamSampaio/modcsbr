@@ -22,3 +22,4 @@ All notable project changes will be documented here.
 - Added mod-owned `mainui_english.txt` and `modcsbr_english.txt` localization placeholders so CS16Client/MainUI stop warning about missing language dictionaries at launch.
 - Clarified that CS16Client's nested `3rdparty/ReGameDLL_CS` submodule is a client build dependency, while `upstream/ReGameDLL_CS` remains the authoritative mod server GameDLL.
 - Documented that stock `-game cstrike` is not a supported Xash3D launch path because the Steam CS client DLL can assert on missing Steam GameUI state.
+- Added a development helper script to switch editable submodules from detached `HEAD` onto their `modcsbr` branches.

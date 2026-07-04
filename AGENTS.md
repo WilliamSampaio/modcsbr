@@ -8,6 +8,7 @@ This repository is for `modcsbr`, a Counter-Strike 1.6 / GoldSrc-family custom m
 
 - Keep `upstream/ReGameDLL_CS` as the server GameDLL submodule from `https://github.com/WilliamSampaio/ReGameDLL_CS.git`, tracking branch `modcsbr` for mod-specific work.
 - Keep `upstream/cs16-client` as the client DLL submodule from `https://github.com/WilliamSampaio/cs16-client.git`, tracking branch `modcsbr` for mod-specific work.
+- Use `scripts/dev/switch-modcsbr-branches.ps1` to move editable submodule working trees from detached `HEAD` onto their `modcsbr` branches before committing.
 - Treat `upstream/cs16-client/3rdparty/ReGameDLL_CS` as a nested CS16Client build dependency, not as the authoritative server GameDLL working tree for this repo.
 - Treat `rehlds/ReGameDLL_CS` and `Velaron/cs16-client` as original upstream projects, not as the direct working remotes for this repo.
 - Keep `runtime/xash3d` as a local, ignored working directory; do not commit downloaded engine/runtime binaries.
@@ -31,6 +32,7 @@ This repository is for `modcsbr`, a Counter-Strike 1.6 / GoldSrc-family custom m
 - CS16Client build notes: `docs/setup/build-cs16-client.md`
 - Windows ReGameDLL build script: `scripts/build/regamedll-windows.ps1`
 - Windows CS16Client build script: `scripts/build/cs16-client-windows.ps1`
+- Development submodule branch script: `scripts/dev/switch-modcsbr-branches.ps1`
 - Windows Xash3D install script: `scripts/install/modcsbr-xash3d-windows.ps1`
 - Windows environment check: `scripts/test/check-windows-environment.ps1`
 - Windows Xash3D launch script: `scripts/test/launch-modcsbr-xash3d-windows.ps1`
