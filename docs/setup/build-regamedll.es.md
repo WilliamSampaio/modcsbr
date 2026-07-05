@@ -20,7 +20,7 @@ Abre Developer PowerShell for Visual Studio y ejecuta:
 powershell -ExecutionPolicy Bypass -File scripts/build/regamedll-windows.ps1
 ```
 
-Para cambios de codigo, mantén el submodulo en la branch de desarrollo en vez de detached `HEAD`:
+Para cambios de codigo, manten el submodulo en la branch de desarrollo en vez de detached `HEAD`:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File scripts/dev/switch-modcsbr-branches.ps1
@@ -54,6 +54,6 @@ powershell -ExecutionPolicy Bypass -File scripts/test/launch-modcsbr-xash3d-wind
 
 ## Notas
 
-- Mantén el build en Win32/x86, salvo que todas las bibliotecas cargadas por Xash3D se reconstruyan juntas para otra arquitectura.
-- Mantén los cambios personalizados de ReGameDLL_CS en `upstream/ReGameDLL_CS` en la branch `modcsbr`.
+- Manten el build en Win32/x86, salvo que todas las bibliotecas cargadas por Xash3D se reconstruyan juntas para otra arquitectura.
+- Manten los cambios personalizados de ReGameDLL_CS en `upstream/ReGameDLL_CS` en la branch `modcsbr`.
 - Los flujos antiguos de Steam/GoldSrc y validacion de biblioteca Linux fueron removidos de este proyecto.

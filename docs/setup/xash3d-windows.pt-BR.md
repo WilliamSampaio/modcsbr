@@ -74,19 +74,44 @@ Por padrao os assets sao copiados. Para usar junctions:
 $env:MODCSBR_ASSET_MODE = "link"
 ```
 
-## Build
+## Build Server
 
 No Developer PowerShell for Visual Studio:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File scripts/build/regamedll-windows.ps1
-powershell -ExecutionPolicy Bypass -File scripts/build/cs16-client-windows.ps1 -UpdateSubmodules
 ```
 
-Saidas esperadas:
+Saida esperada no repositorio:
 
 ```text
 mod/modcsbr/dlls/mp.dll
+```
+
+## Build Client
+
+Inicialize os submodulos cliente/servidor:
+
+```powershell
+git submodule sync --recursive
+git submodule update --init --recursive
+```
+
+Para trabalho de desenvolvimento, troque os submodulos principais para suas branches `modcsbr`:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/dev/switch-modcsbr-branches.ps1
+```
+
+Compile:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/build/cs16-client-windows.ps1 -UpdateSubmodules
+```
+
+Saida esperada no repositorio:
+
+```text
 mod/modcsbr/cl_dlls/client.dll
 mod/modcsbr/cl_dlls/menu.dll
 ```
@@ -105,7 +130,7 @@ powershell -ExecutionPolicy Bypass -File scripts/install/modcsbr-xash3d-windows.
 
 Use `-Reset` depois de mudar assets base da Steam ou quando quiser uma pasta gerada limpa.
 
-## Launch
+## Execucao
 
 Valide sem abrir processo:
 
@@ -134,6 +159,12 @@ xash3d.exe -game modcsbr -console -dev
 ```
 
 Nao use `xash3d.exe -game cstrike` como smoke test do projeto.
+
+## Notas
+
+- Mantenha todos os binarios de runtime em `runtime/xash3d` ou outro diretorio ignorado.
+- Mantenha os builds Xash3D, CS16Client e ReGameDLL alinhados em Win32/x86, a menos que todas as bibliotecas de jogo carregadas sejam reconstruidas juntas para outra arquitetura.
+- Nao dependa de fluxos de launch Steam/GoldSrc; Xash3D FWGS e o unico caminho de runtime suportado.
 
 ## Troubleshooting
 

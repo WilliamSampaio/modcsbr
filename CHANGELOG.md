@@ -24,3 +24,4 @@ All notable project changes will be documented here.
 - Documented that stock `-game cstrike` is not a supported Xash3D launch path because the Steam CS client DLL can assert on missing Steam GameUI state.
 - Added a development helper script to switch editable submodules from detached `HEAD` onto their `modcsbr` branches.
 - Added Portuguese (Brazil) and Spanish README/user documentation, with language links from the main README.
+- Aligned Portuguese and Spanish README/setup documentation structure with the English originals.

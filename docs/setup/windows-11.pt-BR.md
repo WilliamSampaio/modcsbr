@@ -161,22 +161,74 @@ Instale:
 - PowerShell by Microsoft;
 - GitLens.
 
-## 8. Inicialize Submodulos
+## 8. Verifique o IntelliSense C/C++
+
+O projeto ja tem `.vscode/settings.json` configurado para:
+
+```text
+C++ standard = C++14
+IntelliSense = windows-msvc-x86
+```
+
+Isso corresponde ao alvo de build Windows do ReGameDLL_CS.
+
+Depois que `upstream/ReGameDLL_CS` existir, abra um arquivo `.cpp` dessa pasta e confirme:
+
+- syntax highlighting funciona;
+- clique direito em `Go to Definition` funciona;
+- erros de include nao aparecem para headers padrao/MSVC.
+
+## 9. Smoke Test Opcional
+
+Use isto apenas para confirmar que o compilador funciona fora do ReGameDLL.
+
+Crie um arquivo temporario fora do repo ou apague-o depois do teste:
+
+```powershell
+cd $env:TEMP
+notepad hello.cpp
+```
+
+Use este conteudo:
+
+```cpp
+#include <iostream>
+
+int main()
+{
+    std::cout << "MSVC is working\n";
+    return 0;
+}
+```
+
+Compile:
+
+```powershell
+cl /EHsc hello.cpp
+```
+
+Execute:
+
+```powershell
+.\hello.exe
+```
+
+Saida esperada:
+
+```text
+MSVC is working
+```
+
+## 10. Build ReGameDLL_CS Pelo VS Code
+
+Depois que `upstream/ReGameDLL_CS` existir, rode:
 
 ```powershell
 git submodule sync --recursive
 git submodule update --init --recursive
 ```
 
-Antes de editar submodulos principais, mude-os para as branches `modcsbr`:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File scripts/dev/switch-modcsbr-branches.ps1
-```
-
-## 9. Build ReGameDLL_CS
-
-Pelo VS Code, use:
+Depois rode:
 
 ```text
 Terminal > Run Build Task
@@ -200,7 +252,16 @@ Saida:
 mod\modcsbr\dlls\mp.dll
 ```
 
-## 10. Build CS16Client
+## 11. Build CS16Client Pelo VS Code
+
+Inicialize o submodulo cliente do fork `WilliamSampaio/cs16-client`:
+
+```powershell
+git submodule sync --recursive
+git submodule update --init --recursive
+```
+
+O submodulo fica em `upstream\cs16-client` e acompanha a branch `modcsbr`.
 
 Pelo VS Code, selecione:
 
@@ -221,7 +282,13 @@ mod\modcsbr\cl_dlls\client.dll
 mod\modcsbr\cl_dlls\menu.dll
 ```
 
-## 11. Instale e Execute com Xash3D FWGS
+Para uma verificacao rapida de ambiente:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/test/check-windows-environment.ps1
+```
+
+## 12. Instale e Execute com Xash3D FWGS
 
 Coloque os binarios oficiais Windows do Xash3D FWGS em:
 
@@ -266,11 +333,24 @@ $env:XASH3D_DIR = "D:\Games\xash3d-fwgs"
 $env:HALF_LIFE_DIR = "D:\SteamLibrary\steamapps\common\Half-Life"
 ```
 
+Veja:
+
+```text
+docs/setup/xash3d-windows.md
+docs/setup/build-cs16-client.md
+```
+
 ## Troubleshooting
 
 Se `cl` nao for encontrado, feche o VS Code, abra Developer PowerShell for Visual Studio e rode `code .` a partir de `C:\dev\modcsbr`.
 
 Se `msbuild` nao for encontrado, confirme que as ferramentas C++ e MSBuild foram selecionadas no Visual Studio Installer.
+
+Se IntelliSense usar a arquitetura errada, confirme `.vscode/settings.json`, depois recarregue o VS Code com `Developer: Reload Window`.
+
+Se o PowerShell bloquear um script por nao estar assinado digitalmente, rode-o com `powershell -ExecutionPolicy Bypass -File <script-path>`.
+
+Se MSBuild informar `MSB8020`, use `scripts/build/regamedll-windows.ps1` em vez de chamar `msbuild` diretamente.
 
 Se `cmake` nao for encontrado, instale o componente `C++ CMake tools for Windows`.
 
