@@ -130,6 +130,8 @@ powershell -ExecutionPolicy Bypass -File scripts/install/modcsbr-xash3d-windows.
 
 Use `-Reset` depois de mudar assets base da Steam ou quando quiser uma pasta gerada limpa.
 
+O default da ReGameDLL do mod e o overlay do repositorio em `game_init.cfg`, `server.cfg` e `listenserver.cfg` definem `mp_flashlight "1"`, permitindo que a ReGameDLL aceite o comando padrao da lanterna (`impulse 100`) em partidas locais.
+
 ## Execucao
 
 Valide sem abrir processo:

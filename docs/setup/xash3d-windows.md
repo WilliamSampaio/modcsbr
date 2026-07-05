@@ -134,6 +134,8 @@ powershell -ExecutionPolicy Bypass -File scripts/install/modcsbr-xash3d-windows.
 
 Use `-Reset` after changing the base Steam assets or when you want a clean generated mod folder. The normal install merges updated files into the existing runtime folder.
 
+The mod ReGameDLL default and the repository overlay's `game_init.cfg`, `server.cfg`, and `listenserver.cfg` set `mp_flashlight "1"`, which lets ReGameDLL accept the standard flashlight command (`impulse 100`) in local matches.
+
 Suppress optional ReGameDLL extras:
 
 ```powershell

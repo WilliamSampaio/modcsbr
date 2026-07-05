@@ -120,6 +120,7 @@ powershell -ExecutionPolicy Bypass -File scripts/test/launch-modcsbr-xash3d-wind
 ```
 
 No menu principal, use `New Game` para criar uma partida local. Essa tela permite escolher mapa, definir maximo de jogadores e definir a quantidade de bots.
+O default da ReGameDLL do mod e os configs de inicializacao/servidor ativam `mp_flashlight`, entao o comando normal da lanterna (`impulse 100`, geralmente no `F`) funciona em partidas locais.
 
 ## Layout do Runtime
 

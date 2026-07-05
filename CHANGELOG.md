@@ -25,3 +25,4 @@ All notable project changes will be documented here.
 - Added a development helper script to switch editable submodules from detached `HEAD` onto their `modcsbr` branches.
 - Added Portuguese (Brazil) and Spanish README/user documentation, with language links from the main README.
 - Aligned Portuguese and Spanish README/setup documentation structure with the English originals.
+- Enabled `mp_flashlight` in the mod ReGameDLL default and server startup configs so the player flashlight works in local Xash3D matches.

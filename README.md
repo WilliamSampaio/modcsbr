@@ -120,6 +120,7 @@ powershell -ExecutionPolicy Bypass -File scripts/test/launch-modcsbr-xash3d-wind
 ```
 
 In the main menu, use `New Game` to create a local match. That screen lets you select a map, set max players, and set the bot count.
+The mod ReGameDLL default plus startup and server configs enable `mp_flashlight`, so the normal flashlight command (`impulse 100`, usually bound to `F`) works in local matches.
 
 ## Runtime Layout
 
