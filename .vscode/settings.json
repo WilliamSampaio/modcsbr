@@ -16,5 +16,5 @@
     "**/Release": true,
     "**/build": true
   },
-  "cmake.sourceDirectory": "C:/dev/modcsbr/upstream/ReGameDLL_CS"
+  "cmake.sourceDirectory": "${workspaceFolder}/upstream/ReGameDLL_CS"
 }

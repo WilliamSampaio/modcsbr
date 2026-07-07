@@ -2,41 +2,97 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "ReGameDLL: build Release Win32",
+      "label": "ReGameDLL: check Windows environment",
       "type": "shell",
-      "command": "msbuild",
+      "command": "powershell",
       "args": [
-        "${workspaceFolder}\\upstream\\ReGameDLL_CS\\msvc\\ReGameDLL.sln",
-        "/m",
-        "/p:Configuration=Release",
-        "/p:Platform=Win32"
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}/scripts/test/check-windows-environment.ps1"
       ],
       "options": {
         "cwd": "${workspaceFolder}"
       },
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      },
-      "problemMatcher": "$msCompile",
-      "detail": "Requires VS Code to be opened from Developer PowerShell for VS 2022."
+      "group": "build",
+      "problemMatcher": [],
+      "detail": "Checks Git, VS Code, MSVC, MSBuild, CS16Client, ReGameDLL_CS, and Xash3D paths on Windows."
     },
     {
-      "label": "ReGameDLL: clean Release Win32",
+      "label": "CS16Client: build Windows Release Win32",
       "type": "shell",
-      "command": "msbuild",
+      "command": "powershell",
       "args": [
-        "${workspaceFolder}\\upstream\\ReGameDLL_CS\\msvc\\ReGameDLL.sln",
-        "/t:Clean",
-        "/p:Configuration=Release",
-        "/p:Platform=Win32"
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}/scripts/build/cs16-client-windows.ps1",
+        "-Configuration",
+        "Release",
+        "-Platform",
+        "Win32"
       ],
       "options": {
         "cwd": "${workspaceFolder}"
       },
       "group": "build",
       "problemMatcher": "$msCompile",
-      "detail": "Requires VS Code to be opened from Developer PowerShell for VS 2022."
+      "detail": "Builds WilliamSampaio/cs16-client branch modcsbr as Release | Win32 and copies client.dll/menu.dll into mod/modcsbr/cl_dlls."
+    },
+    {
+      "label": "ReGameDLL: build Windows Release Win32",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}/scripts/build/regamedll-windows.ps1",
+        "-Configuration",
+        "Release",
+        "-Platform",
+        "Win32"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build",
+      "problemMatcher": "$msCompile",
+      "detail": "Builds ReGameDLL_CS with MSBuild as Release | Win32 and copies mp.dll into mod/modcsbr/dlls."
+    },
+    {
+      "label": "modcsbr: install into Xash3D FWGS Windows",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}/scripts/install/modcsbr-xash3d-windows.ps1"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build",
+      "problemMatcher": [],
+      "detail": "Generates runtime/xash3d/modcsbr from Steam cstrike assets, then overlays mod files and built DLLs."
+    },
+    {
+      "label": "modcsbr: launch Xash3D FWGS Windows",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}/scripts/test/launch-modcsbr-xash3d-windows.ps1"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build",
+      "problemMatcher": [],
+      "detail": "Installs and launches Xash3D FWGS with -game modcsbr on Windows."
     }
   ]
 }

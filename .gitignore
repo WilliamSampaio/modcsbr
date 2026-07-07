@@ -11,10 +11,11 @@
 *.lib
 *.exp
 
-build/
-dist/
-server/
-steam/
+/build/
+/dist/
+/runtime/
+/server/
+/steam/
 
 upstream/ReGameDLL_CS/build/
 upstream/ReGameDLL_CS/msvc/Debug/

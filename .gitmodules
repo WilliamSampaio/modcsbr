@@ -1,3 +1,8 @@
 [submodule "upstream/ReGameDLL_CS"]
 	path = upstream/ReGameDLL_CS
-	url = https://github.com/rehlds/ReGameDLL_CS.git
+	url = https://github.com/WilliamSampaio/ReGameDLL_CS.git
+	branch = modcsbr
+[submodule "upstream/cs16-client"]
+	path = upstream/cs16-client
+	url = https://github.com/WilliamSampaio/cs16-client.git
+	branch = modcsbr
