@@ -40,3 +40,16 @@ This repository is for `modcsbr`, a Counter-Strike 1.6 / GoldSrc-family custom m
 - Windows Xash3D install script: `scripts/install/modcsbr-xash3d-windows.ps1`
 - Windows environment check: `scripts/test/check-windows-environment.ps1`
 - Windows Xash3D launch script: `scripts/test/launch-modcsbr-xash3d-windows.ps1`
+
+## Gameplay Product Workflow
+
+- For requests involving gameplay mechanics, game rules, characters,
+  loadouts, weapons, economy, objectives, balance, player experience,
+  or product identity, load the `game-product-designer` skill before
+  proposing implementation.
+- Product and gameplay changes must begin as a spec under `specs/backlog`.
+- Do not move a gameplay spec to `specs/approved` without an explicit
+  product decision.
+- Treat `docs/product/product-vision.md` and
+  `docs/product/design-pillars.md` as authoritative product guidance
+  when those files exist.
