@@ -41,6 +41,7 @@ runtime/xash3d/steam_api.dll
 ```
 
 Do not commit generated runtime files, engine binaries, or Valve/Counter-Strike assets.
+Do not commit Windows metadata files such as `Thumbs.db`; they are local Explorer caches, not mod assets.
 
 ## Requirements
 

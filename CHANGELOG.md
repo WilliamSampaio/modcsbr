@@ -4,6 +4,7 @@ All notable project changes will be documented here.
 
 ## Unreleased
 
+- Removed the stray Windows Explorer cache file `mod/modcsbr/overviews/Thumbs.db` from version control and now ignore `Thumbs.db` across the repository.
 - Removed the legacy Steam/GoldSrc install, launch, Linux environment, and Linux server-library helper scripts.
 - Made Windows Xash3D FWGS the only supported runtime path.
 - Added `WilliamSampaio/cs16-client` as an `upstream/cs16-client` submodule on branch `modcsbr`.

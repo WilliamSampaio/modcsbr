@@ -22,6 +22,7 @@ This repository is for `modcsbr`, a Counter-Strike 1.6 / GoldSrc-family custom m
 - The initial engine plan uses official Xash3D FWGS binaries under `runtime/xash3d`; build the engine from source only when binaries are insufficient.
 - Keep CS16Client's `menu.dll` installed beside `client.dll` in `cl_dlls`; Xash3D FWGS MainUI expects that layout for `MenuFactory`.
 - Generate the Xash3D `modcsbr` runtime folder by copying the Steam `cstrike` base first, then overlaying repository mod files and compiled DLLs.
+- Ignore Windows Explorer metadata such as `Thumbs.db`; do not commit shell cache files as mod assets.
 - Keep user-facing README/setup/architecture documentation available in English, Portuguese (Brazil), and Spanish, and keep the language links in `README.md` up to date.
 - Every repository change must update the relevant project documentation in the same turn: `CHANGELOG.md`, `README.md`, docs under `docs/`, and `AGENTS.md` when agent instructions, paths, workflows, or rules change.
 

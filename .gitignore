@@ -10,6 +10,7 @@
 *.so
 *.lib
 *.exp
+Thumbs.db
 
 /build/
 /dist/

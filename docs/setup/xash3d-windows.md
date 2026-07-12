@@ -72,6 +72,8 @@ The installed `modcsbr` folder is also seeded from the Steam `cstrike` folder be
 
 The repository overlay includes minimal `resource/mainui_english.txt` and `resource/modcsbr_english.txt` dictionaries. CS16Client and MainUI probe those mod-owned files during startup; keeping valid empty dictionaries in the overlay avoids missing-localization warnings while still relying on the copied legal Steam assets for stock Counter-Strike text.
 
+When adding or reviewing overlay assets under `mod/modcsbr`, ignore Windows Explorer metadata such as `Thumbs.db`. Those files are local caches and should not be versioned as part of the mod.
+
 By default assets are copied into the Xash3D runtime. To use directory junctions instead:
 
 ```powershell
