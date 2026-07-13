@@ -25,4 +25,4 @@ Specs describe planned gameplay, weapon, server, and mod changes before implemen
 
 ## Active Backlog Explorations
 
-- [Factions, roles, and predefined kits](backlog/factions-roles-and-predefined-kits.md) (Portuguese; product discovery, not approved)
+- [Teams, player types, and predefined kits](backlog/teams-player-types-and-predefined-kits.md) (Portuguese; product discovery, not approved)

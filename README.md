@@ -27,7 +27,7 @@ Do not use `runtime/xash3d/xash3d.exe -game cstrike` as a project smoke test. Th
 
 This repository is being prepared for public collaboration. The current focus is getting a clean Windows Xash3D baseline before gameplay and asset changes grow.
 
-Gameplay discovery has started with a non-approved backlog exploration of factions, tactical roles, predefined kits, economy removal, and magazine handling. It is a proposal for playtesting, not current game behavior.
+Gameplay discovery has started with a non-approved backlog exploration of teams, free type composition, predefined kits without money or buying, and community-authored themed teams constrained by symmetric type contracts. Weapon damage remains fixed; community content may choose magazine capacity up to the slot's ammo ceiling and may vary recoil and fire rate within server-validated ranges. Magazine capacity, total ammunition, reload behavior, reload timing, and animation remain separate parameters. For the MVP, reload timing is fixed by weapon category, based on CS 1.6 references, and enforced by the server; community assets must adapt to it rather than define it. Pump-action and semi-automatic shotguns follow the M3 and XM1014 shell-by-shell baselines, while fully automatic shotguns are out of scope. Team counts may differ by at most one active player, and reconnections obey current availability without reserving a previous slot. Backward compatibility with CS 1.6 maps and game modes is an initial product pillar, but legacy maps do not reactivate the economy. The current codebase supports up to 32 connected clients, while servers may configure fewer. This is a proposal for playtesting, not current game behavior.
 
 ## Legal Assets
 
@@ -186,7 +186,10 @@ The nested `upstream/cs16-client/3rdparty/ReGameDLL_CS` checkout belongs to the 
   [English](docs/architecture/overview.md) |
   [Portugues](docs/architecture/overview.pt-BR.md) |
   [Espanol](docs/architecture/overview.es.md)
-- [Backlog gameplay exploration: factions, roles, and predefined kits](specs/backlog/factions-roles-and-predefined-kits.md) (Portuguese; not approved)
+- Product direction (Portuguese):
+  [Vision](docs/product/product-vision.md) |
+  [Design pillars](docs/product/design-pillars.md)
+- [Backlog gameplay exploration: teams, player types, and predefined kits](specs/backlog/teams-player-types-and-predefined-kits.md) (Portuguese; not approved)
 - [Approved runtime spec](specs/approved/xash3d-fwgs-windows-runtime.md)
 
 ## Contributing

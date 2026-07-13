@@ -27,7 +27,7 @@ No uses `runtime/xash3d/xash3d.exe -game cstrike` como smoke test del proyecto. 
 
 Este repositorio se esta preparando para colaboracion publica. El foco actual es obtener una base Windows Xash3D limpia antes de ampliar cambios de gameplay y assets.
 
-El descubrimiento de gameplay comenzo con una exploracion no aprobada, en el backlog, sobre facciones, funciones tacticas, kits predefinidos, eliminacion de la economia y gestion de cargadores. Es una propuesta para playtests, no el comportamiento actual del juego.
+El descubrimiento de gameplay comenzo con una exploracion no aprobada, en el backlog, sobre equipos, composicion libre, kits predefinidos sin dinero ni compra y equipos tematicos creados por la comunidad dentro de contratos simetricos de tipo. El dano permanece fijo; el contenido comunitario puede definir la capacidad del cargador hasta el limite de balas del slot y variar retroceso y cadencia dentro de intervalos validados por el servidor. La capacidad, la municion total, el comportamiento, el tiempo y la animacion de recarga siguen siendo parametros separados. En el MVP, el tiempo de recarga es fijo por categoria, usa referencias de CS 1.6 y lo impone el servidor; los assets comunitarios deben adaptarse a el, sin definirlo. Las escopetas de corredera y semiautomaticas siguen las baselines cartucho por cartucho de la M3 y XM1014; las escopetas totalmente automaticas quedan fuera del alcance. Los equipos pueden diferir como maximo en un jugador activo, y las reconexiones obedecen la disponibilidad actual sin reservar la plaza anterior. La retrocompatibilidad con mapas y modos de juego de CS 1.6 es un pilar inicial, pero los mapas legacy no reactivan la economia. La base actual admite hasta 32 clientes conectados, aunque los servidores pueden configurar menos. Es una propuesta para playtests, no el comportamiento actual del juego.
 
 ## Assets Legales
 
@@ -185,7 +185,10 @@ El checkout anidado `upstream/cs16-client/3rdparty/ReGameDLL_CS` pertenece al bu
   [English](docs/architecture/overview.md) |
   [Portugues](docs/architecture/overview.pt-BR.md) |
   [Espanol](docs/architecture/overview.es.md)
-- [Exploracion de gameplay en el backlog: facciones, funciones y kits predefinidos](specs/backlog/factions-roles-and-predefined-kits.md) (portugues; no aprobada)
+- Direccion de producto (portugues):
+  [Vision](docs/product/product-vision.md) |
+  [Pilares de diseno](docs/product/design-pillars.md)
+- [Exploracion de gameplay en el backlog: equipos, tipos de jugador y kits predefinidos](specs/backlog/teams-player-types-and-predefined-kits.md) (portugues; no aprobada)
 - [Spec aprobada del runtime](specs/approved/xash3d-fwgs-windows-runtime.md)
 
 ## Contribuir

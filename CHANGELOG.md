@@ -4,7 +4,13 @@ All notable project changes will be documented here.
 
 ## Unreleased
 
-- Added a non-approved product exploration spec for neutral factions, temporary attacker/defender sides, tactical roles, predefined kits, economy removal, physical-magazine trade-offs, lifecycle, authority, exploits, MVP scope, and measurable playtest criteria.
+- Added initial product vision and design pillars, including backward compatibility with CS 1.6 maps and game modes without mandatory map recompilation.
+- Confirmed predefined spawn kits without money or buying, universal flashlights, and a server-validated contract model for community-authored themed teams; recorded initial ammo and utility counts as unapproved balance hypotheses.
+- Fixed weapon damage at the global profile level while allowing community teams to set magazine capacity from 1 through the slot ammo ceiling and vary recoil/fire rate within server-validated contract ranges and combinations.
+- Clarified that extreme magazine capacities are intentional thematic choices when they stay within the slot ammo ceiling and are communicated consistently by assets and HUD.
+- Separated magazine capacity, total ammunition, reload behavior, reload timing, and animation in the gameplay contract; chose one server-authoritative reload time per weapon category for the MVP, which community packages cannot override, while alternative profiles remain a possible post-MVP experiment.
+- Adopted CS 1.6 reload timings as the MVP baseline and split shotguns into pump-action/M3 and semi-automatic/XM1014 shell-by-shell categories; fully automatic shotguns remain out of scope.
+- Added a non-approved product exploration spec for variable-size teams, free composition without type quotas, a server-authoritative maximum one-player difference between active teams, and reconnections that obey current availability without reserving the previous team; also covered symmetric player types with team-specific aliases, temporary attacker/defender sides, predefined kits, economy removal, physical-magazine trade-offs, lifecycle, exploits, MVP scope, measurable playtest criteria, and the current 32-client code limit.
 - Removed the stray Windows Explorer cache file `mod/modcsbr/overviews/Thumbs.db` from version control and now ignore `Thumbs.db` across the repository.
 - Removed the legacy Steam/GoldSrc install, launch, Linux environment, and Linux server-library helper scripts.
 - Made Windows Xash3D FWGS the only supported runtime path.
