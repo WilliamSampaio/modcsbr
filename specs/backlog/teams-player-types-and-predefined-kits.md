@@ -42,12 +42,15 @@ Esta spec registra uma exploração de ideia e uma proposta de MVP. Ela não aut
 - **Decisão:** identidade de equipe e lado operacional permanecem separados. O servidor atribui os lados técnicos no início da partida e os troca na metade da partida quando o cenário for reversível; jogadores permanecem na mesma equipe e assumem o lado operacional oposto. Equipes não resolvem conflitos de escolha de lado diretamente entre si.
 - **Decisão de MVP:** usar a regra existente de equipes empilhadas com diferença máxima de um jogador e sem transferência automática forçada; a configuração de referência é `mp_limitteams 1` e `mp_autoteambalance 0`.
 - **Decisão de MVP:** a primeira fase usa munição reserva agregada, HUD exato de carregador/reserva e recarga clássica do CS 1.6. Carregadores individuais e recarga tática permanecem como segunda configuração experimental, depois de validar equipes, tipos e kits.
-- **Decisão de MVP:** lanterna é universal. Visão noturna reutiliza o sistema legado e pode ser concedida simetricamente pelo cenário/kit, sem compra e sem exclusividade por equipe.
+- **Decisão de MVP:** lanterna é universal. Visão noturna reutiliza o sistema legado e pode ser concedida simetricamente por configuração global do servidor/kit, sem compra e sem exclusividade por equipe.
 - **Decisão de MVP:** drop, coleta, slots e estado da arma no chão reutilizam a base do CS 1.6; persistência da arma carregada pelo sobrevivente entre rodadas continua sendo regra adicional do mod.
 - **Decisão de MVP:** bots reutilizam navegação, combate e execução dos objetivos legados, mas devem receber um tipo/variação e kit válidos sem passar pelo estado de compra.
-- **Decisão de contrato:** somente Marksman pode usar um perfil de pistola silenciada em seu slot de backup. Outros tipos aceitam apenas perfis de pistola normal. O criador comunitário pode declarar a opção normal ou silenciada, mas o cenário deve selecionar e validar o mesmo perfil mecânico para os Marksman das duas equipes; modelo, nome e som podem variar sem ocultar o uso do silenciador.
+- **Decisão de contrato:** somente Marksman pode usar um perfil de pistola silenciada em seu slot de backup. Outros tipos aceitam apenas perfis de pistola normal. O pacote comunitário pode mapear uma opção normal ou silenciada da allowlist global, sujeita ao mesmo contrato e orçamento de poder; cenário, mapa e modo não selecionam nem filtram esse perfil. Modelo, nome e som podem variar sem ocultar o uso do silenciador.
 - **Decisão de contrato:** cada arma temática criada pela comunidade deve referenciar um perfil mecânico global aprovado. O perfil fixa dano, categoria/calibre mecânico, penetração, recarga, slots permitidos e limites combinados; o criador controla apresentação, capacidade do carregador, recuo e cadência somente onde o perfil autorizar.
 - **Decisão de produto:** assimetria compensada é permitida. Equipes podem mapear perfis globais diferentes para o mesmo contrato Assault Rifle ou Assault SMG, desde que usem a mesma allowlist e o mesmo orçamento de poder. Assimetria livre ou parâmetros fora dos perfis continuam rejeitados.
+- **Decisão de MVP:** o catálogo global inicial do Assault possui quatro perfis: `assault_rifle_762_power` (AK-47), `assault_rifle_556_control` (M4A1 sem silenciador), `assault_smg_9mm_control` (MP5) e `assault_smg_45_power` (UMP-45). As armas entre parênteses são baselines mecânicas do CS 1.6, não identidades visuais obrigatórias.
+- **Decisão de MVP:** as primárias do Assault usam somente fogo automático. Burst, silenciador acoplável e os perfis baseados em FAMAS, Galil, TMP, MAC-10 e P90 ficam fora do catálogo inicial.
+- **Decisão de validação:** dano, calibre mecânico, penetração, perda por distância, precisão-base, recarga, mobilidade e modos de disparo pertencem ao perfil. Recuo e cadência podem variar apenas dentro de uma região conjunta aprovada; a combinação de cadência máxima com recuo mínimo não é automaticamente válida.
 - **Decisão de escala comunitária:** um perfil global válido não precisa ser aprovado novamente para cada confronto. A allowlist global do servidor vale igualmente em todos os mapas e modos legados suportados; cenário, mapa, modo e confronto não adicionam filtros próprios de perfis.
 - **Decisão:** dinheiro, recompensas monetárias, preços e menu de compra deixam de fazer parte das regras normais do mod. Cada spawn recebe o kit predefinido do tipo escolhido.
 - **Objetivo de produto:** permitir que a comunidade crie equipes temáticas, com nomes, modelos, vozes e mapeamentos próprios de equipamento, desde que respeitem contratos globais validados pelo servidor.
@@ -363,7 +366,7 @@ Regras propostas:
 - Opções de kit devem ser equivalentes, nunca uma progressão vertical desbloqueável.
 - Todos os tipos começam equipados com lanterna.
 - Todos os tipos recebem faca em slot próprio, não descartável e mecanicamente idêntica entre equipes; somente modelo, skin, animação e sons podem variar de forma coerente.
-- Visão noturna reutiliza o sistema legado e pode ser concedida pelo cenário/kit sem compra; sua disponibilidade precisa ser simétrica e compatível com o mapa.
+- Visão noturna reutiliza o sistema legado e pode ser concedida por configuração global do servidor/kit sem compra; sua disponibilidade precisa ser simétrica e compatível com o mapa.
 - Somente Marksman pode receber o perfil de pistola silenciada no backup; outros tipos usam perfis de pistola normal. A permissão não autoriza uma equipe a receber vantagem exclusiva.
 
 Se todos escolherem o mesmo tipo, a composição é aceita e todos entram normalmente na rodada. O HUD pode descrever a composição, mas não deve alertar que ela está “errada” nem impedir o spawn. Nenhum objetivo pode exigir um tipo específico.
@@ -385,6 +388,23 @@ Para o próximo playtest, esta matriz substitui as sugestões iniciais de armas 
 | Breacher — Semiautomática | Shotgun/XM1014, teto exato de 40 cartuchos | — | Pistola, teto de 45 | 0 | 2 | 1 |
 
 Nesta tabela, “granada” foi interpretada como granada de fragmentação. Os valores aprovados ainda são baselines de MVP sujeitas a rejeição por playtest, não garantias de balanceamento final.
+
+### Catálogo global inicial do Assault
+
+| Identificador global | Referência mecânica | Dano-base | Ciclo / cadência aproximada | Recarga | Calibre mecânico | Perda por distância | Penetrações máximas |
+|---|---|---:|---:|---:|---|---:|---:|
+| `assault_rifle_762_power` | AK-47 | 36 | 0,0955 s / 628 RPM | 2,45 s | 7,62 mm | 0,98 | 2 |
+| `assault_rifle_556_control` | M4A1 sem silenciador | 32 | 0,0875 s / 686 RPM | 3,05 s | 5,56 mm | 0,97 | 2 |
+| `assault_smg_9mm_control` | MP5 | 26 | 0,075 s / 800 RPM | 2,63 s | 9 mm | 0,84 | 1 |
+| `assault_smg_45_power` | UMP-45 | 30 | 0,100 s / 600 RPM | 3,50 s | .45 ACP | 0,82 | 1 |
+
+Esses números reproduzem as baselines atuais do ReGameDLL_CS para o primeiro playtest; não demonstram que os quatro perfis possuem equilíbrio final. O perfil 7,62 troca controle e cadência por dano e penetração; o 5,56 troca dano por cadência e controle. O SMG 9 mm prioriza cadência e controle; o .45 ACP prioriza dano por tiro, com menor cadência e pior comportamento de penetração/distância.
+
+Nome, modelo, animação e som não precisam representar AK-47, M4A1, MP5 ou UMP-45, mas precisam comunicar o perfil escolhido. Capacidade continua configurável entre 1 e o teto do slot: 150 para Assault Rifle e 90 para Assault SMG. Dano, calibre, penetração, perda por distância, precisão-base, tempo de recarga, mobilidade e modos de disparo não podem ser alterados pelo pacote comunitário.
+
+Recuo e cadência são configuráveis somente dentro de uma região conjunta ainda a ser calibrada. Validar cada eixo isoladamente é insuficiente: aumentar cadência deve consumir orçamento de poder ou exigir uma compensação de controle. O primeiro playtest controlado usa o mesmo perfil nas duas equipes; um teste posterior usa perfis distintos para medir a assimetria compensada sem confundi-la com mapa, lado ou habilidade dos participantes.
+
+FAMAS, Galil, TMP, MAC-10 e P90 permanecem candidatos futuros. Burst, silenciador acoplável e outras ações secundárias da arma exigem contratos e assets próprios e não fazem parte do Assault no MVP.
 
 ### Regra proposta para teto de munição e carregadores
 
@@ -531,7 +551,7 @@ O sistema precisa impedir cancelamento que duplique ou restaure munição. A tra
 - Pegar a arma não concede reservas, kit, tipo nem acessórios externos do antigo dono.
 - A quantidade do carregador é desconhecida antes da coleta, mas o HUD a revela exatamente após a animação normal de equipar. Não exigir inspeção no MVP.
 - A coleta interrompe ações incompatíveis conforme as regras já legíveis de troca de arma.
-- Qualquer tipo pode usar a arma coletada, salvo proibição explícita do cenário; restrições rígidas reduzem jogadas emergentes.
+- Qualquer tipo pode usar a arma coletada; restrições rígidas por cenário reduziriam jogadas emergentes e não fazem parte do contrato atual.
 - Reservas próprias só funcionam quando o tipo de carregador for compatível. Mesmo calibre não implica compatibilidade.
 - Não existe penalidade de peso no MVP.
 - O jogador que termina a rodada vivo preserva a arma coletada que estiver carregando no encerramento.
@@ -558,7 +578,7 @@ Qualquer alternativa futura precisa registrar origem, dono, limite por vida e ex
 
 ## 17. Composição livre dos tipos
 
-**Decisão:** nenhum tipo possui limite por equipe. Não existem reserva, fila, votação, prioridade por ordem de clique nem rotação forçada. Uma equipe inteira pode escolher Assault, Support, Breacher, Marksman ou qualquer outro tipo disponível no cenário.
+**Decisão:** nenhum tipo possui limite por equipe. Não existem reserva, fila, votação, prioridade por ordem de clique nem rotação forçada. Uma equipe inteira pode escolher Assault, Support, Breacher, Marksman ou qualquer outro tipo habilitado no catálogo global do servidor.
 
 Consequências:
 
@@ -865,8 +885,8 @@ Manter cada eixo testável separadamente: equipes/lados, tipos/kits, parâmetros
 | Tetos de munição por tipo/slot | Matriz da seção 11 | Hipótese para playtest | Servidor/contrato global |
 | Quantidade de utilidades | Matriz da seção 11 | Hipótese para playtest | Servidor/contrato global |
 | Lanterna inicial | sim | Regra fixa atual | Servidor |
-| Visão noturna | não no MVP | desligada/opção simétrica | Servidor/cenário |
-| Perfis permitidos para conteúdo comunitário | a definir | allowlist e intervalos seguros | Servidor |
+| Visão noturna | não no MVP | desligada/opção simétrica | Servidor/kit global |
+| Perfis permitidos para conteúdo comunitário | quatro perfis iniciais do Assault; demais a definir | allowlist e regiões conjuntas seguras | Servidor/contrato global |
 | Dano comunitário | não configurável | valor fixo do perfil | Servidor/contrato global |
 | Capacidade comunitária do carregador | por equipe/arma | 1–teto de balas do tipo/slot | Servidor/contrato global |
 | Recuo comunitário | a definir por perfil | `recoil_min`–`recoil_max` | Servidor/contrato global |
@@ -895,7 +915,7 @@ Os valores concretos de armas, munição, tempos e utilidades só devem ser defi
 7. Qual é a política futura para equipes baseadas em organizações reais e conflitos contemporâneos?
 8. Qual nível de suporte a tipos/kits é necessário para considerar os bots publicáveis?
 9. Quais intervalos e combinações de recuo/cadência são seguros para cada perfil de arma?
-10. Quais armas do CS 1.6 serão a referência de tempo para Assault Rifle, Assault SMG e pistolas no primeiro playtest?
+10. Quais armas do CS 1.6 serão a referência para Support e pistolas no primeiro playtest? As referências do Assault estão definidas no catálogo inicial.
 
 ## 28. Recomendação final
 

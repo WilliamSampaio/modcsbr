@@ -56,9 +56,11 @@ Dinheiro e compra não fazem parte do loop normal. O jogador nasce com o kit do 
 - Todos os tipos recebem lanterna; visão noturna permanece uma opção em estudo.
 - Todos os tipos recebem faca em slot próprio; equipes podem tematizar sua apresentação, nunca seus atributos globais.
 - Assault escolhe Rifle ou SMG como variações laterais mutuamente exclusivas, sem receber as duas armas na mesma vida.
+- O catálogo inicial do Assault usa quatro perfis globais: 7,62 de poder/AK-47, 5,56 de controle/M4A1 sem silenciador, 9 mm de controle/MP5 e .45 de poder/UMP-45. As referências não obrigam identidade visual.
+- Primárias do Assault usam somente fogo automático no MVP; burst, silenciador acoplável, FAMAS, Galil, TMP, MAC-10 e P90 ficam fora do catálogo inicial.
 - Support usa um único kit de machine gun, pistola, faca, uma flashbang e uma smoke; sua supressão vem da ameaça real do fogo, nunca de perda artificial de controle do adversário.
 - Marksman escolhe Bolt-action com teto total de 50 balas ou Semiauto com teto total de 90 balas; Semiauto possui dano global menor e cadência maior que Bolt-action. Ambas recebem pistola, faca, uma flashbang e uma smoke. Os tetos incluem o carregador inserido; Scout e SG-550 são apenas referências mecânicas iniciais, enquanto perfis equivalentes à AWP e marcação automática ficam fora do MVP.
-- Somente Marksman pode usar um perfil de pistola silenciada; os demais tipos usam perfis normais. Conteúdo comunitário pode declarar normal ou silenciada, mas o cenário seleciona o mesmo perfil mecânico para os Marksman das duas equipes.
+- Somente Marksman pode usar um perfil de pistola silenciada; os demais tipos usam perfis normais. O pacote comunitário pode mapear uma opção normal ou silenciada da allowlist global, sob o mesmo contrato e orçamento de poder; cenários não selecionam nem filtram esse perfil.
 - Em cenários reversíveis, os lados operacionais são trocados na metade da partida sem mover jogadores entre identidades de equipe.
 - Breacher escolhe pump-action/M3 ou semiautomática/XM1014 como variações laterais exclusivas, ambas com teto exato de 40 cartuchos, pistola, faca, duas flashbangs e uma smoke; não acumula SMG, fragmentação, ferramenta de ruptura ou bônus passivo.
 - Sobreviventes preservam uma arma coletada entre rodadas somente como substituição do mesmo slot; o teto de munição e o dano continuam pertencendo à categoria da arma, e trocar tipo ou variação restaura o kit.
@@ -76,6 +78,7 @@ A comunidade deve poder criar equipes temáticas que não sejam apenas skins.
 - Capacidade do carregador pode variar de 1 até o teto de balas do contrato.
 - Os extremos desse intervalo são válidos quando comunicados coerentemente pelos modelos, animações, sons e HUD.
 - Recuo e cadência podem ser ajustados dentro dos intervalos do contrato.
+- Recuo e cadência são validados como combinação dentro de uma região conjunta; valores isoladamente permitidos não garantem que o par seja válido.
 - Capacidade, munição total, comportamento, tempo e animação de recarga são parâmetros independentes; capacidade não calcula automaticamente a duração da recarga.
 - No MVP, cada categoria de arma possui um único tempo de recarga definido pelo jogo e validado pelo servidor; criadores não podem alterá-lo e os assets apenas comunicam a regra aceita.
 - A baseline de tempo é o CS 1.6. Escopetas pump-action e semiautomáticas preservam respectivamente os comportamentos da M3 e da XM1014, inclusive recarga cartucho por cartucho; fogo totalmente automático não pertence ao MVP.

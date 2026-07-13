@@ -30,6 +30,8 @@ Status: direção inicial confirmada; visão ainda incompleta
 - Todos os tipos começam equipados com lanterna.
 - O MVP começa com quatro tipos fixos e simétricos: Assault, Support, Marksman e Breacher. Quatro é um recorte de protótipo, não um limite estrutural para a evolução do catálogo.
 - Assault possui duas variações laterais exclusivas: Rifle ou SMG, sempre acompanhada apenas da pistola, faca e utilidades do tipo.
+- O catálogo inicial do Assault possui quatro perfis globais: Rifle 7,62 de poder (AK-47), Rifle 5,56 de controle (M4A1 sem silenciador), SMG 9 mm de controle (MP5) e SMG .45 de poder (UMP-45). As armas citadas são baselines mecânicas, não identidades visuais obrigatórias.
+- Primárias do Assault usam somente fogo automático no MVP. Burst, silenciador acoplável e perfis baseados em FAMAS, Galil, TMP, MAC-10 e P90 ficam fora do catálogo inicial.
 - Support possui machine gun com teto de 250 balas, pistola, faca, uma flashbang e uma smoke; não recebe fragmentação, arma secundária nem supressão artificial.
 - Marksman escolhe uma variação lateral Bolt-action, com teto total de 50 balas, ou Semiauto, com teto total de 90 balas; Semiauto troca menor dano por maior cadência. Ambas recebem pistola, faca, uma flashbang e uma smoke. Os tetos incluem o carregador inserido; Scout e SG-550 são apenas referências mecânicas iniciais, enquanto perfis equivalentes à AWP e informação automática ficam fora do MVP.
 - Breacher escolhe uma variação lateral pump-action/M3 ou semiautomática/XM1014, ambas com teto exato de 40 cartuchos, pistola, faca, duas flashbangs e uma smoke; não recebe fragmentação, SMG, ferramenta de ruptura nem bônus passivo.
@@ -49,7 +51,7 @@ Status: direção inicial confirmada; visão ainda incompleta
 - O servidor atribui lados operacionais no início da partida e os troca na metade quando o cenário for reversível; jogadores e identidade permanecem na mesma equipe.
 - A primeira fase de playtest usa recarga clássica, munição reserva agregada e HUD exato do CS 1.6. Carregadores individuais entram somente na segunda configuração experimental.
 - Equilíbrio numérico usa diferença máxima de um jogador sem transferência automática forçada; a configuração inicial é `mp_limitteams 1` e `mp_autoteambalance 0`.
-- Somente Marksman pode receber um perfil de pistola silenciada; os demais tipos usam pistolas normais. Conteúdo comunitário pode declarar pistola normal ou silenciada, mas o cenário aplica o mesmo perfil mecânico aos Marksman das duas equipes.
+- Somente Marksman pode receber um perfil de pistola silenciada; os demais tipos usam pistolas normais. O pacote comunitário pode mapear uma opção normal ou silenciada da allowlist global, sujeita ao mesmo contrato e orçamento de poder; cenários não selecionam nem filtram esse perfil.
 - Um sobrevivente pode levar para a rodada seguinte a arma coletada que estiver carregando. Ela substitui o equipamento normal do mesmo slot e recebe carregadores completos até o teto da própria categoria; trocar tipo ou variação restaura o kit e remove essa persistência.
 
 ## Limites da promessa de retrocompatibilidade
