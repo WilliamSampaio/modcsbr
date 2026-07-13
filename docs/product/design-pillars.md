@@ -7,6 +7,7 @@ Status: pilares iniciais confirmados
 Mapas e modos do Counter-Strike 1.6 devem continuar sendo uma base utilizável do mod.
 
 - Mapas legados devem carregar sem recompilação específica para `modcsbr`.
+- O primeiro protótipo funcional reutiliza instalar/desarmar dispositivo, ciclo de rodada, condições de vitória e mapas legados. Modos novos não fazem parte do escopo atual do produto.
 - Pontos de spawn, zonas e entidades de objetivo reconhecidas pela base devem continuar funcionais.
 - Nomes técnicos legados podem permanecer internamente como compatibilidade, sem aparecer como identidade de produto.
 - Geometria, rotas e objetivos não serão redimensionados dinamicamente pelo número de jogadores.
@@ -41,6 +42,7 @@ O jogo aceita quantidades variáveis de jogadores dentro da capacidade do servid
 - Não existe formato obrigatório de cinco contra cinco.
 - Entradas e trocas mantêm diferença máxima de um jogador ativo entre equipes.
 - Reconexão não reserva vaga e segue a disponibilidade existente.
+- A configuração inicial usa `mp_limitteams 1` para permitir diferença máxima de um jogador e `mp_autoteambalance 0` para não transferir pessoas automaticamente.
 - O servidor é autoritativo; o cliente apresenta as opções válidas e explica rejeições.
 
 ## 5. Kits predefinidos, sem economia
@@ -56,8 +58,11 @@ Dinheiro e compra não fazem parte do loop normal. O jogador nasce com o kit do 
 - Assault escolhe Rifle ou SMG como variações laterais mutuamente exclusivas, sem receber as duas armas na mesma vida.
 - Support usa um único kit de machine gun, pistola, faca, uma flashbang e uma smoke; sua supressão vem da ameaça real do fogo, nunca de perda artificial de controle do adversário.
 - Marksman escolhe Bolt-action com teto total de 50 balas ou Semiauto com teto total de 90 balas; Semiauto possui dano global menor e cadência maior que Bolt-action. Ambas recebem pistola, faca, uma flashbang e uma smoke. Os tetos incluem o carregador inserido; Scout e SG-550 são apenas referências mecânicas iniciais, enquanto perfis equivalentes à AWP e marcação automática ficam fora do MVP.
+- Somente Marksman pode usar um perfil de pistola silenciada; os demais tipos usam perfis normais. Conteúdo comunitário pode declarar normal ou silenciada, mas o cenário seleciona o mesmo perfil mecânico para os Marksman das duas equipes.
+- Em cenários reversíveis, os lados operacionais são trocados na metade da partida sem mover jogadores entre identidades de equipe.
 - Breacher escolhe pump-action/M3 ou semiautomática/XM1014 como variações laterais exclusivas, ambas com teto exato de 40 cartuchos, pistola, faca, duas flashbangs e uma smoke; não acumula SMG, fragmentação, ferramenta de ruptura ou bônus passivo.
 - Sobreviventes preservam uma arma coletada entre rodadas somente como substituição do mesmo slot; o teto de munição e o dano continuam pertencendo à categoria da arma, e trocar tipo ou variação restaura o kit.
+- A Fase 1 usa munição agregada, recarga clássica e HUD exato legados. Carregadores individuais e recarga tática são uma Fase 2 experimental.
 
 ## 6. Conteúdo comunitário dentro das regras
 
@@ -65,6 +70,8 @@ A comunidade deve poder criar equipes temáticas que não sejam apenas skins.
 
 - Criadores definem identidade, aliases e mapeamentos permitidos de equipamento.
 - Dano é fixo no perfil global da arma.
+- Cada arma temática referencia obrigatoriamente um perfil mecânico global aprovado; calibre que altera dano, recuo, cadência ou capacidade pertence a esse perfil, não é apenas apresentação.
+- Assimetria compensada por perfis diferentes é permitida dentro da mesma allowlist e orçamento de poder. A allowlist global do servidor é uniforme para todos os mapas e modos; cenários não restringem perfis.
 - A categoria mecânica não pode ser falsificada pela apresentação: rifle usa dano de rifle, SMG usa dano de SMG e shotgun usa dano de shotgun.
 - Capacidade do carregador pode variar de 1 até o teto de balas do contrato.
 - Os extremos desse intervalo são válidos quando comunicados coerentemente pelos modelos, animações, sons e HUD.

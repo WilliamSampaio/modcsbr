@@ -37,6 +37,8 @@ Marksman chooses one mutually exclusive Bolt-action or Semi-auto variant. Bolt-a
 
 Breacher chooses one mutually exclusive pump-action/M3 or semi-automatic/XM1014 variant. Both receive exactly 40 shells, a pistol with a 45-round ceiling, knife, two flashbangs, and one smoke; neither receives fragmentation grenades, an SMG, a breaching tool, or passive bonuses.
 
+The first gameplay phase reuses CS 1.6 device/defusal modes, round lifecycle, legacy maps, classic reload, exact aggregate-ammo HUD, flashlight/night-vision systems, ground weapons, team-stacking checks, and bot objective logic. On reversible scenarios, the server swaps operational sides at halftime without changing team identity. Initial balance uses `mp_limitteams 1` with `mp_autoteambalance 0`. Individual magazines remain a second experimental phase. Community content may declare a normal or suppressed pistol only for Marksman, but the scenario applies the same mechanical profile to both teams. Every community-authored themed weapon must reference an approved global mechanical profile; compensated asymmetry may use different profiles within the same allowlist and power budget. The server's global profile allowlist applies uniformly to every supported legacy map and mode; scenarios cannot filter it or introduce new game modes.
+
 ## Legal Assets
 
 This repository does not include Valve, Half-Life, Counter-Strike, Steam, or Xash3D runtime binaries/assets.

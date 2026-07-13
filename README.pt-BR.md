@@ -37,6 +37,8 @@ Marksman escolhe uma variacao exclusiva Bolt-action ou Semiauto. Bolt-action pos
 
 Breacher escolhe uma variacao exclusiva pump-action/M3 ou semiautomatica/XM1014. Ambas recebem exatamente 40 cartuchos, pistola com teto de 45, faca, duas flashbangs e uma smoke; nenhuma recebe granada de fragmentacao, SMG, ferramenta de ruptura ou bonus passivo.
 
+A primeira fase de gameplay reutiliza modo de dispositivo/desarme, ciclo de rodada, mapas legados, recarga classica, HUD exato de municao agregada, lanterna/visao noturna, armas no chao, verificacao de equipes empilhadas e logica de objetivo dos bots do CS 1.6. Em cenarios reversiveis, o servidor troca os lados operacionais na metade da partida sem mudar a identidade da equipe. O equilibrio inicial usa `mp_limitteams 1` com `mp_autoteambalance 0`. Carregadores individuais ficam para uma segunda fase experimental. Conteudo comunitario pode declarar pistola normal ou silenciada somente para Marksman, mas o cenario aplica o mesmo perfil mecanico as duas equipes. Toda arma tematica comunitaria deve referenciar um perfil mecanico global aprovado; a assimetria compensada pode usar perfis diferentes dentro da mesma allowlist e orcamento de poder. A allowlist global de perfis do servidor vale igualmente em todos os mapas e modos legados suportados; cenarios nao podem filtra-la nem introduzir modos novos.
+
 ## Assets Legais
 
 Este repositorio nao inclui binarios/assets da Valve, Half-Life, Counter-Strike, Steam ou runtime Xash3D.

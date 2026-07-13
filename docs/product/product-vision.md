@@ -35,6 +35,9 @@ Status: direção inicial confirmada; visão ainda incompleta
 - Breacher escolhe uma variação lateral pump-action/M3 ou semiautomática/XM1014, ambas com teto exato de 40 cartuchos, pistola, faca, duas flashbangs e uma smoke; não recebe fragmentação, SMG, ferramenta de ruptura nem bônus passivo.
 - Todos os tipos recebem faca mecanicamente global e não descartável; equipes podem alterar somente sua apresentação temática.
 - Dano pertence ao perfil global da arma e não pode ser alterado por criadores de equipes.
+- Cada arma temática comunitária referencia obrigatoriamente um perfil mecânico global aprovado. O perfil fixa categoria/calibre mecânico, dano, penetração, recarga, slots e limites combinados; apresentação, capacidade, recuo e cadência só variam onde o perfil permitir.
+- Assimetria compensada é permitida: equipes podem mapear perfis globais diferentes dentro do mesmo contrato e orçamento de poder. A allowlist global do servidor vale igualmente em todos os mapas e modos; não existem restrições de perfil específicas por cenário.
+- O produto permanece nos modos e objetivos legados do CS 1.6. Contexto temático, equipes e aliases não podem criar ou substituir regras de modo, objetivos ou condições de vitória.
 - Rifle, SMG e shotgun preservam seus próprios perfis de dano independentemente de skin, alias, equipe ou tipo que coletou a arma.
 - Capacidade do carregador pode ser definida pelo criador entre 1 e o teto de balas do contrato do tipo/slot.
 - Capacidades extremas são válidas quando representam a fantasia da arma, como crossbow de tiro único ou supercarregador dentro do teto.
@@ -42,6 +45,11 @@ Status: direção inicial confirmada; visão ainda incompleta
 - Capacidade, teto total de munição, comportamento de recarga, tempo de recarga e animação são parâmetros separados.
 - No MVP, o jogo fixa um único tempo de recarga para cada categoria de arma; criadores de equipes não podem alterá-lo. O servidor aplica a regra, enquanto animação e som apenas a apresentam e devem permanecer coerentes com ela.
 - Os tempos do CS 1.6 são a baseline do MVP. Escopetas se dividem em pump-action, baseada na M3, e semiautomática, baseada na XM1014; ambas recarregam cartucho por cartucho e escopetas totalmente automáticas ficam fora do MVP.
+- O primeiro modo funcional reutiliza o fluxo legado de instalar/desarmar dispositivo, sem economia; ciclo de rodada, mapas, recarga, HUD de munição, lanterna, visão noturna, armas no chão, equilíbrio numérico e bots reutilizam a base do CS 1.6 quando compatível com as novas regras.
+- O servidor atribui lados operacionais no início da partida e os troca na metade quando o cenário for reversível; jogadores e identidade permanecem na mesma equipe.
+- A primeira fase de playtest usa recarga clássica, munição reserva agregada e HUD exato do CS 1.6. Carregadores individuais entram somente na segunda configuração experimental.
+- Equilíbrio numérico usa diferença máxima de um jogador sem transferência automática forçada; a configuração inicial é `mp_limitteams 1` e `mp_autoteambalance 0`.
+- Somente Marksman pode receber um perfil de pistola silenciada; os demais tipos usam pistolas normais. Conteúdo comunitário pode declarar pistola normal ou silenciada, mas o cenário aplica o mesmo perfil mecânico aos Marksman das duas equipes.
 - Um sobrevivente pode levar para a rodada seguinte a arma coletada que estiver carregando. Ela substitui o equipamento normal do mesmo slot e recebe carregadores completos até o teto da própria categoria; trocar tipo ou variação restaura o kit e remove essa persistência.
 
 ## Limites da promessa de retrocompatibilidade
@@ -58,7 +66,7 @@ Retrocompatibilidade significa carregar o mapa, reconhecer seus pontos de spawn 
 
 - público principal e tamanho de equipe usado como referência para balanceamento;
 - duração desejada de rodada e partida;
-- modos prioritários para o primeiro protótipo;
+- ordem de validação dos demais modos legados depois do primeiro protótipo de instalar/desarmar dispositivo;
 - valores finais de munição, utilidades e quantidade de armas por tipo;
 - detalhes de compatibilidade de carregadores e feedback da coleta de armas;
 - intervalos e combinações seguros de recuo e cadência para cada perfil de arma;
