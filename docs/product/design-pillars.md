@@ -52,6 +52,9 @@ Dinheiro e compra não fazem parte do loop normal. O jogador nasce com o kit do 
 - Cada kit precisa de uma fraqueza clara porque estará disponível em todas as rodadas.
 - Munição e utilidades são limitadas pelo contrato do tipo e validadas pelo servidor.
 - Todos os tipos recebem lanterna; visão noturna permanece uma opção em estudo.
+- Todos os tipos recebem faca em slot próprio; equipes podem tematizar sua apresentação, nunca seus atributos globais.
+- Assault escolhe Rifle ou SMG como variações laterais mutuamente exclusivas, sem receber as duas armas na mesma vida.
+- Sobreviventes preservam uma arma coletada entre rodadas somente como substituição do mesmo slot; o teto de munição e o dano continuam pertencendo à categoria da arma, e trocar tipo ou variação restaura o kit.
 
 ## 6. Conteúdo comunitário dentro das regras
 
@@ -59,6 +62,7 @@ A comunidade deve poder criar equipes temáticas que não sejam apenas skins.
 
 - Criadores definem identidade, aliases e mapeamentos permitidos de equipamento.
 - Dano é fixo no perfil global da arma.
+- A categoria mecânica não pode ser falsificada pela apresentação: rifle usa dano de rifle, SMG usa dano de SMG e shotgun usa dano de shotgun.
 - Capacidade do carregador pode variar de 1 até o teto de balas do contrato.
 - Os extremos desse intervalo são válidos quando comunicados coerentemente pelos modelos, animações, sons e HUD.
 - Recuo e cadência podem ser ajustados dentro dos intervalos do contrato.

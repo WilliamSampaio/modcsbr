@@ -20,6 +20,10 @@ Esta spec registra uma exploração de ideia e uma proposta de MVP. Ela não aut
 - **Decisão:** a composição de tipos é livre. Todos os jogadores de uma equipe podem escolher o mesmo tipo, sem cotas, reservas, filas ou tipos obrigatórios.
 - **Decisão de MVP:** os quatro tipos iniciais fixos são Assault, Support, Marksman e Breacher, disponíveis simetricamente para as duas equipes.
 - **Decisão de produto:** quatro tipos não é um limite estrutural. O catálogo poderá crescer após o MVP, desde que cada novo tipo possua contrato simétrico, função distinta, contrajogo e suporte de conteúdo e interface.
+- **Decisão de MVP:** Assault oferece duas variações laterais e mutuamente exclusivas: Rifle, com rifle de assalto e teto de 150 balas, ou SMG, com submetralhadora e teto de 90 balas. Ambas usam pistola com teto de 45, uma fragmentação e duas flashbangs.
+- **Decisão:** todos os tipos recebem faca em slot próprio e não descartável. Equipes podem alterar somente sua apresentação temática; dano, alcance e cadência da faca são globais.
+- **Decisão:** dano segue a categoria mecânica validada pelo servidor: rifle usa dano de rifle, SMG usa dano de SMG e shotgun usa dano de shotgun. Skin, alias e equipe não mudam essa categoria nem o dano.
+- **Decisão:** o sobrevivente preserva para a rodada seguinte a arma coletada que estiver carregando, desde que mantenha o mesmo tipo e a mesma variação. Ela substitui a arma normal do mesmo slot e volta com carregadores completos até o teto da própria categoria; trocar tipo ou variação restaura o kit escolhido e encerra a persistência.
 - **Decisão:** as equipes podem diferir em no máximo um jogador ativo. Quando uma equipe já tem um jogador a mais, somente a equipe menor fica disponível para novas entradas.
 - **Decisão:** reconexão não reserva vaga nem garante a equipe anterior. O jogador obedece à disponibilidade existente no momento em que retorna.
 - **Decisão:** preservar retrocompatibilidade com mapas e modos de jogo do Counter-Strike 1.6 é um objetivo estrutural do produto.
@@ -238,7 +242,7 @@ Estes nomes e kits são hipóteses, não uma lista definitiva.
 
 - **Fantasia:** combatente versátil que abre espaço com consistência.
 - **Responsabilidade:** primeiro contato e proteção de quem executa o objetivo.
-- **Principal:** rifle padrão de uso geral.
+- **Principal:** escolha lateral entre rifle de assalto para média distância e SMG para curta distância; nunca ambas na mesma vida.
 - **Equipamento:** granada de fragmentação e uma utilidade de entrada.
 - **Vantagem:** flexibilidade em curta e média distância.
 - **Limitação:** não tem alcance, volume sustentado ou utilidade especializada superiores.
@@ -246,6 +250,13 @@ Estes nomes e kits são hipóteses, não uma lista definitiva.
 - **Mapas:** funciona em qualquer escala.
 - **Quantidade:** sem limite inicial.
 - **Risco:** virar escolha universal se os demais kits cobrarem especialização demais.
+
+As duas variações do MVP mantêm a mesma função, pistola e utilidades:
+
+- **Rifle:** rifle de assalto com teto de 150 balas; pistola com teto de 45; uma fragmentação; duas flashbangs.
+- **SMG:** submetralhadora com teto de 90 balas; pistola com teto de 45; uma fragmentação; duas flashbangs.
+
+A escolha ocorre antes do spawn ou enquanto morto e vale para a próxima vida. Trocar a variação remove qualquer arma coletada persistente. A versão SMG não recebe bônus passivo de velocidade e não possui a ferramenta de ruptura do Breacher.
 
 ### Support — controlar espaço e manter a equipe operante
 
@@ -323,6 +334,7 @@ Regras propostas:
 - Em modos com respawn futuro, cada vida precisa de proteção contra geração infinita de armas e munição.
 - Opções de kit devem ser equivalentes, nunca uma progressão vertical desbloqueável.
 - Todos os tipos começam equipados com lanterna.
+- Todos os tipos recebem faca em slot próprio, não descartável e mecanicamente idêntica entre equipes; somente modelo, skin, animação e sons podem variar de forma coerente.
 - Visão noturna é uma opção candidata, ainda não aprovada; sua disponibilidade precisa ser simétrica e compatível com o mapa.
 
 Se todos escolherem o mesmo tipo, a composição é aceita e todos entram normalmente na rodada. O HUD pode descrever a composição, mas não deve alertar que ela está “errada” nem impedir o spawn. Nenhum objetivo pode exigir um tipo específico.
@@ -336,11 +348,12 @@ Para o próximo playtest, esta matriz substitui as sugestões iniciais de armas 
 | Tipo base | Primary | Secondary | Backup | Fragmentação | Flashbang | Smoke |
 |---|---|---|---|---:|---:|---:|
 | Support | Machine gun, teto de 250 balas | — | Pistola, teto de 45 | 3 | 2 | 0 |
-| Assault | Assault rifle, teto de 150 balas | SMG, teto de 90 | Pistola, teto de 45 | 3 | 3 | 0 |
-| Sniper | Sniper rifle, teto de 50 balas | — | Pistola, teto de 45 | 0 | 3 | 2 |
+| Assault — Rifle | Assault rifle, teto de 150 balas | — | Pistola, teto de 45 | 1 | 2 | 0 |
+| Assault — SMG | SMG, teto de 90 balas | — | Pistola, teto de 45 | 1 | 2 | 0 |
+| Marksman | Rifle de precisão, teto de 50 balas | — | Pistola, teto de 45 | 0 | 3 | 2 |
 | Breacher | Shotgun pump-action ou semiautomática, teto de 40 balas | SMG, teto de 90 | Pistola, teto de 45 | 2 | 3 | 1 |
 
-Nesta tabela, “granada” foi interpretada como granada de fragmentação; isso precisa de confirmação. “Sniper” também permanece nome provisório do tipo base/alias.
+Nesta tabela, “granada” foi interpretada como granada de fragmentação. Os kits de Support, Marksman e Breacher e suas quantidades de utilidades permanecem hipóteses ainda não aprovadas.
 
 ### Regra proposta para teto de munição e carregadores
 
@@ -355,7 +368,7 @@ Interpretação recomendada, consistente com o exemplo fornecido:
 
 Exemplo: Assault com teto de 150 balas e rifle com carregador de 35 recebe quatro carregadores completos, totalizando 140 balas. Um deles começa inserido e três ficam na reserva. As dez balas restantes do teto não formam um quinto carregador.
 
-**Decisão pendente:** confirmar se “quatro carregadores” significa quatro no total, incluindo o inserido, como recomendado acima, ou quatro reservas além do inserido.
+**Decisão:** o teto inclui o carregador inserido. Somente carregadores completos são concedidos no spawn ou reabastecimento entre rodadas; qualquer resto que não complete outro carregador é descartado.
 
 ### Contrato para equipes criadas pela comunidade
 
@@ -380,6 +393,7 @@ O servidor valida o pacote completo antes da partida. Conteúdo inválido é rej
 ### Parâmetros comunitários de arma
 
 - **Dano:** fixo no perfil global da arma; não configurável pela equipe.
+- **Categoria de dano:** inseparável do perfil mecânico validado; rifle, SMG e shotgun não podem herdar dano de outra categoria por skin ou alias.
 - **Capacidade do carregador:** configurável como inteiro entre 1 e o teto de balas do contrato; participa do cálculo do número de carregadores.
 - **Tempo de recarga:** fixo por categoria de arma no MVP; não configurável pela equipe.
 - **Recuo:** configurável dentro de `recoil_min` e `recoil_max` do contrato.
@@ -400,8 +414,8 @@ Valores ausentes, não numéricos, infinitos ou fora do intervalo invalidam o pa
 
 ### Riscos da primeira matriz
 
-- Assault e Breacher carregam três armas, cobrindo mais distâncias que Support e Sniper.
-- Dez Assault poderiam gerar 30 granadas de fragmentação e 30 flashes por rodada.
+- Breacher ainda carrega três armas na matriz provisória e pode cobrir distâncias demais.
+- Dez Assault geram dez granadas de fragmentação e vinte flashes por rodada; o volume ainda precisa de playtest em servidores grandes.
 - Dez Breacher poderiam gerar 20 granadas, 30 flashes e 10 smokes.
 - Cinquenta balas de sniper podem remover o custo de errar, dependendo do dano e da cadência.
 - Uma machine gun com 250 balas pode dominar corredores se mobilidade, recarga e precisão não cobrarem um preço real.
@@ -488,13 +502,17 @@ O sistema precisa impedir cancelamento que duplique ou restaure munição. A tra
 - Qualquer tipo pode usar a arma coletada, salvo proibição explícita do cenário; restrições rígidas reduzem jogadas emergentes.
 - Reservas próprias só funcionam quando o tipo de carregador for compatível. Mesmo calibre não implica compatibilidade.
 - Não existe penalidade de peso no MVP.
-- A arma coletada não é preservada para a rodada seguinte no modelo sem economia.
+- O jogador que termina a rodada vivo preserva a arma coletada que estiver carregando no encerramento.
+- Na rodada seguinte, a arma preservada substitui — não acumula com — a arma predefinida do mesmo slot.
+- A arma preservada recebe apenas carregadores completos até o teto global de sua própria categoria. Uma shotgun preservada por Assault continua limitada ao teto de shotgun, nunca ao teto de rifle de 150 balas.
+- Morrer, trocar de tipo, trocar de variação de kit, trocar de equipe, desconectar ou mudar de mapa encerra a persistência e restaura o kit validado no próximo spawn elegível.
+- Armas soltas no chão ao encerrar a rodada não são transferidas para ninguém nem persistem no mapa seguinte.
 
 Esconder o valor até atirar ou recarregar adiciona incerteza, mas o custo mais comum é uma morte frustrante sem contrajogo. Uma indicação aproximada antes da coleta pode ser testada futuramente apenas se houver inspeção visual barata e confiável.
 
 ## 16. Regra recomendada para munição de jogadores mortos
 
-**MVP:** carregadores reservas desaparecem com o jogador. Apenas armas derrubadas persistem, cada uma com seu carregador inserido.
+**MVP:** carregadores reservas desaparecem com o jogador morto. Durante a rodada, apenas armas derrubadas persistem no mundo, cada uma com seu carregador inserido. No encerramento da rodada, somente a arma carregada por um sobrevivente pode atravessar para a rodada seguinte pelas regras da seção 15.
 
 Essa regra sacrifica realismo para evitar objetos, saques demorados, compatibilidade obscura, duplicação e geração de recursos por morte/respawn. O corpo não é um contêiner.
 
@@ -540,7 +558,7 @@ Consequências:
 | Objetos acumulam | Desempenho e poluição | Reservas não caem; limite e expiração das armas. |
 | Sem economia, repetição | Baixa variedade | Medir antes de adicionar recursos; variar objetivo/rotas e pequenas opções. |
 | Composição torna objetivo impossível | Partida decidida no menu | Nenhum tipo exclusivo necessário para concluir objetivo. |
-| Spawn/drop transfere kit | Exploit cooperativo | Kit não é recurso persistente entre rodadas; regras de pickup consistentes. |
+| Spawn/drop multiplica arma entre rodadas | Exploit cooperativo | Arma preservada substitui o slot normal; somente sobrevivente mantém; mudança de tipo/variação limpa o estado. |
 
 ## 19. Riscos de experiência do jogador
 
@@ -591,14 +609,15 @@ Se equipes baseadas em organizações reais forem consideradas depois:
 | Entrada no servidor | Recebe cenário, equipes, lado, tipos disponíveis e estado da partida. | Servidor |
 | Lobby/votação | Vota em cenários completos permitidos. | Servidor valida/contabiliza |
 | Escolha de equipe | Ambas ficam disponíveis quando empatadas; com diferença de um, apenas a menor aceita adesão. | Servidor |
-| Escolha de tipo | Seleciona livremente qualquer tipo disponível no cenário. | Servidor valida |
+| Escolha de tipo/variação | Seleciona livremente o tipo e, quando existir, uma variação lateral; mudança limpa arma persistente. | Servidor valida |
 | Início da partida | Trava cenário e inicializa placar/lados. | Servidor |
-| Início da rodada | Confirma o tipo escolhido e limpa estado transitório anterior. | Servidor |
-| Spawn | Concede um kit íntegro correspondente. | Servidor |
+| Início da rodada | Confirma tipo e variação; preserva arma elegível do sobrevivente ou limpa estado transitório. | Servidor |
+| Spawn | Concede o kit correspondente, substituindo o slot normal por arma coletada persistente quando elegível. | Servidor |
 | Troca/recarga | Mantém arma e carregadores como estados separados e validados. | Servidor; cliente apresenta/prediz |
 | Coleta de arma | Transfere entidade com carregador inserido; sem reservas. | Servidor |
 | Coleta de munição | Inexistente no MVP. | Servidor |
 | Morte | Derruba arma elegível; descarta reservas; encerra ações. | Servidor |
+| Encerramento da rodada | Registra arma carregada pelo sobrevivente, seu slot e categoria; não preserva objetos soltos. | Servidor |
 | Espectador | Não recebe informação além da política do modo/equipe. | Servidor filtra |
 | Respawn | Ausente no modo principal; se habilitado, segue nova concessão controlada. | Servidor |
 | Troca de equipe | Limpa inventário e reapresenta o alias equivalente do tipo; nunca concede benefício imediato. | Servidor |
@@ -845,16 +864,14 @@ Os valores concretos de armas, munição, tempos e utilidades só devem ser defi
 6. Quais serão as duas primeiras equipes fictícias?
 7. As identidades das equipes são trocadas junto com os lados ou cada equipe executa ambos os papéis?
 8. Quais valores iniciais de kit preservam funções distintas entre Assault, Support, Marksman e Breacher?
-9. Sniper usa arma de eliminação em um tiro ou um perfil de precisão menos extremo?
+9. Marksman usa arma de eliminação em um tiro ou um perfil de precisão menos extremo?
 10. O HUD mostra munição atual exata ou aproximada?
 11. Carregadores individuais entram no primeiro teste ou depois de validar kits?
-12. Armas coletadas podem ser usadas por qualquer tipo?
-13. Qual é a política futura para equipes baseadas em organizações reais e conflitos contemporâneos?
-14. Qual nível de suporte a bots é necessário para considerar o MVP publicável?
-15. O teto de munição conta o carregador inserido e descarta o resto que não completa um carregador?
-16. Quais intervalos e combinações de recuo/cadência são seguros para cada perfil de arma?
-17. As quantidades propostas de granadas, flashes e smokes devem entrar no primeiro playtest ou começar reduzidas?
-18. Quais armas do CS 1.6 serão a referência de tempo para as demais categorias no primeiro playtest?
+12. Qual é a política futura para equipes baseadas em organizações reais e conflitos contemporâneos?
+13. Qual nível de suporte a bots é necessário para considerar o MVP publicável?
+14. Quais intervalos e combinações de recuo/cadência são seguros para cada perfil de arma?
+15. As quantidades propostas de granadas, flashes e smokes dos tipos ainda não fechados devem entrar no primeiro playtest ou começar reduzidas?
+16. Quais armas do CS 1.6 serão a referência de tempo para as demais categorias no primeiro playtest?
 
 ## 28. Recomendação final
 

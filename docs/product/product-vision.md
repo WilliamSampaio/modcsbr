@@ -29,13 +29,17 @@ Status: direção inicial confirmada; visão ainda incompleta
 - Cada spawn recebe automaticamente o kit predefinido do tipo escolhido.
 - Todos os tipos começam equipados com lanterna.
 - O MVP começa com quatro tipos fixos e simétricos: Assault, Support, Marksman e Breacher. Quatro é um recorte de protótipo, não um limite estrutural para a evolução do catálogo.
+- Assault possui duas variações laterais exclusivas: Rifle ou SMG, sempre acompanhada apenas da pistola, faca e utilidades do tipo.
+- Todos os tipos recebem faca mecanicamente global e não descartável; equipes podem alterar somente sua apresentação temática.
 - Dano pertence ao perfil global da arma e não pode ser alterado por criadores de equipes.
+- Rifle, SMG e shotgun preservam seus próprios perfis de dano independentemente de skin, alias, equipe ou tipo que coletou a arma.
 - Capacidade do carregador pode ser definida pelo criador entre 1 e o teto de balas do contrato do tipo/slot.
 - Capacidades extremas são válidas quando representam a fantasia da arma, como crossbow de tiro único ou supercarregador dentro do teto.
 - Criadores podem ajustar recuo e cadência somente dentro dos intervalos validados pelo contrato e pelo servidor.
 - Capacidade, teto total de munição, comportamento de recarga, tempo de recarga e animação são parâmetros separados.
 - No MVP, o jogo fixa um único tempo de recarga para cada categoria de arma; criadores de equipes não podem alterá-lo. O servidor aplica a regra, enquanto animação e som apenas a apresentam e devem permanecer coerentes com ela.
 - Os tempos do CS 1.6 são a baseline do MVP. Escopetas se dividem em pump-action, baseada na M3, e semiautomática, baseada na XM1014; ambas recarregam cartucho por cartucho e escopetas totalmente automáticas ficam fora do MVP.
+- Um sobrevivente pode levar para a rodada seguinte a arma coletada que estiver carregando. Ela substitui o equipamento normal do mesmo slot e recebe carregadores completos até o teto da própria categoria; trocar tipo ou variação restaura o kit e remove essa persistência.
 
 ## Limites da promessa de retrocompatibilidade
 
@@ -53,7 +57,7 @@ Retrocompatibilidade significa carregar o mapa, reconhecer seus pontos de spawn 
 - duração desejada de rodada e partida;
 - modos prioritários para o primeiro protótipo;
 - valores finais de munição, utilidades e quantidade de armas por tipo;
-- regra final de carregadores e coleta de armas;
+- detalhes de compatibilidade de carregadores e feedback da coleta de armas;
 - intervalos e combinações seguros de recuo e cadência para cada perfil de arma;
 - critérios futuros para decidir se alguma categoria precisa de perfis alternativos de recarga após o MVP;
 - disponibilidade de visão noturna;
