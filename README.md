@@ -33,6 +33,8 @@ Assault chooses one mutually exclusive Rifle or SMG variant, both with pistol, k
 
 Support uses one MVP kit: machine gun with a 250-round ceiling, pistol with a 45-round ceiling, knife, one flashbang, and one smoke. Its initial damage/reload baseline follows the M249, including a 4.7-second reload, and suppression remains emergent rather than an artificial opponent penalty.
 
+Marksman uses one Scout-based MVP kit: light precision rifle with a 50-round ceiling, pistol with a 45-round ceiling, knife, one flashbang, and one smoke. The initial reload baseline is 2.0 seconds; semi-automatic and AWP-equivalent profiles plus automatic target information are out of scope.
+
 ## Legal Assets
 
 This repository does not include Valve, Half-Life, Counter-Strike, Steam, or Xash3D runtime binaries/assets.

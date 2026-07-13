@@ -33,6 +33,8 @@ Assault escolhe uma variacao exclusiva de Rifle ou SMG, ambas com pistola, faca,
 
 Support usa um unico kit no MVP: machine gun com teto de 250 balas, pistola com teto de 45, faca, uma flashbang e uma smoke. Sua baseline inicial de dano e recarga segue a M249, incluindo recarga de 4,7 segundos, e a supressao permanece emergente em vez de impor penalidade artificial ao adversario.
 
+Marksman usa um unico kit baseado na Scout no MVP: rifle de precisao leve com teto de 50 balas, pistola com teto de 45, faca, uma flashbang e uma smoke. A baseline inicial de recarga e 2,0 segundos; perfis semiautomaticos, equivalentes a AWP e informacao automatica de alvos ficam fora do escopo.
+
 ## Assets Legais
 
 Este repositorio nao inclui binarios/assets da Valve, Half-Life, Counter-Strike, Steam ou runtime Xash3D.

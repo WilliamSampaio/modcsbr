@@ -23,6 +23,8 @@ Esta spec registra uma exploração de ideia e uma proposta de MVP. Ela não aut
 - **Decisão de MVP:** Assault oferece duas variações laterais e mutuamente exclusivas: Rifle, com rifle de assalto e teto de 150 balas, ou SMG, com submetralhadora e teto de 90 balas. Ambas usam pistola com teto de 45, uma fragmentação e duas flashbangs.
 - **Decisão de MVP:** Support possui um único kit: machine gun com teto de 250 balas, pistola com teto de 45, faca universal, uma flashbang e uma smoke; não recebe fragmentação nem arma secundária.
 - **Decisão de MVP:** a machine gun usa dano da própria categoria e tempo de recarga de 4,7 s baseado na M249 do CS 1.6. Supressão permanece emergente, sem penalidade artificial aplicada ao adversário.
+- **Decisão de MVP:** Marksman possui um único kit baseado na Scout: rifle de precisão leve com teto de 50 balas, pistola com teto de 45, faca universal, uma flashbang e uma smoke; não recebe fragmentação nem arma secundária.
+- **Decisão de MVP:** o rifle do Marksman usa o perfil global de dano e a recarga de 2,0 s da Scout. Perfis semiautomáticos e equivalentes à AWP ficam fora do MVP; não há marcação de inimigos nem bônus passivo de informação.
 - **Decisão:** todos os tipos recebem faca em slot próprio e não descartável. Equipes podem alterar somente sua apresentação temática; dano, alcance e cadência da faca são globais.
 - **Decisão:** dano segue a categoria mecânica validada pelo servidor: rifle usa dano de rifle, SMG usa dano de SMG e shotgun usa dano de shotgun. Skin, alias e equipe não mudam essa categoria nem o dano.
 - **Decisão:** o sobrevivente preserva para a rodada seguinte a arma coletada que estiver carregando, desde que mantenha o mesmo tipo e a mesma variação. Ela substitui a arma normal do mesmo slot e volta com carregadores completos até o teto da própria categoria; trocar tipo ou variação restaura o kit escolhido e encerra a persistência.
@@ -294,8 +296,8 @@ O kit único do MVP usa machine gun com teto de 250 balas, pistola com teto de 4
 
 - **Fantasia:** precisão deliberada e cobertura de longa distância.
 - **Responsabilidade:** observar linhas, negar travessias e proteger o objetivo à distância.
-- **Principal:** rifle de precisão; começar sem equivalente direto da AWP de disponibilidade irrestrita.
-- **Equipamento:** utilidade limitada; nenhuma informação automática para o time no MVP.
+- **Principal:** rifle de precisão leve baseado na Scout; equivalentes à AWP e rifles semiautomáticos ficam fora do MVP.
+- **Equipamento:** uma flashbang e uma smoke; nenhuma informação automática para o time no MVP.
 - **Vantagem:** alcance e precisão.
 - **Limitação:** baixa flexibilidade próxima, aquisição de alvo e cadência piores.
 - **Objetivo:** cobre aproximações e rotações, mas deve reposicionar.
@@ -303,6 +305,8 @@ O kit único do MVP usa machine gun com teto de 250 balas, pistola com teto de 4
 - **Mapas grandes:** papel natural, sujeito a linhas e contrajogo.
 - **Quantidade:** sem limite.
 - **Risco:** arma de alto impacto produzir uma equipe inteira de Marksman. O perfil precisa ser um sidegrade com contrajogo, não uma arma superior controlada por cota.
+
+O kit único do MVP usa rifle de precisão leve com teto de 50 balas, pistola com teto de 45, faca universal, uma flashbang e uma smoke. O rifle preserva o dano global e a recarga de 2,0 s da Scout. A capacidade do carregador permanece configurável entre 1 e 50. Não há eliminação corporal garantida em um tiro, bônus de vida/velocidade, marcação de alvos ou informação automática.
 
 ### Por que não Medic, Engineer, Recon ou Squad Leader no MVP
 
@@ -354,10 +358,10 @@ Para o próximo playtest, esta matriz substitui as sugestões iniciais de armas 
 | Support | Machine gun, teto de 250 balas | — | Pistola, teto de 45 | 0 | 1 | 1 |
 | Assault — Rifle | Assault rifle, teto de 150 balas | — | Pistola, teto de 45 | 1 | 2 | 0 |
 | Assault — SMG | SMG, teto de 90 balas | — | Pistola, teto de 45 | 1 | 2 | 0 |
-| Marksman | Rifle de precisão, teto de 50 balas | — | Pistola, teto de 45 | 0 | 3 | 2 |
+| Marksman | Rifle de precisão leve/Scout, teto de 50 balas | — | Pistola, teto de 45 | 0 | 1 | 1 |
 | Breacher | Shotgun pump-action ou semiautomática, teto de 40 balas | SMG, teto de 90 | Pistola, teto de 45 | 2 | 3 | 1 |
 
-Nesta tabela, “granada” foi interpretada como granada de fragmentação. Os kits de Marksman e Breacher e suas quantidades de utilidades permanecem hipóteses ainda não aprovadas.
+Nesta tabela, “granada” foi interpretada como granada de fragmentação. O kit de Breacher e suas quantidades de utilidades permanecem hipóteses ainda não aprovadas.
 
 ### Regra proposta para teto de munição e carregadores
 
@@ -868,14 +872,13 @@ Os valores concretos de armas, munição, tempos e utilidades só devem ser defi
 6. Quais serão as duas primeiras equipes fictícias?
 7. As identidades das equipes são trocadas junto com os lados ou cada equipe executa ambos os papéis?
 8. Quais valores iniciais de kit preservam funções distintas entre Assault, Support, Marksman e Breacher?
-9. Marksman usa arma de eliminação em um tiro ou um perfil de precisão menos extremo?
-10. O HUD mostra munição atual exata ou aproximada?
-11. Carregadores individuais entram no primeiro teste ou depois de validar kits?
-12. Qual é a política futura para equipes baseadas em organizações reais e conflitos contemporâneos?
-13. Qual nível de suporte a bots é necessário para considerar o MVP publicável?
-14. Quais intervalos e combinações de recuo/cadência são seguros para cada perfil de arma?
-15. As quantidades propostas de granadas, flashes e smokes dos tipos ainda não fechados devem entrar no primeiro playtest ou começar reduzidas?
-16. Quais armas do CS 1.6 serão a referência de tempo para as demais categorias no primeiro playtest?
+9. O HUD mostra munição atual exata ou aproximada?
+10. Carregadores individuais entram no primeiro teste ou depois de validar kits?
+11. Qual é a política futura para equipes baseadas em organizações reais e conflitos contemporâneos?
+12. Qual nível de suporte a bots é necessário para considerar o MVP publicável?
+13. Quais intervalos e combinações de recuo/cadência são seguros para cada perfil de arma?
+14. Quais utilidades finais fecham o kit do Breacher?
+15. Quais armas do CS 1.6 serão a referência de tempo para as demais categorias no primeiro playtest?
 
 ## 28. Recomendação final
 
