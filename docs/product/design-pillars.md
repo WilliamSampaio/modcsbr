@@ -32,6 +32,7 @@ O jogador escolhe o tipo desejado sem cotas, reservas ou composição obrigatór
 - Uma equipe inteira pode escolher o mesmo tipo.
 - Nenhum objetivo pode exigir um tipo específico.
 - Composição dominante é problema de kit, mapa ou contrajogo, não justificativa automática para bloquear escolhas.
+- O MVP disponibiliza Assault, Support, Marksman e Breacher para ambas as equipes; o catálogo poderá receber novos contratos após validação, sem herdar o limite histórico de quatro modelos do CS 1.6.
 
 ## 4. Escala comunitária com equilíbrio simples
 

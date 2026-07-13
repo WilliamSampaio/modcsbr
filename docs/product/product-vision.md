@@ -28,6 +28,7 @@ Status: direção inicial confirmada; visão ainda incompleta
 - Dinheiro, preços, recompensas monetárias e menu de compra não fazem parte das regras normais do mod.
 - Cada spawn recebe automaticamente o kit predefinido do tipo escolhido.
 - Todos os tipos começam equipados com lanterna.
+- O MVP começa com quatro tipos fixos e simétricos: Assault, Support, Marksman e Breacher. Quatro é um recorte de protótipo, não um limite estrutural para a evolução do catálogo.
 - Dano pertence ao perfil global da arma e não pode ser alterado por criadores de equipes.
 - Capacidade do carregador pode ser definida pelo criador entre 1 e o teto de balas do contrato do tipo/slot.
 - Capacidades extremas são válidas quando representam a fantasia da arma, como crossbow de tiro único ou supercarregador dentro do teto.

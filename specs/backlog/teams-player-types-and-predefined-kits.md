@@ -9,7 +9,7 @@ Status: backlog — exploração de produto, não aprovada
 - **Recomendação:** direção preferida para experimentar, ainda não aprovada.
 - **Decisão pendente:** escolha que cabe ao responsável do produto.
 
-Esta spec registra uma exploração de ideia e uma proposta de MVP. Ela não autoriza implementação e não define os quatro tipos ou valores de kit como permanentes. A remoção da economia e a concessão de kits predefinidos já são decisões confirmadas.
+Esta spec registra uma exploração de ideia e uma proposta de MVP. Ela não autoriza implementação. Os quatro tipos iniciais do MVP estão definidos, mas seus valores de kit não são permanentes. A remoção da economia e a concessão de kits predefinidos já são decisões confirmadas.
 
 ## Decisões de produto confirmadas
 
@@ -18,6 +18,8 @@ Esta spec registra uma exploração de ideia e uma proposta de MVP. Ela não aut
 - **Decisão:** cada equipe poderá dar um nome temático diferente ao mesmo tipo base. Por exemplo, o mesmo tipo de precisão poderá ser apresentado como “Caçador” em uma equipe e “Matador” em outra; esses nomes são exemplos, não nomes aprovados.
 - **Decisão:** não existe formato obrigatório de cinco jogadores por equipe. O servidor pode operar com quantidades variáveis dentro de sua capacidade configurada.
 - **Decisão:** a composição de tipos é livre. Todos os jogadores de uma equipe podem escolher o mesmo tipo, sem cotas, reservas, filas ou tipos obrigatórios.
+- **Decisão de MVP:** os quatro tipos iniciais fixos são Assault, Support, Marksman e Breacher, disponíveis simetricamente para as duas equipes.
+- **Decisão de produto:** quatro tipos não é um limite estrutural. O catálogo poderá crescer após o MVP, desde que cada novo tipo possua contrato simétrico, função distinta, contrajogo e suporte de conteúdo e interface.
 - **Decisão:** as equipes podem diferir em no máximo um jogador ativo. Quando uma equipe já tem um jogador a mais, somente a equipe menor fica disponível para novas entradas.
 - **Decisão:** reconexão não reserva vaga nem garante a equipe anterior. O jogador obedece à disponibilidade existente no momento em que retorna.
 - **Decisão:** preservar retrocompatibilidade com mapas e modos de jogo do Counter-Strike 1.6 é um objetivo estrutural do produto.
@@ -52,7 +54,7 @@ Ela considera tipos como Assault, Support, Sniper, Medic, Engineer, Breacher e R
 
 **Tese:** a identidade promissora não é “CS 1.6 mais realista”, mas um FPS por rodadas em que equipes têm identidade própria, os jogadores assumem responsabilidades legíveis e entram em cada rodada com kits previsíveis. O valor vem da composição e da execução da equipe, não do inventário detalhado.
 
-**Recomendação atualizada:** prototipar uma identidade intermediária. Separar a identidade da equipe dos papéis temporários de Atacante e Defensor; usar confrontos coerentes definidos pelo cenário do mapa; manter contratos simétricos de tipo; testar quatro tipos equivalentes com kits predefinidos e sem compra; e preparar um teste posterior de carregadores individuais simplificados com uma única recarga tática.
+**Recomendação atualizada:** prototipar uma identidade intermediária. Separar a identidade da equipe dos papéis temporários de Atacante e Defensor; usar confrontos coerentes definidos pelo cenário do mapa; manter contratos simétricos; testar Assault, Support, Marksman e Breacher com kits predefinidos e sem compra; e preparar um teste posterior de carregadores individuais simplificados com uma única recarga tática.
 
 O primeiro protótipo deve evitar diferenças mecânicas entre equipes, equipes baseadas diretamente em organizações reais, cura, efeitos artificiais de supressão, saque de carregadores, inventário manual, peso, acessórios e progressão entre rodadas. Esses sistemas custam clareza antes de a hipótese principal — “tipos de jogador e kits melhoram decisões de equipe sem destruir o ritmo clássico” — estar validada.
 
@@ -336,7 +338,7 @@ Para o próximo playtest, esta matriz substitui as sugestões iniciais de armas 
 | Support | Machine gun, teto de 250 balas | — | Pistola, teto de 45 | 3 | 2 | 0 |
 | Assault | Assault rifle, teto de 150 balas | SMG, teto de 90 | Pistola, teto de 45 | 3 | 3 | 0 |
 | Sniper | Sniper rifle, teto de 50 balas | — | Pistola, teto de 45 | 0 | 3 | 2 |
-| Breacher | Shotgun automática ou manual, teto de 40 balas | SMG, teto de 90 | Pistola, teto de 45 | 2 | 3 | 1 |
+| Breacher | Shotgun pump-action ou semiautomática, teto de 40 balas | SMG, teto de 90 | Pistola, teto de 45 | 2 | 3 | 1 |
 
 Nesta tabela, “granada” foi interpretada como granada de fragmentação; isso precisa de confirmação. “Sniper” também permanece nome provisório do tipo base/alias.
 
@@ -676,7 +678,7 @@ O menor protótipo capaz de validar a tese contém:
 - um cenário coerente em um mapa selecionado e uma segunda escala de mapa para comparação;
 - duas equipes fictícias com contratos simétricos e mapeamentos temáticos validados;
 - papéis Atacante/Defensor separados da identidade das equipes;
-- quatro tipos universais: Assault, Support, Breacher e Marksman;
+- quatro tipos universais fixos no MVP: Assault, Support, Marksman e Breacher;
 - kits fixos, com no máximo uma escolha lateral por tipo;
 - sem dinheiro, preços, recompensas monetárias ou compra;
 - recarga tática única;
@@ -842,7 +844,7 @@ Os valores concretos de armas, munição, tempos e utilidades só devem ser defi
 5. Qual duração de rodada e de partida é alvo?
 6. Quais serão as duas primeiras equipes fictícias?
 7. As identidades das equipes são trocadas junto com os lados ou cada equipe executa ambos os papéis?
-8. Os quatro tipos propostos merecem protótipo, especialmente Breacher versus Recon?
+8. Quais valores iniciais de kit preservam funções distintas entre Assault, Support, Marksman e Breacher?
 9. Sniper usa arma de eliminação em um tiro ou um perfil de precisão menos extremo?
 10. O HUD mostra munição atual exata ou aproximada?
 11. Carregadores individuais entram no primeiro teste ou depois de validar kits?
@@ -858,7 +860,7 @@ Os valores concretos de armas, munição, tempos e utilidades só devem ser defi
 
 Adotar como hipótese a Direção C, com disciplina de Direção A no escopo. A primeira identidade do mod deve ser “cenários por rodadas com equipes sem rótulo moral fixo, tipos legíveis e kits previsíveis”, não “simulação detalhada de equipamentos”.
 
-Separar equipe, lado operacional e tipo base permanece uma decisão robusta. O contrato do tipo é simétrico; alias, apresentação e mapeamento temático permitido podem mudar por equipe. A economia foi removida por decisão. Os quatro tipos, seus valores e a munição física continuam sujeitos a playtest.
+Separar equipe, lado operacional e tipo base permanece uma decisão robusta. O contrato do tipo é simétrico; alias, apresentação e mapeamento temático permitido podem mudar por equipe. A economia foi removida por decisão. Assault, Support, Marksman e Breacher formam o catálogo fixo do MVP; seus valores e a munição física continuam sujeitos a playtest, e novos tipos só serão considerados depois dessa validação.
 
 Começar por equipes fictícias com contratos simétricos, um objetivo claro, kits predefinidos e munição simples. Validar tipos, limites e mapeamentos comunitários antes de acrescentar carregadores individuais; validar carregadores antes de saque. Se o sistema de carregadores não criar decisões compreendidas e valorizadas, voltar ao contador agregado. Se rodadas iguais parecerem repetitivas, ajustar objetivos e kits antes de inventar requisição, tickets ou cooldowns.
 
