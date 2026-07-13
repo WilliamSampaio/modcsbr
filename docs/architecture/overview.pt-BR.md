@@ -40,3 +40,5 @@ Mudancas de gameplay e feature devem comecar como specs. Mova specs por:
 - `specs/approved`
 - `specs/implementing`
 - `specs/completed`
+
+A proposta atual de faccoes, funcoes taticas, kits predefinidos, economia e carregadores esta documentada em [`specs/backlog/factions-roles-and-predefined-kits.md`](../../specs/backlog/factions-roles-and-predefined-kits.md). Ela e apenas descoberta de produto, permanece nao aprovada e nao descreve arquitetura implementada.

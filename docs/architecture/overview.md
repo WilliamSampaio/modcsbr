@@ -42,3 +42,5 @@ Gameplay and feature changes should start as specs. Move specs through:
 - `specs/approved`
 - `specs/implementing`
 - `specs/completed`
+
+The current factions, tactical roles, predefined kits, economy, and magazine proposal is documented in [`specs/backlog/factions-roles-and-predefined-kits.md`](../../specs/backlog/factions-roles-and-predefined-kits.md). It is product discovery only, remains unapproved, and does not describe implemented architecture.

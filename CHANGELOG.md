@@ -4,6 +4,7 @@ All notable project changes will be documented here.
 
 ## Unreleased
 
+- Added a non-approved product exploration spec for neutral factions, temporary attacker/defender sides, tactical roles, predefined kits, economy removal, physical-magazine trade-offs, lifecycle, authority, exploits, MVP scope, and measurable playtest criteria.
 - Removed the stray Windows Explorer cache file `mod/modcsbr/overviews/Thumbs.db` from version control and now ignore `Thumbs.db` across the repository.
 - Removed the legacy Steam/GoldSrc install, launch, Linux environment, and Linux server-library helper scripts.
 - Made Windows Xash3D FWGS the only supported runtime path.

@@ -27,6 +27,8 @@ Do not use `runtime/xash3d/xash3d.exe -game cstrike` as a project smoke test. Th
 
 This repository is being prepared for public collaboration. The current focus is getting a clean Windows Xash3D baseline before gameplay and asset changes grow.
 
+Gameplay discovery has started with a non-approved backlog exploration of factions, tactical roles, predefined kits, economy removal, and magazine handling. It is a proposal for playtesting, not current game behavior.
+
 ## Legal Assets
 
 This repository does not include Valve, Half-Life, Counter-Strike, Steam, or Xash3D runtime binaries/assets.
@@ -184,6 +186,7 @@ The nested `upstream/cs16-client/3rdparty/ReGameDLL_CS` checkout belongs to the 
   [English](docs/architecture/overview.md) |
   [Portugues](docs/architecture/overview.pt-BR.md) |
   [Espanol](docs/architecture/overview.es.md)
+- [Backlog gameplay exploration: factions, roles, and predefined kits](specs/backlog/factions-roles-and-predefined-kits.md) (Portuguese; not approved)
 - [Approved runtime spec](specs/approved/xash3d-fwgs-windows-runtime.md)
 
 ## Contributing
