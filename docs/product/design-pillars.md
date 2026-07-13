@@ -55,7 +55,7 @@ Dinheiro e compra não fazem parte do loop normal. O jogador nasce com o kit do 
 - Todos os tipos recebem faca em slot próprio; equipes podem tematizar sua apresentação, nunca seus atributos globais.
 - Assault escolhe Rifle ou SMG como variações laterais mutuamente exclusivas, sem receber as duas armas na mesma vida.
 - Support usa um único kit de machine gun, pistola, faca, uma flashbang e uma smoke; sua supressão vem da ameaça real do fogo, nunca de perda artificial de controle do adversário.
-- Marksman usa um único kit baseado na Scout, com pistola, faca, uma flashbang e uma smoke; disponibilidade livre não inclui perfil equivalente à AWP, rifle semiautomático ou marcação automática no MVP.
+- Marksman escolhe Bolt-action com teto total de 50 balas ou Semiauto com teto total de 90 balas; Semiauto possui dano global menor e cadência maior que Bolt-action. Ambas recebem pistola, faca, uma flashbang e uma smoke. Os tetos incluem o carregador inserido; Scout e SG-550 são apenas referências mecânicas iniciais, enquanto perfis equivalentes à AWP e marcação automática ficam fora do MVP.
 - Breacher escolhe pump-action/M3 ou semiautomática/XM1014 como variações laterais exclusivas, ambas com teto exato de 40 cartuchos, pistola, faca, duas flashbangs e uma smoke; não acumula SMG, fragmentação, ferramenta de ruptura ou bônus passivo.
 - Sobreviventes preservam uma arma coletada entre rodadas somente como substituição do mesmo slot; o teto de munição e o dano continuam pertencendo à categoria da arma, e trocar tipo ou variação restaura o kit.
 

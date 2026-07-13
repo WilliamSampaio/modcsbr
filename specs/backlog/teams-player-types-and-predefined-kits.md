@@ -23,8 +23,10 @@ Esta spec registra uma exploração de ideia e uma proposta de MVP. Ela não aut
 - **Decisão de MVP:** Assault oferece duas variações laterais e mutuamente exclusivas: Rifle, com rifle de assalto e teto de 150 balas, ou SMG, com submetralhadora e teto de 90 balas. Ambas usam pistola com teto de 45, uma fragmentação e duas flashbangs.
 - **Decisão de MVP:** Support possui um único kit: machine gun com teto de 250 balas, pistola com teto de 45, faca universal, uma flashbang e uma smoke; não recebe fragmentação nem arma secundária.
 - **Decisão de MVP:** a machine gun usa dano da própria categoria e tempo de recarga de 4,7 s baseado na M249 do CS 1.6. Supressão permanece emergente, sem penalidade artificial aplicada ao adversário.
-- **Decisão de MVP:** Marksman possui um único kit baseado na Scout: rifle de precisão leve com teto de 50 balas, pistola com teto de 45, faca universal, uma flashbang e uma smoke; não recebe fragmentação nem arma secundária.
-- **Decisão de MVP:** o rifle do Marksman usa o perfil global de dano e a recarga de 2,0 s da Scout. Perfis semiautomáticos e equivalentes à AWP ficam fora do MVP; não há marcação de inimigos nem bônus passivo de informação.
+- **Decisão de MVP:** Marksman oferece duas variações laterais e mutuamente exclusivas: Bolt-action, com rifle de precisão de ferrolho e teto total de 50 balas, ou Semiauto, com rifle de precisão semiautomático e teto total de 90 balas. O teto inclui o carregador inserido.
+- **Decisão de MVP:** ambas as variações do Marksman recebem pistola com teto de 45, faca universal, uma flashbang e uma smoke; não recebem fragmentação, arma secundária, marcação de inimigos nem bônus passivo de informação. Perfis equivalentes à AWP ficam fora do MVP.
+- **Decisão de balanceamento:** Semiauto causa menos dano por disparo que Bolt-action, mas possui maior cadência. Cada variação usa um perfil global fixo e validado pelo servidor; equipes e criadores não podem alterar o dano nem transformar a apresentação em um terceiro perfil mecânico.
+- **Baseline de playtest:** Bolt-action usa inicialmente dano 75 e recarga de 2,0 s, conforme a Scout do CS 1.6, apenas como referência mecânica; a arma temática não precisa ser uma Scout. Semiauto usa inicialmente dano 70 e recarga de 3,35 s, conforme a SG-550, também apenas como referência. A cadência da Semiauto deve ser superior à da Bolt-action, mas o intervalo seguro permanece hipótese pendente de playtest.
 - **Decisão de MVP:** Breacher oferece duas variações laterais e mutuamente exclusivas: Pump-action, baseada na M3, ou Semiautomática, baseada na XM1014. Ambas possuem teto exato de 40 cartuchos, pistola com teto de 45, faca universal, duas flashbangs e uma smoke; não recebem fragmentação, SMG, ferramenta de ruptura nem bônus passivo.
 - **Decisão de MVP:** trocar a variação do Breacher restaura o kit escolhido e encerra a persistência de arma coletada. Como escopetas são alimentadas cartucho por cartucho, o spawn distribui exatamente os 40 cartuchos entre arma e reserva, sem descartar o resto pela regra de carregadores completos.
 - **Decisão:** todos os tipos recebem faca em slot próprio e não descartável. Equipes podem alterar somente sua apresentação temática; dano, alcance e cadência da faca são globais.
@@ -300,17 +302,17 @@ As duas variações usam teto exato de 40 cartuchos, pistola com teto de 45 e fa
 
 - **Fantasia:** precisão deliberada e cobertura de longa distância.
 - **Responsabilidade:** observar linhas, negar travessias e proteger o objetivo à distância.
-- **Principal:** rifle de precisão leve baseado na Scout; equivalentes à AWP e rifles semiautomáticos ficam fora do MVP.
+- **Principal:** uma variação Bolt-action ou uma variação Semiauto; nunca ambas na mesma vida. Scout e SG-550 são somente referências iniciais dos respectivos perfis, não identidades obrigatórias. Equivalentes à AWP ficam fora do MVP.
 - **Equipamento:** uma flashbang e uma smoke; nenhuma informação automática para o time no MVP.
 - **Vantagem:** alcance e precisão.
 - **Limitação:** baixa flexibilidade próxima, aquisição de alvo e cadência piores.
 - **Objetivo:** cobre aproximações e rotações, mas deve reposicionar.
-- **Mapas pequenos:** kit alternativo de rifle semiautomático ou indisponibilidade definida pelo cenário.
+- **Mapas pequenos:** Semiauto oferece acompanhamento de alvo, mas precisa continuar vulnerável a Assault e Breacher em curta distância.
 - **Mapas grandes:** papel natural, sujeito a linhas e contrajogo.
 - **Quantidade:** sem limite.
 - **Risco:** arma de alto impacto produzir uma equipe inteira de Marksman. O perfil precisa ser um sidegrade com contrajogo, não uma arma superior controlada por cota.
 
-O kit único do MVP usa rifle de precisão leve com teto de 50 balas, pistola com teto de 45, faca universal, uma flashbang e uma smoke. O rifle preserva o dano global e a recarga de 2,0 s da Scout. A capacidade do carregador permanece configurável entre 1 e 50. Não há eliminação corporal garantida em um tiro, bônus de vida/velocidade, marcação de alvos ou informação automática.
+As duas variações recebem pistola com teto de 45, faca universal, uma flashbang e uma smoke. Bolt-action possui teto total de 50 balas, dano global inicial 75 e recarga de 2,0 s, usando a Scout somente como referência inicial. Semiauto possui teto total de 90 balas, dano global inicial 70 e recarga de 3,35 s, usando a SG-550 somente como referência inicial. Semiauto troca dano por maior cadência e capacidade de acompanhamento de alvo. Em ambos os casos, o teto inclui a munição inserida e a capacidade do carregador permanece configurável entre 1 e o teto da variação; portanto, capacidade 30 na Semiauto concede três carregadores completos no total: um inserido e dois reservas. Não há eliminação corporal garantida em um tiro por regra do tipo, bônus de vida/velocidade, marcação de alvos ou informação automática.
 
 ### Por que não Medic, Engineer, Recon ou Squad Leader no MVP
 
@@ -362,7 +364,8 @@ Para o próximo playtest, esta matriz substitui as sugestões iniciais de armas 
 | Support | Machine gun, teto de 250 balas | — | Pistola, teto de 45 | 0 | 1 | 1 |
 | Assault — Rifle | Assault rifle, teto de 150 balas | — | Pistola, teto de 45 | 1 | 2 | 0 |
 | Assault — SMG | SMG, teto de 90 balas | — | Pistola, teto de 45 | 1 | 2 | 0 |
-| Marksman | Rifle de precisão leve/Scout, teto de 50 balas | — | Pistola, teto de 45 | 0 | 1 | 1 |
+| Marksman — Bolt-action | Rifle de precisão de ferrolho, teto total de 50 balas | — | Pistola, teto de 45 | 0 | 1 | 1 |
+| Marksman — Semiauto | Rifle de precisão semiautomático, teto total de 90 balas | — | Pistola, teto de 45 | 0 | 1 | 1 |
 | Breacher — Pump-action | Shotgun/M3, teto exato de 40 cartuchos | — | Pistola, teto de 45 | 0 | 2 | 1 |
 | Breacher — Semiautomática | Shotgun/XM1014, teto exato de 40 cartuchos | — | Pistola, teto de 45 | 0 | 2 | 1 |
 
@@ -429,7 +432,7 @@ Valores ausentes, não numéricos, infinitos ou fora do intervalo invalidam o pa
 
 - Dez Assault geram dez granadas de fragmentação e vinte flashes por rodada; o volume ainda precisa de playtest em servidores grandes.
 - Dez Breacher poderiam gerar 20 flashes e 10 smokes, além de concentrar poder excessivo em curta distância.
-- Cinquenta balas de sniper podem remover o custo de errar, dependendo do dano e da cadência.
+- Noventa balas no Marksman Semiauto podem remover o custo de errar e favorecer spam de longa distância; cadência, recuo, precisão sustentada e contrajogo precisam ser validados juntos.
 - Uma machine gun com 250 balas pode dominar corredores se mobilidade, recarga e precisão não cobrarem um preço real.
 - Visão noturna exclusiva de uma equipe ou tipo pode virar vantagem dependente do mapa.
 - Recuo mínimo combinado com cadência máxima pode maximizar precisão e DPS sem custo equivalente.

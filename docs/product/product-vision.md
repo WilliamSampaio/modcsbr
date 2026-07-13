@@ -31,7 +31,7 @@ Status: direção inicial confirmada; visão ainda incompleta
 - O MVP começa com quatro tipos fixos e simétricos: Assault, Support, Marksman e Breacher. Quatro é um recorte de protótipo, não um limite estrutural para a evolução do catálogo.
 - Assault possui duas variações laterais exclusivas: Rifle ou SMG, sempre acompanhada apenas da pistola, faca e utilidades do tipo.
 - Support possui machine gun com teto de 250 balas, pistola, faca, uma flashbang e uma smoke; não recebe fragmentação, arma secundária nem supressão artificial.
-- Marksman possui rifle de precisão leve baseado na Scout com teto de 50 balas, pistola, faca, uma flashbang e uma smoke; perfis semiautomáticos, equivalentes à AWP e informação automática ficam fora do MVP.
+- Marksman escolhe uma variação lateral Bolt-action, com teto total de 50 balas, ou Semiauto, com teto total de 90 balas; Semiauto troca menor dano por maior cadência. Ambas recebem pistola, faca, uma flashbang e uma smoke. Os tetos incluem o carregador inserido; Scout e SG-550 são apenas referências mecânicas iniciais, enquanto perfis equivalentes à AWP e informação automática ficam fora do MVP.
 - Breacher escolhe uma variação lateral pump-action/M3 ou semiautomática/XM1014, ambas com teto exato de 40 cartuchos, pistola, faca, duas flashbangs e uma smoke; não recebe fragmentação, SMG, ferramenta de ruptura nem bônus passivo.
 - Todos os tipos recebem faca mecanicamente global e não descartável; equipes podem alterar somente sua apresentação temática.
 - Dano pertence ao perfil global da arma e não pode ser alterado por criadores de equipes.

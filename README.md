@@ -33,7 +33,7 @@ Assault chooses one mutually exclusive Rifle or SMG variant, both with pistol, k
 
 Support uses one MVP kit: machine gun with a 250-round ceiling, pistol with a 45-round ceiling, knife, one flashbang, and one smoke. Its initial damage/reload baseline follows the M249, including a 4.7-second reload, and suppression remains emergent rather than an artificial opponent penalty.
 
-Marksman uses one Scout-based MVP kit: light precision rifle with a 50-round ceiling, pistol with a 45-round ceiling, knife, one flashbang, and one smoke. The initial reload baseline is 2.0 seconds; semi-automatic and AWP-equivalent profiles plus automatic target information are out of scope.
+Marksman chooses one mutually exclusive Bolt-action or Semi-auto variant. Bolt-action has a 50-round total ceiling; Semi-auto has a 90-round total ceiling and trades lower fixed damage for a higher fire rate. The initial global baselines are 75 damage and a 2.0-second reload for Bolt-action, and 70 damage and a 3.35-second reload for Semi-auto, using the Scout and SG-550 only as mechanical references rather than required weapon identities. Both ceilings include the inserted magazine, and both variants receive a pistol with a 45-round ceiling, knife, one flashbang, and one smoke. AWP-equivalent profiles and automatic target information remain out of scope.
 
 Breacher chooses one mutually exclusive pump-action/M3 or semi-automatic/XM1014 variant. Both receive exactly 40 shells, a pistol with a 45-round ceiling, knife, two flashbangs, and one smoke; neither receives fragmentation grenades, an SMG, a breaching tool, or passive bonuses.
 

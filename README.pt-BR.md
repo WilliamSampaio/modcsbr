@@ -33,7 +33,7 @@ Assault escolhe uma variacao exclusiva de Rifle ou SMG, ambas com pistola, faca,
 
 Support usa um unico kit no MVP: machine gun com teto de 250 balas, pistola com teto de 45, faca, uma flashbang e uma smoke. Sua baseline inicial de dano e recarga segue a M249, incluindo recarga de 4,7 segundos, e a supressao permanece emergente em vez de impor penalidade artificial ao adversario.
 
-Marksman usa um unico kit baseado na Scout no MVP: rifle de precisao leve com teto de 50 balas, pistola com teto de 45, faca, uma flashbang e uma smoke. A baseline inicial de recarga e 2,0 segundos; perfis semiautomaticos, equivalentes a AWP e informacao automatica de alvos ficam fora do escopo.
+Marksman escolhe uma variacao exclusiva Bolt-action ou Semiauto. Bolt-action possui teto total de 50 balas; Semiauto possui teto total de 90 balas e troca menor dano fixo por maior cadencia. As baselines globais iniciais sao dano 75 e recarga de 2,0 segundos para Bolt-action, e dano 70 e recarga de 3,35 segundos para Semiauto, usando Scout e SG-550 apenas como referencias mecanicas, nao como identidades obrigatorias. Ambos os tetos incluem o carregador inserido, e ambas as variacoes recebem pistola com teto de 45, faca, uma flashbang e uma smoke. Perfis equivalentes a AWP e informacao automatica de alvos ficam fora do escopo.
 
 Breacher escolhe uma variacao exclusiva pump-action/M3 ou semiautomatica/XM1014. Ambas recebem exatamente 40 cartuchos, pistola com teto de 45, faca, duas flashbangs e uma smoke; nenhuma recebe granada de fragmentacao, SMG, ferramenta de ruptura ou bonus passivo.
 
