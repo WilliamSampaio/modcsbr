@@ -31,7 +31,7 @@ Gameplay discovery has started with a non-approved backlog exploration of teams,
 
 Assault chooses one mutually exclusive Rifle or SMG variant, both with pistol, knife, one fragmentation grenade, and two flashbangs. Knife mechanics are global even when teams replace its presentation, and weapon damage always follows the server-validated category. A survivor may carry a collected weapon into the next round as a replacement for the same slot; it receives complete magazines only up to its own category ceiling, and changing type or variant restores the selected predefined kit.
 
-Assault chooses one mutually exclusive Rifle or SMG variant, both with pistol, knife, one fragmentation grenade, and two flashbangs. Knife mechanics are global even when teams replace its presentation, and weapon damage always follows the server-validated category. A survivor may carry a collected weapon into the next round as a replacement for the same slot; it receives complete magazines only up to its own category ceiling, and changing type or variant restores the selected predefined kit.
+Support uses one MVP kit: machine gun with a 250-round ceiling, pistol with a 45-round ceiling, knife, one flashbang, and one smoke. Its initial damage/reload baseline follows the M249, including a 4.7-second reload, and suppression remains emergent rather than an artificial opponent penalty.
 
 ## Legal Assets
 

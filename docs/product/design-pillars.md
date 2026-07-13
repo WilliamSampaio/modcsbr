@@ -54,6 +54,7 @@ Dinheiro e compra não fazem parte do loop normal. O jogador nasce com o kit do 
 - Todos os tipos recebem lanterna; visão noturna permanece uma opção em estudo.
 - Todos os tipos recebem faca em slot próprio; equipes podem tematizar sua apresentação, nunca seus atributos globais.
 - Assault escolhe Rifle ou SMG como variações laterais mutuamente exclusivas, sem receber as duas armas na mesma vida.
+- Support usa um único kit de machine gun, pistola, faca, uma flashbang e uma smoke; sua supressão vem da ameaça real do fogo, nunca de perda artificial de controle do adversário.
 - Sobreviventes preservam uma arma coletada entre rodadas somente como substituição do mesmo slot; o teto de munição e o dano continuam pertencendo à categoria da arma, e trocar tipo ou variação restaura o kit.
 
 ## 6. Conteúdo comunitário dentro das regras

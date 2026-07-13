@@ -31,6 +31,8 @@ A descoberta de gameplay comecou com uma exploracao nao aprovada, no backlog, so
 
 Assault escolhe uma variacao exclusiva de Rifle ou SMG, ambas com pistola, faca, uma granada de fragmentacao e duas flashbangs. A mecanica da faca e global mesmo quando a equipe troca sua apresentacao, e o dano da arma sempre segue a categoria validada pelo servidor. Um sobrevivente pode levar uma arma coletada para a rodada seguinte como substituta do mesmo slot; ela recebe somente carregadores completos ate o teto de sua propria categoria, e trocar tipo ou variacao restaura o kit predefinido escolhido.
 
+Support usa um unico kit no MVP: machine gun com teto de 250 balas, pistola com teto de 45, faca, uma flashbang e uma smoke. Sua baseline inicial de dano e recarga segue a M249, incluindo recarga de 4,7 segundos, e a supressao permanece emergente em vez de impor penalidade artificial ao adversario.
+
 ## Assets Legais
 
 Este repositorio nao inclui binarios/assets da Valve, Half-Life, Counter-Strike, Steam ou runtime Xash3D.

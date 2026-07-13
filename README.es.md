@@ -31,6 +31,8 @@ El descubrimiento de gameplay comenzo con una exploracion no aprobada, en el bac
 
 Assault elige una variante exclusiva de Rifle o SMG, ambas con pistola, cuchillo, una granada de fragmentacion y dos flashbangs. La mecanica del cuchillo es global incluso cuando el equipo cambia su presentacion, y el dano del arma siempre sigue la categoria validada por el servidor. Un superviviente puede llevar un arma recogida a la ronda siguiente como sustituta del mismo slot; recibe solo cargadores completos hasta el limite de su propia categoria, y cambiar de tipo o variante restaura el kit predefinido elegido.
 
+Support usa un unico kit en el MVP: machine gun con limite de 250 balas, pistola con limite de 45, cuchillo, una flashbang y una smoke. Su baseline inicial de dano y recarga sigue la M249, incluida una recarga de 4,7 segundos, y la supresion sigue siendo emergente en vez de imponer una penalizacion artificial al adversario.
+
 ## Assets Legales
 
 Este repositorio no incluye binarios/assets de Valve, Half-Life, Counter-Strike, Steam o runtime Xash3D.

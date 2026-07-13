@@ -21,6 +21,8 @@ Esta spec registra uma exploração de ideia e uma proposta de MVP. Ela não aut
 - **Decisão de MVP:** os quatro tipos iniciais fixos são Assault, Support, Marksman e Breacher, disponíveis simetricamente para as duas equipes.
 - **Decisão de produto:** quatro tipos não é um limite estrutural. O catálogo poderá crescer após o MVP, desde que cada novo tipo possua contrato simétrico, função distinta, contrajogo e suporte de conteúdo e interface.
 - **Decisão de MVP:** Assault oferece duas variações laterais e mutuamente exclusivas: Rifle, com rifle de assalto e teto de 150 balas, ou SMG, com submetralhadora e teto de 90 balas. Ambas usam pistola com teto de 45, uma fragmentação e duas flashbangs.
+- **Decisão de MVP:** Support possui um único kit: machine gun com teto de 250 balas, pistola com teto de 45, faca universal, uma flashbang e uma smoke; não recebe fragmentação nem arma secundária.
+- **Decisão de MVP:** a machine gun usa dano da própria categoria e tempo de recarga de 4,7 s baseado na M249 do CS 1.6. Supressão permanece emergente, sem penalidade artificial aplicada ao adversário.
 - **Decisão:** todos os tipos recebem faca em slot próprio e não descartável. Equipes podem alterar somente sua apresentação temática; dano, alcance e cadência da faca são globais.
 - **Decisão:** dano segue a categoria mecânica validada pelo servidor: rifle usa dano de rifle, SMG usa dano de SMG e shotgun usa dano de shotgun. Skin, alias e equipe não mudam essa categoria nem o dano.
 - **Decisão:** o sobrevivente preserva para a rodada seguinte a arma coletada que estiver carregando, desde que mantenha o mesmo tipo e a mesma variação. Ela substitui a arma normal do mesmo slot e volta com carregadores completos até o teto da própria categoria; trocar tipo ou variação restaura o kit escolhido e encerra a persistência.
@@ -263,7 +265,7 @@ A escolha ocorre antes do spawn ou enquanto morto e vale para a próxima vida. T
 - **Fantasia:** ancora posições e habilita deslocamentos aliados.
 - **Responsabilidade:** negar corredores e fornecer cobertura.
 - **Principal:** arma de maior capacidade, com pior mobilidade/manuseio.
-- **Equipamento:** fumaça e utilidade adicional de cobertura; reabastecimento de aliados fica fora do MVP.
+- **Equipamento:** uma flashbang e uma smoke; reabastecimento de aliados e granada de fragmentação ficam fora do MVP.
 - **Vantagem:** volume sustentado e controle de ângulo.
 - **Limitação:** recuperação, troca de arma e deslocamento menos favoráveis; não recebe dano extra.
 - **Objetivo:** cobre plantio, captura, desarme ou retirada.
@@ -271,6 +273,8 @@ A escolha ocorre antes do spawn ou enquanto morto e vale para a próxima vida. T
 - **Mapas grandes:** sustenta linhas, mas não substitui Marksman.
 - **Quantidade:** sem limite. Composição dominante exige rebalanceamento do tipo, não restrição de escolha.
 - **Risco:** dominar corredores se alta capacidade vier sem custo real.
+
+O kit único do MVP usa machine gun com teto de 250 balas, pistola com teto de 45, faca universal, uma flashbang e uma smoke. A machine gun usa dano global da categoria e recarga de 4,7 s baseada na M249. Capacidade do carregador continua configurável entre 1 e 250; pela regra de carregadores completos, capacidades que não dividem 250 podem produzir total efetivo menor. Não há bônus passivo de vida, armadura ou dano.
 
 ### Breacher — romper posições preparadas
 
@@ -347,13 +351,13 @@ Para o próximo playtest, esta matriz substitui as sugestões iniciais de armas 
 
 | Tipo base | Primary | Secondary | Backup | Fragmentação | Flashbang | Smoke |
 |---|---|---|---|---:|---:|---:|
-| Support | Machine gun, teto de 250 balas | — | Pistola, teto de 45 | 3 | 2 | 0 |
+| Support | Machine gun, teto de 250 balas | — | Pistola, teto de 45 | 0 | 1 | 1 |
 | Assault — Rifle | Assault rifle, teto de 150 balas | — | Pistola, teto de 45 | 1 | 2 | 0 |
 | Assault — SMG | SMG, teto de 90 balas | — | Pistola, teto de 45 | 1 | 2 | 0 |
 | Marksman | Rifle de precisão, teto de 50 balas | — | Pistola, teto de 45 | 0 | 3 | 2 |
 | Breacher | Shotgun pump-action ou semiautomática, teto de 40 balas | SMG, teto de 90 | Pistola, teto de 45 | 2 | 3 | 1 |
 
-Nesta tabela, “granada” foi interpretada como granada de fragmentação. Os kits de Support, Marksman e Breacher e suas quantidades de utilidades permanecem hipóteses ainda não aprovadas.
+Nesta tabela, “granada” foi interpretada como granada de fragmentação. Os kits de Marksman e Breacher e suas quantidades de utilidades permanecem hipóteses ainda não aprovadas.
 
 ### Regra proposta para teto de munição e carregadores
 
