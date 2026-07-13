@@ -35,6 +35,8 @@ Support usa um unico kit no MVP: machine gun com teto de 250 balas, pistola com 
 
 Marksman usa um unico kit baseado na Scout no MVP: rifle de precisao leve com teto de 50 balas, pistola com teto de 45, faca, uma flashbang e uma smoke. A baseline inicial de recarga e 2,0 segundos; perfis semiautomaticos, equivalentes a AWP e informacao automatica de alvos ficam fora do escopo.
 
+Breacher escolhe uma variacao exclusiva pump-action/M3 ou semiautomatica/XM1014. Ambas recebem exatamente 40 cartuchos, pistola com teto de 45, faca, duas flashbangs e uma smoke; nenhuma recebe granada de fragmentacao, SMG, ferramenta de ruptura ou bonus passivo.
+
 ## Assets Legais
 
 Este repositorio nao inclui binarios/assets da Valve, Half-Life, Counter-Strike, Steam ou runtime Xash3D.

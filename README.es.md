@@ -35,6 +35,8 @@ Support usa un unico kit en el MVP: machine gun con limite de 250 balas, pistola
 
 Marksman usa un unico kit basado en la Scout en el MVP: rifle de precision ligero con limite de 50 balas, pistola con limite de 45, cuchillo, una flashbang y una smoke. La baseline inicial de recarga es de 2,0 segundos; los perfiles semiautomaticos, equivalentes a la AWP y la informacion automatica de objetivos quedan fuera del alcance.
 
+Breacher elige una variante exclusiva de corredera/M3 o semiautomatica/XM1014. Ambas reciben exactamente 40 cartuchos, pistola con limite de 45, cuchillo, dos flashbangs y una smoke; ninguna recibe granada de fragmentacion, SMG, herramienta de brecha ni bonificaciones pasivas.
+
 ## Assets Legales
 
 Este repositorio no incluye binarios/assets de Valve, Half-Life, Counter-Strike, Steam o runtime Xash3D.

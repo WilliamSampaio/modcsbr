@@ -25,6 +25,8 @@ Esta spec registra uma exploração de ideia e uma proposta de MVP. Ela não aut
 - **Decisão de MVP:** a machine gun usa dano da própria categoria e tempo de recarga de 4,7 s baseado na M249 do CS 1.6. Supressão permanece emergente, sem penalidade artificial aplicada ao adversário.
 - **Decisão de MVP:** Marksman possui um único kit baseado na Scout: rifle de precisão leve com teto de 50 balas, pistola com teto de 45, faca universal, uma flashbang e uma smoke; não recebe fragmentação nem arma secundária.
 - **Decisão de MVP:** o rifle do Marksman usa o perfil global de dano e a recarga de 2,0 s da Scout. Perfis semiautomáticos e equivalentes à AWP ficam fora do MVP; não há marcação de inimigos nem bônus passivo de informação.
+- **Decisão de MVP:** Breacher oferece duas variações laterais e mutuamente exclusivas: Pump-action, baseada na M3, ou Semiautomática, baseada na XM1014. Ambas possuem teto exato de 40 cartuchos, pistola com teto de 45, faca universal, duas flashbangs e uma smoke; não recebem fragmentação, SMG, ferramenta de ruptura nem bônus passivo.
+- **Decisão de MVP:** trocar a variação do Breacher restaura o kit escolhido e encerra a persistência de arma coletada. Como escopetas são alimentadas cartucho por cartucho, o spawn distribui exatamente os 40 cartuchos entre arma e reserva, sem descartar o resto pela regra de carregadores completos.
 - **Decisão:** todos os tipos recebem faca em slot próprio e não descartável. Equipes podem alterar somente sua apresentação temática; dano, alcance e cadência da faca são globais.
 - **Decisão:** dano segue a categoria mecânica validada pelo servidor: rifle usa dano de rifle, SMG usa dano de SMG e shotgun usa dano de shotgun. Skin, alias e equipe não mudam essa categoria nem o dano.
 - **Decisão:** o sobrevivente preserva para a rodada seguinte a arma coletada que estiver carregando, desde que mantenha o mesmo tipo e a mesma variação. Ela substitui a arma normal do mesmo slot e volta com carregadores completos até o teto da própria categoria; trocar tipo ou variação restaura o kit escolhido e encerra a persistência.
@@ -282,15 +284,17 @@ O kit único do MVP usa machine gun com teto de 250 balas, pistola com teto de 4
 
 - **Fantasia:** cria uma janela curta para entrada da equipe.
 - **Responsabilidade:** desalojar defensores e liderar entradas próximas.
-- **Principal:** carabina compacta ou shotgun, conforme mapa; não ambas.
-- **Equipamento:** flash e ferramenta de ruptura ligada ao objetivo ou à geometria suportada.
+- **Principal:** uma variação pump-action baseada na M3 ou uma variação semiautomática baseada na XM1014; nunca ambas na mesma vida.
+- **Equipamento:** duas flashbangs e uma smoke; sem fragmentação ou ferramenta de ruptura no MVP.
 - **Vantagem:** curta distância e utilidade de entrada.
 - **Limitação:** perda clara em alcance e sustentação.
 - **Objetivo:** acessa ou abre a área, sem concluir o objetivo mais rápido por passivo oculto.
 - **Mapas pequenos:** deve ser forte, mas dependente de timing e consumíveis.
 - **Mapas grandes:** precisa de rota/objetivo onde sua utilidade exista.
-- **Quantidade:** sem limite inicial; cenários sem ruptura usam uma variante “Pointman”.
+- **Quantidade:** sem limite; composições extremas devem ser resolvidas por balanceamento e geometria, não por cota.
 - **Risco:** sobrepor Assault ou ser inútil quando o mapa não suporta sua fantasia.
+
+As duas variações usam teto exato de 40 cartuchos, pistola com teto de 45 e faca universal. A pump-action preserva o ritmo da M3, com início de recarga de 0,55 s e 0,45 s por cartucho; a semiautomática preserva o ritmo da XM1014, com início de 0,55 s e 0,30 s por cartucho. Não há SMG, bônus passivo de vida, armadura ou movimento. Trocar a variação enquanto morto remove qualquer arma coletada persistente e aplica o kit escolhido no próximo spawn.
 
 ### Marksman — vigiar linhas e punir exposição
 
@@ -359,9 +363,10 @@ Para o próximo playtest, esta matriz substitui as sugestões iniciais de armas 
 | Assault — Rifle | Assault rifle, teto de 150 balas | — | Pistola, teto de 45 | 1 | 2 | 0 |
 | Assault — SMG | SMG, teto de 90 balas | — | Pistola, teto de 45 | 1 | 2 | 0 |
 | Marksman | Rifle de precisão leve/Scout, teto de 50 balas | — | Pistola, teto de 45 | 0 | 1 | 1 |
-| Breacher | Shotgun pump-action ou semiautomática, teto de 40 balas | SMG, teto de 90 | Pistola, teto de 45 | 2 | 3 | 1 |
+| Breacher — Pump-action | Shotgun/M3, teto exato de 40 cartuchos | — | Pistola, teto de 45 | 0 | 2 | 1 |
+| Breacher — Semiautomática | Shotgun/XM1014, teto exato de 40 cartuchos | — | Pistola, teto de 45 | 0 | 2 | 1 |
 
-Nesta tabela, “granada” foi interpretada como granada de fragmentação. O kit de Breacher e suas quantidades de utilidades permanecem hipóteses ainda não aprovadas.
+Nesta tabela, “granada” foi interpretada como granada de fragmentação. Os valores aprovados ainda são baselines de MVP sujeitas a rejeição por playtest, não garantias de balanceamento final.
 
 ### Regra proposta para teto de munição e carregadores
 
@@ -422,9 +427,8 @@ Valores ausentes, não numéricos, infinitos ou fora do intervalo invalidam o pa
 
 ### Riscos da primeira matriz
 
-- Breacher ainda carrega três armas na matriz provisória e pode cobrir distâncias demais.
 - Dez Assault geram dez granadas de fragmentação e vinte flashes por rodada; o volume ainda precisa de playtest em servidores grandes.
-- Dez Breacher poderiam gerar 20 granadas, 30 flashes e 10 smokes.
+- Dez Breacher poderiam gerar 20 flashes e 10 smokes, além de concentrar poder excessivo em curta distância.
 - Cinquenta balas de sniper podem remover o custo de errar, dependendo do dano e da cadência.
 - Uma machine gun com 250 balas pode dominar corredores se mobilidade, recarga e precisão não cobrarem um preço real.
 - Visão noturna exclusiva de uma equipe ou tipo pode virar vantagem dependente do mapa.
@@ -495,7 +499,7 @@ Fora do MVP: reorganizar, consolidar, escolher manualmente, compartilhar, pegar 
 
 **Decisão de contrato para o MVP:** a duração não é calculada pela capacidade nem extraída da animação. O jogo define um único tempo para cada categoria de arma; o servidor controla quando a recarga termina e quando o novo estado de munição passa a valer. A animação cliente deve acompanhar esse estado sem poder antecipá-lo. Perfis alternativos ficam fora do MVP e exigem evidência de playtest de que o tempo único prejudica categorias tematicamente distintas.
 
-**Exceção das escopetas:** pump-action e semiautomática usam recarga incremental cartucho por cartucho, e não troca de carregador. A pump-action usa a baseline da M3: 0,55 s para iniciar e 0,45 s por cartucho. A semiautomática usa a baseline da XM1014: 0,55 s para iniciar e 0,30 s por cartucho. Esses valores são hipóteses iniciais herdadas do CS 1.6 para o playtest, não garantias de balanceamento final. O modo de disparo não altera essa regra de recarga.
+**Exceção das escopetas:** pump-action e semiautomática usam recarga incremental cartucho por cartucho, e não troca de carregador. A pump-action usa a baseline da M3: 0,55 s para iniciar e 0,45 s por cartucho. A semiautomática usa a baseline da XM1014: 0,55 s para iniciar e 0,30 s por cartucho. O kit do Breacher recebe exatamente 40 cartuchos: a capacidade tubular declarada determina quantos começam inseridos e o restante permanece na reserva, sem a perda aplicada a carregadores destacáveis incompletos. Esses valores são hipóteses iniciais herdadas do CS 1.6 para o playtest, não garantias de balanceamento final. O modo de disparo não altera essa regra de recarga.
 
 Uma recarga com o carregador vazio segue o mesmo comando. Recarga rápida com descarte é experimento futuro e só deve existir se o benefício de timing for perceptível e as animações comunicarem claramente a perda.
 
@@ -877,8 +881,7 @@ Os valores concretos de armas, munição, tempos e utilidades só devem ser defi
 11. Qual é a política futura para equipes baseadas em organizações reais e conflitos contemporâneos?
 12. Qual nível de suporte a bots é necessário para considerar o MVP publicável?
 13. Quais intervalos e combinações de recuo/cadência são seguros para cada perfil de arma?
-14. Quais utilidades finais fecham o kit do Breacher?
-15. Quais armas do CS 1.6 serão a referência de tempo para as demais categorias no primeiro playtest?
+14. Quais armas do CS 1.6 serão a referência de tempo para as demais categorias no primeiro playtest?
 
 ## 28. Recomendação final
 

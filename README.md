@@ -35,6 +35,8 @@ Support uses one MVP kit: machine gun with a 250-round ceiling, pistol with a 45
 
 Marksman uses one Scout-based MVP kit: light precision rifle with a 50-round ceiling, pistol with a 45-round ceiling, knife, one flashbang, and one smoke. The initial reload baseline is 2.0 seconds; semi-automatic and AWP-equivalent profiles plus automatic target information are out of scope.
 
+Breacher chooses one mutually exclusive pump-action/M3 or semi-automatic/XM1014 variant. Both receive exactly 40 shells, a pistol with a 45-round ceiling, knife, two flashbangs, and one smoke; neither receives fragmentation grenades, an SMG, a breaching tool, or passive bonuses.
+
 ## Legal Assets
 
 This repository does not include Valve, Half-Life, Counter-Strike, Steam, or Xash3D runtime binaries/assets.

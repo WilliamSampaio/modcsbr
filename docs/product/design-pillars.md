@@ -56,6 +56,7 @@ Dinheiro e compra não fazem parte do loop normal. O jogador nasce com o kit do 
 - Assault escolhe Rifle ou SMG como variações laterais mutuamente exclusivas, sem receber as duas armas na mesma vida.
 - Support usa um único kit de machine gun, pistola, faca, uma flashbang e uma smoke; sua supressão vem da ameaça real do fogo, nunca de perda artificial de controle do adversário.
 - Marksman usa um único kit baseado na Scout, com pistola, faca, uma flashbang e uma smoke; disponibilidade livre não inclui perfil equivalente à AWP, rifle semiautomático ou marcação automática no MVP.
+- Breacher escolhe pump-action/M3 ou semiautomática/XM1014 como variações laterais exclusivas, ambas com teto exato de 40 cartuchos, pistola, faca, duas flashbangs e uma smoke; não acumula SMG, fragmentação, ferramenta de ruptura ou bônus passivo.
 - Sobreviventes preservam uma arma coletada entre rodadas somente como substituição do mesmo slot; o teto de munição e o dano continuam pertencendo à categoria da arma, e trocar tipo ou variação restaura o kit.
 
 ## 6. Conteúdo comunitário dentro das regras
