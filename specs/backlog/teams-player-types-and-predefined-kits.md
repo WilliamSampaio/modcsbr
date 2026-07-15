@@ -22,7 +22,7 @@ Esta spec registra uma exploração de ideia e uma proposta de MVP. Ela não aut
 - **Decisão de produto:** quatro tipos não é um limite estrutural. O catálogo poderá crescer após o MVP, desde que cada novo tipo possua contrato simétrico, função distinta, contrajogo e suporte de conteúdo e interface.
 - **Decisão de MVP:** Assault oferece duas variações laterais e mutuamente exclusivas: Rifle, com rifle de assalto e teto de 150 balas, ou SMG, com submetralhadora e teto de 90 balas. Ambas usam pistola com teto de 45, uma fragmentação e duas flashbangs.
 - **Decisão de MVP:** Support possui um único kit: machine gun com teto de 250 balas, pistola com teto de 45, faca universal, uma flashbang e uma smoke; não recebe fragmentação nem arma secundária.
-- **Decisão de MVP:** a machine gun usa dano da própria categoria e tempo de recarga de 4,7 s baseado na M249 do CS 1.6. Supressão permanece emergente, sem penalidade artificial aplicada ao adversário.
+- **Decisão de MVP:** a machine gun usa dano da própria categoria e tempo de recarga de 4,7 s baseado na M249 do CS 1.6. Supressão é apenas a linguagem tática do uso de fogo sustentado, inspirada em combate real, e permanece emergente: não aplica penalidade artificial ao adversário.
 - **Decisão de MVP:** Marksman oferece duas variações laterais e mutuamente exclusivas: Bolt-action, com rifle de precisão de ferrolho e teto total de 50 balas, ou Semiauto, com rifle de precisão semiautomático e teto total de 90 balas. O teto inclui o carregador inserido.
 - **Decisão de MVP:** ambas as variações do Marksman recebem pistola com teto de 45, faca universal, uma flashbang e uma smoke; não recebem fragmentação, arma secundária, marcação de inimigos nem bônus passivo de informação. Perfis equivalentes à AWP ficam fora do MVP.
 - **Decisão de balanceamento:** Semiauto causa menos dano por disparo que Bolt-action, mas possui maior cadência. Cada variação usa um perfil global fixo e validado pelo servidor; equipes e criadores não podem alterar o dano nem transformar a apresentação em um terceiro perfil mecânico.
@@ -349,7 +349,7 @@ Recon e Engineer são bons candidatos futuros. Medic só deve voltar à discuss�
 | Penalidade de precisão ou movimento | Cria poder explícito | Retira controle e favorece spam. |
 | Tremor, blur ou perda de informação | Sensação forte | Desconforto, acessibilidade e confusão com dano. |
 
-**Recomendação:** supressão emergente no MVP, apoiada apenas pelos sons, impactos e risco real que qualquer arma já produz. Não aplicar redução de precisão, movimento, visão ou controle. Se o Support não cumprir seu papel, ajustar capacidade, manuseio, geometria e utilidade antes de adicionar um debuff invisível. Qualquer feedback audiovisual futuro deve ter opções de acessibilidade e não ocultar informação necessária.
+**Recomendação:** usar “supressão” como descrição tática do fogo sustentado do Support, inspirada no emprego real de armas automáticas, mas não como uma nova mecânica. No MVP, ela é emergente e vem apenas de som, impacto, volume de disparos e risco real que qualquer arma já produz. Não aplicar redução de precisão, movimento, visão ou controle. Se o Support não cumprir seu papel, ajustar capacidade, manuseio, geometria e utilidade antes de adicionar um debuff invisível. Qualquer feedback audiovisual futuro deve ter opções de acessibilidade e não ocultar informação necessária.
 
 ## 11. Modelo recomendado para kits
 
