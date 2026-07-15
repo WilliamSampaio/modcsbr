@@ -51,7 +51,7 @@ Status: direção inicial confirmada; visão ainda incompleta
 - O servidor atribui lados operacionais no início da partida e os troca na metade quando o cenário for reversível; jogadores e identidade permanecem na mesma equipe.
 - A primeira fase de playtest usa recarga clássica, munição reserva agregada e HUD exato do CS 1.6. Carregadores individuais entram somente na segunda configuração experimental.
 - Equilíbrio numérico usa diferença máxima de um jogador sem transferência automática forçada; a configuração inicial é `mp_limitteams 1` e `mp_autoteambalance 0`.
-- Somente Marksman pode receber um perfil de pistola silenciada; os demais tipos usam pistolas normais. O pacote comunitário pode mapear uma opção normal ou silenciada da allowlist global, sujeita ao mesmo contrato e orçamento de poder; cenários não selecionam nem filtram esse perfil.
+- O catálogo inicial de pistolas possui `backup_pistol_45_standard` (USP sem silenciador), `backup_pistol_9mm_capacity` (Glock18 sem burst), `marksman_pistol_45_suppressed` (USP silenciada) e `marksman_pistol_9mm_suppressed` (Glock18 sem burst com apresentação silenciada). Os dois perfis normais estão disponíveis para todos os tipos; somente Marksman pode receber perfis silenciados. Desert Eagle, Dual Elites, Five-Seven, burst da Glock e alternância manual de silenciador ficam fora do MVP.
 - Um sobrevivente pode levar para a rodada seguinte a arma coletada que estiver carregando. Ela substitui o equipamento normal do mesmo slot e recebe carregadores completos até o teto da própria categoria; trocar tipo ou variação restaura o kit e remove essa persistência.
 
 ## Limites da promessa de retrocompatibilidade

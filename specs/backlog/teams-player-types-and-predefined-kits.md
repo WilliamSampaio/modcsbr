@@ -45,7 +45,7 @@ Esta spec registra uma exploração de ideia e uma proposta de MVP. Ela não aut
 - **Decisão de MVP:** lanterna é universal. Visão noturna reutiliza o sistema legado e pode ser concedida simetricamente por configuração global do servidor/kit, sem compra e sem exclusividade por equipe.
 - **Decisão de MVP:** drop, coleta, slots e estado da arma no chão reutilizam a base do CS 1.6; persistência da arma carregada pelo sobrevivente entre rodadas continua sendo regra adicional do mod.
 - **Decisão de MVP:** bots reutilizam navegação, combate e execução dos objetivos legados, mas devem receber um tipo/variação e kit válidos sem passar pelo estado de compra.
-- **Decisão de contrato:** somente Marksman pode usar um perfil de pistola silenciada em seu slot de backup. Outros tipos aceitam apenas perfis de pistola normal. O pacote comunitário pode mapear uma opção normal ou silenciada da allowlist global, sujeita ao mesmo contrato e orçamento de poder; cenário, mapa e modo não selecionam nem filtram esse perfil. Modelo, nome e som podem variar sem ocultar o uso do silenciador.
+- **Decisão de contrato:** o catálogo inicial de pistolas possui dois perfis normais, `backup_pistol_45_standard` e `backup_pistol_9mm_capacity`, disponíveis para Assault, Support, Breacher e Marksman. Somente Marksman pode usar os perfis silenciados `marksman_pistol_45_suppressed` e `marksman_pistol_9mm_suppressed`. O pacote comunitário pode mapear uma opção normal ou silenciada da allowlist global, sujeita ao mesmo contrato e orçamento de poder; cenário, mapa e modo não selecionam nem filtram esse perfil. Modelo, nome, som, recuo, cadência e precisão podem variar apenas dentro do intervalo do perfil escolhido, sem alterar dano, calibre mecânico, recarga, teto ou disponibilidade.
 - **Decisão de contrato:** cada arma temática criada pela comunidade deve referenciar um perfil mecânico global aprovado. O perfil fixa dano, categoria/calibre mecânico, penetração, recarga, slots permitidos e limites combinados; o criador controla apresentação, capacidade do carregador, recuo e cadência somente onde o perfil autorizar.
 - **Decisão de produto:** assimetria compensada é permitida. Equipes podem mapear perfis globais diferentes para o mesmo contrato Assault Rifle ou Assault SMG, desde que usem a mesma allowlist e o mesmo orçamento de poder. Assimetria livre ou parâmetros fora dos perfis continuam rejeitados.
 - **Decisão de MVP:** o catálogo global inicial do Assault possui quatro perfis: `assault_rifle_762_power` (AK-47), `assault_rifle_556_control` (M4A1 sem silenciador), `assault_smg_9mm_control` (MP5) e `assault_smg_45_power` (UMP-45). As armas entre parênteses são baselines mecânicas do CS 1.6, não identidades visuais obrigatórias.
@@ -405,6 +405,17 @@ Nome, modelo, animação e som não precisam representar AK-47, M4A1, MP5 ou UMP
 Recuo e cadência são configuráveis somente dentro de uma região conjunta ainda a ser calibrada. Validar cada eixo isoladamente é insuficiente: aumentar cadência deve consumir orçamento de poder ou exigir uma compensação de controle. O primeiro playtest controlado usa o mesmo perfil nas duas equipes; um teste posterior usa perfis distintos para medir a assimetria compensada sem confundi-la com mapa, lado ou habilidade dos participantes.
 
 FAMAS, Galil, TMP, MAC-10 e P90 permanecem candidatos futuros. Burst, silenciador acoplável e outras ações secundárias da arma exigem contratos e assets próprios e não fazem parte do Assault no MVP.
+
+### Catálogo global inicial de pistolas
+
+| Identificador global | Referência mecânica | Dano-base | Ciclo / cadência aproximada | Recarga | Calibre mecânico | Capacidade-base | Teto do slot | Disponibilidade |
+|---|---|---:|---:|---:|---|---:|---:|---|
+| `backup_pistol_45_standard` | USP sem silenciador | 34 | 0,225 s / 267 RPM | 2,7 s | .45 ACP | 12 | 45 | Todos os tipos |
+| `backup_pistol_9mm_capacity` | Glock18 sem burst | 25 | 0,200 s / 300 RPM | 2,2 s | 9 mm | 20 | 45 | Todos os tipos |
+| `marksman_pistol_45_suppressed` | USP silenciada | 30 | 0,225 s / 267 RPM | 2,7 s | .45 ACP | 12 | 45 | Somente Marksman |
+| `marksman_pistol_9mm_suppressed` | Glock18 sem burst, com apresentação silenciada | 25 | 0,200 s / 300 RPM | 2,2 s | 9 mm | 20 | 45 | Somente Marksman |
+
+No MVP, perfis 9 mm usam apenas tiro semiautomático. A diferença mecânica entre pistolas 9 mm e .45 ACP fica no dano fixo do perfil, cadência, precisão/recuo e capacidade-base. Skins comunitárias devem se adequar a um desses perfis, nunca criar dano novo por apresentação. Burst da Glock, Desert Eagle, Dual Elites, Five-Seven e alternância manual de silenciador ficam fora do catálogo inicial. Pistolas silenciadas são perfis de spawn/contrato para Marksman, não ações de acoplar ou remover silenciador durante a rodada.
 
 ### Regra proposta para teto de munição e carregadores
 
@@ -915,7 +926,7 @@ Os valores concretos de armas, munição, tempos e utilidades só devem ser defi
 7. Qual é a política futura para equipes baseadas em organizações reais e conflitos contemporâneos?
 8. Qual nível de suporte a tipos/kits é necessário para considerar os bots publicáveis?
 9. Quais intervalos e combinações de recuo/cadência são seguros para cada perfil de arma?
-10. Quais armas do CS 1.6 serão a referência para Support e pistolas no primeiro playtest? As referências do Assault estão definidas no catálogo inicial.
+10. Qual identificador e conjunto completo de parâmetros formaliza o perfil global de Support baseado na M249?
 
 ## 28. Recomendação final
 
