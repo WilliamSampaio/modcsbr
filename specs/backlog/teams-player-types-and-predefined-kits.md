@@ -22,7 +22,7 @@ Esta spec registra uma exploração de ideia e uma proposta de MVP. Ela não aut
 - **Decisão de produto:** quatro tipos não é um limite estrutural. O catálogo poderá crescer após o MVP, desde que cada novo tipo possua contrato simétrico, função distinta, contrajogo e suporte de conteúdo e interface.
 - **Decisão de MVP:** Assault oferece duas variações laterais e mutuamente exclusivas: Rifle, com rifle de assalto e teto de 150 balas, ou SMG, com submetralhadora e teto de 90 balas. Ambas usam pistola com teto de 45, uma fragmentação e duas flashbangs.
 - **Decisão de MVP:** Support possui um único kit: machine gun com teto de 250 balas, pistola com teto de 45, faca universal, uma flashbang e uma smoke; não recebe fragmentação nem arma secundária.
-- **Decisão de MVP:** a machine gun usa dano da própria categoria e tempo de recarga de 4,7 s baseado na M249 do CS 1.6. Supressão é apenas a linguagem tática do uso de fogo sustentado, inspirada em combate real, e permanece emergente: não aplica penalidade artificial ao adversário.
+- **Decisão de MVP:** a machine gun do Support pode usar dois perfis globais: `support_lmg_556_sustain`, baseado na M249 do CS 1.6, e `support_lmg_762_power`, perfil de 7,62 mm criado para representar machine guns mais pesadas. O perfil 5,56 prioriza cadência e sustentação; o 7,62 possui dano superior, cadência menor e recuo mais pesado. Supressão é apenas a linguagem tática do uso de fogo sustentado, inspirada em combate real, e permanece emergente: não aplica penalidade artificial ao adversário.
 - **Decisão de MVP:** Marksman oferece duas variações laterais e mutuamente exclusivas: Bolt-action, com rifle de precisão de ferrolho e teto total de 50 balas, ou Semiauto, com rifle de precisão semiautomático e teto total de 90 balas. O teto inclui o carregador inserido.
 - **Decisão de MVP:** ambas as variações do Marksman recebem pistola com teto de 45, faca universal, uma flashbang e uma smoke; não recebem fragmentação, arma secundária, marcação de inimigos nem bônus passivo de informação. Perfis equivalentes à AWP ficam fora do MVP.
 - **Decisão de balanceamento:** Semiauto causa menos dano por disparo que Bolt-action, mas possui maior cadência. Cada variação usa um perfil global fixo e validado pelo servidor; equipes e criadores não podem alterar o dano nem transformar a apresentação em um terceiro perfil mecânico.
@@ -388,6 +388,15 @@ Para o próximo playtest, esta matriz substitui as sugestões iniciais de armas 
 | Breacher — Semiautomática | Shotgun/XM1014, teto exato de 40 cartuchos | — | Pistola, teto de 45 | 0 | 2 | 1 |
 
 Nesta tabela, “granada” foi interpretada como granada de fragmentação. Os valores aprovados ainda são baselines de MVP sujeitas a rejeição por playtest, não garantias de balanceamento final.
+
+### Catálogo global inicial do Support
+
+| Identificador global | Referência mecânica | Dano-base | Ciclo / cadência aproximada | Recarga | Calibre mecânico | Perda por distância | Penetrações máximas | Capacidade-base | Teto do slot | Disponibilidade |
+|---|---|---:|---:|---:|---|---:|---:|---:|---:|---|
+| `support_lmg_556_sustain` | M249 | 32 | 0,100 s / 600 RPM | 4,7 s | 5,56 mm | 0,97 | 2 | 100 | 250 | Support |
+| `support_lmg_762_power` | 7,62 mm LMG | 36 | 0,120 s / 500 RPM | 4,7 s | 7,62 mm | 0,98 | 2 | 100 | 250 | Support |
+
+Os perfis de Support compartilham o mesmo kit e o mesmo teto do slot, mas oferecem troca lateral de comportamento. `support_lmg_556_sustain` é a opção de controle/sustentação, com maior cadência. `support_lmg_762_power` é a opção de poder, com dano superior, cadência menor e recuo mais pesado. A comunidade pode representar outra arma visualmente, mas precisa respeitar o perfil escolhido: dano, calibre mecânico, penetração, perda por distância, recarga, disponibilidade e teto do slot são fixos. Capacidade, recuo, cadência e precisão só podem variar dentro dos intervalos validados para o perfil. Bipé, overheat, troca de cano, modos alternativos de disparo, bônus de vida/armadura e efeitos artificiais de supressão ficam fora do MVP.
 
 ### Catálogo global inicial do Assault
 
@@ -897,7 +906,7 @@ Manter cada eixo testável separadamente: equipes/lados, tipos/kits, parâmetros
 | Quantidade de utilidades | Matriz da seção 11 | Hipótese para playtest | Servidor/contrato global |
 | Lanterna inicial | sim | Regra fixa atual | Servidor |
 | Visão noturna | não no MVP | desligada/opção simétrica | Servidor/kit global |
-| Perfis permitidos para conteúdo comunitário | quatro perfis iniciais do Assault; demais a definir | allowlist e regiões conjuntas seguras | Servidor/contrato global |
+| Perfis permitidos para conteúdo comunitário | catálogos iniciais de Assault, Support, Marksman, Breacher e pistolas | allowlist e regiões conjuntas seguras | Servidor/contrato global |
 | Dano comunitário | não configurável | valor fixo do perfil | Servidor/contrato global |
 | Capacidade comunitária do carregador | por equipe/arma | 1–teto de balas do tipo/slot | Servidor/contrato global |
 | Recuo comunitário | a definir por perfil | `recoil_min`–`recoil_max` | Servidor/contrato global |
@@ -926,7 +935,6 @@ Os valores concretos de armas, munição, tempos e utilidades só devem ser defi
 7. Qual é a política futura para equipes baseadas em organizações reais e conflitos contemporâneos?
 8. Qual nível de suporte a tipos/kits é necessário para considerar os bots publicáveis?
 9. Quais intervalos e combinações de recuo/cadência são seguros para cada perfil de arma?
-10. Qual identificador e conjunto completo de parâmetros formaliza o perfil global de Support baseado na M249?
 
 ## 28. Recomendação final
 
