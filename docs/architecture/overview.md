@@ -42,3 +42,11 @@ Gameplay and feature changes should start as specs. Move specs through:
 - `specs/approved`
 - `specs/implementing`
 - `specs/completed`
+
+The current teams, free type composition, maximum one-player difference between active teams, and team-specific player-type alias proposal is documented in [`specs/backlog/teams-player-types-and-predefined-kits.md`](../../specs/backlog/teams-player-types-and-predefined-kits.md). The server is intended to validate team availability for joins, switches, and reconnections; reconnecting does not reserve the previous team slot. The current ReGameDLL_CS and CS16Client code uses a 32-client maximum, while an individual server may configure fewer. The proposal remains unapproved and does not describe implemented gameplay.
+
+Backward compatibility with CS 1.6 maps and game modes is an initial product pillar. Future gameplay work should preserve legacy spawn/objective entity handling and should not require recompiling legacy maps merely to load and complete a round. Internal legacy side identifiers may remain as a compatibility layer even when the player-facing teams use different names.
+
+The current product direction removes money and buying: the server grants a predefined kit at spawn. Community-authored teams may map themed weapons and presentation onto global type contracts. Damage remains fixed by the global weapon profile. Magazine capacity may be configured from 1 through the slot's ammo ceiling; recoil and fire rate may vary within server-validated ranges and valid combinations. The server must validate the complete package before accepting it. Loading a legacy map does not restore the classic economy.
+
+Extreme magazine capacities are valid thematic choices, such as a one-shot crossbow, but the declared value remains independent from the visual asset and must stay within the slot ceiling. Models, animations, sounds, and HUD should communicate the accepted behavior consistently.

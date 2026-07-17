@@ -40,3 +40,11 @@ Los cambios de gameplay y feature deben comenzar como specs. Mueve specs por:
 - `specs/approved`
 - `specs/implementing`
 - `specs/completed`
+
+La propuesta actual de equipos, composicion libre de tipos, diferencia maxima de un jugador activo entre equipos y aliases por equipo esta documentada en [`specs/backlog/teams-player-types-and-predefined-kits.md`](../../specs/backlog/teams-player-types-and-predefined-kits.md). La intencion es que el servidor valide la disponibilidad en entradas, cambios y reconexiones; reconectar no reserva la plaza del equipo anterior. El codigo actual de ReGameDLL_CS y CS16Client usa un maximo de 32 clientes, aunque cada servidor puede configurar menos. La propuesta permanece sin aprobar y no describe gameplay implementado.
+
+La retrocompatibilidad con mapas y modos de juego de CS 1.6 es un pilar inicial del producto. Los cambios futuros de gameplay deben preservar la lectura de entidades legacy de spawn y objetivo y no deben exigir recompilar mapas antiguos solo para cargar y completar una ronda. Los identificadores internos legacy de los lados pueden permanecer como capa de compatibilidad aunque los equipos visibles usen otros nombres.
+
+La direccion actual elimina dinero y compra: el servidor concede un kit predefinido al hacer spawn. Los equipos creados por la comunidad pueden mapear armas y presentacion tematicas sobre contratos globales de tipo. El dano permanece fijo en el perfil global del arma. La capacidad del cargador puede variar de 1 hasta el limite de balas del slot; retroceso y cadencia pueden variar dentro de intervalos y combinaciones validados por el servidor. El servidor debe validar el paquete completo antes de aceptarlo. Cargar un mapa legacy no restaura la economia clasica.
+
+Las capacidades extremas del cargador son elecciones tematicas validas, como una crossbow de un solo tiro, pero el valor declarado permanece separado del asset visual y debe respetar el limite del slot. Modelos, animaciones, sonidos y HUD deben comunicar de forma coherente el comportamiento aceptado.

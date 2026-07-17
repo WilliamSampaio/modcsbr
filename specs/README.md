@@ -22,3 +22,7 @@ Specs describe planned gameplay, weapon, server, and mod changes before implemen
 
 ## Test Plan
 ```
+
+## Active Backlog Explorations
+
+- [Teams, player types, and predefined kits](backlog/teams-player-types-and-predefined-kits.md) (Portuguese; product discovery, not approved)

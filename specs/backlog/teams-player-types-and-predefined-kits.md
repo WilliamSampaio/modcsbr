@@ -1,0 +1,1122 @@
+# Equipes, tipos de jogador e kits predefinidos
+
+Status: backlog — Direção C autorizada como hipótese de prototipagem; spec ainda não aprovada para implementação
+
+## Convenções desta spec
+
+- **Fato:** confirmado no repositório ou na arquitetura atual.
+- **Hipótese:** suposição que precisa de playtest ou investigação.
+- **Recomendação:** direção preferida para experimentar, ainda não aprovada.
+- **Decisão pendente:** escolha que cabe ao responsável do produto.
+
+Esta spec registra uma exploração de ideia e uma proposta de MVP. Ela não autoriza implementação. Os quatro tipos iniciais do MVP estão definidos, mas seus valores de kit não são permanentes. A remoção da economia e a concessão de kits predefinidos já são decisões confirmadas.
+
+## Decisões de produto confirmadas
+
+- **Decisão:** o produto usará **equipe** como termo para a identidade coletiva e para o grupo ao qual o jogador pertence. O termo anterior foi removido da linguagem do produto.
+- **Decisão atualizada:** os tipos de jogador serão estruturalmente simétricos entre as equipes: mesmos contratos de slots, categorias, limites e orçamento. Cada equipe pode mapear armas e equipamentos temáticos dentro desses mesmos limites.
+- **Decisão:** cada equipe poderá dar um nome temático diferente ao mesmo tipo base. Por exemplo, o mesmo tipo de precisão poderá ser apresentado como “Caçador” em uma equipe e “Matador” em outra; esses nomes são exemplos, não nomes aprovados.
+- **Decisão:** não existe formato obrigatório de cinco jogadores por equipe. O servidor pode operar com quantidades variáveis dentro de sua capacidade configurada.
+- **Decisão de balanceamento:** o MVP usa **10 contra 10** como referência principal de balanceamento. A faixa obrigatória de validação é **6 contra 6 até 12 contra 12**. Partidas até **16 contra 16** continuam suportadas quando mapa e servidor comportarem, mas não são o centro do balanceamento inicial. Nenhum kit deve ser balanceado exclusivamente para 5 contra 5.
+- **Decisão:** a composição de tipos é livre. Todos os jogadores de uma equipe podem escolher o mesmo tipo, sem cotas, reservas, filas ou tipos obrigatórios.
+- **Decisão de MVP:** os quatro tipos iniciais fixos são Assault, Support, Marksman e Breacher, disponíveis simetricamente para as duas equipes.
+- **Decisão de produto:** a **Direção C — Identidade própria intermediária** está autorizada como hipótese de prototipagem. Isso aprova o caminho de produto para preparar o primeiro corte técnico, mas não move esta spec para `approved` nem autoriza implementar todos os sistemas descritos de uma vez.
+- **Decisão de MVP:** as duas primeiras equipes fictícias de playtest são **Atlas** e **Vesper**. Elas existem para validar identidade, aliases e leitura visual no MVP; não representam aprovação de lore final, organizações reais ou vantagem mecânica.
+- **Decisão de MVP:** o primeiro contexto narrativo é um exercício operacional competitivo em instalação de teste. O modo legado de instalar/desarmar dispositivo será apresentado como instalar/desarmar dispositivo de validação, preservando as regras do CS 1.6 sem enquadrar automaticamente uma equipe como “terrorista” ou “contra-terrorista”.
+- **Decisão de produto:** quatro tipos não é um limite estrutural. O catálogo poderá crescer após o MVP, desde que cada novo tipo possua contrato simétrico, função distinta, contrajogo e suporte de conteúdo e interface.
+- **Decisão de MVP:** Assault oferece duas variações laterais e mutuamente exclusivas: Rifle, com rifle de assalto e teto de 150 balas, ou SMG, com submetralhadora e teto de 90 balas. Ambas usam pistola com teto de 45, uma fragmentação e duas flashbangs.
+- **Decisão de MVP:** Support possui um único kit: machine gun com teto de 250 balas, pistola com teto de 45, faca universal, uma flashbang e uma smoke; não recebe fragmentação nem arma secundária.
+- **Decisão de MVP:** a machine gun do Support pode usar dois perfis globais: `support_lmg_556_sustain`, baseado na M249 do CS 1.6, e `support_lmg_762_power`, perfil de 7,62 mm criado para representar machine guns mais pesadas. O perfil 5,56 prioriza cadência e sustentação; o 7,62 possui dano superior, cadência menor e recuo mais pesado. Supressão é apenas a linguagem tática do uso de fogo sustentado, inspirada em combate real, e permanece emergente: não aplica penalidade artificial ao adversário.
+- **Decisão de MVP:** ajustes comunitários de manuseio do Support também usam presets inteiros (`controlled`, `baseline` ou `aggressive`) por arma temática. LMGs possuem limites mais conservadores que Assault, porque combinam teto de munição alto e fogo sustentado; o preset `aggressive` aumenta pouco a cadência e piora bastante o controle.
+- **Decisão de MVP:** Marksman oferece duas variações laterais e mutuamente exclusivas: Bolt-action, com rifle de precisão de ferrolho e teto total de 50 balas, ou Semiauto, com rifle de precisão semiautomático e teto total de 90 balas. O teto inclui o carregador inserido.
+- **Decisão de MVP:** ambas as variações do Marksman recebem pistola com teto de 45, faca universal, uma flashbang e uma smoke; não recebem fragmentação, arma secundária, marcação de inimigos nem bônus passivo de informação. Perfis equivalentes à AWP ficam fora do MVP.
+- **Decisão de balanceamento:** Semiauto causa menos dano por disparo que Bolt-action, mas possui maior cadência. Cada variação usa um perfil global fixo e validado pelo servidor; equipes e criadores não podem alterar o dano nem transformar a apresentação em um terceiro perfil mecânico.
+- **Baseline de playtest:** Bolt-action usa inicialmente dano 75 e recarga de 2,0 s, conforme a Scout do CS 1.6, apenas como referência mecânica; a arma temática não precisa ser uma Scout. Semiauto usa inicialmente dano 70 e recarga de 3,35 s, conforme a SG-550, também apenas como referência. A cadência da Semiauto deve ser superior à da Bolt-action, mas o intervalo seguro permanece hipótese pendente de playtest.
+- **Decisão de MVP:** ajustes comunitários de manuseio do Marksman usam presets inteiros (`controlled`, `baseline` ou `aggressive`) por arma temática. O preset não altera dano, zoom, disponibilidade, teto de munição, recarga nem transforma Bolt-action em Semiauto. Como Marksman pune exposição em longa distância, os presets devem ser mais restritos que Assault e não podem remover a vulnerabilidade em curta distância.
+- **Decisão de MVP:** Breacher oferece duas variações laterais e mutuamente exclusivas: Pump-action, baseada na M3, ou Semiautomática, baseada na XM1014. Ambas possuem teto exato de 40 cartuchos, pistola com teto de 45, faca universal, duas flashbangs e uma smoke; não recebem fragmentação, SMG, ferramenta de ruptura nem bônus passivo.
+- **Decisão de MVP:** trocar a variação do Breacher restaura o kit escolhido e encerra a persistência de arma coletada. Como escopetas são alimentadas cartucho por cartucho, o spawn distribui exatamente os 40 cartuchos entre arma e reserva, sem descartar o resto pela regra de carregadores completos.
+- **Decisão de MVP:** ajustes comunitários de manuseio do Breacher usam presets inteiros (`controlled`, `baseline` ou `aggressive`) por shotgun temática. O preset não altera dano, pellets, alcance-base, recarga cartucho por cartucho, teto de 40 cartuchos nem transforma pump-action em semiautomática. Breacher deve continuar forte em curta distância e fraco fora dela.
+- **Decisão:** todos os tipos recebem faca em slot próprio e não descartável. Equipes podem alterar somente sua apresentação temática; dano, alcance e cadência da faca são globais.
+- **Decisão:** dano segue a categoria mecânica validada pelo servidor: rifle usa dano de rifle, SMG usa dano de SMG e shotgun usa dano de shotgun. Skin, alias e equipe não mudam essa categoria nem o dano.
+- **Decisão:** o sobrevivente preserva para a rodada seguinte a arma coletada que estiver carregando, desde que mantenha o mesmo tipo e a mesma variação. Ela substitui a arma normal do mesmo slot e volta com carregadores completos até o teto da própria categoria; trocar tipo ou variação restaura o kit escolhido e encerra a persistência.
+- **Decisão:** as equipes podem diferir em no máximo um jogador ativo. Quando uma equipe já tem um jogador a mais, somente a equipe menor fica disponível para novas entradas.
+- **Decisão:** reconexão não reserva vaga nem garante a equipe anterior. O jogador obedece à disponibilidade existente no momento em que retorna.
+- **Decisão:** preservar retrocompatibilidade com mapas e modos de jogo do Counter-Strike 1.6 é um objetivo estrutural do produto.
+- **Decisão de escopo:** o produto se limita aos modos e objetivos legados do CS 1.6. Não serão criados modos próprios de controle de território, captura de pontos, escolta ou múltiplos objetivos nesta spec.
+- **Decisão de terminologia:** nesta spec, “cenário” significa apenas um preset de apresentação que associa um mapa e seu modo legado a identidades de equipe, aliases e contexto narrativo. Ele não altera objetivos, condições de vitória nem a lista de perfis mecânicos permitidos.
+- **Decisão de MVP:** reutilizar a infraestrutura legada de modos, ciclo de rodada, mapas, recarga, HUD de munição, lanterna, visão noturna, armas no chão, equilíbrio numérico e bots sempre que ela não contrariar equipes, kits predefinidos e remoção da economia.
+- **Decisão de MVP:** o primeiro modo funcional usa o fluxo legado de instalar/desarmar dispositivo, sem recompensas monetárias. Tempo de rodada, freeze time, temporizador do dispositivo, condições de vitória, morte, espectador e reinício começam com as baselines do CS 1.6.
+- **Decisão de MVP:** a estrutura inicial de partida usa 20 rodadas, troca de lados após 10 rodadas, vitória da primeira equipe a 11 rodadas e empate 10–10 permitido sem overtime. Equipes mantêm identidade; apenas o lado operacional é trocado. Round time, freeze time e temporizador do dispositivo começam com as baselines do CS 1.6.
+- **Decisão:** identidade de equipe e lado operacional permanecem separados. O servidor atribui os lados técnicos no início da partida e os troca na metade da partida quando o cenário for reversível; jogadores permanecem na mesma equipe e assumem o lado operacional oposto. Equipes não resolvem conflitos de escolha de lado diretamente entre si.
+- **Decisão de MVP:** usar a regra existente de equipes empilhadas com diferença máxima de um jogador e sem transferência automática forçada; a configuração de referência é `mp_limitteams 1` e `mp_autoteambalance 0`.
+- **Decisão de MVP:** a primeira fase usa munição reserva agregada, HUD exato de carregador/reserva e recarga clássica do CS 1.6. Carregadores individuais e recarga tática permanecem como segunda configuração experimental, depois de validar equipes, tipos e kits.
+- **Decisão de MVP:** lanterna é universal. Visão noturna reutiliza o sistema legado e pode ser concedida simetricamente por configuração global do servidor/kit, sem compra e sem exclusividade por equipe.
+- **Decisão de MVP:** drop, coleta, slots e estado da arma no chão reutilizam a base do CS 1.6; persistência da arma carregada pelo sobrevivente entre rodadas continua sendo regra adicional do mod.
+- **Decisão de UX:** ao coletar uma arma do chão, o jogador não recebe imediatamente pelo HUD a quantidade exata de munição no carregador inserido. O HUD marca a munição do carregador como desconhecida até o jogador executar a ação **check magazine**, que toca uma animação de remover/verificar o carregador e então atualiza o contador com o valor autoritativo do servidor.
+- **Decisão de MVP:** bots reutilizam navegação, combate e execução dos objetivos legados, mas devem receber um tipo/variação e kit válidos sem passar pelo estado de compra.
+- **Decisão de contrato:** o catálogo inicial de pistolas possui dois perfis normais, `backup_pistol_45_standard` e `backup_pistol_9mm_capacity`, disponíveis para Assault, Support, Breacher e Marksman. Somente Marksman pode usar os perfis silenciados `marksman_pistol_45_suppressed` e `marksman_pistol_9mm_suppressed`. O pacote comunitário pode mapear uma opção normal ou silenciada da allowlist global, sujeita ao mesmo contrato e orçamento de poder; cenário, mapa e modo não selecionam nem filtram esse perfil. Modelo, nome, som, recuo, cadência e precisão podem variar apenas dentro do intervalo do perfil escolhido, sem alterar dano, calibre mecânico, recarga, teto ou disponibilidade.
+- **Decisão de MVP:** ajustes comunitários de manuseio de pistolas usam presets inteiros (`controlled`, `baseline` ou `quick`) por arma temática. Pistola é backup, não arma principal; presets não alteram dano, calibre, recarga, teto de 45, disponibilidade, silenciador, burst ou categoria.
+- **Decisão de contrato:** cada arma temática criada pela comunidade deve referenciar um perfil mecânico global aprovado. O perfil fixa dano, categoria/calibre mecânico, penetração, recarga, slots permitidos e limites combinados; o criador controla apresentação, capacidade do carregador, recuo e cadência somente onde o perfil autorizar.
+- **Decisão de produto:** assimetria compensada é permitida. Equipes podem mapear perfis globais diferentes para o mesmo contrato Assault Rifle ou Assault SMG, desde que usem a mesma allowlist e o mesmo orçamento de poder. Assimetria livre ou parâmetros fora dos perfis continuam rejeitados.
+- **Decisão de MVP:** o catálogo global inicial do Assault possui quatro perfis: `assault_rifle_762_power` (AK-47), `assault_rifle_556_control` (M4A1 sem silenciador), `assault_smg_9mm_control` (MP5) e `assault_smg_45_power` (UMP-45). As armas entre parênteses são baselines mecânicas do CS 1.6, não identidades visuais obrigatórias.
+- **Decisão de MVP:** as primárias do Assault usam somente fogo automático. Burst, silenciador acoplável e os perfis baseados em FAMAS, Galil, TMP, MAC-10 e P90 ficam fora do catálogo inicial.
+- **Decisão de MVP:** ajustes comunitários de manuseio do Assault usam presets inteiros (`controlled`, `baseline` ou `aggressive`) por arma temática, em vez de sliders livres de recuo, cadência e precisão. O preset altera somente comportamento de controle dentro do perfil; dano, calibre, penetração, perda por distância, recarga, mobilidade, modos de disparo e teto de munição continuam fixos.
+- **Decisão de validação:** dano, calibre mecânico, penetração, perda por distância, precisão-base, recarga, mobilidade e modos de disparo pertencem ao perfil. Recuo e cadência podem variar apenas dentro de uma região conjunta aprovada; a combinação de cadência máxima com recuo mínimo não é automaticamente válida.
+- **Decisão de escala comunitária:** um perfil global válido não precisa ser aprovado novamente para cada confronto. A allowlist global do servidor vale igualmente em todos os mapas e modos legados suportados; cenário, mapa, modo e confronto não adicionam filtros próprios de perfis.
+- **Decisão:** dinheiro, recompensas monetárias, preços e menu de compra deixam de fazer parte das regras normais do mod. Cada spawn recebe o kit predefinido do tipo escolhido.
+- **Objetivo de produto:** permitir que a comunidade crie equipes temáticas, com nomes, modelos, vozes e mapeamentos próprios de equipamento, desde que respeitem contratos globais validados pelo servidor.
+- **Decisão:** criadores não podem alterar dano. Cada perfil de arma tem dano padrão definido globalmente. Capacidade do carregador pode ser definida pelo criador entre 1 e o teto de balas do contrato. Recuo e cadência podem variar somente dentro dos intervalos definidos pelo contrato e validados pelo servidor.
+- **Decisão:** capacidades extremas são intencionais quando sustentam a fantasia da arma temática; o contrato não impõe outra faixa além de 1 até o teto de balas do tipo/slot.
+- **Decisão:** capacidade do carregador, teto total de munição, comportamento de recarga, tempo de recarga e animação são parâmetros separados. A capacidade não determina automaticamente a duração da recarga.
+- **Decisão de MVP:** cada categoria de arma possui um único tempo de recarga definido pela regra do jogo. O pacote comunitário não pode alterá-lo. O servidor aplica o tempo da categoria; animação e som devem comunicá-lo, mas não são fontes autoritativas.
+- **Decisão de MVP:** os tempos do CS 1.6 serão usados como baseline. Como o jogo original define valores por arma, cada categoria do contrato deve indicar explicitamente sua arma de referência.
+- **Decisão de MVP:** escopetas possuem duas categorias: pump-action, com M3 como referência, e semiautomática, com XM1014 como referência. Ambas recarregam cartucho por cartucho. Escopetas de fogo totalmente automático ficam fora do MVP.
+- **Regra decorrente:** aliases não alteram o contrato do tipo. Conteúdo temático pode trocar a representação e mapear opções permitidas, mas não exceder slots, categorias, munição, utilidade ou orçamento global.
+- **Recomendação de legibilidade:** tipos equivalentes devem manter o mesmo ícone, posição no menu e descrição funcional para que o jogador reconheça a equivalência entre equipes.
+
+## Registro da proposta original
+
+A proposta recebida busca substituir a divisão permanente Terrorists/Counter-Terrorists por equipes e lados operacionais neutros; selecionar duas equipes por partida; transformar as quatro opções tradicionais de modelo em combatentes com tipo tático; conceder kits predefinidos sem dinheiro ou compra; representar munição como carregadores; preservar o estado de munição de armas coletadas; e decidir como munição de mortos, limites de tipo, supressão, objetivos e identidade das equipes devem funcionar.
+
+Ela considera tipos como Assault, Support, Sniper, Medic, Engineer, Breacher e Recon, mas não aprova nenhum. Também apresenta três direções de produto — tipos leves, esquadrões táticos e identidade intermediária — e pede um MVP que preserve a resposta rápida do gunplay clássico sem transformar o mod em simulador militar.
+
+## Estado atual confirmado e limites da análise
+
+- **Fato:** o runtime alvo é Xash3D FWGS, com ReGameDLL_CS como GameDLL autoritativa e CS16Client como cliente/HUD/menu.
+- **Fato técnico:** ReGameDLL_CS e CS16Client definem `MAX_CLIENTS` como 32. Esse é o teto de clientes da base atual; o valor efetivo do servidor pode ser menor e não garante que todo mapa comporte 32 jogadores ativos adequadamente.
+- **Fato técnico:** a GameDLL conta e seleciona pontos de spawn definidos pelo mapa para cada lado legado. A capacidade prática depende do conteúdo do mapa, não apenas de `MAX_CLIENTS`.
+- **Fato:** mudanças de gameplay devem começar em `specs/backlog`; nenhuma spec relacionada estava salva no backlog no início desta análise.
+- **Fato:** `docs/product/product-vision.md` e `docs/product/design-pillars.md` existem, mas estão vazios.
+- **Fato:** não houve mudança de código ou de submódulo nesta exploração.
+- **Necessidade de investigação técnica:** esta análise não auditou o comportamento herdado de compra, munição, drop, bots e objetivos no código. Referências ao CS clássico servem como baseline de produto declarada na proposta, não como confirmação de cada detalhe da build atual.
+
+## 1. Resumo executivo
+
+**Tese:** a identidade promissora não é “CS 1.6 mais realista”, mas um FPS por rodadas em que equipes têm identidade própria, os jogadores assumem responsabilidades legíveis e entram em cada rodada com kits previsíveis. O valor vem da composição e da execução da equipe, não do inventário detalhado.
+
+**Recomendação atualizada:** prototipar uma identidade intermediária. Separar a identidade da equipe dos papéis temporários de Atacante e Defensor; usar confrontos coerentes definidos pelo cenário do mapa; manter contratos simétricos; testar Assault, Support, Marksman e Breacher com kits predefinidos e sem compra; e preparar um teste posterior de carregadores individuais simplificados com uma única recarga tática.
+
+O primeiro protótipo deve evitar diferenças mecânicas entre equipes, equipes baseadas diretamente em organizações reais, cura, efeitos artificiais de supressão, saque de carregadores, inventário manual, peso, acessórios e progressão entre rodadas. Esses sistemas custam clareza antes de a hipótese principal — “tipos de jogador e kits melhoram decisões de equipe sem destruir o ritmo clássico” — estar validada.
+
+O risco central é substituir a economia do CS por vários sistemas menores e mais difíceis de compreender. Se classes, limites, carregadores, saque, recursos coletivos e habilidades especiais estrearem juntos, um playtest negativo não revelará qual premissa falhou.
+
+## 2. Tese central da proposta
+
+O problema real não é apenas a nomenclatura “Terrorist” e “Counter-Terrorist”. É o acoplamento entre três conceitos que deveriam ser independentes:
+
+1. **Equipe:** identidade coletiva, grupo de jogadores e apresentação visual, sonora e narrativa.
+2. **Lado operacional:** papel temporário no cenário, como Atacante ou Defensor.
+3. **Tipo de jogador:** responsabilidade mecânica e contrato de kit simétrico, independentemente do alias e do mapeamento temático usado por cada equipe.
+
+Separar equipe, lado operacional e tipo de jogador permite que uma equipe ataque em um cenário e defenda em outro sem receber um julgamento moral permanente. Também permite trocar lados na metade da partida sem trocar a identidade da equipe, se o cenário suportar essa inversão.
+
+**Hipótese principal:** escolhas de tipo e kits predefinidos podem substituir parte da decisão tática hoje concentrada na compra, mantendo rodadas justas e legíveis.
+
+**Contraponto:** neutralizar os nomes do sistema não neutraliza o conteúdo. Um confronto entre organizações reais continua comunicando uma posição editorial por meio do objetivo, do mapa, das falas, da vitória e da própria seleção de participantes.
+
+## 3. O que realmente diferencia o mod
+
+### Diferenciadores fortes
+
+- Equipe desvinculada de Atacante/Defensor.
+- Responsabilidade tática reconhecível antes do spawn.
+- Kits de disponibilidade previsível, reduzindo a barreira do menu de compra.
+- Munição por carregadores, se criar decisões rápidas e legíveis.
+- Cenários que definem confrontos e objetivos coerentes, em vez de qualquer equipe contra qualquer equipe.
+
+### Diferenciadores fracos ou genéricos
+
+- Apenas renomear CT/T para Equipe 1/Equipe 2.
+- Trocar quatro skins por quatro rótulos sem alterar responsabilidades.
+- Usar armas diferentes por equipe apesar da decisão de simetria mecânica.
+- Adicionar realismo de inventário que não afeta decisões relevantes.
+
+## 4. Partes que podem prejudicar ritmo ou clareza
+
+- Dois comandos de recarga, inspeção, seleção manual e consolidação de carregadores sobrecarregam o gunplay rápido.
+- Esconder a munição de uma arma coletada por muito tempo produz mortes percebidas como arbitrárias; por isso a informação deve poder ser revelada por uma ação curta e explícita de check magazine.
+- Saquear corpo, munição, acessórios e carregadores desvia o foco do objetivo.
+- Cura em rodadas sem respawn pode tornar o Medic obrigatório e apagar a importância do dano acumulado.
+- Supressão com tremor, blur, lentidão ou perda de precisão reduz controle e pode premiar spam.
+- Um tipo excessivamente forte pode produzir composições inteiras iguais; isso deve ser corrigido no kit, no contrajogo ou no mapa, não por uma cota automática.
+- Assimetria forte multiplica exceções de mapa, composição, bots, HUD e balanceamento.
+- Recursos entre rodadas podem recriar uma economia menos transparente que a original.
+
+## 5. Problemas ainda não resolvidos
+
+- A visão e os pilares oficiais de produto estão vazios no repositório; falta uma referência aprovada para arbitrar “clássico” versus “tático”.
+- Público-alvo e prioridade entre competitivo e servidor comunitário casual ainda não foram definidos. A duração de partida do MVP e a referência de tamanho de equipe já possuem baseline de playtest.
+- Não foi definido se o objetivo principal continuará baseado em rodada sem respawn.
+- Não há política editorial para equipes baseadas em organizações reais, conflitos contemporâneos e organizações criminosas.
+- Não há taxonomia de equivalência entre armas nem orçamento de poder por kit.
+- Ainda falta uma matriz de compatibilidade que valide mapas e modos legados com kits, economia e terminologia novos.
+- Não foi investigado o custo de animações, HUD, mensagens de rede e bots para carregadores individuais.
+
+## 6. Terminologia recomendada
+
+| Conceito | Termo recomendado | Evitar como termo de sistema | Motivo |
+|---|---|---|---|
+| Identidade coletiva e grupo competitivo | **Equipe** | Equipe 1/2 como nome final | Tem identidade própria sem atribuir moralidade. |
+| Papel no objetivo | **Atacante / Defensor** | T / CT | É temporário e descritivo. |
+| Responsabilidade mecânica simétrica | **Tipo de jogador** | Classe | Separa o contrato global do alias e do conteúdo temático exibido por equipe. |
+| Identidade representada | **Combatente** | Operador/personagem | “Operador” traz expectativas de herói e habilidades únicas; “personagem” sugere indivíduo canônico. |
+| Equipamento concedido | **Kit** | Loadout livre | Comunica um pacote predefinido. |
+| Variação pequena do kit | **Opção de kit** | Subclasse | Evita uma hierarquia prematura. |
+| Apresentação de mapa + modo legado + equipes | **Cenário** | Modo personalizado | Reúne identidade e contexto sem alterar as regras legadas. |
+
+Tipo base, alias, kit temático e combatente devem ser entidades separadas. “Atirador de precisão” pode ser o tipo base; cada equipe pode exibir um alias, armas permitidas e um combatente visualmente distinto para esse mesmo contrato. Alias e combatente não possuem estatísticas próprias; qualquer variação de equipamento obedece aos limites globais.
+
+## 7. Modelo confirmado para equipes
+
+### Comparação
+
+| Modelo | Clareza | Identidade | Balanceamento | Conteúdo/manutenção | Risco dominante |
+|---|---|---|---|---|---|
+| Espelhado | Alta | Baixa a média | Baixo | Baixo | Equipes parecerem apenas skins. |
+| Parcialmente assimétrico | Média/alta | Alta | Médio | Médio | Uma arma equivalente ser claramente superior. |
+| Fortemente assimétrico | Baixa no início | Muito alta | Muito alto | Muito alto | Equipe/meta obrigatória e mapas incompatíveis. |
+
+**Decisão atualizada:** equipes terão os mesmos tipos base, slots, categorias e limites. Identidade visual, sonora, nominal e mapeamento de armas podem ser diferentes. Variações mecânicas só são válidas dentro de perfis e orçamentos globais aprovados.
+
+**Consequência:** assimetria livre por equipe deixa de ser direção desta spec. Variedade vem de cenário, apresentação, nomes e mapeamentos limitados pelo mesmo contrato de poder.
+
+**Rejeição atualizada:** assimetria mecânica livre, perfil exclusivo superior ou combinação fora do orçamento global. Assimetria compensada por perfis globais aprovados é permitida e precisa ser medida separadamente de mapa e lado.
+
+Não permitir qualquer identidade de equipe contra qualquer outra. Cada cenário mantém uma lista de equipes e pares coerentes. Duas equipes com a mesma identidade podem existir apenas como modo de treino, teste ou competição abstrata, com apresentação que diferencie claramente os lados.
+
+### Equipes fictícias do primeiro MVP
+
+Atlas e Vesper são as equipes iniciais de playtest. Elas devem ser tratadas como placeholders de produto suficientes para validar leitura, menu, HUD, vozes, cores, modelos e aliases, não como lore final.
+
+| Tipo base | Alias Atlas | Alias Vesper | Contrato mecânico |
+|---|---|---|---|
+| Assault | Operador | Avançado | Igual para as duas equipes |
+| Support | Artilheiro | Cobertura | Igual para as duas equipes |
+| Marksman | Vigia | Sentinela | Igual para as duas equipes |
+| Breacher | Rompedor | Entrada | Igual para as duas equipes |
+
+Direção visual inicial:
+
+- **Atlas:** leitura fria, azul/cinza, postura mais ordenada e institucional.
+- **Vesper:** leitura escura, preto/âmbar, postura mais móvel e agressiva.
+
+Essas diferenças são de apresentação. Equipe, alias, voz, cor, modelo e ícone não alteram dano, slots, munição, utilidade, recarga, perfil de arma, regra de vitória ou disponibilidade de tipo.
+
+## 8. Fluxo recomendado para escolha das equipes
+
+### Consequências dos modelos de seleção
+
+| Modelo | Benefício | Consequência/risco | Uso recomendado |
+|---|---|---|---|
+| Mapa fixa o confronto | Coerência e balanceamento altos | Pouca variedade por mapa | MVP e competitivo. |
+| Administrador escolhe | Curadoria comunitária | Configuração ruim pode quebrar narrativa/meta | Presets validados. |
+| Voto escolhe cenário | Agência coletiva | Popularidade repetitiva e voto estratégico | Entre poucos cenários completos. |
+| Jogadores escolhem cada equipe | Expressão | Pode produzir espelhos e combinações narrativamente incoerentes | Não recomendado. |
+| Qualquer contra qualquer | Muito conteúdo combinável | Custo combinatório de balanceamento, vozes, objetivos e narrativa | Rejeitado. |
+| Confrontos predefinidos globais | Controle editorial | Menor liberdade para servidores | Catálogo padrão, extensível por configuração. |
+
+1. O servidor detecta o modo e o objetivo legados definidos pelas entidades do mapa; o cenário não pode substituí-los.
+2. O administrador ou a rotação do servidor define um cenário padrão e pode limitar a lista.
+3. Opcionalmente, os jogadores votam entre cenários completos; não votam separadamente em duas equipes que talvez sejam incoerentes.
+4. O servidor sorteia ou balanceia jogadores entre as equipes depois da escolha do cenário.
+5. Cada grupo de jogadores recebe a identidade de uma equipe e um lado operacional.
+6. O servidor atribui os lados operacionais no início da partida. Em cenários reversíveis, troca os lados na metade; as identidades e os jogadores permanecem em suas equipes.
+7. Reconexão restaura a sessão, mas equipe, lado e tipo só são atribuídos depois de uma nova adesão válida.
+
+Para servidor comunitário, o administrador precisa de presets, lista permitida e opção de votação. O cliente nunca decide sozinho uma combinação válida.
+
+### Regra confirmada de adesão e equilíbrio numérico
+
+O servidor impede que uma entrada ou troca voluntária crie diferença superior a um jogador ativo:
+
+- com quantidades iguais, ambas as equipes ficam disponíveis;
+- quando uma equipe tem um jogador a mais, somente a menor fica disponível;
+- uma entrada ou troca que produziria diferença maior que um é rejeitada;
+- se uma desconexão produzir diferença maior que um, ninguém é movido à força; somente a equipe menor aceita entradas até recuperar o equilíbrio;
+- solicitações simultâneas são processadas sequencialmente pelo servidor, reavaliando a contagem antes de cada adesão;
+- espectadores não entram na contagem;
+- **Recomendação:** combatentes controlados por humanos ou bots entram na contagem enquanto ocuparem uma equipe ativa.
+
+Exemplos:
+
+| Estado atual | Disponibilidade |
+|---|---|
+| 10 contra 10 | Ambas as equipes. |
+| 10 contra 9 | Somente a equipe com 9. |
+| 11 contra 9 após desconexão | Somente a equipe com 9; ninguém é transferido automaticamente. |
+| 15 contra 15 | Ambas, respeitando o teto de clientes e vagas de espectador. |
+
+**Regra confirmada para reconexão:** o retorno é validado como nova entrada. Se a equipe anterior estiver indisponível, o jogador aguarda como espectador ou entra na equipe disponível. Não existe reserva temporária de vaga, prioridade por equipe anterior nem exceção à diferença máxima.
+
+### Regra confirmada de retrocompatibilidade de mapas e modos
+
+O comportamento-base segue a estrutura fixa do CS 1.6:
+
+- mapas legados carregam sem recompilação específica para o mod;
+- geometria, rotas e objetivos não mudam dinamicamente conforme a quantidade de jogadores;
+- pontos de spawn e entidades de objetivo legados continuam sendo reconhecidos;
+- nomes técnicos T/CT podem permanecer como identificadores internos de lados e entidades, mas não aparecem como identidade das equipes;
+- o administrador configura a quantidade de clientes, respeitando a capacidade prática do mapa;
+- mapas podem receber uma faixa recomendada de jogadores após playtest;
+- cada modo legado precisa permitir iniciar, executar o objetivo e encerrar a rodada corretamente.
+
+**Limite da decisão:** preservar mapas e modos não significa preservar economia, compra, balanceamento, bots, apresentação ou plugins de terceiros. Dinheiro e compra permanecem removidos mesmo em mapas legados.
+
+**Risco:** kits garantidos, ausência de economia e tipos livres podem tornar jogável, porém desequilibrado, um mapa criado para compra e armamento progressivo. Compatibilidade funcional e equivalência de experiência não são a mesma coisa.
+
+## 9. Modelo confirmado para tipos de jogador
+
+### Modelos comparados
+
+| Modelo | Clareza | Identidade | Variedade | Balanceamento/manutenção | Competitividade |
+|---|---|---|---|---|---|
+| 1 — Universais | Alta | Média | Média | Baixo | Alta |
+| 2 — Assimétricas | Baixa/média | Alta | Alta | Muito alto | Baixa até maturar |
+| 3 — Híbrido | Alta | Alta | Alta | Médio | Alta se equivalências forem auditáveis |
+
+**Decisão atualizada:** tipos base universais e contratos simétricos. Cada equipe pode alterar alias, apresentação, identidade do combatente e mapeamento de equipamentos permitido; slots, categorias, tetos e orçamento do tipo equivalente permanecem iguais.
+
+Cada tipo precisa de:
+
+- uma frase de fantasia;
+- um verbo de contribuição principal;
+- um kit-base e no máximo uma pequena escolha;
+- uma fraqueza perceptível;
+- um ícone e uma silhueta legíveis;
+- utilidade no objetivo além de dano;
+- comportamento útil em equipes pequenas.
+
+Não usar atributos passivos de vida, velocidade ou dano no MVP. Eles tornam confrontos menos previsíveis e fazem o modelo visual carregar informação competitiva demais.
+
+## 10. Quatro tipos sugeridos para o primeiro protótipo
+
+Estes nomes e kits são hipóteses, não uma lista definitiva.
+
+### Assault — tomar e sustentar contato
+
+- **Fantasia:** combatente versátil que abre espaço com consistência.
+- **Responsabilidade:** primeiro contato e proteção de quem executa o objetivo.
+- **Principal:** escolha lateral entre rifle de assalto para média distância e SMG para curta distância; nunca ambas na mesma vida.
+- **Equipamento:** granada de fragmentação e uma utilidade de entrada.
+- **Vantagem:** flexibilidade em curta e média distância.
+- **Limitação:** não tem alcance, volume sustentado ou utilidade especializada superiores.
+- **Objetivo:** escolta o portador, limpa a aproximação e ocupa o ponto.
+- **Mapas:** funciona em qualquer escala.
+- **Quantidade:** sem limite inicial.
+- **Risco:** virar escolha universal se os demais kits cobrarem especialização demais.
+
+As duas variações do MVP mantêm a mesma função, pistola e utilidades:
+
+- **Rifle:** rifle de assalto com teto de 150 balas; pistola com teto de 45; uma fragmentação; duas flashbangs.
+- **SMG:** submetralhadora com teto de 90 balas; pistola com teto de 45; uma fragmentação; duas flashbangs.
+
+A escolha ocorre antes do spawn ou enquanto morto e vale para a próxima vida. Trocar a variação remove qualquer arma coletada persistente. A versão SMG não recebe bônus passivo de velocidade e não possui a ferramenta de ruptura do Breacher.
+
+### Support — controlar espaço e manter a equipe operante
+
+- **Fantasia:** ancora posições e habilita deslocamentos aliados.
+- **Responsabilidade:** negar corredores e fornecer cobertura.
+- **Principal:** arma de maior capacidade, com pior mobilidade/manuseio.
+- **Equipamento:** uma flashbang e uma smoke; reabastecimento de aliados e granada de fragmentação ficam fora do MVP.
+- **Vantagem:** volume sustentado e controle de ângulo.
+- **Limitação:** recuperação, troca de arma e deslocamento menos favoráveis; não recebe dano extra.
+- **Objetivo:** cobre plantio, captura, desarme ou retirada.
+- **Mapas pequenos:** capacidade e utilidade importam; arma não pode dominar hipfire.
+- **Mapas grandes:** sustenta linhas, mas não substitui Marksman.
+- **Quantidade:** sem limite. Composição dominante exige rebalanceamento do tipo, não restrição de escolha.
+- **Risco:** dominar corredores se alta capacidade vier sem custo real.
+
+O kit único do MVP usa machine gun com teto de 250 balas, pistola com teto de 45, faca universal, uma flashbang e uma smoke. A machine gun usa dano global da categoria e recarga de 4,7 s baseada na M249. Capacidade do carregador continua configurável entre 1 e 250; pela regra de carregadores completos, capacidades que não dividem 250 podem produzir total efetivo menor. Não há bônus passivo de vida, armadura ou dano.
+
+### Breacher — romper posições preparadas
+
+- **Fantasia:** cria uma janela curta para entrada da equipe.
+- **Responsabilidade:** desalojar defensores e liderar entradas próximas.
+- **Principal:** uma variação pump-action baseada na M3 ou uma variação semiautomática baseada na XM1014; nunca ambas na mesma vida.
+- **Equipamento:** duas flashbangs e uma smoke; sem fragmentação ou ferramenta de ruptura no MVP.
+- **Vantagem:** curta distância e utilidade de entrada.
+- **Limitação:** perda clara em alcance e sustentação.
+- **Objetivo:** acessa ou abre a área, sem concluir o objetivo mais rápido por passivo oculto.
+- **Mapas pequenos:** deve ser forte, mas dependente de timing e consumíveis.
+- **Mapas grandes:** precisa de rota/objetivo onde sua utilidade exista.
+- **Quantidade:** sem limite; composições extremas devem ser resolvidas por balanceamento e geometria, não por cota.
+- **Risco:** sobrepor Assault ou ser inútil quando o mapa não suporta sua fantasia.
+
+As duas variações usam teto exato de 40 cartuchos, pistola com teto de 45 e faca universal. A pump-action preserva o ritmo da M3, com início de recarga de 0,55 s e 0,45 s por cartucho; a semiautomática preserva o ritmo da XM1014, com início de 0,55 s e 0,30 s por cartucho. Não há SMG, bônus passivo de vida, armadura ou movimento. Trocar a variação enquanto morto remove qualquer arma coletada persistente e aplica o kit escolhido no próximo spawn.
+
+### Marksman — vigiar linhas e punir exposição
+
+- **Fantasia:** precisão deliberada e cobertura de longa distância.
+- **Responsabilidade:** observar linhas, negar travessias e proteger o objetivo à distância.
+- **Principal:** uma variação Bolt-action ou uma variação Semiauto; nunca ambas na mesma vida. Scout e SG-550 são somente referências iniciais dos respectivos perfis, não identidades obrigatórias. Equivalentes à AWP ficam fora do MVP.
+- **Equipamento:** uma flashbang e uma smoke; nenhuma informação automática para o time no MVP.
+- **Vantagem:** alcance e precisão.
+- **Limitação:** baixa flexibilidade próxima, aquisição de alvo e cadência piores.
+- **Objetivo:** cobre aproximações e rotações, mas deve reposicionar.
+- **Mapas pequenos:** Semiauto oferece acompanhamento de alvo, mas precisa continuar vulnerável a Assault e Breacher em curta distância.
+- **Mapas grandes:** papel natural, sujeito a linhas e contrajogo.
+- **Quantidade:** sem limite.
+- **Risco:** arma de alto impacto produzir uma equipe inteira de Marksman. O perfil precisa ser um sidegrade com contrajogo, não uma arma superior controlada por cota.
+
+As duas variações recebem pistola com teto de 45, faca universal, uma flashbang e uma smoke. Bolt-action possui teto total de 50 balas, dano global inicial 75 e recarga de 2,0 s, usando a Scout somente como referência inicial. Semiauto possui teto total de 90 balas, dano global inicial 70 e recarga de 3,35 s, usando a SG-550 somente como referência inicial. Semiauto troca dano por maior cadência e capacidade de acompanhamento de alvo. Em ambos os casos, o teto inclui a munição inserida e a capacidade do carregador permanece configurável entre 1 e o teto da variação; portanto, capacidade 30 na Semiauto concede três carregadores completos no total: um inserido e dois reservas. Não há eliminação corporal garantida em um tiro por regra do tipo, bônus de vida/velocidade, marcação de alvos ou informação automática.
+
+### Por que não Medic, Engineer, Recon ou Squad Leader no MVP
+
+- **Medic:** cura pode ser obrigatória e reduzir a legibilidade do dano em rodada sem respawn.
+- **Engineer:** depende de objetos e mapas que ainda não existem.
+- **Recon:** informação é extremamente poderosa e difícil de comunicar sem “wallhack institucional”.
+- **Squad Leader:** autoridade social e bônus de aura criam conflito; não prova a hipótese dos kits.
+
+Recon e Engineer são bons candidatos futuros. Medic só deve voltar à discussão depois de decidir respawn, duração da rodada e filosofia de letalidade.
+
+### Fogo de supressão
+
+| Modelo | Valor | Risco |
+|---|---|---|
+| Emergente — som, impactos e ameaça de dano | Jogadores buscam cobertura por leitura natural | Pode não diferenciar Support o suficiente. |
+| Feedback audiovisual leve, sem penalidade | Reforça legibilidade | Pode poluir som/tela. |
+| Penalidade de precisão ou movimento | Cria poder explícito | Retira controle e favorece spam. |
+| Tremor, blur ou perda de informação | Sensação forte | Desconforto, acessibilidade e confusão com dano. |
+
+**Recomendação:** usar “supressão” como descrição tática do fogo sustentado do Support, inspirada no emprego real de armas automáticas, mas não como uma nova mecânica. No MVP, ela é emergente e vem apenas de som, impacto, volume de disparos e risco real que qualquer arma já produz. Não aplicar redução de precisão, movimento, visão ou controle. Se o Support não cumprir seu papel, ajustar capacidade, manuseio, geometria e utilidade antes de adicionar um debuff invisível. Qualquer feedback audiovisual futuro deve ter opções de acessibilidade e não ocultar informação necessária.
+
+## 11. Modelo recomendado para kits
+
+**Decisão:** kit-base predefinido por tipo, concedido automaticamente no spawn e sem compra. Equipes temáticas mapeiam armas e equipamentos dentro do contrato global do tipo. Pequenas opções, como visão noturna, só existem quando o contrato permitir e nunca como vantagem exclusiva de uma equipe.
+
+Regras propostas:
+
+- A seleção ocorre no lobby e pode ser alterada enquanto morto para valer no próximo spawn elegível.
+- Não há troca de tipo ou regeneração de kit durante uma vida.
+- Cada spawn concede exatamente um kit validado pelo servidor.
+- Armas coletadas não mudam o tipo nem concedem os consumíveis do novo papel.
+- A morte não cria um novo kit se o modo não tiver respawn.
+- Em modos com respawn futuro, cada vida precisa de proteção contra geração infinita de armas e munição.
+- Opções de kit devem ser equivalentes, nunca uma progressão vertical desbloqueável.
+- Todos os tipos começam equipados com lanterna.
+- Todos os tipos recebem faca em slot próprio, não descartável e mecanicamente idêntica entre equipes; somente modelo, skin, animação e sons podem variar de forma coerente.
+- Visão noturna reutiliza o sistema legado e pode ser concedida por configuração global do servidor/kit sem compra; sua disponibilidade precisa ser simétrica e compatível com o mapa.
+- Somente Marksman pode receber o perfil de pistola silenciada no backup; outros tipos usam perfis de pistola normal. A permissão não autoriza uma equipe a receber vantagem exclusiva.
+
+Se todos escolherem o mesmo tipo, a composição é aceita e todos entram normalmente na rodada. O HUD pode descrever a composição, mas não deve alertar que ela está “errada” nem impedir o spawn. Nenhum objetivo pode exigir um tipo específico.
+
+### Primeira matriz de kits proposta
+
+Os números abaixo registram a proposta recebida e são **hipóteses de balanceamento**, não valores aprovados.
+
+Para o próximo playtest, esta matriz substitui as sugestões iniciais de armas e equipamentos da seção 10; as fantasias e responsabilidades descritas lá continuam como referência.
+
+| Tipo base | Primary | Secondary | Backup | Fragmentação | Flashbang | Smoke |
+|---|---|---|---|---:|---:|---:|
+| Support | Machine gun, teto de 250 balas | — | Pistola, teto de 45 | 0 | 1 | 1 |
+| Assault — Rifle | Assault rifle, teto de 150 balas | — | Pistola, teto de 45 | 1 | 2 | 0 |
+| Assault — SMG | SMG, teto de 90 balas | — | Pistola, teto de 45 | 1 | 2 | 0 |
+| Marksman — Bolt-action | Rifle de precisão de ferrolho, teto total de 50 balas | — | Pistola silenciada permitida, teto de 45 | 0 | 1 | 1 |
+| Marksman — Semiauto | Rifle de precisão semiautomático, teto total de 90 balas | — | Pistola silenciada permitida, teto de 45 | 0 | 1 | 1 |
+| Breacher — Pump-action | Shotgun/M3, teto exato de 40 cartuchos | — | Pistola, teto de 45 | 0 | 2 | 1 |
+| Breacher — Semiautomática | Shotgun/XM1014, teto exato de 40 cartuchos | — | Pistola, teto de 45 | 0 | 2 | 1 |
+
+Nesta tabela, “granada” foi interpretada como granada de fragmentação. Os valores aprovados ainda são baselines de MVP sujeitas a rejeição por playtest, não garantias de balanceamento final.
+
+### Catálogo global inicial do Support
+
+| Identificador global | Referência mecânica | Dano-base | Ciclo / cadência aproximada | Recarga | Calibre mecânico | Perda por distância | Penetrações máximas | Capacidade-base | Teto do slot | Disponibilidade |
+|---|---|---:|---:|---:|---|---:|---:|---:|---:|---|
+| `support_lmg_556_sustain` | M249 | 32 | 0,100 s / 600 RPM | 4,7 s | 5,56 mm | 0,97 | 2 | 100 | 250 | Support |
+| `support_lmg_762_power` | 7,62 mm LMG | 36 | 0,120 s / 500 RPM | 4,7 s | 7,62 mm | 0,98 | 2 | 100 | 250 | Support |
+
+Os perfis de Support compartilham o mesmo kit e o mesmo teto do slot, mas oferecem troca lateral de comportamento. `support_lmg_556_sustain` é a opção de controle/sustentação, com maior cadência. `support_lmg_762_power` é a opção de poder, com dano superior, cadência menor e recuo mais pesado. A comunidade pode representar outra arma visualmente, mas precisa respeitar o perfil escolhido: dano, calibre mecânico, penetração, perda por distância, recarga, disponibilidade e teto do slot são fixos. Capacidade, recuo, cadência e precisão só podem variar dentro dos intervalos validados para o perfil. Bipé, overheat, troca de cano, modos alternativos de disparo, bônus de vida/armadura e efeitos artificiais de supressão ficam fora do MVP.
+
+### Presets de manuseio do Support
+
+No MVP, o pacote comunitário não ajusta recuo, cadência e precisão como valores soltos. Cada machine gun temática escolhe um preset de manuseio inteiro. Como Support possui teto alto de munição e pode manter fogo por mais tempo, os presets são mais conservadores que os de Assault.
+
+Para `support_lmg_556_sustain`:
+
+| Preset | Cadência | Recuo | Dispersão em rajada prolongada | Uso esperado |
+|---|---:|---:|---:|---|
+| `controlled` | -4% da baseline do perfil | -8% | -5% | LMG mais controlável, menos pressão por segundo |
+| `baseline` | sem alteração | sem alteração | sem alteração | comportamento de referência do perfil |
+| `aggressive` | +4% da baseline do perfil | +12% | +12% | LMG mais pressionante, pior em rajadas longas |
+
+Para `support_lmg_762_power`:
+
+| Preset | Cadência | Recuo | Dispersão em rajada prolongada | Uso esperado |
+|---|---:|---:|---:|---|
+| `controlled` | -5% da baseline do perfil | -6% | -4% | LMG pesada um pouco mais domável, ainda lenta |
+| `baseline` | sem alteração | sem alteração | sem alteração | comportamento de referência do perfil |
+| `aggressive` | +3% da baseline do perfil | +16% | +14% | LMG pesada mais ameaçadora, controle claramente pior |
+
+Números negativos em recuo e dispersão indicam melhora de controle. Números positivos indicam piora. Esses presets são hipóteses de playtest, não equilíbrio final. O `aggressive` do Support não deve transformar a função em Assault com mais munição; se isso acontecer no playtest, a primeira correção deve reduzir cadência ou aumentar dispersão, não criar limite de jogadores por tipo. O primeiro playtest controlado deve usar `baseline` nas duas equipes.
+
+### Catálogo global inicial do Assault
+
+| Identificador global | Referência mecânica | Dano-base | Ciclo / cadência aproximada | Recarga | Calibre mecânico | Perda por distância | Penetrações máximas |
+|---|---|---:|---:|---:|---|---:|---:|
+| `assault_rifle_762_power` | AK-47 | 36 | 0,0955 s / 628 RPM | 2,45 s | 7,62 mm | 0,98 | 2 |
+| `assault_rifle_556_control` | M4A1 sem silenciador | 32 | 0,0875 s / 686 RPM | 3,05 s | 5,56 mm | 0,97 | 2 |
+| `assault_smg_9mm_control` | MP5 | 26 | 0,075 s / 800 RPM | 2,63 s | 9 mm | 0,84 | 1 |
+| `assault_smg_45_power` | UMP-45 | 30 | 0,100 s / 600 RPM | 3,50 s | .45 ACP | 0,82 | 1 |
+
+Esses números reproduzem as baselines atuais do ReGameDLL_CS para o primeiro playtest; não demonstram que os quatro perfis possuem equilíbrio final. O perfil 7,62 troca controle e cadência por dano e penetração; o 5,56 troca dano por cadência e controle. O SMG 9 mm prioriza cadência e controle; o .45 ACP prioriza dano por tiro, com menor cadência e pior comportamento de penetração/distância.
+
+Nome, modelo, animação e som não precisam representar AK-47, M4A1, MP5 ou UMP-45, mas precisam comunicar o perfil escolhido. Capacidade continua configurável entre 1 e o teto do slot: 150 para Assault Rifle e 90 para Assault SMG. Dano, calibre, penetração, perda por distância, precisão-base, tempo de recarga, mobilidade e modos de disparo não podem ser alterados pelo pacote comunitário.
+
+### Presets de manuseio do Assault
+
+No MVP, o pacote comunitário não ajusta recuo, cadência e precisão como valores soltos. Cada arma temática do Assault escolhe um preset de manuseio inteiro. O preset é validado pelo servidor como uma combinação fechada.
+
+Para Assault Rifle:
+
+| Preset | Cadência | Recuo | Dispersão em rajada | Uso esperado |
+|---|---:|---:|---:|---|
+| `controlled` | -5% da baseline do perfil | -10% | -5% | rifle mais dócil, menos pressão por segundo |
+| `baseline` | sem alteração | sem alteração | sem alteração | comportamento de referência do perfil |
+| `aggressive` | +5% da baseline do perfil | +12% | +8% | rifle mais nervoso, mais pressão e pior controle |
+
+Para Assault SMG:
+
+| Preset | Cadência | Recuo | Dispersão em rajada | Uso esperado |
+|---|---:|---:|---:|---|
+| `controlled` | -5% da baseline do perfil | -8% | -5% | SMG mais estável, melhor para iniciantes |
+| `baseline` | sem alteração | sem alteração | sem alteração | comportamento de referência do perfil |
+| `aggressive` | +7% da baseline do perfil | +12% | +10% | SMG mais rápida, mais difícil de controlar |
+
+Números negativos em recuo e dispersão indicam melhora de controle. Números positivos indicam piora. Esses presets são hipóteses de playtest, não equilíbrio final. O ponto importante do contrato é a forma: o criador escolhe um pacote validado, não combina “cadência agressiva” com “recuo controlado”. O primeiro playtest controlado deve usar `baseline` nas duas equipes; testes posteriores podem liberar `controlled` e `aggressive` para medir assimetria compensada sem confundi-la com mapa, lado ou habilidade dos participantes.
+
+FAMAS, Galil, TMP, MAC-10 e P90 permanecem candidatos futuros. Burst, silenciador acoplável e outras ações secundárias da arma exigem contratos e assets próprios e não fazem parte do Assault no MVP.
+
+### Catálogo global inicial do Marksman
+
+| Identificador global | Referência mecânica | Dano-base | Ritmo aproximado | Recarga | Calibre mecânico | Capacidade-base | Teto do slot | Disponibilidade |
+|---|---|---:|---:|---:|---|---:|---:|---|
+| `marksman_bolt_action_precision` | Scout | 75 | ferrolho/manual | 2,0 s | rifle de precisão leve | 10 | 50 | Marksman Bolt-action |
+| `marksman_semiauto_followup` | SG-550 | 70 | semiautomático | 3,35 s | rifle de precisão semiauto | 30 | 90 | Marksman Semiauto |
+
+Os perfis de Marksman são laterais, não uma progressão de poder. `marksman_bolt_action_precision` prioriza precisão deliberada, dano por disparo e punição de exposição; `marksman_semiauto_followup` reduz dano por disparo para ganhar acompanhamento de alvo e cadência. Equivalentes à AWP, eliminação corporal garantida por regra do tipo, informação automática de alvos e marcação de inimigos ficam fora do MVP.
+
+### Presets de manuseio do Marksman
+
+No MVP, o pacote comunitário não ajusta recuo, cadência e precisão como valores soltos. Cada arma temática do Marksman escolhe um preset inteiro. Como a função atua em linhas longas, os presets são estreitos e devem preservar contrajogo: vulnerabilidade em curta distância, punição por erro e necessidade de reposicionamento.
+
+Para `marksman_bolt_action_precision`:
+
+| Preset | Recuperação entre disparos | Recuo/retorno da mira | Penalidade de disparo em movimento | Uso esperado |
+|---|---:|---:|---:|---|
+| `controlled` | +5% mais lenta | -8% | +5% | tiro mais estável, menor ritmo |
+| `baseline` | sem alteração | sem alteração | sem alteração | comportamento de referência do perfil |
+| `aggressive` | -5% mais rápida | +12% | +10% | reposição mais rápida, mira menos estável |
+
+Para `marksman_semiauto_followup`:
+
+| Preset | Cadência | Recuo | Dispersão em sequência | Uso esperado |
+|---|---:|---:|---:|---|
+| `controlled` | -5% da baseline do perfil | -8% | -6% | acompanhamento mais controlado, menor pressão |
+| `baseline` | sem alteração | sem alteração | sem alteração | comportamento de referência do perfil |
+| `aggressive` | +4% da baseline do perfil | +14% | +12% | acompanhamento mais rápido, risco maior de spam impreciso |
+
+Números negativos em recuo e dispersão indicam melhora de controle. Números positivos indicam piora. No Bolt-action, “recuperação entre disparos” mais lenta no `controlled` é o custo por estabilidade; no `aggressive`, a recuperação mais rápida não pode reduzir o dano, a recarga nem o tempo de equipar, e não pode aproximar a arma de uma AWP. No Semiauto, o `aggressive` não deve remover o custo de errar; se o playtest mostrar spam efetivo de longa distância, a primeira correção deve aumentar dispersão em sequência ou reduzir o ganho de cadência.
+
+### Catálogo global inicial do Breacher
+
+| Identificador global | Referência mecânica | Dano-base | Ritmo aproximado | Recarga | Calibre mecânico | Capacidade-base | Teto do slot | Disponibilidade |
+|---|---|---:|---:|---:|---|---:|---:|---|
+| `breacher_shotgun_pump_control` | M3 | dano de shotgun pump-action | pump-action | início 0,55 s; 0,45 s/cartucho | cartucho de shotgun | 8 | 40 | Breacher Pump-action |
+| `breacher_shotgun_semiauto_pressure` | XM1014 | dano de shotgun semiauto | semiautomático | início 0,55 s; 0,30 s/cartucho | cartucho de shotgun | 7 | 40 | Breacher Semiautomática |
+
+Os perfis de Breacher são laterais. `breacher_shotgun_pump_control` prioriza impacto deliberado e controle entre disparos; `breacher_shotgun_semiauto_pressure` prioriza pressão em curta distância e recuperação mais rápida. Nenhum perfil concede SMG, ferramenta de ruptura, bônus passivo, fragmentação ou alcance de rifle. A comunidade pode representar outra shotgun visualmente, mas precisa preservar a leitura de curto alcance.
+
+### Presets de manuseio do Breacher
+
+No MVP, o pacote comunitário não ajusta recuo, ritmo e dispersão como valores soltos. Cada shotgun temática escolhe um preset inteiro. Como Breacher existe para entrada curta e controle de espaço próximo, os presets não podem melhorar alcance efetivo sem custo.
+
+Para `breacher_shotgun_pump_control`:
+
+| Preset | Recuperação entre disparos | Recuo | Dispersão | Uso esperado |
+|---|---:|---:|---:|---|
+| `controlled` | +5% mais lenta | -8% | -4% | pump mais consistente, menor ritmo de pressão |
+| `baseline` | sem alteração | sem alteração | sem alteração | comportamento de referência do perfil |
+| `aggressive` | -5% mais rápida | +12% | +8% | pump mais rápida, menos confiável fora do alcance curto |
+
+Para `breacher_shotgun_semiauto_pressure`:
+
+| Preset | Cadência | Recuo | Dispersão em sequência | Uso esperado |
+|---|---:|---:|---:|---|
+| `controlled` | -5% da baseline do perfil | -8% | -5% | semiauto mais estável, menos spam |
+| `baseline` | sem alteração | sem alteração | sem alteração | comportamento de referência do perfil |
+| `aggressive` | +5% da baseline do perfil | +14% | +12% | semiauto mais pressionante, pior controle em sequência |
+
+Números negativos em recuo e dispersão indicam melhora de controle. Números positivos indicam piora. O `controlled` não pode transformar shotgun em arma de médio alcance confiável; o `aggressive` não pode substituir Assault em corredores médios. Se Breacher dominar mapas pequenos com composições monotemáticas, a primeira correção deve ajustar dispersão, utilidades ou geometria de contrajogo, não criar cota por tipo.
+
+### Catálogo global inicial de pistolas
+
+| Identificador global | Referência mecânica | Dano-base | Ciclo / cadência aproximada | Recarga | Calibre mecânico | Capacidade-base | Teto do slot | Disponibilidade |
+|---|---|---:|---:|---:|---|---:|---:|---|
+| `backup_pistol_45_standard` | USP sem silenciador | 34 | 0,225 s / 267 RPM | 2,7 s | .45 ACP | 12 | 45 | Todos os tipos |
+| `backup_pistol_9mm_capacity` | Glock18 sem burst | 25 | 0,200 s / 300 RPM | 2,2 s | 9 mm | 20 | 45 | Todos os tipos |
+| `marksman_pistol_45_suppressed` | USP silenciada | 30 | 0,225 s / 267 RPM | 2,7 s | .45 ACP | 12 | 45 | Somente Marksman |
+| `marksman_pistol_9mm_suppressed` | Glock18 sem burst, com apresentação silenciada | 25 | 0,200 s / 300 RPM | 2,2 s | 9 mm | 20 | 45 | Somente Marksman |
+
+No MVP, perfis 9 mm usam apenas tiro semiautomático. A diferença mecânica entre pistolas 9 mm e .45 ACP fica no dano fixo do perfil, cadência, precisão/recuo e capacidade-base. Skins comunitárias devem se adequar a um desses perfis, nunca criar dano novo por apresentação. Burst da Glock, Desert Eagle, Dual Elites, Five-Seven e alternância manual de silenciador ficam fora do catálogo inicial. Pistolas silenciadas são perfis de spawn/contrato para Marksman, não ações de acoplar ou remover silenciador durante a rodada.
+
+### Presets de manuseio de pistolas
+
+No MVP, o pacote comunitário não ajusta recuo, cadência, saque e precisão como valores soltos. Cada pistola temática escolhe um preset inteiro. Como pistolas são armas de backup, os presets são estreitos e não podem competir com a arma principal.
+
+Para `backup_pistol_45_standard`:
+
+| Preset | Cadência | Recuo | Precisão em sequência | Saque/equipar | Uso esperado |
+|---|---:|---:|---:|---:|---|
+| `controlled` | -4% | -8% | -5% | sem alteração | .45 mais controlável, menor ritmo |
+| `baseline` | sem alteração | sem alteração | sem alteração | sem alteração | comportamento de referência do perfil |
+| `quick` | +4% | +10% | +8% | -5% | backup mais rápido, pior controle |
+
+Para `backup_pistol_9mm_capacity`:
+
+| Preset | Cadência | Recuo | Precisão em sequência | Saque/equipar | Uso esperado |
+|---|---:|---:|---:|---:|---|
+| `controlled` | -4% | -6% | -5% | sem alteração | 9 mm mais estável, menor pressão |
+| `baseline` | sem alteração | sem alteração | sem alteração | sem alteração | comportamento de referência do perfil |
+| `quick` | +5% | +8% | +8% | -5% | 9 mm mais responsiva, menos precisa em spam |
+
+Para `marksman_pistol_45_suppressed` e `marksman_pistol_9mm_suppressed`:
+
+| Preset | Cadência | Recuo | Precisão em sequência | Saque/equipar | Uso esperado |
+|---|---:|---:|---:|---:|---|
+| `controlled` | -3% | -6% | -4% | sem alteração | backup discreto e estável, ritmo menor |
+| `baseline` | sem alteração | sem alteração | sem alteração | sem alteração | comportamento de referência do perfil |
+| `quick` | +3% | +8% | +7% | -4% | backup silenciado mais responsivo, pior controle |
+
+Números negativos em recuo, precisão em sequência e saque indicam melhora. Números positivos indicam piora, exceto em cadência. O preset `quick` não cria burst, não permite alternar silenciador, não altera dano e não pode transformar pistola em substituta consistente da primária. Se pistolas começarem a decidir duelos principais com frequência alta, a primeira correção deve reduzir ganho de cadência/saque ou aumentar penalidade de precisão em sequência.
+
+### Regra proposta para teto de munição e carregadores
+
+Interpretação recomendada, consistente com o exemplo fornecido:
+
+- o teto de balas é definido por tipo e slot de arma;
+- a capacidade do carregador é definida pela equipe temática, como inteiro positivo que não ultrapassa o teto de balas do tipo/slot;
+- o carregador inserido conta no total;
+- o kit nasce apenas com carregadores completos;
+- quantidade inicial de carregadores = `floor(teto_de_balas / capacidade_do_carregador)`;
+- qualquer resto abaixo de um carregador completo não é concedido no spawn.
+
+Exemplo: Assault com teto de 150 balas e rifle com carregador de 35 recebe quatro carregadores completos, totalizando 140 balas. Um deles começa inserido e três ficam na reserva. As dez balas restantes do teto não formam um quinto carregador.
+
+**Decisão:** o teto inclui o carregador inserido. Somente carregadores completos são concedidos no spawn ou reabastecimento entre rodadas; qualquer resto que não complete outro carregador é descartado.
+
+### Contrato para equipes criadas pela comunidade
+
+Uma equipe temática pode definir:
+
+- nome, emblema, modelos, vozes e aliases;
+- arma visual/temática associada a cada slot permitido;
+- identificador do perfil mecânico global autorizado para cada arma temática;
+- recuo e cadência somente dentro dos intervalos autorizados para o perfil;
+- equipamentos opcionais previstos pelo contrato global.
+
+Uma equipe temática não pode:
+
+- criar novos slots ou exceder os tetos do tipo;
+- remover a fraqueza estrutural do tipo;
+- conceder equipamento exclusivo sem equivalente para o contrato oposto;
+- alterar dano, tempo de recarga ou qualquer parâmetro fora de capacidade do carregador, recuo e cadência;
+- enviar estado competitivo confiado ao cliente;
+- ser aceita automaticamente apenas porque o arquivo é sintaticamente válido.
+
+O servidor valida o pacote completo antes da partida. Conteúdo inválido é rejeitado sem aplicar parcialmente seus parâmetros. A forma do pacote, distribuição, assinatura e compatibilidade de versões são investigações futuras.
+
+### Parâmetros comunitários de arma
+
+- **Dano:** fixo no perfil global da arma; não configurável pela equipe.
+- **Perfil global:** referência obrigatória que define categoria/calibre mecânico, dano, penetração, recarga, slots elegíveis e região válida de parâmetros.
+- **Categoria de dano:** inseparável do perfil mecânico validado; rifle, SMG e shotgun não podem herdar dano de outra categoria por skin ou alias.
+- **Capacidade do carregador:** configurável como inteiro entre 1 e o teto de balas do contrato; participa do cálculo do número de carregadores.
+- **Tempo de recarga:** fixo por categoria de arma no MVP; não configurável pela equipe.
+- **Recuo:** configurável dentro de `recoil_min` e `recoil_max` do contrato.
+- **Cadência:** configurável dentro de `rate_min` e `rate_max` do contrato.
+- **Demais parâmetros competitivos:** fixos, salvo nova decisão explícita de produto.
+
+O visual não determina a regra automaticamente. O pacote declara explicitamente a capacidade e associa os assets correspondentes:
+
+- uma crossbow temática de tiro único pode declarar capacidade 1;
+- um supercarregador pode declarar capacidade 50 somente quando o teto daquele tipo/slot for pelo menos 50;
+- em um contrato de backup com teto 45, capacidade 50 é inválida mesmo que o modelo represente um carregador maior.
+
+A mesma separação vale para recarga. Uma crossbow de tiro único não recebe duração automática por ter capacidade 1, e um supercarregador não recebe duração automática por sua capacidade. No MVP, ambos recebem o tempo fixado para suas respectivas categorias; modelo, animação e som devem ser produzidos para comunicar esse valor. Divergência visual não altera o tempo autoritativo do servidor e torna o pacote inválido para publicação ou carregamento, conforme a política de validação a ser definida.
+
+Validar cada intervalo separadamente não basta. **Recomendação:** o contrato também precisa validar a combinação recuo/cadência por presets aprovados ou orçamento conjunto. Recuo mínimo mais cadência máxima pode criar uma escolha dominante mesmo quando ambos os valores isolados são válidos.
+
+Valores ausentes, não numéricos, infinitos ou fora do intervalo invalidam o pacote. O servidor não deve corrigir silenciosamente com `clamp`, pois isso esconderia erros do criador e poderia produzir diferenças entre o conteúdo testado e o executado.
+
+### Riscos da primeira matriz
+
+- Dez Assault geram dez granadas de fragmentação e vinte flashes por rodada; o volume ainda precisa de playtest em servidores grandes.
+- Dez Breacher poderiam gerar 20 flashes e 10 smokes, além de concentrar poder excessivo em curta distância.
+- Noventa balas no Marksman Semiauto podem remover o custo de errar e favorecer spam de longa distância; cadência, recuo, precisão sustentada e contrajogo precisam ser validados juntos.
+- Uma machine gun com 250 balas pode dominar corredores se mobilidade, recarga e precisão não cobrarem um preço real.
+- Visão noturna exclusiva de uma equipe ou tipo pode virar vantagem dependente do mapa.
+- Recuo mínimo combinado com cadência máxima pode maximizar precisão e DPS sem custo equivalente.
+- Capacidade igual ao teto elimina recargas de reserva; capacidade 1 gera um carregador para cada bala. Ambos são resultados temáticos válidos, mas precisam ser avaliados quanto a ritmo, HUD, estado do servidor e mensagens de rede.
+- Modelo, animação, som e feedback que não comuniquem a capacidade e o comportamento reais podem enganar o jogador.
+
+Esses riscos não invalidam a estrutura do kit, mas exigem que munição, quantidade de utilidades e número de armas sejam testados separadamente. Não tratar os valores como padrão final antes do playtest.
+
+## 12. Consequências da remoção da economia
+
+### O que desaparece
+
+- progressão e narrativa de poder entre rodadas;
+- consequência econômica de salvar ou perder arma;
+- decisão de compra e coordenação financeira;
+- eco, force-buy e compra completa;
+- mecanismo de comeback por bônus de derrota;
+- variação de armamento causada por recursos;
+- valor estratégico de sobreviver com equipamento.
+
+### O que melhora
+
+- cada rodada começa mais comparável;
+- iniciantes não são punidos por desconhecer preços;
+- o kit comunica responsabilidade imediatamente;
+- balanceamento pode avaliar ferramentas sempre disponíveis;
+- menos tempo e interface antes do combate.
+
+### O que piora
+
+- rodadas podem parecer repetitivas;
+- vitória anterior perde consequência sistêmica;
+- armas fortes precisam ser equilibradas em todas as rodadas;
+- a partida perde decisões macro entre rodadas;
+- salvar pode deixar de ter sentido.
+
+**Decisão:** não criar substituto econômico no MVP. As rodadas começam com os kits definidos, sem dinheiro, preços, recompensas monetárias, eco ou compra. Um recurso coletivo, tickets ou cooldown de kit só pode ser considerado em outra decisão de produto.
+
+Carregar um mapa legado não reativa a economia automaticamente. Retrocompatibilidade preserva mapa, entidades, objetivo e fluxo de rodada; não restaura compra e dinheiro do CS 1.6.
+
+## 13. Modelo recomendado para carregadores
+
+### Alternativas
+
+| Modelo | Clareza | Profundidade | Custo técnico/UI | Ritmo |
+|---|---|---|---|---|
+| Balas totais | Muito alta | Baixa | Baixo | Clássico |
+| Carregadores completos abstratos | Alta | Baixa/média | Baixo/médio | Rápido |
+| Lista individual | Média | Alta | Alto | Mais lento |
+| Híbrido | Alta | Média | Médio | Próximo do clássico |
+
+**Recomendação:** estado interno por carregador individual, interação híbrida. O servidor conhece a munição de cada carregador; o jogador vê munição exata no carregador inserido, quantidade de reservas e quais reservas estão parciais. Não há tela de inventário.
+
+Regra automática: a recarga escolhe o carregador compatível mais cheio; empate por ordem estável. Carregadores parciais guardados voltam ao conjunto de reservas. Quando só restarem parciais, o mais cheio entra primeiro.
+
+Fora do MVP: reorganizar, consolidar, escolher manualmente, compartilhar, pegar carregador do chão e regra de munição na câmara. Essas ações transformam uma decisão de combate em administração de inventário.
+
+## 14. Regra recomendada para recarga
+
+### Comparação
+
+- **Descarte sempre:** simples e rápido, mas pune hábitos consolidados e pode parecer perda acidental invisível.
+- **Tática sempre:** preserva munição, cria o custo de voltar a um carregador parcial e exige pouca entrada adicional.
+- **Dois tipos:** oferece maior domínio, mas requer comando, animações, tutorial, feedback e decisão em momentos já intensos.
+
+**Recomendação para o MVP:** uma única recarga tática. O carregador parcial é guardado; o carregador mais cheio disponível é inserido. A duração pode permanecer próxima da recarga clássica até playtests mostrarem necessidade de custo adicional.
+
+**Decisão de contrato para o MVP:** a duração não é calculada pela capacidade nem extraída da animação. O jogo define um único tempo para cada categoria de arma; o servidor controla quando a recarga termina e quando o novo estado de munição passa a valer. A animação cliente deve acompanhar esse estado sem poder antecipá-lo. Perfis alternativos ficam fora do MVP e exigem evidência de playtest de que o tempo único prejudica categorias tematicamente distintas.
+
+**Exceção das escopetas:** pump-action e semiautomática usam recarga incremental cartucho por cartucho, e não troca de carregador. A pump-action usa a baseline da M3: 0,55 s para iniciar e 0,45 s por cartucho. A semiautomática usa a baseline da XM1014: 0,55 s para iniciar e 0,30 s por cartucho. O kit do Breacher recebe exatamente 40 cartuchos: a capacidade tubular declarada determina quantos começam inseridos e o restante permanece na reserva, sem a perda aplicada a carregadores destacáveis incompletos. Esses valores são hipóteses iniciais herdadas do CS 1.6 para o playtest, não garantias de balanceamento final. O modo de disparo não altera essa regra de recarga.
+
+Uma recarga com o carregador vazio segue o mesmo comando. Recarga rápida com descarte é experimento futuro e só deve existir se o benefício de timing for perceptível e as animações comunicarem claramente a perda.
+
+O sistema precisa impedir cancelamento que duplique ou restaure munição. A transição do carregador deve ter um ponto autoritativo definido pelo servidor, mesmo se a animação for prevista pelo cliente.
+
+## 15. Regra recomendada para armas coletadas
+
+- A arma no chão preserva exatamente o carregador inserido, o modo de disparo e configurações mecânicas que pertençam à própria entidade.
+- Pegar a arma não concede reservas, kit, tipo nem acessórios externos do antigo dono.
+- A quantidade do carregador é desconhecida antes da coleta e continua desconhecida no HUD após equipar a arma coletada.
+- O jogador pode executar **check magazine** com uma tecla configurável enquanto segura a arma. A ação toca uma animação curta de remover/verificar o carregador e, ao completar, atualiza o HUD com a quantidade exata de munição do carregador inserido.
+- O valor revelado por check magazine vem do servidor. O cliente pode apresentar a animação, mas não inventa nem recalcula a contagem escondida.
+- Check magazine é cancelado por troca de arma, recarga, drop, morte ou ação incompatível. Se cancelado antes do ponto autoritativo, o HUD continua desconhecido.
+- A ação não concede munição, não reorganiza carregadores, não consolida reservas e não altera o estado da arma; ela apenas revela ao dono atual a contagem do carregador inserido.
+- Recarregar uma arma coletada substitui o carregador conforme a regra normal de recarga e passa a exibir o novo estado conhecido do carregador colocado pelo próprio jogador.
+- A coleta interrompe ações incompatíveis conforme as regras já legíveis de troca de arma.
+- Qualquer tipo pode usar a arma coletada; restrições rígidas por cenário reduziriam jogadas emergentes e não fazem parte do contrato atual.
+- Reservas próprias só funcionam quando o tipo de carregador for compatível. Mesmo calibre não implica compatibilidade.
+- Não existe penalidade de peso no MVP.
+- O jogador que termina a rodada vivo preserva a arma coletada que estiver carregando no encerramento.
+- Na rodada seguinte, a arma preservada substitui — não acumula com — a arma predefinida do mesmo slot.
+- A arma preservada recebe apenas carregadores completos até o teto global de sua própria categoria. Uma shotgun preservada por Assault continua limitada ao teto de shotgun, nunca ao teto de rifle de 150 balas.
+- Morrer, trocar de tipo, trocar de variação de kit, trocar de equipe, desconectar ou mudar de mapa encerra a persistência e restaura o kit validado no próximo spawn elegível.
+- Armas soltas no chão ao encerrar a rodada não são transferidas para ninguém nem persistem no mapa seguinte.
+
+Esconder o valor até atirar ou recarregar adiciona incerteza, mas o custo mais comum é uma morte frustrante sem contrajogo. Uma indicação aproximada antes da coleta pode ser testada futuramente apenas se houver inspeção visual barata e confiável.
+
+## 16. Regra recomendada para munição de jogadores mortos
+
+**MVP:** carregadores reservas desaparecem com o jogador morto. Durante a rodada, apenas armas derrubadas persistem no mundo, cada uma com seu carregador inserido. No encerramento da rodada, somente a arma carregada por um sobrevivente pode atravessar para a rodada seguinte pelas regras da seção 15.
+
+Essa regra sacrifica realismo para evitar objetos, saques demorados, compatibilidade obscura, duplicação e geração de recursos por morte/respawn. O corpo não é um contêiner.
+
+Alternativas futuras, em ordem de complexidade:
+
+1. ação contextual no corpo que transfere no máximo um carregador compatível;
+2. bolsa única de munição agregada, com vida útil curta;
+3. carregadores físicos individuais — não recomendado sem evidência forte.
+
+Qualquer alternativa futura precisa registrar origem, dono, limite por vida e expiração no servidor para impedir farming por suicídio, troca de equipe ou reconexão.
+
+## 17. Composição livre dos tipos
+
+**Decisão:** nenhum tipo possui limite por equipe. Não existem reserva, fila, votação, prioridade por ordem de clique nem rotação forçada. Uma equipe inteira pode escolher Assault, Support, Breacher, Marksman ou qualquer outro tipo habilitado no catálogo global do servidor.
+
+Consequências:
+
+- cada tipo precisa ser uma escolha lateral, nunca uma melhoria líquida;
+- objetivos devem ser concluíveis por qualquer composição;
+- mapas precisam oferecer contrajogo a composições extremas;
+- o menu informa escolhas atuais sem julgar ou bloquear a composição;
+- se dez Marksman, dez Support ou dez Assault forem dominantes, a falha está no balanceamento do tipo ou do mapa;
+- servidores comunitários não devem precisar administrar disputas por vagas de tipo.
+
+**Risco:** a liberdade permite estratégias monotemáticas frustrantes. A resposta preferida é ajustar alcance, mobilidade, utilidade, exposição e contrajogo. Reintroduzir cotas exigiria nova decisão explícita de produto.
+
+## 18. Riscos de balanceamento e exploits
+
+| Risco | Efeito | Mitigação/experimento |
+|---|---|---|
+| Todos escolhem Assault | Outros tipos não têm valor | Medir escolha e contribuição; melhorar objetivos, não impor cotas gerais. |
+| Equipe inteira de Marksman | Meta de longo alcance | Tornar Marksman um sidegrade, garantir cobertura/rotas e contrajogo próximo. |
+| Support domina corredor | Spam sem contrajogo | Custos de manuseio, dispersão sustentável e utilidade limitada; sem debuff artificial. |
+| Equipe aparenta ter tipo superior | Escolha por percepção incorreta | Mesmo perfil mecânico, ícone equivalente e testes com troca de lados. |
+| Morrer gera armas | Farming em modos com respawn | Limite de entidade/origem por vida, expiração e nenhum reserve drop. |
+| Duplicação ao recarregar | Munição infinita | Estado e transições autoritativos; testes de cancelamento e troca. |
+| Reconectar restaura kit | Recurso infinito | Restaurar estado/penalidade da sessão; spawn apenas pela regra do modo. |
+| Trocar equipe obtém kit | Contrabando e desequilíbrio | Morte/limpeza de inventário e cooldown/regras do servidor. |
+| Pickup restaura reserva | Munição criada | Arma carrega apenas seu estado inserido; reservas são inventário separado. |
+| Entidade altera munição | Inconsistência/dessincronização | Serialização autoritativa do estado da arma no chão. |
+| HUD revela estado remoto | Informação indevida | Arma no chão e arma recém-coletada não revelam contagem exata até check magazine; mensagens apenas ao possuidor; espectador segue política explícita. |
+| Compatibilidade por calibre | Uso indevido | ID de família de carregador, não somente tipo de munição. |
+| Objetos acumulam | Desempenho e poluição | Reservas não caem; limite e expiração das armas. |
+| Sem economia, repetição | Baixa variedade | Medir antes de adicionar recursos; variar objetivo/rotas e pequenas opções. |
+| Composição torna objetivo impossível | Partida decidida no menu | Nenhum tipo exclusivo necessário para concluir objetivo. |
+| Spawn/drop multiplica arma entre rodadas | Exploit cooperativo | Arma preservada substitui o slot normal; somente sobrevivente mantém; mudança de tipo/variação limpa o estado. |
+
+## 19. Riscos de experiência do jogador
+
+- Novatos podem confundir tipo com arma favorita. O menu precisa mostrar “como ajuda a equipe”, não só estatísticas.
+- Carregadores parciais invisíveis criam a sensação de munição desaparecendo.
+- Tipo com arma inadequada ao mapa vira armadilha de escolha.
+- Partidas pequenas não comportam interdependência rígida. Toda equipe precisa conseguir concluir o objetivo com qualquer composição.
+- Jogadores experientes podem sentir perda da camada econômica e do prazer de adquirir armas.
+- Kits fixos podem produzir monotonia e reduzir expressão individual.
+- Termos militares excessivos e HUD denso aumentam a barreira sem melhorar o combate.
+- Bots que ignoram tipo, objetivo ou carregadores quebram tanto treino quanto servidores comunitários.
+
+## 20. Riscos narrativos e de identidade
+
+Remover T/CT evita um rótulo moral fixo, mas não torna neutros objetivos, falas e resultados. “Exército Brasileiro versus PCC”, “Rússia versus Ucrânia” e confrontos entre polícias reais exigem pesquisa, contexto editorial, revisão jurídica e análise de políticas de distribuição. Também podem ser percebidos como simplificação, propaganda, glorificação ou exploração de violência atual.
+
+**Recomendação para o MVP:** duas equipes fictícias, plausíveis e não caricatas, em operação competitiva ou conflito ficcional claramente contextualizado. Não usar “simulação/treinamento” como desculpa universal se o restante da apresentação mostrar mortes e conflito real.
+
+Se equipes baseadas em organizações reais forem consideradas depois:
+
+- cada cenário precisa de descrição factual e neutra;
+- objetivos devem descrever ações, não caráter moral;
+- vitória não deve usar linguagem de purificação, heroísmo ou demonização;
+- símbolos, vozes, nomes e referências precisam de política editorial;
+- conteúdo contemporâneo precisa de avaliação regional, indicativa e de plataforma;
+- nenhuma combinação é automaticamente permitida só porque os assets existem.
+
+## 21. Estrutura de partida, ciclo de vida, HUD e autoridade
+
+### Modos legados no escopo
+
+| Modo | Adequação | Observação |
+|---|---|---|
+| Plantar/desarmar (`de_`) | Primeiro alvo funcional | Preserva entidades, objetivo e condições de vitória; muda apenas a apresentação moral/narrativa. |
+| Resgate de reféns (`cs_`) | Retrocompatibilidade obrigatória | Preserva o objetivo legado; exige contexto e linguagem neutros para as equipes. |
+| Assassinato/ proteção de VIP (`as_`) | Retrocompatibilidade | Preserva papéis e condições legadas, sujeito à disponibilidade real da base técnica. |
+| Escape (`es_`) | Retrocompatibilidade | Preserva papéis e condições legadas, sujeito à disponibilidade real da base técnica. |
+| Eliminação | Condição legada complementar | Continua válida quando o modo/mapa a utiliza; não substitui os objetivos existentes. |
+
+**Decisão de modo do MVP:** começar pelo fluxo legado de instalar/desarmar dispositivo, apresentado sem linguagem moral e sem economia. Usar eliminação como condição secundária, não como único objetivo. Reféns e os demais modos legados permanecem metas de retrocompatibilidade, mas não precisam validar o primeiro playtest. Modos novos não fazem parte desta spec.
+
+### Ciclo de vida recomendado
+
+| Momento | Regra de produto | Autoridade |
+|---|---|---|
+| Entrada no servidor | Recebe cenário, equipes, lado, tipos disponíveis e estado da partida. | Servidor |
+| Lobby/votação | Vota em cenários completos permitidos. | Servidor valida/contabiliza |
+| Escolha de equipe | Ambas ficam disponíveis quando empatadas; com diferença de um, apenas a menor aceita adesão. | Servidor |
+| Escolha de tipo/variação | Seleciona livremente o tipo e, quando existir, uma variação lateral; mudança limpa arma persistente. | Servidor valida |
+| Início da partida | Trava cenário e inicializa placar/lados. | Servidor |
+| Início da rodada | Confirma tipo e variação; preserva arma elegível do sobrevivente ou limpa estado transitório. | Servidor |
+| Spawn | Concede o kit correspondente, substituindo o slot normal por arma coletada persistente quando elegível. | Servidor |
+| Troca/recarga | Mantém arma e carregadores como estados separados e validados. | Servidor; cliente apresenta/prediz |
+| Coleta de arma | Transfere entidade com carregador inserido; sem reservas; HUD marca munição inserida como desconhecida até check magazine ou recarga. | Servidor |
+| Check magazine | Revela ao dono atual a munição exata do carregador inserido após animação concluída; não altera munição. | Servidor autoriza; cliente anima e atualiza HUD |
+| Coleta de munição | Inexistente no MVP. | Servidor |
+| Morte | Derruba arma elegível; descarta reservas; encerra ações. | Servidor |
+| Encerramento da rodada | Registra arma carregada pelo sobrevivente, seu slot e categoria; não preserva objetos soltos. | Servidor |
+| Espectador | Não recebe informação além da política do modo/equipe. | Servidor filtra |
+| Respawn | Ausente no modo principal; se habilitado, segue nova concessão controlada. | Servidor |
+| Troca de equipe | Limpa inventário e reapresenta o alias equivalente do tipo; nunca concede benefício imediato. | Servidor |
+| Reconexão | Revalida a equipe pela regra de diferença máxima; não gera kit/spawn. | Servidor |
+| Reinício de rodada | Remove entidades e estados definidos; reinicia kits sem duplicação. | Servidor |
+| Mudança de mapa | Detecta entidades, modo e objetivo legados, carrega a apresentação de equipes e preserva identificadores compatíveis. | Servidor |
+| Encerramento | Congela resultado e apresenta equipes/lados sem julgamento moral. | Servidor + cliente |
+
+### HUD e feedback mínimo
+
+- nome e emblema da equipe;
+- lado operacional e objetivo atual;
+- alias do tipo e resumo do kit;
+- arma atual;
+- na Fase 1, munição exata no carregador inserido e reserva agregada exata, usando o HUD legado;
+- na Fase 2 experimental, número de carregadores reserva e indicação de quantos estão parciais;
+- para arma coletada ainda não verificada, indicador de carregador desconhecido até check magazine ou recarga;
+- aviso de incompatibilidade ao tentar usar reserva/pickup;
+- marcador de arma coletada até a primeira troca ou por curto período;
+- composição atual da própria equipe, sem bloquear escolhas;
+- mensagens claras quando uma escolha só valerá no próximo spawn.
+
+Permanecem desconhecidos: reservas de inimigos, munição de arma no chão antes de coletar, munição de arma coletada ainda não verificada e composição inimiga antes de ser observada, salvo regra explícita do modo. Espectador competitivo não pode virar fonte de informação privilegiada.
+
+### Divisão de responsabilidades de alto nível
+
+**ReGameDLL_CS:** cenário e equipes; lados; tipo base e capacidade; alias apresentado; concessão de kit; dano fixo do perfil; capacidade de carregador dentro do teto; intervalos e combinações válidas de recuo, cadência e recarga; inventário; lista e quantidade de carregadores; transição de recarga; estado de armas no chão; compatibilidade; pickups; morte; respawn; troca de equipe; vitória; proteção contra reconexão e duplicação.
+
+O servidor também é autoritativo para contagem de jogadores ativos, disponibilidade de adesão e validação de troca. O cliente apenas apresenta as opções liberadas e a razão de uma rejeição.
+
+**CS16Client:** menus de cenário/equipe/tipo; aliases por equipe; HUD; ícones; composição informativa e feedback de falha; apresentação de carregadores; ação/binding de check magazine; animações e sons; aplicação dos parâmetros aceitos pelo servidor na previsão; localização.
+
+**Mensagens de rede:** precisam transportar somente o estado necessário ao destinatário, com identificadores estáveis para equipe, lado, tipo base, alias, kit, família de carregador e arma. A forma e o custo são investigação técnica futura.
+
+**Conteúdo:** modelos legíveis, sons/vozes, ícones, textos neutros, cenários/mapas e animações. Não assumir que as animações atuais suportam dois tipos de recarga ou check magazine.
+
+**Compatibilidade de mapas:** a implementação futura deve manter leitura das entidades legadas de spawn e objetivo. Metadados opcionais podem definir somente equipes, aliases e contexto; nunca substituir o modo, o objetivo, as condições de vitória ou a allowlist global de perfis. Mapas CS 1.6 sem metadados devem continuar funcionando por fallback.
+
+**Bots:** precisam escolher tipos sem depender de uma composição obrigatória, executar objetivos, avaliar alcance do kit, recarregar sem desperdiçar decisões e coletar arma apenas quando útil. O MVP pode testar primeiro com humanos, mas não pode declarar suporte a bots antes dessa adaptação.
+
+## 22. Comparação entre as direções A, B e C
+
+| Critério | A — Clássico/classes leves | B — Tático/esquadrões | C — Intermediária |
+|---|---|---|---|
+| Ritmo | Muito próximo do CS | Mais lento | Próximo, com pausas curtas |
+| Tipos de jogador | Leves e permissivos | Fortes e interdependentes | Claros, mas não obrigatórios |
+| Equipes | Espelhadas | Assimetria relevante | Contratos simétricos, com mapeamentos temáticos limitados |
+| Kits | Fixos | Especializados/limitados | Fixos + uma escolha lateral |
+| Munição | Contador ou mags abstratos | Mags físicos completos | Mags individuais sem inventário manual |
+| Saque | Arma simples | Corpo e compatibilidade | Arma com mag inserido; sem reservas |
+| Economia | Ausente ou clássica | Recursos/requisição | Ausente por decisão de produto |
+| Clareza | Alta | Baixa/média | Alta se HUD for contido |
+| Identidade | Baixa/média | Alta, porém derivativa | Alta e própria se cenários forem fortes |
+| Custo/risco | Baixo | Muito alto | Médio e controlável |
+| Servidores pequenos | Bom | Ruim sem adaptações | Bom se tipos não forem obrigatórios |
+
+### Direção A
+
+É a alternativa mínima e o melhor fallback. Valida nomenclatura, kits e fluxo com pouco risco, mas pode parecer apenas CS com loadouts.
+
+### Direção B
+
+Maximiza fantasia de esquadrão, porém conflita com resposta rápida, mapas pequenos, jogadores avulsos e escopo de primeiro protótipo. Deve ser rejeitada como pacote inicial.
+
+### Direção C
+
+Entrega diferenciação suficiente para teste, mantendo regras legíveis. Seu perigo é acumular gradualmente todas as complexidades da Direção B; por isso, precisa de limites explícitos de escopo.
+
+**Decisão:** Direção C está autorizada como hipótese de prototipagem do MVP. O recorte permanece disciplinado pela Direção A no ritmo e na clareza: modos legados do CS 1.6, equipes fictícias, tipos simétricos, kits predefinidos, economia removida, munição agregada na Fase 1 e sistemas táticos adicionais apenas quando necessários para validar a tese principal.
+
+### Direção D — Modos competitivos próprios
+
+Direção rejeitada para esta spec. Controle de território, captura de pontos, escolta e múltiplos objetivos ampliariam o produto além da retrocompatibilidade decidida. A variedade deve vir das equipes, aliases, kits e conteúdo temático sobre os modos legados do CS 1.6.
+
+## 23. MVP recomendado
+
+O menor protótipo capaz de validar a tese contém:
+
+- o modo legado de instalar/desarmar dispositivo, por rodadas e sem respawn;
+- um cenário coerente em um mapa selecionado e uma segunda escala de mapa para comparação;
+- duas equipes fictícias com contratos simétricos e mapeamentos temáticos validados;
+- papéis Atacante/Defensor separados da identidade das equipes;
+- quatro tipos universais fixos no MVP: Assault, Support, Marksman e Breacher;
+- kits fixos, com no máximo uma escolha lateral por tipo;
+- sem dinheiro, preços, recompensas monetárias ou compra;
+- recarga clássica e munição agregada na primeira fase;
+- carregadores individuais, recarga tática e seleção automática pelo “mais cheio” somente na segunda configuração experimental;
+- HUD exato de carregador/reserva agregada na Fase 1 e de carregadores individuais na Fase 2;
+- coleta de arma com o carregador inserido, HUD inicialmente desconhecido e revelação exata por check magazine ou por recarga;
+- reservas do morto descartadas;
+- composição totalmente livre, inclusive para Marksman;
+- supressão apenas emergente por som, impacto e ameaça real;
+- estado competitivo autoritativo no servidor;
+- parâmetros centralizados e configuráveis para playtest.
+- smoke tests em mapas representativos dos modos legados prioritários, sem recompilar os mapas.
+
+Essas variáveis não devem estrear simultaneamente na coleta de evidência. A primeira sessão usa munição agregada para isolar equipes, tipos de jogador, kits e ausência de compra. O mesmo protótipo então habilita carregadores individuais para a comparação da Fase 2. Assim, “carregadores no MVP” significa uma segunda configuração experimental do mesmo programa, não uma dependência para validar o núcleo.
+
+## 24. Fora do primeiro protótipo
+
+- equipes baseadas em organizações reais ou organizações criminosas reais;
+- qualquer confronto livre entre equipes;
+- personagens heroicos ou habilidades individuais;
+- assimetria mecânica forte;
+- Medic, cura, revive, Engineer e construção;
+- recursos coletivos, tickets, requisição ou progressão entre rodadas;
+- recarga rápida separada, inspeção e animações novas obrigatórias;
+- escolha manual, reorganização ou consolidação de carregadores;
+- carregadores físicos no chão, saque de corpos e compartilhamento;
+- peso, calibre como simulação completa, câmara e acessórios modulares;
+- penalidades artificiais de supressão;
+- modos novos fora do conjunto legado do CS 1.6 e respawn não previsto pelo modo legado;
+- ranking, matchmaking e desbloqueios;
+- suporte declarado a bots antes de comportamento específico ser validado.
+
+## 25. Plano de playtest
+
+### Fase 0 — Teste de mesa e protótipo de regras
+
+- Simular composições para equipes de 2, 4, 6, 10 e 16 jogadores.
+- Verificar se qualquer composição consegue concluir o objetivo.
+- Revisar cada kit contra curta, média e longa distância.
+- Mapear todos os estados de carregador, pickup, morte, reinício e reconexão.
+- Criar uma matriz de entidades e condições de vitória dos modos legados que serão suportados.
+
+### Fase 1 — Baseline controlada
+
+- Grupo: 8–12 jogadores experientes, duas sessões.
+- Usar uma sessão clássica apenas como baseline externa e comparar com kits fixos e munição simples.
+- Objetivo: medir o efeito dos kits e da ausência de compra, sem tratar a economia como opção do modo.
+
+### Fase 2 — Carregadores
+
+- Comparar contador clássico, carregadores abstratos e modelo híbrido recomendado.
+- Registrar recargas parciais, munição perdida, mortes com arma vazia, tempo olhando HUD e dúvidas verbais.
+- Não adicionar loot de munição nesta fase.
+
+### Fase 3 — Composição e escalas
+
+- Rodar obrigatoriamente 6 contra 6, 8 contra 8, 10 contra 10 e 12 contra 12, com 10 contra 10 como referência principal.
+- Rodar 3 contra 3, 5 contra 5 e, quando o runtime/mapa permitirem, 16 contra 16 como testes de borda, não como centro do balanceamento inicial.
+- Alternar lados e equipes para separar mapa de equipamento.
+- Testar composições extremas, incluindo equipes inteiras de Assault, Support e Marksman.
+- Incluir explicitamente dez Assault contra dez Support para verificar se liberdade de composição continua justa e compreensível.
+- Testar adesões simultâneas, quantidade ímpar, troca de equipe, desconexão, reconexão e preenchimento com bots sem permitir diferença superior a um por uma ação validada.
+- Testar limites e combinações de recuo/cadência, incluindo os quatro cantos do intervalo, contra o mesmo dano fixo.
+- Testar capacidade de carregador 1, capacidade igual ao teto e valores que deixam resto, medindo ritmo, memória, rede e legibilidade do HUD.
+
+### Fase 4 — Novatos e servidor comunitário
+
+- Misturar novatos e veteranos sem instrução externa, apenas UI/tutorial do jogo.
+- Testar entrada tardia, reconexão, troca de equipe, administração e rotação de mapa.
+- Coletar entendimento de objetivo, tipo e munição após a primeira e a quinta rodada.
+
+### Fase 5 — Regressão de mapas e modos legados
+
+- Escolher mapas representativos de cada modo legado prioritário.
+- Carregar cada mapa sem recompilação ou metadados obrigatórios do mod.
+- Validar spawn das duas equipes, detecção do objetivo, condição de vitória, reinício da rodada e troca de mapa.
+- Registrar capacidade prática de jogadores, congestionamento, falhas de bot e impacto da ausência de economia.
+- Separar “funciona tecnicamente” de “permanece balanceado e divertido”.
+
+### Instrumentação mínima
+
+- escolha, disponibilidade e troca de tipo;
+- composição por rodada e taxa de vitória;
+- arma/kit, distância e causa de morte;
+- objetivo iniciado/concluído por tipo;
+- recargas com munição restante e distribuição dos carregadores;
+- pickups, munição no pickup e mortes antes de revelar/usar;
+- desconexão, reconexão e troca de equipe;
+- duração de rodada e tempo sem contato;
+- vitória por lado, equipe, mapa e tamanho de equipe.
+
+## 26. Critérios objetivos de sucesso e rejeição
+
+Valores são hipóteses iniciais de pesquisa, não metas aprovadas.
+
+### Sucesso para avançar
+
+- Pelo menos 80% dos participantes identificam sua responsabilidade e o objetivo após uma rodada, sem explicação externa.
+- Pelo menos 75% entendem o estado de seus carregadores após três rodadas.
+- Nenhum tipo apresenta vantagem de vitória superior a 5 pontos percentuais após controlar lado, mapa e habilidade, com amostra suficiente.
+- Composições monotemáticas continuam capazes de cumprir o objetivo e possuem contrajogo razoável, sem que sua frequência de escolha seja tratada isoladamente como falha.
+- O lado mais forte permanece dentro de 55% de vitórias após troca de lados e ajustes iniciais.
+- Nenhuma entrada ou troca validada pelo servidor produz diferença superior a um jogador entre as equipes.
+- Mapas representativos dos modos legados prioritários carregam sem recompilação e permitem concluir uma rodada.
+- Pacotes comunitários não conseguem alterar dano nem executar recuo/cadência fora da região válida do contrato.
+- Capacidade zero, negativa, não inteira ou superior ao teto de munição é rejeitada pelo servidor.
+- A mediana de duração de rodada não aumenta mais que 15% sobre a baseline escolhida sem melhora qualitativa clara de decisões.
+- Menos de 10% das mortes são atribuídas pelos participantes a munição/recarga incompreensível.
+- A maioria prefere jogar outra sessão com kits e descreve ao menos uma decisão de equipe criada por tipo.
+
+### Rejeitar ou reformular
+
+- Um tipo é necessário para concluir o objetivo.
+- Marksman ou Support determina composição/mapa apesar de ajustes razoáveis.
+- Uma composição monotemática não possui contrajogo razoável.
+- Carregadores aumentam carga mental sem alterar decisões observáveis.
+- A ausência de economia torna rodadas repetitivas para novatos e veteranos em sessões repetidas.
+- Equipes com contratos simétricos não são reconhecidas como identidades distintas e aliases, equipamentos e cenário não compensam.
+- O HUD necessário encobre combate ou exige tutorial externo.
+- Um modo legado prioritário exige alterar ou recompilar seus mapas apenas para iniciar e concluir rodadas.
+- Desempenho, rede ou bots exigem custo desproporcional antes de validar valor ao jogador.
+
+### Rollback
+
+Manter cada eixo testável separadamente: equipes/lados, tipos/kits, parâmetros comunitários e carregadores. Poder voltar a munição agregada ou restringir globalmente a allowlist comunitária sem alterar os modos legados. Reintroduzir economia exigiria nova decisão explícita de produto.
+
+## 27. Parâmetros e decisões do responsável do produto
+
+### Parâmetros ajustáveis propostos
+
+| Parâmetro conceitual | Inicial para teste | Faixa segura inicial | Autoridade/configuração |
+|---|---:|---:|---|
+| Economia habilitada | não | Regra fixa atual | Servidor |
+| Escolhas laterais por kit | 1 | 0–1 | Servidor/cenário |
+| Referência principal de balanceamento | 10 contra 10 | referência de produto, não limite de servidor | Produto/playtest |
+| Faixa obrigatória de validação | 6v6 a 12v12 | smoke/playtest mínimo do MVP | Produto/playtest |
+| Faixa suportada condicional | até 16v16 | depende de mapa e servidor | Produto/servidor |
+| Rodadas por partida | 20 | baseline do MVP | Servidor/produto |
+| Troca de lados | após 10 rodadas | metade da partida | Servidor/produto |
+| Condição de vitória | primeira equipe a 11 rodadas | melhor de 20 sem overtime | Servidor |
+| Empate | 10–10 permitido | sem overtime no MVP | Servidor |
+| Diferença máxima entre equipes | 1 jogador | Regra fixa atual | Servidor |
+| Tetos de munição por tipo/slot | Matriz da seção 11 | Hipótese para playtest | Servidor/contrato global |
+| Quantidade de utilidades | Matriz da seção 11 | Hipótese para playtest | Servidor/contrato global |
+| Lanterna inicial | sim | Regra fixa atual | Servidor |
+| Visão noturna | não no MVP | desligada/opção simétrica | Servidor/kit global |
+| Perfis permitidos para conteúdo comunitário | catálogos iniciais de Assault, Support, Marksman, Breacher e pistolas | allowlist e regiões conjuntas seguras | Servidor/contrato global |
+| Dano comunitário | não configurável | valor fixo do perfil | Servidor/contrato global |
+| Capacidade comunitária do carregador | por equipe/arma | 1–teto de balas do tipo/slot | Servidor/contrato global |
+| Recuo comunitário | todos os perfis iniciais por preset | presets validados | Servidor/contrato global |
+| Cadência comunitária | todos os perfis iniciais por preset | presets validados | Servidor/contrato global |
+| Tempo de recarga | fixo por categoria no MVP | valor centralizado a definir por categoria | Servidor/contrato global |
+| Escopeta pump-action | baseline M3 | início 0,55 s; 0,45 s por cartucho | Servidor/contrato global |
+| Escopeta semiautomática | baseline XM1014 | início 0,55 s; 0,30 s por cartucho | Servidor/contrato global |
+| Combinação recuo/cadência | perfis principais usam `controlled`/`baseline`/`aggressive`; pistolas usam `controlled`/`baseline`/`quick` | presets fechados por perfil | Servidor/contrato global |
+| Carregadores por kit | por arma/tipo | 2–6 | Servidor |
+| Seleção automática | mais cheio | mais cheio/ordem | Servidor |
+| Reservas derrubadas | não | não/saque limitado | Servidor |
+| Vida útil de arma no chão | baseline do modo | por mapa/servidor | Servidor |
+| Troca de tipo | próximo spawn | próximo spawn/próxima rodada | Servidor |
+| Supressão mecânica | nenhuma | nenhuma/experimento leve | Servidor + cliente |
+
+Os valores concretos de armas, munição, tempos e utilidades só devem ser definidos após escolher os perfis e a baseline.
+
+### Decisões pendentes
+
+1. Qual é a visão oficial e quais pilares arbitram ritmo versus realismo?
+2. Quais valores iniciais de kit preservam funções distintas entre Assault, Support, Marksman e Breacher?
+3. Qual é a política futura para equipes baseadas em organizações reais e conflitos contemporâneos?
+4. Qual nível de suporte a tipos/kits é necessário para considerar os bots publicáveis?
+
+## 28. Recomendação final
+
+A Direção C fica adotada como hipótese de prototipagem, com disciplina de Direção A no escopo. A primeira identidade do mod deve ser “modos legados do CS 1.6 com equipes sem rótulo moral fixo, tipos legíveis e kits previsíveis”, não “simulação detalhada de equipamentos” nem um catálogo de modos novos.
+
+Separar equipe, lado operacional e tipo base permanece uma decisão robusta. O contrato do tipo é simétrico; alias, apresentação e mapeamento temático permitido podem mudar por equipe. A economia foi removida por decisão. Assault, Support, Marksman e Breacher formam o catálogo fixo do MVP; seus valores e a munição física continuam sujeitos a playtest, e novos tipos só serão considerados depois dessa validação.
+
+Começar por equipes fictícias com contratos simétricos, um objetivo claro, kits predefinidos e munição simples. Validar tipos, limites e mapeamentos comunitários antes de acrescentar carregadores individuais; validar carregadores antes de saque. Se o sistema de carregadores não criar decisões compreendidas e valorizadas, voltar ao contador agregado. Se rodadas iguais parecerem repetitivas, ajustar objetivos e kits antes de inventar requisição, tickets ou cooldowns.
+
+Não avançar esta spec para `approved` até o responsável do produto decidir explicitamente o recorte técnico do primeiro corte implementável e os itens centrais restantes da seção 27.
