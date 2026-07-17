@@ -17,18 +17,22 @@ Esta spec registra uma exploração de ideia e uma proposta de MVP. Ela não aut
 - **Decisão atualizada:** os tipos de jogador serão estruturalmente simétricos entre as equipes: mesmos contratos de slots, categorias, limites e orçamento. Cada equipe pode mapear armas e equipamentos temáticos dentro desses mesmos limites.
 - **Decisão:** cada equipe poderá dar um nome temático diferente ao mesmo tipo base. Por exemplo, o mesmo tipo de precisão poderá ser apresentado como “Caçador” em uma equipe e “Matador” em outra; esses nomes são exemplos, não nomes aprovados.
 - **Decisão:** não existe formato obrigatório de cinco jogadores por equipe. O servidor pode operar com quantidades variáveis dentro de sua capacidade configurada.
+- **Decisão de balanceamento:** o MVP usa **10 contra 10** como referência principal de balanceamento. A faixa obrigatória de validação é **6 contra 6 até 12 contra 12**. Partidas até **16 contra 16** continuam suportadas quando mapa e servidor comportarem, mas não são o centro do balanceamento inicial. Nenhum kit deve ser balanceado exclusivamente para 5 contra 5.
 - **Decisão:** a composição de tipos é livre. Todos os jogadores de uma equipe podem escolher o mesmo tipo, sem cotas, reservas, filas ou tipos obrigatórios.
 - **Decisão de MVP:** os quatro tipos iniciais fixos são Assault, Support, Marksman e Breacher, disponíveis simetricamente para as duas equipes.
 - **Decisão de produto:** quatro tipos não é um limite estrutural. O catálogo poderá crescer após o MVP, desde que cada novo tipo possua contrato simétrico, função distinta, contrajogo e suporte de conteúdo e interface.
 - **Decisão de MVP:** Assault oferece duas variações laterais e mutuamente exclusivas: Rifle, com rifle de assalto e teto de 150 balas, ou SMG, com submetralhadora e teto de 90 balas. Ambas usam pistola com teto de 45, uma fragmentação e duas flashbangs.
 - **Decisão de MVP:** Support possui um único kit: machine gun com teto de 250 balas, pistola com teto de 45, faca universal, uma flashbang e uma smoke; não recebe fragmentação nem arma secundária.
 - **Decisão de MVP:** a machine gun do Support pode usar dois perfis globais: `support_lmg_556_sustain`, baseado na M249 do CS 1.6, e `support_lmg_762_power`, perfil de 7,62 mm criado para representar machine guns mais pesadas. O perfil 5,56 prioriza cadência e sustentação; o 7,62 possui dano superior, cadência menor e recuo mais pesado. Supressão é apenas a linguagem tática do uso de fogo sustentado, inspirada em combate real, e permanece emergente: não aplica penalidade artificial ao adversário.
+- **Decisão de MVP:** ajustes comunitários de manuseio do Support também usam presets inteiros (`controlled`, `baseline` ou `aggressive`) por arma temática. LMGs possuem limites mais conservadores que Assault, porque combinam teto de munição alto e fogo sustentado; o preset `aggressive` aumenta pouco a cadência e piora bastante o controle.
 - **Decisão de MVP:** Marksman oferece duas variações laterais e mutuamente exclusivas: Bolt-action, com rifle de precisão de ferrolho e teto total de 50 balas, ou Semiauto, com rifle de precisão semiautomático e teto total de 90 balas. O teto inclui o carregador inserido.
 - **Decisão de MVP:** ambas as variações do Marksman recebem pistola com teto de 45, faca universal, uma flashbang e uma smoke; não recebem fragmentação, arma secundária, marcação de inimigos nem bônus passivo de informação. Perfis equivalentes à AWP ficam fora do MVP.
 - **Decisão de balanceamento:** Semiauto causa menos dano por disparo que Bolt-action, mas possui maior cadência. Cada variação usa um perfil global fixo e validado pelo servidor; equipes e criadores não podem alterar o dano nem transformar a apresentação em um terceiro perfil mecânico.
 - **Baseline de playtest:** Bolt-action usa inicialmente dano 75 e recarga de 2,0 s, conforme a Scout do CS 1.6, apenas como referência mecânica; a arma temática não precisa ser uma Scout. Semiauto usa inicialmente dano 70 e recarga de 3,35 s, conforme a SG-550, também apenas como referência. A cadência da Semiauto deve ser superior à da Bolt-action, mas o intervalo seguro permanece hipótese pendente de playtest.
+- **Decisão de MVP:** ajustes comunitários de manuseio do Marksman usam presets inteiros (`controlled`, `baseline` ou `aggressive`) por arma temática. O preset não altera dano, zoom, disponibilidade, teto de munição, recarga nem transforma Bolt-action em Semiauto. Como Marksman pune exposição em longa distância, os presets devem ser mais restritos que Assault e não podem remover a vulnerabilidade em curta distância.
 - **Decisão de MVP:** Breacher oferece duas variações laterais e mutuamente exclusivas: Pump-action, baseada na M3, ou Semiautomática, baseada na XM1014. Ambas possuem teto exato de 40 cartuchos, pistola com teto de 45, faca universal, duas flashbangs e uma smoke; não recebem fragmentação, SMG, ferramenta de ruptura nem bônus passivo.
 - **Decisão de MVP:** trocar a variação do Breacher restaura o kit escolhido e encerra a persistência de arma coletada. Como escopetas são alimentadas cartucho por cartucho, o spawn distribui exatamente os 40 cartuchos entre arma e reserva, sem descartar o resto pela regra de carregadores completos.
+- **Decisão de MVP:** ajustes comunitários de manuseio do Breacher usam presets inteiros (`controlled`, `baseline` ou `aggressive`) por shotgun temática. O preset não altera dano, pellets, alcance-base, recarga cartucho por cartucho, teto de 40 cartuchos nem transforma pump-action em semiautomática. Breacher deve continuar forte em curta distância e fraco fora dela.
 - **Decisão:** todos os tipos recebem faca em slot próprio e não descartável. Equipes podem alterar somente sua apresentação temática; dano, alcance e cadência da faca são globais.
 - **Decisão:** dano segue a categoria mecânica validada pelo servidor: rifle usa dano de rifle, SMG usa dano de SMG e shotgun usa dano de shotgun. Skin, alias e equipe não mudam essa categoria nem o dano.
 - **Decisão:** o sobrevivente preserva para a rodada seguinte a arma coletada que estiver carregando, desde que mantenha o mesmo tipo e a mesma variação. Ela substitui a arma normal do mesmo slot e volta com carregadores completos até o teto da própria categoria; trocar tipo ou variação restaura o kit escolhido e encerra a persistência.
@@ -46,10 +50,12 @@ Esta spec registra uma exploração de ideia e uma proposta de MVP. Ela não aut
 - **Decisão de MVP:** drop, coleta, slots e estado da arma no chão reutilizam a base do CS 1.6; persistência da arma carregada pelo sobrevivente entre rodadas continua sendo regra adicional do mod.
 - **Decisão de MVP:** bots reutilizam navegação, combate e execução dos objetivos legados, mas devem receber um tipo/variação e kit válidos sem passar pelo estado de compra.
 - **Decisão de contrato:** o catálogo inicial de pistolas possui dois perfis normais, `backup_pistol_45_standard` e `backup_pistol_9mm_capacity`, disponíveis para Assault, Support, Breacher e Marksman. Somente Marksman pode usar os perfis silenciados `marksman_pistol_45_suppressed` e `marksman_pistol_9mm_suppressed`. O pacote comunitário pode mapear uma opção normal ou silenciada da allowlist global, sujeita ao mesmo contrato e orçamento de poder; cenário, mapa e modo não selecionam nem filtram esse perfil. Modelo, nome, som, recuo, cadência e precisão podem variar apenas dentro do intervalo do perfil escolhido, sem alterar dano, calibre mecânico, recarga, teto ou disponibilidade.
+- **Decisão de MVP:** ajustes comunitários de manuseio de pistolas usam presets inteiros (`controlled`, `baseline` ou `quick`) por arma temática. Pistola é backup, não arma principal; presets não alteram dano, calibre, recarga, teto de 45, disponibilidade, silenciador, burst ou categoria.
 - **Decisão de contrato:** cada arma temática criada pela comunidade deve referenciar um perfil mecânico global aprovado. O perfil fixa dano, categoria/calibre mecânico, penetração, recarga, slots permitidos e limites combinados; o criador controla apresentação, capacidade do carregador, recuo e cadência somente onde o perfil autorizar.
 - **Decisão de produto:** assimetria compensada é permitida. Equipes podem mapear perfis globais diferentes para o mesmo contrato Assault Rifle ou Assault SMG, desde que usem a mesma allowlist e o mesmo orçamento de poder. Assimetria livre ou parâmetros fora dos perfis continuam rejeitados.
 - **Decisão de MVP:** o catálogo global inicial do Assault possui quatro perfis: `assault_rifle_762_power` (AK-47), `assault_rifle_556_control` (M4A1 sem silenciador), `assault_smg_9mm_control` (MP5) e `assault_smg_45_power` (UMP-45). As armas entre parênteses são baselines mecânicas do CS 1.6, não identidades visuais obrigatórias.
 - **Decisão de MVP:** as primárias do Assault usam somente fogo automático. Burst, silenciador acoplável e os perfis baseados em FAMAS, Galil, TMP, MAC-10 e P90 ficam fora do catálogo inicial.
+- **Decisão de MVP:** ajustes comunitários de manuseio do Assault usam presets inteiros (`controlled`, `baseline` ou `aggressive`) por arma temática, em vez de sliders livres de recuo, cadência e precisão. O preset altera somente comportamento de controle dentro do perfil; dano, calibre, penetração, perda por distância, recarga, mobilidade, modos de disparo e teto de munição continuam fixos.
 - **Decisão de validação:** dano, calibre mecânico, penetração, perda por distância, precisão-base, recarga, mobilidade e modos de disparo pertencem ao perfil. Recuo e cadência podem variar apenas dentro de uma região conjunta aprovada; a combinação de cadência máxima com recuo mínimo não é automaticamente válida.
 - **Decisão de escala comunitária:** um perfil global válido não precisa ser aprovado novamente para cada confronto. A allowlist global do servidor vale igualmente em todos os mapas e modos legados suportados; cenário, mapa, modo e confronto não adicionam filtros próprios de perfis.
 - **Decisão:** dinheiro, recompensas monetárias, preços e menu de compra deixam de fazer parte das regras normais do mod. Cada spawn recebe o kit predefinido do tipo escolhido.
@@ -398,6 +404,28 @@ Nesta tabela, “granada” foi interpretada como granada de fragmentação. Os 
 
 Os perfis de Support compartilham o mesmo kit e o mesmo teto do slot, mas oferecem troca lateral de comportamento. `support_lmg_556_sustain` é a opção de controle/sustentação, com maior cadência. `support_lmg_762_power` é a opção de poder, com dano superior, cadência menor e recuo mais pesado. A comunidade pode representar outra arma visualmente, mas precisa respeitar o perfil escolhido: dano, calibre mecânico, penetração, perda por distância, recarga, disponibilidade e teto do slot são fixos. Capacidade, recuo, cadência e precisão só podem variar dentro dos intervalos validados para o perfil. Bipé, overheat, troca de cano, modos alternativos de disparo, bônus de vida/armadura e efeitos artificiais de supressão ficam fora do MVP.
 
+### Presets de manuseio do Support
+
+No MVP, o pacote comunitário não ajusta recuo, cadência e precisão como valores soltos. Cada machine gun temática escolhe um preset de manuseio inteiro. Como Support possui teto alto de munição e pode manter fogo por mais tempo, os presets são mais conservadores que os de Assault.
+
+Para `support_lmg_556_sustain`:
+
+| Preset | Cadência | Recuo | Dispersão em rajada prolongada | Uso esperado |
+|---|---:|---:|---:|---|
+| `controlled` | -4% da baseline do perfil | -8% | -5% | LMG mais controlável, menos pressão por segundo |
+| `baseline` | sem alteração | sem alteração | sem alteração | comportamento de referência do perfil |
+| `aggressive` | +4% da baseline do perfil | +12% | +12% | LMG mais pressionante, pior em rajadas longas |
+
+Para `support_lmg_762_power`:
+
+| Preset | Cadência | Recuo | Dispersão em rajada prolongada | Uso esperado |
+|---|---:|---:|---:|---|
+| `controlled` | -5% da baseline do perfil | -6% | -4% | LMG pesada um pouco mais domável, ainda lenta |
+| `baseline` | sem alteração | sem alteração | sem alteração | comportamento de referência do perfil |
+| `aggressive` | +3% da baseline do perfil | +16% | +14% | LMG pesada mais ameaçadora, controle claramente pior |
+
+Números negativos em recuo e dispersão indicam melhora de controle. Números positivos indicam piora. Esses presets são hipóteses de playtest, não equilíbrio final. O `aggressive` do Support não deve transformar a função em Assault com mais munição; se isso acontecer no playtest, a primeira correção deve reduzir cadência ou aumentar dispersão, não criar limite de jogadores por tipo. O primeiro playtest controlado deve usar `baseline` nas duas equipes.
+
 ### Catálogo global inicial do Assault
 
 | Identificador global | Referência mecânica | Dano-base | Ciclo / cadência aproximada | Recarga | Calibre mecânico | Perda por distância | Penetrações máximas |
@@ -411,9 +439,91 @@ Esses números reproduzem as baselines atuais do ReGameDLL_CS para o primeiro pl
 
 Nome, modelo, animação e som não precisam representar AK-47, M4A1, MP5 ou UMP-45, mas precisam comunicar o perfil escolhido. Capacidade continua configurável entre 1 e o teto do slot: 150 para Assault Rifle e 90 para Assault SMG. Dano, calibre, penetração, perda por distância, precisão-base, tempo de recarga, mobilidade e modos de disparo não podem ser alterados pelo pacote comunitário.
 
-Recuo e cadência são configuráveis somente dentro de uma região conjunta ainda a ser calibrada. Validar cada eixo isoladamente é insuficiente: aumentar cadência deve consumir orçamento de poder ou exigir uma compensação de controle. O primeiro playtest controlado usa o mesmo perfil nas duas equipes; um teste posterior usa perfis distintos para medir a assimetria compensada sem confundi-la com mapa, lado ou habilidade dos participantes.
+### Presets de manuseio do Assault
+
+No MVP, o pacote comunitário não ajusta recuo, cadência e precisão como valores soltos. Cada arma temática do Assault escolhe um preset de manuseio inteiro. O preset é validado pelo servidor como uma combinação fechada.
+
+Para Assault Rifle:
+
+| Preset | Cadência | Recuo | Dispersão em rajada | Uso esperado |
+|---|---:|---:|---:|---|
+| `controlled` | -5% da baseline do perfil | -10% | -5% | rifle mais dócil, menos pressão por segundo |
+| `baseline` | sem alteração | sem alteração | sem alteração | comportamento de referência do perfil |
+| `aggressive` | +5% da baseline do perfil | +12% | +8% | rifle mais nervoso, mais pressão e pior controle |
+
+Para Assault SMG:
+
+| Preset | Cadência | Recuo | Dispersão em rajada | Uso esperado |
+|---|---:|---:|---:|---|
+| `controlled` | -5% da baseline do perfil | -8% | -5% | SMG mais estável, melhor para iniciantes |
+| `baseline` | sem alteração | sem alteração | sem alteração | comportamento de referência do perfil |
+| `aggressive` | +7% da baseline do perfil | +12% | +10% | SMG mais rápida, mais difícil de controlar |
+
+Números negativos em recuo e dispersão indicam melhora de controle. Números positivos indicam piora. Esses presets são hipóteses de playtest, não equilíbrio final. O ponto importante do contrato é a forma: o criador escolhe um pacote validado, não combina “cadência agressiva” com “recuo controlado”. O primeiro playtest controlado deve usar `baseline` nas duas equipes; testes posteriores podem liberar `controlled` e `aggressive` para medir assimetria compensada sem confundi-la com mapa, lado ou habilidade dos participantes.
 
 FAMAS, Galil, TMP, MAC-10 e P90 permanecem candidatos futuros. Burst, silenciador acoplável e outras ações secundárias da arma exigem contratos e assets próprios e não fazem parte do Assault no MVP.
+
+### Catálogo global inicial do Marksman
+
+| Identificador global | Referência mecânica | Dano-base | Ritmo aproximado | Recarga | Calibre mecânico | Capacidade-base | Teto do slot | Disponibilidade |
+|---|---|---:|---:|---:|---|---:|---:|---|
+| `marksman_bolt_action_precision` | Scout | 75 | ferrolho/manual | 2,0 s | rifle de precisão leve | 10 | 50 | Marksman Bolt-action |
+| `marksman_semiauto_followup` | SG-550 | 70 | semiautomático | 3,35 s | rifle de precisão semiauto | 30 | 90 | Marksman Semiauto |
+
+Os perfis de Marksman são laterais, não uma progressão de poder. `marksman_bolt_action_precision` prioriza precisão deliberada, dano por disparo e punição de exposição; `marksman_semiauto_followup` reduz dano por disparo para ganhar acompanhamento de alvo e cadência. Equivalentes à AWP, eliminação corporal garantida por regra do tipo, informação automática de alvos e marcação de inimigos ficam fora do MVP.
+
+### Presets de manuseio do Marksman
+
+No MVP, o pacote comunitário não ajusta recuo, cadência e precisão como valores soltos. Cada arma temática do Marksman escolhe um preset inteiro. Como a função atua em linhas longas, os presets são estreitos e devem preservar contrajogo: vulnerabilidade em curta distância, punição por erro e necessidade de reposicionamento.
+
+Para `marksman_bolt_action_precision`:
+
+| Preset | Recuperação entre disparos | Recuo/retorno da mira | Penalidade de disparo em movimento | Uso esperado |
+|---|---:|---:|---:|---|
+| `controlled` | +5% mais lenta | -8% | +5% | tiro mais estável, menor ritmo |
+| `baseline` | sem alteração | sem alteração | sem alteração | comportamento de referência do perfil |
+| `aggressive` | -5% mais rápida | +12% | +10% | reposição mais rápida, mira menos estável |
+
+Para `marksman_semiauto_followup`:
+
+| Preset | Cadência | Recuo | Dispersão em sequência | Uso esperado |
+|---|---:|---:|---:|---|
+| `controlled` | -5% da baseline do perfil | -8% | -6% | acompanhamento mais controlado, menor pressão |
+| `baseline` | sem alteração | sem alteração | sem alteração | comportamento de referência do perfil |
+| `aggressive` | +4% da baseline do perfil | +14% | +12% | acompanhamento mais rápido, risco maior de spam impreciso |
+
+Números negativos em recuo e dispersão indicam melhora de controle. Números positivos indicam piora. No Bolt-action, “recuperação entre disparos” mais lenta no `controlled` é o custo por estabilidade; no `aggressive`, a recuperação mais rápida não pode reduzir o dano, a recarga nem o tempo de equipar, e não pode aproximar a arma de uma AWP. No Semiauto, o `aggressive` não deve remover o custo de errar; se o playtest mostrar spam efetivo de longa distância, a primeira correção deve aumentar dispersão em sequência ou reduzir o ganho de cadência.
+
+### Catálogo global inicial do Breacher
+
+| Identificador global | Referência mecânica | Dano-base | Ritmo aproximado | Recarga | Calibre mecânico | Capacidade-base | Teto do slot | Disponibilidade |
+|---|---|---:|---:|---:|---|---:|---:|---|
+| `breacher_shotgun_pump_control` | M3 | dano de shotgun pump-action | pump-action | início 0,55 s; 0,45 s/cartucho | cartucho de shotgun | 8 | 40 | Breacher Pump-action |
+| `breacher_shotgun_semiauto_pressure` | XM1014 | dano de shotgun semiauto | semiautomático | início 0,55 s; 0,30 s/cartucho | cartucho de shotgun | 7 | 40 | Breacher Semiautomática |
+
+Os perfis de Breacher são laterais. `breacher_shotgun_pump_control` prioriza impacto deliberado e controle entre disparos; `breacher_shotgun_semiauto_pressure` prioriza pressão em curta distância e recuperação mais rápida. Nenhum perfil concede SMG, ferramenta de ruptura, bônus passivo, fragmentação ou alcance de rifle. A comunidade pode representar outra shotgun visualmente, mas precisa preservar a leitura de curto alcance.
+
+### Presets de manuseio do Breacher
+
+No MVP, o pacote comunitário não ajusta recuo, ritmo e dispersão como valores soltos. Cada shotgun temática escolhe um preset inteiro. Como Breacher existe para entrada curta e controle de espaço próximo, os presets não podem melhorar alcance efetivo sem custo.
+
+Para `breacher_shotgun_pump_control`:
+
+| Preset | Recuperação entre disparos | Recuo | Dispersão | Uso esperado |
+|---|---:|---:|---:|---|
+| `controlled` | +5% mais lenta | -8% | -4% | pump mais consistente, menor ritmo de pressão |
+| `baseline` | sem alteração | sem alteração | sem alteração | comportamento de referência do perfil |
+| `aggressive` | -5% mais rápida | +12% | +8% | pump mais rápida, menos confiável fora do alcance curto |
+
+Para `breacher_shotgun_semiauto_pressure`:
+
+| Preset | Cadência | Recuo | Dispersão em sequência | Uso esperado |
+|---|---:|---:|---:|---|
+| `controlled` | -5% da baseline do perfil | -8% | -5% | semiauto mais estável, menos spam |
+| `baseline` | sem alteração | sem alteração | sem alteração | comportamento de referência do perfil |
+| `aggressive` | +5% da baseline do perfil | +14% | +12% | semiauto mais pressionante, pior controle em sequência |
+
+Números negativos em recuo e dispersão indicam melhora de controle. Números positivos indicam piora. O `controlled` não pode transformar shotgun em arma de médio alcance confiável; o `aggressive` não pode substituir Assault em corredores médios. Se Breacher dominar mapas pequenos com composições monotemáticas, a primeira correção deve ajustar dispersão, utilidades ou geometria de contrajogo, não criar cota por tipo.
 
 ### Catálogo global inicial de pistolas
 
@@ -425,6 +535,36 @@ FAMAS, Galil, TMP, MAC-10 e P90 permanecem candidatos futuros. Burst, silenciado
 | `marksman_pistol_9mm_suppressed` | Glock18 sem burst, com apresentação silenciada | 25 | 0,200 s / 300 RPM | 2,2 s | 9 mm | 20 | 45 | Somente Marksman |
 
 No MVP, perfis 9 mm usam apenas tiro semiautomático. A diferença mecânica entre pistolas 9 mm e .45 ACP fica no dano fixo do perfil, cadência, precisão/recuo e capacidade-base. Skins comunitárias devem se adequar a um desses perfis, nunca criar dano novo por apresentação. Burst da Glock, Desert Eagle, Dual Elites, Five-Seven e alternância manual de silenciador ficam fora do catálogo inicial. Pistolas silenciadas são perfis de spawn/contrato para Marksman, não ações de acoplar ou remover silenciador durante a rodada.
+
+### Presets de manuseio de pistolas
+
+No MVP, o pacote comunitário não ajusta recuo, cadência, saque e precisão como valores soltos. Cada pistola temática escolhe um preset inteiro. Como pistolas são armas de backup, os presets são estreitos e não podem competir com a arma principal.
+
+Para `backup_pistol_45_standard`:
+
+| Preset | Cadência | Recuo | Precisão em sequência | Saque/equipar | Uso esperado |
+|---|---:|---:|---:|---:|---|
+| `controlled` | -4% | -8% | -5% | sem alteração | .45 mais controlável, menor ritmo |
+| `baseline` | sem alteração | sem alteração | sem alteração | sem alteração | comportamento de referência do perfil |
+| `quick` | +4% | +10% | +8% | -5% | backup mais rápido, pior controle |
+
+Para `backup_pistol_9mm_capacity`:
+
+| Preset | Cadência | Recuo | Precisão em sequência | Saque/equipar | Uso esperado |
+|---|---:|---:|---:|---:|---|
+| `controlled` | -4% | -6% | -5% | sem alteração | 9 mm mais estável, menor pressão |
+| `baseline` | sem alteração | sem alteração | sem alteração | sem alteração | comportamento de referência do perfil |
+| `quick` | +5% | +8% | +8% | -5% | 9 mm mais responsiva, menos precisa em spam |
+
+Para `marksman_pistol_45_suppressed` e `marksman_pistol_9mm_suppressed`:
+
+| Preset | Cadência | Recuo | Precisão em sequência | Saque/equipar | Uso esperado |
+|---|---:|---:|---:|---:|---|
+| `controlled` | -3% | -6% | -4% | sem alteração | backup discreto e estável, ritmo menor |
+| `baseline` | sem alteração | sem alteração | sem alteração | sem alteração | comportamento de referência do perfil |
+| `quick` | +3% | +8% | +7% | -4% | backup silenciado mais responsivo, pior controle |
+
+Números negativos em recuo, precisão em sequência e saque indicam melhora. Números positivos indicam piora, exceto em cadência. O preset `quick` não cria burst, não permite alternar silenciador, não altera dano e não pode transformar pistola em substituta consistente da primária. Se pistolas começarem a decidir duelos principais com frequência alta, a primeira correção deve reduzir ganho de cadência/saque ou aumentar penalidade de precisão em sequência.
 
 ### Regra proposta para teto de munição e carregadores
 
@@ -824,7 +964,8 @@ Essas variáveis não devem estrear simultaneamente na coleta de evidência. A p
 
 ### Fase 3 — Composição e escalas
 
-- Rodar equipes de 3 contra 3, 5 contra 5, 8 contra 8, 10 contra 10, 12 contra 12 e, quando o runtime/mapa permitirem, 16 contra 16.
+- Rodar obrigatoriamente 6 contra 6, 8 contra 8, 10 contra 10 e 12 contra 12, com 10 contra 10 como referência principal.
+- Rodar 3 contra 3, 5 contra 5 e, quando o runtime/mapa permitirem, 16 contra 16 como testes de borda, não como centro do balanceamento inicial.
 - Alternar lados e equipes para separar mapa de equipamento.
 - Testar composições extremas, incluindo equipes inteiras de Assault, Support e Marksman.
 - Incluir explicitamente dez Assault contra dez Support para verificar se liberdade de composição continua justa e compreensível.
@@ -901,6 +1042,9 @@ Manter cada eixo testável separadamente: equipes/lados, tipos/kits, parâmetros
 |---|---:|---:|---|
 | Economia habilitada | não | Regra fixa atual | Servidor |
 | Escolhas laterais por kit | 1 | 0–1 | Servidor/cenário |
+| Referência principal de balanceamento | 10 contra 10 | referência de produto, não limite de servidor | Produto/playtest |
+| Faixa obrigatória de validação | 6v6 a 12v12 | smoke/playtest mínimo do MVP | Produto/playtest |
+| Faixa suportada condicional | até 16v16 | depende de mapa e servidor | Produto/servidor |
 | Diferença máxima entre equipes | 1 jogador | Regra fixa atual | Servidor |
 | Tetos de munição por tipo/slot | Matriz da seção 11 | Hipótese para playtest | Servidor/contrato global |
 | Quantidade de utilidades | Matriz da seção 11 | Hipótese para playtest | Servidor/contrato global |
@@ -909,12 +1053,12 @@ Manter cada eixo testável separadamente: equipes/lados, tipos/kits, parâmetros
 | Perfis permitidos para conteúdo comunitário | catálogos iniciais de Assault, Support, Marksman, Breacher e pistolas | allowlist e regiões conjuntas seguras | Servidor/contrato global |
 | Dano comunitário | não configurável | valor fixo do perfil | Servidor/contrato global |
 | Capacidade comunitária do carregador | por equipe/arma | 1–teto de balas do tipo/slot | Servidor/contrato global |
-| Recuo comunitário | a definir por perfil | `recoil_min`–`recoil_max` | Servidor/contrato global |
-| Cadência comunitária | a definir por perfil | `rate_min`–`rate_max` | Servidor/contrato global |
+| Recuo comunitário | todos os perfis iniciais por preset | presets validados | Servidor/contrato global |
+| Cadência comunitária | todos os perfis iniciais por preset | presets validados | Servidor/contrato global |
 | Tempo de recarga | fixo por categoria no MVP | valor centralizado a definir por categoria | Servidor/contrato global |
 | Escopeta pump-action | baseline M3 | início 0,55 s; 0,45 s por cartucho | Servidor/contrato global |
 | Escopeta semiautomática | baseline XM1014 | início 0,55 s; 0,30 s por cartucho | Servidor/contrato global |
-| Combinação recuo/cadência | a definir | presets ou orçamento conjunto | Servidor/contrato global |
+| Combinação recuo/cadência | perfis principais usam `controlled`/`baseline`/`aggressive`; pistolas usam `controlled`/`baseline`/`quick` | presets fechados por perfil | Servidor/contrato global |
 | Carregadores por kit | por arma/tipo | 2–6 | Servidor |
 | Seleção automática | mais cheio | mais cheio/ordem | Servidor |
 | Reservas derrubadas | não | não/saque limitado | Servidor |
@@ -927,14 +1071,12 @@ Os valores concretos de armas, munição, tempos e utilidades só devem ser defi
 ### Decisões pendentes
 
 1. Qual é a visão oficial e quais pilares arbitram ritmo versus realismo?
-2. Qual quantidade de jogadores ativos por equipe deve orientar a criação de mapas e o balanceamento, mesmo sem formato obrigatório?
-3. A Direção C é autorizada para prototipagem?
-4. Qual duração de partida e quantas rodadas formam cada bloco de lados, mantendo os tempos legados como baseline?
-5. Quais serão as duas primeiras equipes fictícias?
-6. Quais valores iniciais de kit preservam funções distintas entre Assault, Support, Marksman e Breacher?
-7. Qual é a política futura para equipes baseadas em organizações reais e conflitos contemporâneos?
-8. Qual nível de suporte a tipos/kits é necessário para considerar os bots publicáveis?
-9. Quais intervalos e combinações de recuo/cadência são seguros para cada perfil de arma?
+2. A Direção C é autorizada para prototipagem?
+3. Qual duração de partida e quantas rodadas formam cada bloco de lados, mantendo os tempos legados como baseline?
+4. Quais serão as duas primeiras equipes fictícias?
+5. Quais valores iniciais de kit preservam funções distintas entre Assault, Support, Marksman e Breacher?
+6. Qual é a política futura para equipes baseadas em organizações reais e conflitos contemporâneos?
+7. Qual nível de suporte a tipos/kits é necessário para considerar os bots publicáveis?
 
 ## 28. Recomendação final
 

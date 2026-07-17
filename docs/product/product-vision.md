@@ -24,6 +24,7 @@ Status: direção inicial confirmada; visão ainda incompleta
 - Entradas e trocas não podem criar diferença superior a um jogador ativo entre equipes.
 - Reconexão obedece à disponibilidade atual e não reserva a equipe anterior.
 - A base técnica atual admite até 32 clientes conectados; cada servidor pode configurar menos.
+- A referência principal de balanceamento do MVP é 10 contra 10. A faixa obrigatória de validação é 6v6 a 12v12; partidas até 16v16 são suportadas quando mapa e servidor comportarem, mas não são o centro do balanceamento inicial.
 - Retrocompatibilidade com mapas e modos de jogo do CS 1.6 é um objetivo estrutural.
 - Dinheiro, preços, recompensas monetárias e menu de compra não fazem parte das regras normais do mod.
 - Cada spawn recebe automaticamente o kit predefinido do tipo escolhido.
@@ -44,6 +45,10 @@ Status: direção inicial confirmada; visão ainda incompleta
 - Capacidade do carregador pode ser definida pelo criador entre 1 e o teto de balas do contrato do tipo/slot.
 - Capacidades extremas são válidas quando representam a fantasia da arma, como crossbow de tiro único ou supercarregador dentro do teto.
 - Criadores podem ajustar recuo e cadência somente dentro dos intervalos validados pelo contrato e pelo servidor.
+- No Assault, o MVP usa presets inteiros de manuseio (`controlled`, `baseline` ou `aggressive`) por arma temática. O pacote comunitário não combina recuo, cadência e precisão como sliders livres; dano, calibre, penetração, perda por distância, recarga, mobilidade, modos de disparo e teto de munição continuam fixos pelo perfil.
+- No Support, o MVP usa os mesmos presets inteiros de manuseio, mas com faixas mais conservadoras que Assault. LMGs não podem combinar teto alto de munição com cadência alta e controle fácil; o preset `aggressive` aumenta pouco a cadência e piora bastante o controle.
+- No Marksman, o MVP usa presets inteiros de manuseio com faixas ainda mais restritas: `controlled` troca ritmo por estabilidade, `aggressive` melhora recuperação ou cadência mas piora controle e disparos em sequência. Nenhum preset altera dano, zoom, teto de munição, recarga, disponibilidade ou transforma Bolt-action em Semiauto.
+- No Breacher, o MVP usa presets inteiros de manuseio para shotguns pump-action e semiautomáticas. Presets podem trocar ritmo e controle, mas não alteram dano, pellets, alcance-base, recarga cartucho por cartucho, teto de 40 cartuchos nem transformam shotgun em arma de médio alcance.
 - Capacidade, teto total de munição, comportamento de recarga, tempo de recarga e animação são parâmetros separados.
 - No MVP, o jogo fixa um único tempo de recarga para cada categoria de arma; criadores de equipes não podem alterá-lo. O servidor aplica a regra, enquanto animação e som apenas a apresentam e devem permanecer coerentes com ela.
 - Os tempos do CS 1.6 são a baseline do MVP. Escopetas se dividem em pump-action, baseada na M3, e semiautomática, baseada na XM1014; ambas recarregam cartucho por cartucho e escopetas totalmente automáticas ficam fora do MVP.
@@ -52,6 +57,7 @@ Status: direção inicial confirmada; visão ainda incompleta
 - A primeira fase de playtest usa recarga clássica, munição reserva agregada e HUD exato do CS 1.6. Carregadores individuais entram somente na segunda configuração experimental.
 - Equilíbrio numérico usa diferença máxima de um jogador sem transferência automática forçada; a configuração inicial é `mp_limitteams 1` e `mp_autoteambalance 0`.
 - O catálogo inicial de pistolas possui `backup_pistol_45_standard` (USP sem silenciador), `backup_pistol_9mm_capacity` (Glock18 sem burst), `marksman_pistol_45_suppressed` (USP silenciada) e `marksman_pistol_9mm_suppressed` (Glock18 sem burst com apresentação silenciada). Os dois perfis normais estão disponíveis para todos os tipos; somente Marksman pode receber perfis silenciados. Desert Eagle, Dual Elites, Five-Seven, burst da Glock e alternância manual de silenciador ficam fora do MVP.
+- Pistolas usam presets inteiros de manuseio (`controlled`, `baseline` ou `quick`) com faixas estreitas. Pistola é backup: presets não alteram dano, calibre, recarga, teto de 45, disponibilidade, silenciador, burst ou categoria, e não podem competir com a arma principal.
 - Um sobrevivente pode levar para a rodada seguinte a arma coletada que estiver carregando. Ela substitui o equipamento normal do mesmo slot e recebe carregadores completos até o teto da própria categoria; trocar tipo ou variação restaura o kit e remove essa persistência.
 
 ## Limites da promessa de retrocompatibilidade
@@ -66,12 +72,12 @@ Retrocompatibilidade significa carregar o mapa, reconhecer seus pontos de spawn 
 
 ## Ainda não definido
 
-- público principal e tamanho de equipe usado como referência para balanceamento;
+- público principal;
 - duração desejada de rodada e partida;
 - ordem de validação dos demais modos legados depois do primeiro protótipo de instalar/desarmar dispositivo;
 - valores finais de munição, utilidades e quantidade de armas por tipo;
 - detalhes de compatibilidade de carregadores e feedback da coleta de armas;
-- intervalos e combinações seguros de recuo e cadência para cada perfil de arma;
+- validação em playtest dos presets de manuseio antes de transformar a spec em comportamento aprovado;
 - critérios futuros para decidir se alguma categoria precisa de perfis alternativos de recarga após o MVP;
 - disponibilidade de visão noturna;
 - equipes e aliases iniciais;
