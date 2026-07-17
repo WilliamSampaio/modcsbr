@@ -12,6 +12,8 @@ All notable project changes will be documented here.
 - Moved the initial community map payloads into the optional `modcsbr/community-maps` repository with manifests, hashes, credits, source notes, and project-owner redistribution status.
 - Added a backlog technical spec for local `.downloads/` cache, GitHub Release-based community map installation into the generated runtime, checkout-local catalogue maintenance, and future Xash3D FWGS download/update handling with fixed versions and hashes.
 - Added a Windows development installer for optional community map packs from `modcsbr/community-maps` releases or a local catalogue, with release listing, manifest/hash validation, and guarded copying into the generated Xash3D runtime.
+- Completed the community map pack runtime installer spec after validating the `community-maps-2-1` release, runtime installation, and Xash3D smoke tests for the four initial maps.
+- Split future Xash3D FWGS binary download/update handling into a separate backlog spec with fixed-version and hash-validation requirements.
 - Authorized Direction C as the MVP prototyping hypothesis: an intermediate original identity using legacy CS 1.6 modes, fictional teams, symmetric player types, predefined kits, and controlled tactical depth, while keeping the gameplay spec in backlog until an implementation cut is approved.
 - Registered Atlas and Vesper as the first fictional MVP playtest teams, with a neutral validation-device exercise framing and symmetric aliases for Assault, Support, Marksman, and Breacher.
 - Confirmed predefined spawn kits without money or buying, universal flashlights, and a server-validated contract model for community-authored themed teams; recorded initial ammo and utility counts as unapproved balance hypotheses.

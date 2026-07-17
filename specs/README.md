@@ -27,4 +27,8 @@ Specs describe planned gameplay, weapon, server, and mod changes before implemen
 
 - [Teams, player types, and predefined kits](backlog/teams-player-types-and-predefined-kits.md) (Portuguese; product discovery, not approved)
 - [Third-party maps and assets policy](backlog/third-party-maps-and-assets-policy.md) (Portuguese; asset provenance and redistribution policy draft)
-- [Development runtime downloads and map packs](backlog/development-runtime-downloads-and-map-packs.md) (Portuguese; local download cache, optional community maps, and Xash3D runtime preparation)
+- [Xash3D FWGS download and update](backlog/xash3d-fwgs-download-and-update.md) (Portuguese; future controlled engine download/update flow)
+
+## Completed Specs
+
+- [Development community map packs runtime installer](completed/development-community-map-packs-runtime-installer.md) (Portuguese; optional community map releases installed into the generated Xash3D runtime)
