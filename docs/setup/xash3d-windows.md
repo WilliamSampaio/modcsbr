@@ -143,6 +143,7 @@ Community maps live outside the main repository and are installed into the gener
 Install every allowed map from the latest `modcsbr/community-maps` release:
 
 ```powershell
+powershell -ExecutionPolicy Bypass -File scripts/install/community-maps-windows.ps1 -FromRelease -List
 powershell -ExecutionPolicy Bypass -File scripts/install/community-maps-windows.ps1 -FromRelease -All
 ```
 

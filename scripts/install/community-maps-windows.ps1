@@ -19,6 +19,8 @@ param(
 
     [switch] $ValidateOnly,
 
+    [switch] $List,
+
     [switch] $NoDownload
 )
 
@@ -35,7 +37,7 @@ if ([string]::IsNullOrWhiteSpace($ModName)) {
     Write-Error "ModName cannot be empty."
 }
 
-if (-not $All -and $Maps.Count -eq 0) {
+if (-not $List -and -not $All -and $Maps.Count -eq 0) {
     Write-Error "Choose at least one map with -Maps or install every allowed map with -All."
 }
 
@@ -343,6 +345,30 @@ function Install-FromCatalogueRoot {
     }
 }
 
+function Show-MapListFromCatalogueRoot {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string] $CatalogueRoot
+    )
+
+    $mapDirs = Get-MapDirectoriesFromRoot -CatalogueRoot $CatalogueRoot -All
+    foreach ($mapDir in $mapDirs) {
+        $manifestPath = Join-Path $mapDir.FullName "manifest.json"
+        if (-not (Test-Path -LiteralPath $manifestPath)) {
+            continue
+        }
+
+        $manifest = Read-JsonFile -Path $manifestPath
+        [PSCustomObject]@{
+            Id = $manifest.id
+            Title = $manifest.title
+            Redistribution = $manifest.redistribution
+            SourceStatus = $manifest.source_status
+            Files = @($manifest.files).Count
+        }
+    }
+}
+
 function Install-FromRelease {
     param(
         [Parameter(Mandatory = $true)]
@@ -387,6 +413,23 @@ function Install-FromRelease {
     }
 
     $index = Read-JsonFile -Path $indexPath
+
+    if ($List) {
+        $index.packs |
+            Sort-Object id |
+            ForEach-Object {
+                [PSCustomObject]@{
+                    Id = $_.id
+                    Title = $_.title
+                    Asset = $_.asset
+                    Redistribution = $_.redistribution
+                    SourceStatus = $_.source_status
+                    Files = $_.file_count
+                }
+            } |
+            Format-Table -AutoSize
+        return
+    }
 
     $assetsToInstall = @()
     if ($All) {
@@ -437,6 +480,11 @@ $runtimeModDir = Join-Path $XashDir $ModName
 if ($CommunityMapsDir) {
     $catalogueRoot = (Resolve-Path $CommunityMapsDir).Path
     Write-Host "Installing community maps from local catalogue: $catalogueRoot"
+    if ($List) {
+        Show-MapListFromCatalogueRoot -CatalogueRoot $catalogueRoot | Format-Table -AutoSize
+        return
+    }
+
     Install-FromCatalogueRoot -CatalogueRoot $catalogueRoot -RuntimeModDir $runtimeModDir -Maps $Maps -All:$All -Force:$Force -ValidateOnly:$ValidateOnly
     return
 }

@@ -137,6 +137,7 @@ Los mapas comunitarios viven fuera del repositorio principal y solo se instalan 
 Instala todos los mapas permitidos desde el release mas reciente de `modcsbr/community-maps`:
 
 ```powershell
+powershell -ExecutionPolicy Bypass -File scripts/install/community-maps-windows.ps1 -FromRelease -List
 powershell -ExecutionPolicy Bypass -File scripts/install/community-maps-windows.ps1 -FromRelease -All
 ```
 
