@@ -5,6 +5,7 @@ All notable project changes will be documented here.
 ## Unreleased
 
 - Added initial product vision and design pillars, including backward compatibility with CS 1.6 maps and game modes without mandatory map recompilation.
+- Added a backlog policy draft for third-party maps and assets, documenting provenance, credit, hash, and redistribution requirements before community map binaries can be hosted or bundled.
 - Authorized Direction C as the MVP prototyping hypothesis: an intermediate original identity using legacy CS 1.6 modes, fictional teams, symmetric player types, predefined kits, and controlled tactical depth, while keeping the gameplay spec in backlog until an implementation cut is approved.
 - Registered Atlas and Vesper as the first fictional MVP playtest teams, with a neutral validation-device exercise framing and symmetric aliases for Assault, Support, Marksman, and Breacher.
 - Confirmed predefined spawn kits without money or buying, universal flashlights, and a server-validated contract model for community-authored themed teams; recorded initial ammo and utility counts as unapproved balance hypotheses.

@@ -58,6 +58,7 @@ runtime/xash3d/steam_api.dll
 
 Do not commit generated runtime files, engine binaries, or Valve/Counter-Strike assets.
 Do not commit Windows metadata files such as `Thumbs.db`; they are local Explorer caches, not mod assets.
+Third-party community maps and asset packs must have documented origin, credits, hashes, and redistribution status before the project hosts them. Prefer a separate optional map-pack repository over bundling community maps in the main repo.
 
 ## Requirements
 
@@ -200,10 +201,15 @@ The nested `upstream/cs16-client/3rdparty/ReGameDLL_CS` checkout belongs to the 
   [English](docs/architecture/overview.md) |
   [Portugues](docs/architecture/overview.pt-BR.md) |
   [Espanol](docs/architecture/overview.es.md)
+- Third-party maps and assets:
+  [English](docs/assets/third-party-maps-and-assets.md) |
+  [Portugues](docs/assets/third-party-maps-and-assets.pt-BR.md) |
+  [Espanol](docs/assets/third-party-maps-and-assets.es.md)
 - Product direction (Portuguese):
   [Vision](docs/product/product-vision.md) |
   [Design pillars](docs/product/design-pillars.md)
 - [Backlog gameplay exploration: teams, player types, and predefined kits](specs/backlog/teams-player-types-and-predefined-kits.md) (Portuguese; Direction C authorized for prototyping, not implementation-approved)
+- [Backlog asset policy: third-party maps and assets](specs/backlog/third-party-maps-and-assets-policy.md) (Portuguese; policy draft)
 - [Approved runtime spec](specs/approved/xash3d-fwgs-windows-runtime.md)
 
 ## Contributing

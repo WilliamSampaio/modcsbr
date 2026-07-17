@@ -26,3 +26,4 @@ Specs describe planned gameplay, weapon, server, and mod changes before implemen
 ## Active Backlog Explorations
 
 - [Teams, player types, and predefined kits](backlog/teams-player-types-and-predefined-kits.md) (Portuguese; product discovery, not approved)
+- [Third-party maps and assets policy](backlog/third-party-maps-and-assets-policy.md) (Portuguese; asset provenance and redistribution policy draft)

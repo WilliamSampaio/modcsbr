@@ -57,6 +57,7 @@ runtime/xash3d/steam_api.dll
 ```
 
 No hagas commit de archivos generados de runtime, binarios del motor ni assets Valve/Counter-Strike.
+Mapas comunitarios y paquetes de assets de terceros necesitan origen, creditos, hashes y estado de redistribucion documentados antes de ser alojados por el proyecto. Prefiere un repositorio separado y opcional de map packs en vez de incluir mapas comunitarios en el repo principal.
 
 ## Requisitos
 
@@ -199,10 +200,15 @@ El checkout anidado `upstream/cs16-client/3rdparty/ReGameDLL_CS` pertenece al bu
   [English](docs/architecture/overview.md) |
   [Portugues](docs/architecture/overview.pt-BR.md) |
   [Espanol](docs/architecture/overview.es.md)
+- Mapas y assets de terceros:
+  [English](docs/assets/third-party-maps-and-assets.md) |
+  [Portugues](docs/assets/third-party-maps-and-assets.pt-BR.md) |
+  [Espanol](docs/assets/third-party-maps-and-assets.es.md)
 - Direccion de producto (portugues):
   [Vision](docs/product/product-vision.md) |
   [Pilares de diseno](docs/product/design-pillars.md)
 - [Exploracion de gameplay en el backlog: equipos, tipos de jugador y kits predefinidos](specs/backlog/teams-player-types-and-predefined-kits.md) (portugues; Direccion C autorizada para prototipado, no aprobada para implementacion)
+- [Politica en backlog: mapas y assets de terceros](specs/backlog/third-party-maps-and-assets-policy.md) (borrador; portugues)
 - [Spec aprobada del runtime](specs/approved/xash3d-fwgs-windows-runtime.md)
 
 ## Contribuir
