@@ -81,7 +81,7 @@ O repo principal removeu do versionamento os binários e assets diretamente acop
 
 Foram removidos mapas, NAVs, RES/TXT, overviews, skyboxes e assets diretamente referenciados pelos `.res`, além do waypoint PODBot de `de_sampa`.
 
-Os metadados e hashes permanecem no catálogo externo `github.com/modcsbr/community-maps` e no template em `docs/assets/community-maps-repo-template`.
+Os payloads, metadados e hashes foram movidos para o catálogo externo `github.com/modcsbr/community-maps`. O template em `docs/assets/community-maps-repo-template` continua servindo como referência de estrutura e validação para novos pacotes.
 
 Esta limpeza não removeu NAVs de mapas oficiais do CS 1.6 nem alterou runtime local, submódulos ou assets copiados da instalação Steam do usuário.
 
@@ -212,8 +212,8 @@ Fluxo recomendado:
 
 ## Fora de escopo desta spec
 
-- Fazer upload de binários no repositório `community-maps`.
-- Fazer upload de mapas.
+- Automatizar download/instalação dos pacotes hospedados no repositório `community-maps`.
+- Promover novos mapas além do catálogo inicial.
 - Contatar autores.
 - Decidir licenças caso a licença original esteja ausente.
 - Reescrever instaladores.

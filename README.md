@@ -59,7 +59,7 @@ runtime/xash3d/steam_api.dll
 Do not commit generated runtime files, engine binaries, or Valve/Counter-Strike assets.
 Do not commit Windows metadata files such as `Thumbs.db`; they are local Explorer caches, not mod assets.
 Third-party community maps and asset packs must have documented origin, credits, hashes, and redistribution status before the project hosts them. Prefer a separate optional map-pack repository over bundling community maps in the main repo.
-The initial unaudited community map payloads for `cs_rio`, `de_sampa`, `fy_pool_day`, and `fy_poolparty` were removed from the main repo; only metadata remains in `modcsbr/community-maps`.
+The initial community map payloads for `cs_rio`, `de_sampa`, `fy_pool_day`, and `fy_poolparty` were removed from the main repo and moved to the optional `modcsbr/community-maps` repository with manifests, hashes, credits, and redistribution status.
 
 ## Requirements
 

@@ -25,4 +25,4 @@ The external catalogue repository is:
 
 - https://github.com/modcsbr/community-maps
 
-The main `modcsbr` repository no longer hosts the initial unaudited community map payloads for `cs_rio`, `de_sampa`, `fy_pool_day`, and `fy_poolparty`. Their metadata remains in the external catalogue until provenance and redistribution are resolved.
+The main `modcsbr` repository no longer hosts the initial community map payloads for `cs_rio`, `de_sampa`, `fy_pool_day`, and `fy_poolparty`. Those optional payloads now live in `modcsbr/community-maps` with manifests, hashes, credits, source notes, and redistribution status.

@@ -25,4 +25,4 @@ O catálogo externo é:
 
 - https://github.com/modcsbr/community-maps
 
-O repositório principal `modcsbr` não hospeda mais os payloads comunitários iniciais não auditados de `cs_rio`, `de_sampa`, `fy_pool_day` e `fy_poolparty`. Os metadados permanecem no catálogo externo até a origem e a redistribuição serem resolvidas.
+O repositório principal `modcsbr` não hospeda mais os payloads comunitários iniciais de `cs_rio`, `de_sampa`, `fy_pool_day` e `fy_poolparty`. Esses payloads opcionais agora vivem em `modcsbr/community-maps` com manifests, hashes, créditos, notas de origem e status de redistribuição.

@@ -58,7 +58,7 @@ runtime/xash3d/steam_api.dll
 
 Nao commite arquivos gerados de runtime, binarios de engine ou assets Valve/Counter-Strike.
 Mapas comunitarios e pacotes de assets de terceiros precisam de origem, creditos, hashes e status de redistribuicao documentados antes de serem hospedados pelo projeto. Prefira um repositorio separado e opcional de map packs em vez de embutir mapas comunitarios no repo principal.
-Os payloads comunitarios iniciais nao auditados de `cs_rio`, `de_sampa`, `fy_pool_day` e `fy_poolparty` foram removidos do repo principal; apenas metadados permanecem em `modcsbr/community-maps`.
+Os payloads comunitarios iniciais de `cs_rio`, `de_sampa`, `fy_pool_day` e `fy_poolparty` foram removidos do repo principal e movidos para o repositorio opcional `modcsbr/community-maps` com manifests, hashes, creditos e status de redistribuicao.
 
 ## Requisitos
 

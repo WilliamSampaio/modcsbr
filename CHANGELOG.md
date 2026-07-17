@@ -9,6 +9,7 @@ All notable project changes will be documented here.
 - Added a `community-maps` repository seed under documentation, including a README, JSON schema, and metadata-only manifests for `cs_rio`, `de_sampa`, `fy_pool_day`, and `fy_poolparty`.
 - Published the initial metadata-only `modcsbr/community-maps` repository from that seed, with no map or asset binaries committed.
 - Removed the unaudited community map payloads for `cs_rio`, `de_sampa`, `fy_pool_day`, and `fy_poolparty` from the main repository, including their directly referenced map files, overviews, skyboxes, sounds, models, sprite, and `de_sampa` PODBot waypoint; metadata remains in `modcsbr/community-maps`.
+- Moved the initial community map payloads into the optional `modcsbr/community-maps` repository with manifests, hashes, credits, source notes, and project-owner redistribution status.
 - Authorized Direction C as the MVP prototyping hypothesis: an intermediate original identity using legacy CS 1.6 modes, fictional teams, symmetric player types, predefined kits, and controlled tactical depth, while keeping the gameplay spec in backlog until an implementation cut is approved.
 - Registered Atlas and Vesper as the first fictional MVP playtest teams, with a neutral validation-device exercise framing and symmetric aliases for Assault, Support, Marksman, and Breacher.
 - Confirmed predefined spawn kits without money or buying, universal flashlights, and a server-validated contract model for community-authored themed teams; recorded initial ammo and utility counts as unapproved balance hypotheses.
