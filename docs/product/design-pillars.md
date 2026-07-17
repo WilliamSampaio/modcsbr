@@ -25,6 +25,7 @@ Equipes podem ter nomes, modelos, vozes, aliases e armas temáticas diferentes, 
 - Mapeamentos de armas só usam perfis e intervalos autorizados.
 - Tipos equivalentes devem ser reconhecíveis por ícone, posição e descrição funcional.
 - Vantagem de equipe deve vir de execução, não de conteúdo exclusivo superior.
+- O MVP começa com duas equipes fictícias de playtest: **Atlas** e **Vesper**. Atlas usa aliases Operador, Artilheiro, Vigia e Rompedor; Vesper usa Avançado, Cobertura, Sentinela e Entrada. Esses aliases validam identidade e legibilidade, mas não alteram contratos, kits ou perfis.
 
 ## 3. Liberdade de composição
 

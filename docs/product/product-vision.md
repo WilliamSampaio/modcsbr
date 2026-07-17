@@ -20,6 +20,7 @@ Status: direção inicial confirmada; visão ainda incompleta
 - O termo de produto é **equipe**.
 - Tipos de jogador usam contratos simétricos de slots, categorias, limites e orçamento entre equipes.
 - Cada equipe pode usar aliases e mapeamentos temáticos diferentes dentro do mesmo contrato.
+- As primeiras equipes fictícias de playtest do MVP são **Atlas** e **Vesper**, em um exercício operacional competitivo com dispositivo de validação. Atlas usa leitura inicial azul/cinza e aliases Operador, Artilheiro, Vigia e Rompedor; Vesper usa leitura preto/âmbar e aliases Avançado, Cobertura, Sentinela e Entrada. Esses nomes e leituras validam apresentação, não lore final nem diferença mecânica.
 - A composição de tipos é livre.
 - Entradas e trocas não podem criar diferença superior a um jogador ativo entre equipes.
 - Reconexão obedece à disponibilidade atual e não reserva a equipe anterior.
@@ -80,5 +81,4 @@ Retrocompatibilidade significa carregar o mapa, reconhecer seus pontos de spawn 
 - validação em playtest dos presets de manuseio antes de transformar a spec em comportamento aprovado;
 - critérios futuros para decidir se alguma categoria precisa de perfis alternativos de recarga após o MVP;
 - disponibilidade de visão noturna;
-- equipes e aliases iniciais;
 - política para equipes baseadas em organizações reais.

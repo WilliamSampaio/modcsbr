@@ -20,6 +20,8 @@ Esta spec registra uma exploração de ideia e uma proposta de MVP. Ela não aut
 - **Decisão de balanceamento:** o MVP usa **10 contra 10** como referência principal de balanceamento. A faixa obrigatória de validação é **6 contra 6 até 12 contra 12**. Partidas até **16 contra 16** continuam suportadas quando mapa e servidor comportarem, mas não são o centro do balanceamento inicial. Nenhum kit deve ser balanceado exclusivamente para 5 contra 5.
 - **Decisão:** a composição de tipos é livre. Todos os jogadores de uma equipe podem escolher o mesmo tipo, sem cotas, reservas, filas ou tipos obrigatórios.
 - **Decisão de MVP:** os quatro tipos iniciais fixos são Assault, Support, Marksman e Breacher, disponíveis simetricamente para as duas equipes.
+- **Decisão de MVP:** as duas primeiras equipes fictícias de playtest são **Atlas** e **Vesper**. Elas existem para validar identidade, aliases e leitura visual no MVP; não representam aprovação de lore final, organizações reais ou vantagem mecânica.
+- **Decisão de MVP:** o primeiro contexto narrativo é um exercício operacional competitivo em instalação de teste. O modo legado de instalar/desarmar dispositivo será apresentado como instalar/desarmar dispositivo de validação, preservando as regras do CS 1.6 sem enquadrar automaticamente uma equipe como “terrorista” ou “contra-terrorista”.
 - **Decisão de produto:** quatro tipos não é um limite estrutural. O catálogo poderá crescer após o MVP, desde que cada novo tipo possua contrato simétrico, função distinta, contrajogo e suporte de conteúdo e interface.
 - **Decisão de MVP:** Assault oferece duas variações laterais e mutuamente exclusivas: Rifle, com rifle de assalto e teto de 150 balas, ou SMG, com submetralhadora e teto de 90 balas. Ambas usam pistola com teto de 45, uma fragmentação e duas flashbangs.
 - **Decisão de MVP:** Support possui um único kit: machine gun com teto de 250 balas, pistola com teto de 45, faca universal, uma flashbang e uma smoke; não recebe fragmentação nem arma secundária.
@@ -179,6 +181,24 @@ Tipo base, alias, kit temático e combatente devem ser entidades separadas. “A
 **Rejeição atualizada:** assimetria mecânica livre, perfil exclusivo superior ou combinação fora do orçamento global. Assimetria compensada por perfis globais aprovados é permitida e precisa ser medida separadamente de mapa e lado.
 
 Não permitir qualquer identidade de equipe contra qualquer outra. Cada cenário mantém uma lista de equipes e pares coerentes. Duas equipes com a mesma identidade podem existir apenas como modo de treino, teste ou competição abstrata, com apresentação que diferencie claramente os lados.
+
+### Equipes fictícias do primeiro MVP
+
+Atlas e Vesper são as equipes iniciais de playtest. Elas devem ser tratadas como placeholders de produto suficientes para validar leitura, menu, HUD, vozes, cores, modelos e aliases, não como lore final.
+
+| Tipo base | Alias Atlas | Alias Vesper | Contrato mecânico |
+|---|---|---|---|
+| Assault | Operador | Avançado | Igual para as duas equipes |
+| Support | Artilheiro | Cobertura | Igual para as duas equipes |
+| Marksman | Vigia | Sentinela | Igual para as duas equipes |
+| Breacher | Rompedor | Entrada | Igual para as duas equipes |
+
+Direção visual inicial:
+
+- **Atlas:** leitura fria, azul/cinza, postura mais ordenada e institucional.
+- **Vesper:** leitura escura, preto/âmbar, postura mais móvel e agressiva.
+
+Essas diferenças são de apresentação. Equipe, alias, voz, cor, modelo e ícone não alteram dano, slots, munição, utilidade, recarga, perfil de arma, regra de vitória ou disponibilidade de tipo.
 
 ## 8. Fluxo recomendado para escolha das equipes
 
@@ -1077,10 +1097,9 @@ Os valores concretos de armas, munição, tempos e utilidades só devem ser defi
 
 1. Qual é a visão oficial e quais pilares arbitram ritmo versus realismo?
 2. A Direção C é autorizada para prototipagem?
-3. Quais serão as duas primeiras equipes fictícias?
-4. Quais valores iniciais de kit preservam funções distintas entre Assault, Support, Marksman e Breacher?
-5. Qual é a política futura para equipes baseadas em organizações reais e conflitos contemporâneos?
-6. Qual nível de suporte a tipos/kits é necessário para considerar os bots publicáveis?
+3. Quais valores iniciais de kit preservam funções distintas entre Assault, Support, Marksman e Breacher?
+4. Qual é a política futura para equipes baseadas em organizações reais e conflitos contemporâneos?
+5. Qual nível de suporte a tipos/kits é necessário para considerar os bots publicáveis?
 
 ## 28. Recomendação final
 
