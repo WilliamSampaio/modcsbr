@@ -1,0 +1,157 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/modcsbr/community-maps/schemas/map-manifest.schema.json",
+  "title": "modcsbr community map manifest",
+  "type": "object",
+  "required": [
+    "id",
+    "title",
+    "game",
+    "redistribution",
+    "source_status",
+    "authors",
+    "files",
+    "sources"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9_\\-]+$"
+    },
+    "title": {
+      "type": "string"
+    },
+    "game": {
+      "type": "string"
+    },
+    "redistribution": {
+      "type": "string",
+      "enum": [
+        "allowed",
+        "permission-granted",
+        "unknown",
+        "not-allowed",
+        "valve-owned",
+        "remove"
+      ]
+    },
+    "source_status": {
+      "type": "string",
+      "enum": [
+        "primary",
+        "archived-primary",
+        "community-preserved",
+        "mirror-only",
+        "unverified"
+      ]
+    },
+    "authors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "role",
+          "source"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string"
+          },
+          "confidence": {
+            "type": "string",
+            "enum": [
+              "high",
+              "medium",
+              "low",
+              "unknown"
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "path",
+          "hosted",
+          "sha256",
+          "md5",
+          "size_bytes"
+        ],
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "hosted": {
+            "type": "boolean"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[A-Fa-f0-9]{64}$"
+          },
+          "md5": {
+            "type": "string",
+            "pattern": "^[A-Fa-f0-9]{32}$"
+          },
+          "size_bytes": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "notes": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "url",
+          "type",
+          "notes"
+        ],
+        "properties": {
+          "url": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "primary",
+              "archived-primary",
+              "community-preserved",
+              "mirror",
+              "article",
+              "forum",
+              "unknown"
+            ]
+          },
+          "notes": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "notes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -16,3 +16,13 @@ Policy:
 The current policy draft is:
 
 - [Third-party maps and assets policy](../../specs/backlog/third-party-maps-and-assets-policy.md)
+
+The initial repository seed is:
+
+- [Community maps repository template](community-maps-repo-template/README.md)
+
+The external catalogue repository is:
+
+- https://github.com/modcsbr/community-maps
+
+The main `modcsbr` repository no longer hosts the initial unaudited community map payloads for `cs_rio`, `de_sampa`, `fy_pool_day`, and `fy_poolparty`. Their metadata remains in the external catalogue until provenance and redistribution are resolved.

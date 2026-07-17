@@ -58,6 +58,7 @@ runtime/xash3d/steam_api.dll
 
 No hagas commit de archivos generados de runtime, binarios del motor ni assets Valve/Counter-Strike.
 Mapas comunitarios y paquetes de assets de terceros necesitan origen, creditos, hashes y estado de redistribucion documentados antes de ser alojados por el proyecto. Prefiere un repositorio separado y opcional de map packs en vez de incluir mapas comunitarios en el repo principal.
+Los payloads comunitarios iniciales no auditados de `cs_rio`, `de_sampa`, `fy_pool_day` y `fy_poolparty` fueron removidos del repo principal; solo quedan metadatos en `modcsbr/community-maps`.
 
 ## Requisitos
 
@@ -204,6 +205,8 @@ El checkout anidado `upstream/cs16-client/3rdparty/ReGameDLL_CS` pertenece al bu
   [English](docs/assets/third-party-maps-and-assets.md) |
   [Portugues](docs/assets/third-party-maps-and-assets.pt-BR.md) |
   [Espanol](docs/assets/third-party-maps-and-assets.es.md)
+  ([repositorio de mapas comunitarios](https://github.com/modcsbr/community-maps),
+  [template](docs/assets/community-maps-repo-template/README.md))
 - Direccion de producto (portugues):
   [Vision](docs/product/product-vision.md) |
   [Pilares de diseno](docs/product/design-pillars.md)

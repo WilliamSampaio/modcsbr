@@ -1,0 +1,36 @@
+{
+  "id": "fy_poolparty",
+  "title": "fy_poolparty",
+  "game": "Counter-Strike 1.6",
+  "redistribution": "unknown",
+  "source_status": "mirror-only",
+  "authors": [
+    {
+      "name": "Squall",
+      "role": "reported original author",
+      "source": "ports and reuploads",
+      "confidence": "low"
+    }
+  ],
+  "files": [
+    {
+      "path": "files/fy_poolparty.bsp",
+      "hosted": false,
+      "sha256": "44F696ADE6C9F457BE8C5FEEE737D248A01E14D86F94296DD96ABAAFE55C3CB3",
+      "md5": "E8E2A6593BFE60A3820A211D5699D4D9",
+      "size_bytes": 1351196,
+      "notes": "Hash captured from current modcsbr working copy; compare against original package before hosting."
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=2292172552",
+      "type": "mirror",
+      "notes": "Workshop page for a port/reupload citing Squall as original author; not a primary source for CS 1.6 binary redistribution."
+    }
+  ],
+  "notes": [
+    "Do not host binary until source and permission are documented.",
+    "Primary source for original CS 1.6 map still needed."
+  ]
+}

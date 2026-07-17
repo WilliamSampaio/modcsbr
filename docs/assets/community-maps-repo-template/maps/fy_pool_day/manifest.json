@@ -1,0 +1,40 @@
+{
+  "id": "fy_pool_day",
+  "title": "fy_pool_day",
+  "game": "Counter-Strike 1.6",
+  "redistribution": "unknown",
+  "source_status": "community-preserved",
+  "authors": [
+    {
+      "name": "Squall",
+      "role": "reported map author",
+      "source": "community map mirrors and Counter-Strike Wiki",
+      "confidence": "medium"
+    }
+  ],
+  "files": [
+    {
+      "path": "files/fy_pool_day.bsp",
+      "hosted": false,
+      "sha256": "FB22BA78A20D762A7114BDD56D62EC01794695AC48C6777F1BBD676AB769D208",
+      "md5": "70467B0201468CC5CFF7712C7A276299",
+      "size_bytes": 853064,
+      "notes": "Hash captured from current modcsbr working copy; compare against original package before hosting."
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://gamemodding.com/en/counter-strike-1-6/maps/53358-fy_pool_day.html",
+      "type": "mirror",
+      "notes": "Community mirror listing Squall as author."
+    },
+    {
+      "url": "https://mods.vg/maps/fy-pool-day",
+      "type": "mirror",
+      "notes": "Community map page listing Squall as map author."
+    }
+  ],
+  "notes": [
+    "Do not host binary until source and permission are documented."
+  ]
+}

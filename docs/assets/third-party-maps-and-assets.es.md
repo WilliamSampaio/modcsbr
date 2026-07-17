@@ -16,3 +16,13 @@ Política:
 La propuesta de política actual está en:
 
 - [Política para mapas y assets de terceiros](../../specs/backlog/third-party-maps-and-assets-policy.md)
+
+El seed inicial del repositorio separado está en:
+
+- [Template del repositorio de mapas comunitarios](community-maps-repo-template/README.md)
+
+El catálogo externo es:
+
+- https://github.com/modcsbr/community-maps
+
+El repositorio principal `modcsbr` ya no aloja los payloads comunitarios iniciales no auditados de `cs_rio`, `de_sampa`, `fy_pool_day` y `fy_poolparty`. Los metadatos permanecen en el catálogo externo hasta resolver origen y redistribución.

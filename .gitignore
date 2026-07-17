@@ -12,6 +12,34 @@
 *.exp
 Thumbs.db
 
+# Known unaudited community map payloads live in modcsbr/community-maps
+# metadata first. Do not re-add these binaries/assets to the main repo
+# until provenance and redistribution are approved.
+mod/modcsbr/maps/cs_rio.*
+mod/modcsbr/maps/de_sampa.*
+mod/modcsbr/maps/fy_pool_day.*
+mod/modcsbr/maps/fy_poolparty.*
+mod/modcsbr/overviews/cs_rio.*
+mod/modcsbr/overviews/de_sampa.*
+mod/modcsbr/overviews/fy_pool_day.*
+mod/modcsbr/overviews/fy_poolparty.*
+mod/modcsbr/gfx/env/rio*.tga
+mod/modcsbr/gfx/env/sampa*.tga
+mod/modcsbr/gfx/env/tropical*.tga
+mod/modcsbr/models/sampa/
+mod/modcsbr/sound/sampa/
+mod/modcsbr/sound/poolparty/
+mod/modcsbr/sound/ambience/bezerra.wav
+mod/modcsbr/sound/ambience/cv.wav
+mod/modcsbr/sound/ambience/novela.wav
+mod/modcsbr/sound/ambience/rua1.wav
+mod/modcsbr/sound/ambience/rua3.wav
+mod/modcsbr/sound/ambience/sprayer.wav
+mod/modcsbr/sound/misc/apito.wav
+mod/modcsbr/sound/misc/apito2.wav
+mod/modcsbr/sprites/zbeam6.spr
+mod/modcsbr/PODBot/WPTDefault/de_sampa.pwf
+
 /build/
 /dist/
 /runtime/

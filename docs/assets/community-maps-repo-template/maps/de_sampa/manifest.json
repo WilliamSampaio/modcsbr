@@ -1,0 +1,42 @@
+{
+  "id": "de_sampa",
+  "title": "de_sampa",
+  "game": "Counter-Strike 1.6",
+  "redistribution": "unknown",
+  "source_status": "archived-primary",
+  "authors": [
+    {
+      "name": "Mataleone",
+      "role": "mapping",
+      "source": "archived Mataleone page",
+      "confidence": "high"
+    },
+    {
+      "name": "Mataleone & Crocodilo",
+      "role": "design and textures",
+      "source": "archived Mataleone page",
+      "confidence": "high"
+    }
+  ],
+  "files": [
+    {
+      "path": "files/de_sampa.bsp",
+      "hosted": false,
+      "sha256": "ECDA9EACEA3494755275C434BA47445450AE2C69F089B985A3147A48965A20FD",
+      "md5": "5A646D8B0AACA0E56C9C53C68533C9D3",
+      "size_bytes": 8753736,
+      "notes": "Hash captured from current modcsbr working copy; compare against original de_sampa.zip before hosting."
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://arquivo.mataleone.com/php/main.php?map=de_sampa&page=map",
+      "type": "archived-primary",
+      "notes": "Archived Mataleone page with release date, credits, and original download reference."
+    }
+  ],
+  "notes": [
+    "Do not host binary until redistribution permission is documented.",
+    "Original page references de_sampa.zip and sampa_wad.zip; compare hashes if original packages are recovered."
+  ]
+}

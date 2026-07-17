@@ -1,6 +1,6 @@
 # Política para mapas e assets de terceiros
 
-Status: backlog — política proposta, não aplicada ainda
+Status: backlog — política proposta; catálogo externo criado e limpeza inicial do repo principal aplicada
 
 ## Objetivo
 
@@ -20,16 +20,10 @@ O repositório principal atualmente versiona mapas e assets comunitários que pa
 
 O repositório principal `modcsbr` não deve manter binários de mapas/assets de terceiros sem origem e permissão documentadas.
 
-Mapas comunitários devem ir para um repositório separado, por exemplo:
+Mapas comunitários devem ir para o repositório separado:
 
 ```text
 github.com/modcsbr/community-maps
-```
-
-ou:
-
-```text
-github.com/modcsbr/map-packs
 ```
 
 Esse repositório separado deve começar como catálogo auditável, não como dump de arquivos.
@@ -75,6 +69,21 @@ Arquivos versionados que precisam de auditoria antes de qualquer redistribuiçã
 | `mod/modcsbr/sound/*` | sons | auditar origem |
 | `mod/modcsbr/sprites/*` | sprites | auditar origem |
 | `maps/fy_teste.rmf` | fonte de mapa | confirmar autoria antes de manter |
+
+## Limpeza inicial aplicada
+
+O repo principal removeu do versionamento os binários e assets diretamente acoplados aos quatro mapas comunitários iniciais:
+
+- `cs_rio`;
+- `de_sampa`;
+- `fy_pool_day`;
+- `fy_poolparty`.
+
+Foram removidos mapas, NAVs, RES/TXT, overviews, skyboxes e assets diretamente referenciados pelos `.res`, além do waypoint PODBot de `de_sampa`.
+
+Os metadados e hashes permanecem no catálogo externo `github.com/modcsbr/community-maps` e no template em `docs/assets/community-maps-repo-template`.
+
+Esta limpeza não removeu NAVs de mapas oficiais do CS 1.6 nem alterou runtime local, submódulos ou assets copiados da instalação Steam do usuário.
 
 Hashes atuais dos BSPs versionados:
 
@@ -203,8 +212,7 @@ Fluxo recomendado:
 
 ## Fora de escopo desta spec
 
-- Remover arquivos nesta etapa.
-- Criar o repositório `community-maps`.
+- Fazer upload de binários no repositório `community-maps`.
 - Fazer upload de mapas.
 - Contatar autores.
 - Decidir licenças caso a licença original esteja ausente.
@@ -212,7 +220,7 @@ Fluxo recomendado:
 
 ## Próximo passo recomendado
 
-1. Criar o repositório separado de mapas apenas com README, manifesto e política.
+1. Usar `github.com/modcsbr/community-maps` como catálogo separado de mapas comunitários.
 2. Migrar primeiro os metadados e hashes, não os binários.
 3. Remover do repo principal os binários de mapas/assets comunitários sem origem clara.
 4. Atualizar instaladores para tratar map packs externos como opcionais.

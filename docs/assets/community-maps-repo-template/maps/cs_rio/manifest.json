@@ -1,0 +1,59 @@
+{
+  "id": "cs_rio",
+  "title": "cs_rio",
+  "game": "Counter-Strike 1.6",
+  "redistribution": "unknown",
+  "source_status": "unverified",
+  "authors": [
+    {
+      "name": "Mataleone",
+      "role": "reported map author",
+      "source": "HardMob forum thread",
+      "confidence": "medium"
+    },
+    {
+      "name": "Crocodilo",
+      "role": "reported map author/contributor",
+      "source": "HardMob forum thread",
+      "confidence": "medium"
+    },
+    {
+      "name": "Joca Prado",
+      "role": "reported creator",
+      "source": "UOL article",
+      "confidence": "medium"
+    },
+    {
+      "name": "Roger Sodre",
+      "role": "reported creator",
+      "source": "UOL article",
+      "confidence": "medium"
+    }
+  ],
+  "files": [
+    {
+      "path": "files/cs_rio.bsp",
+      "hosted": false,
+      "sha256": "090BABAA55F3E6DD2BE47FE844244D1E86F554ED0676B1DA01AA44138ABEA1BB",
+      "md5": "0D3FB1CEE6B9666E349EE8443FBEE5F0",
+      "size_bytes": 3997188,
+      "notes": "Hash captured from current modcsbr working copy; provenance still unverified."
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://www.uol.com.br/start/ultimas-noticias/2017/04/28/csrio-como-mapa-feito-por-fas-fez-counter-strike-ser-banido-do-brasil.htm",
+      "type": "article",
+      "notes": "Journalistic article about cs_rio history; useful for leads, not redistribution permission."
+    },
+    {
+      "url": "https://www.hardmob.com.br/threads/750-Vote-cs_rio",
+      "type": "forum",
+      "notes": "Old forum thread mentioning author field as Mataleone/Crocodilo."
+    }
+  ],
+  "notes": [
+    "Do not host binary until source and permission are documented.",
+    "Authorship needs reconciliation before final credits."
+  ]
+}
