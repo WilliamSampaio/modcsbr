@@ -43,6 +43,7 @@ Esta spec registra uma exploração de ideia e uma proposta de MVP. Ela não aut
 - **Decisão de terminologia:** nesta spec, “cenário” significa apenas um preset de apresentação que associa um mapa e seu modo legado a identidades de equipe, aliases e contexto narrativo. Ele não altera objetivos, condições de vitória nem a lista de perfis mecânicos permitidos.
 - **Decisão de MVP:** reutilizar a infraestrutura legada de modos, ciclo de rodada, mapas, recarga, HUD de munição, lanterna, visão noturna, armas no chão, equilíbrio numérico e bots sempre que ela não contrariar equipes, kits predefinidos e remoção da economia.
 - **Decisão de MVP:** o primeiro modo funcional usa o fluxo legado de instalar/desarmar dispositivo, sem recompensas monetárias. Tempo de rodada, freeze time, temporizador do dispositivo, condições de vitória, morte, espectador e reinício começam com as baselines do CS 1.6.
+- **Decisão de MVP:** a estrutura inicial de partida usa 20 rodadas, troca de lados após 10 rodadas, vitória da primeira equipe a 11 rodadas e empate 10–10 permitido sem overtime. Equipes mantêm identidade; apenas o lado operacional é trocado. Round time, freeze time e temporizador do dispositivo começam com as baselines do CS 1.6.
 - **Decisão:** identidade de equipe e lado operacional permanecem separados. O servidor atribui os lados técnicos no início da partida e os troca na metade da partida quando o cenário for reversível; jogadores permanecem na mesma equipe e assumem o lado operacional oposto. Equipes não resolvem conflitos de escolha de lado diretamente entre si.
 - **Decisão de MVP:** usar a regra existente de equipes empilhadas com diferença máxima de um jogador e sem transferência automática forçada; a configuração de referência é `mp_limitteams 1` e `mp_autoteambalance 0`.
 - **Decisão de MVP:** a primeira fase usa munição reserva agregada, HUD exato de carregador/reserva e recarga clássica do CS 1.6. Carregadores individuais e recarga tática permanecem como segunda configuração experimental, depois de validar equipes, tipos e kits.
@@ -140,7 +141,7 @@ Separar equipe, lado operacional e tipo de jogador permite que uma equipe ataque
 ## 5. Problemas ainda não resolvidos
 
 - A visão e os pilares oficiais de produto estão vazios no repositório; falta uma referência aprovada para arbitrar “clássico” versus “tático”.
-- Não há decisão sobre público-alvo, duração desejada, tamanho típico de equipe nem prioridade entre competitivo e servidor comunitário casual.
+- Público-alvo e prioridade entre competitivo e servidor comunitário casual ainda não foram definidos. A duração de partida do MVP e a referência de tamanho de equipe já possuem baseline de playtest.
 - Não foi definido se o objetivo principal continuará baseado em rodada sem respawn.
 - Não há política editorial para equipes baseadas em organizações reais, conflitos contemporâneos e organizações criminosas.
 - Não há taxonomia de equivalência entre armas nem orçamento de poder por kit.
@@ -1045,6 +1046,10 @@ Manter cada eixo testável separadamente: equipes/lados, tipos/kits, parâmetros
 | Referência principal de balanceamento | 10 contra 10 | referência de produto, não limite de servidor | Produto/playtest |
 | Faixa obrigatória de validação | 6v6 a 12v12 | smoke/playtest mínimo do MVP | Produto/playtest |
 | Faixa suportada condicional | até 16v16 | depende de mapa e servidor | Produto/servidor |
+| Rodadas por partida | 20 | baseline do MVP | Servidor/produto |
+| Troca de lados | após 10 rodadas | metade da partida | Servidor/produto |
+| Condição de vitória | primeira equipe a 11 rodadas | melhor de 20 sem overtime | Servidor |
+| Empate | 10–10 permitido | sem overtime no MVP | Servidor |
 | Diferença máxima entre equipes | 1 jogador | Regra fixa atual | Servidor |
 | Tetos de munição por tipo/slot | Matriz da seção 11 | Hipótese para playtest | Servidor/contrato global |
 | Quantidade de utilidades | Matriz da seção 11 | Hipótese para playtest | Servidor/contrato global |
@@ -1072,11 +1077,10 @@ Os valores concretos de armas, munição, tempos e utilidades só devem ser defi
 
 1. Qual é a visão oficial e quais pilares arbitram ritmo versus realismo?
 2. A Direção C é autorizada para prototipagem?
-3. Qual duração de partida e quantas rodadas formam cada bloco de lados, mantendo os tempos legados como baseline?
-4. Quais serão as duas primeiras equipes fictícias?
-5. Quais valores iniciais de kit preservam funções distintas entre Assault, Support, Marksman e Breacher?
-6. Qual é a política futura para equipes baseadas em organizações reais e conflitos contemporâneos?
-7. Qual nível de suporte a tipos/kits é necessário para considerar os bots publicáveis?
+3. Quais serão as duas primeiras equipes fictícias?
+4. Quais valores iniciais de kit preservam funções distintas entre Assault, Support, Marksman e Breacher?
+5. Qual é a política futura para equipes baseadas em organizações reais e conflitos contemporâneos?
+6. Qual nível de suporte a tipos/kits é necessário para considerar os bots publicáveis?
 
 ## 28. Recomendação final
 

@@ -53,6 +53,7 @@ Status: direção inicial confirmada; visão ainda incompleta
 - No MVP, o jogo fixa um único tempo de recarga para cada categoria de arma; criadores de equipes não podem alterá-lo. O servidor aplica a regra, enquanto animação e som apenas a apresentam e devem permanecer coerentes com ela.
 - Os tempos do CS 1.6 são a baseline do MVP. Escopetas se dividem em pump-action, baseada na M3, e semiautomática, baseada na XM1014; ambas recarregam cartucho por cartucho e escopetas totalmente automáticas ficam fora do MVP.
 - O primeiro modo funcional reutiliza o fluxo legado de instalar/desarmar dispositivo, sem economia; ciclo de rodada, mapas, recarga, HUD de munição, lanterna, visão noturna, armas no chão, equilíbrio numérico e bots reutilizam a base do CS 1.6 quando compatível com as novas regras.
+- A partida MVP usa 20 rodadas, troca de lados após 10 rodadas, vitória da primeira equipe a 11 rodadas e empate 10–10 permitido sem overtime. Round time, freeze time e temporizador do dispositivo começam com as baselines do CS 1.6.
 - O servidor atribui lados operacionais no início da partida e os troca na metade quando o cenário for reversível; jogadores e identidade permanecem na mesma equipe.
 - A primeira fase de playtest usa recarga clássica, munição reserva agregada e HUD exato do CS 1.6. Carregadores individuais entram somente na segunda configuração experimental.
 - Equilíbrio numérico usa diferença máxima de um jogador sem transferência automática forçada; a configuração inicial é `mp_limitteams 1` e `mp_autoteambalance 0`.
@@ -73,7 +74,6 @@ Retrocompatibilidade significa carregar o mapa, reconhecer seus pontos de spawn 
 ## Ainda não definido
 
 - público principal;
-- duração desejada de rodada e partida;
 - ordem de validação dos demais modos legados depois do primeiro protótipo de instalar/desarmar dispositivo;
 - valores finais de munição, utilidades e quantidade de armas por tipo;
 - detalhes de compatibilidade de carregadores e feedback da coleta de armas;
