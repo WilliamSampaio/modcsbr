@@ -42,6 +42,7 @@ mod/modcsbr/PODBot/WPTDefault/de_sampa.pwf
 
 /build/
 /dist/
+/.downloads/
 /runtime/
 /server/
 /steam/
