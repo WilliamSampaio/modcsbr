@@ -125,6 +125,12 @@ Instala el runtime Xash3D local:
 powershell -ExecutionPolicy Bypass -File scripts/install/modcsbr-xash3d-windows.ps1 -Reset
 ```
 
+Opcionalmente, instala mapas comunitarios desde el release mas reciente de `modcsbr/community-maps`:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/install/community-maps-windows.ps1 -FromRelease -All
+```
+
 Valida el comando de lanzamiento:
 
 ```powershell

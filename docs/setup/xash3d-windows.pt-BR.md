@@ -130,6 +130,24 @@ powershell -ExecutionPolicy Bypass -File scripts/install/modcsbr-xash3d-windows.
 
 Use `-Reset` depois de mudar assets base da Steam ou quando quiser uma pasta gerada limpa.
 
+## Mapas comunitários opcionais
+
+Mapas comunitários ficam fora do repositório principal e só são instalados no runtime gerado quando solicitado.
+
+Instale todos os mapas permitidos a partir do release mais recente de `modcsbr/community-maps`:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/install/community-maps-windows.ps1 -FromRelease -All
+```
+
+Instale mapas selecionados:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/install/community-maps-windows.ps1 -FromRelease -Maps cs_rio,fy_poolparty
+```
+
+O instalador baixa os assets de release para `.downloads/community-maps`, valida os hashes do release e dos manifests dos mapas, e copia apenas `maps/<id>/files/**` para `runtime/xash3d/modcsbr`. Use `-CommunityMapsDir C:\dev\community-maps` ao manter o catálogo de mapas localmente.
+
 O default da ReGameDLL do mod e o overlay do repositorio em `game_init.cfg`, `server.cfg` e `listenserver.cfg` definem `mp_flashlight "1"`, permitindo que a ReGameDLL aceite o comando padrao da lanterna (`impulse 100`) em partidas locais.
 
 ## Execucao
