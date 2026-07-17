@@ -9,6 +9,7 @@ A ideia central é usar:
 - `.downloads/` como cache local ignorado;
 - `runtime/` como instalação local gerada;
 - `modcsbr/community-maps` como catálogo opcional de mapas comunitários;
+- GitHub Releases do `modcsbr/community-maps` como fonte preferida para desenvolvedores que não estão editando o catálogo;
 - binários oficiais do Xash3D FWGS como runtime da engine, sem fork da engine neste projeto.
 
 Esta spec permanece em `backlog` até ser aprovada para implementação.
@@ -36,6 +37,7 @@ Também foi proposto que o Xash3D FWGS possa ser baixado/atualizado automaticame
 - O instalador não deve depender de um mapa comunitário para funcionar.
 - O Xash3D FWGS deve vir de distribuição oficial ou fonte explicitamente configurada.
 - Scripts devem preferir validação por hash quando o artefato tiver manifesto conhecido.
+- Releases versionados são melhores que baixar ZIP direto da branch, porque permitem hash, rollback e auditoria.
 
 ## Modelo recomendado
 
@@ -64,11 +66,30 @@ runtime/
 | `runtime/xash3d/` | Instalação local executável usada nos testes. |
 | `mod/modcsbr/` | Overlay fonte versionado do mod. |
 | `modcsbr/community-maps` | Catálogo externo opcional de mapas comunitários, manifests e payloads permitidos. |
+| GitHub Releases do `community-maps` | Fonte recomendada para baixar map packs no desenvolvimento comum. |
 | scripts de instalação | Baixar, validar, extrair e copiar para o runtime. |
+
+## GitHub Actions no repo `community-maps`
+
+O repo `modcsbr/community-maps` deve possuir um workflow que publica releases automaticamente quando a branch principal for atualizada.
+
+Comportamento esperado do workflow:
+
+1. rodar em `push` para `main` e, por compatibilidade, `master`;
+2. empacotar cada diretório `maps/<id>/` em `<id>.zip`;
+3. empacotar o catálogo completo em `community-maps-full.zip`;
+4. gerar `manifest-index.json`;
+5. gerar `checksums.sha256`;
+6. criar um GitHub Release com tag única;
+7. anexar todos os artefatos.
+
+Essa decisão evita que o repo principal precise clonar `community-maps` para o fluxo comum de desenvolvimento.
+
+O checkout local permanece útil para manutenção do catálogo e para testar mapas antes de publicar release.
 
 ## Fluxo para mapas comunitários
 
-### MVP técnico
+### Script sugerido
 
 Criar um script opcional para instalar map packs comunitários no runtime.
 
@@ -78,29 +99,56 @@ Nome sugerido:
 scripts/install/community-maps-windows.ps1
 ```
 
-Comportamento recomendado:
+### Fonte recomendada: GitHub Release
 
-1. aceitar um caminho local para `community-maps`;
-2. se o caminho não existir, permitir clonar/baixar o catálogo para `.downloads/community-maps`;
-3. ler os `manifest.json`;
-4. validar arquivos hospedados por hash;
-5. copiar `maps/<mapa>/files/**` para `runtime/xash3d/modcsbr/**`;
-6. permitir instalar todos os mapas ou uma lista explícita;
-7. não sobrescrever arquivos conflitantes sem uma opção clara.
+Para desenvolvedores comuns, o script deve preferir baixar pacotes publicados em release pelo repositório `modcsbr/community-maps`.
 
-Exemplo conceitual:
+O repo de mapas deve publicar, a cada atualização da branch principal:
+
+- um ZIP por mapa, por exemplo `cs_rio.zip`;
+- `community-maps-full.zip`;
+- `manifest-index.json`;
+- `checksums.sha256`.
+
+O script do `modcsbr` deve baixar esses artefatos para:
 
 ```text
-C:\dev\community-maps\maps\cs_rio\files\maps\cs_rio.bsp
-        -> runtime\xash3d\modcsbr\maps\cs_rio.bsp
-
-C:\dev\community-maps\maps\cs_rio\files\gfx\env\riobk.tga
-        -> runtime\xash3d\modcsbr\gfx\env\riobk.tga
+.downloads/community-maps/
 ```
+
+Depois deve validar hashes, extrair e instalar no runtime.
+
+Comportamento recomendado para release:
+
+1. consultar o release mais recente do `modcsbr/community-maps`;
+2. baixar `manifest-index.json` e `checksums.sha256`;
+3. baixar o ZIP solicitado, ou `community-maps-full.zip` quando `-All` for usado;
+4. validar SHA-256 do artefato baixado;
+5. extrair em `.downloads/community-maps/<tag-ou-versao>/`;
+6. ler os `manifest.json` extraídos;
+7. validar os arquivos hospedados por hash;
+8. copiar `maps/<mapa>/files/**` para `runtime/xash3d/modcsbr/**`.
+
+### Fonte alternativa: checkout local
+
+Para quem estiver editando ou auditando mapas, o script também deve aceitar um caminho local para o catálogo.
+
+Comportamento recomendado para checkout local:
+
+1. aceitar um caminho local para `community-maps`;
+2. ler os `manifest.json`;
+3. validar arquivos hospedados por hash;
+4. copiar `maps/<mapa>/files/**` para `runtime/xash3d/modcsbr/**`;
+5. permitir instalar todos os mapas ou uma lista explícita;
+6. não sobrescrever arquivos conflitantes sem uma opção clara.
+
+Esse modo deve existir para desenvolvimento do catálogo, mas não deve ser o caminho principal documentado para novos contribuidores.
 
 ### Parâmetros sugeridos
 
 ```text
+-FromRelease
+-ReleaseTag community-maps-123-1
 -CommunityMapsDir C:\dev\community-maps
 -Maps cs_rio,de_sampa
 -All
@@ -109,7 +157,20 @@ C:\dev\community-maps\maps\cs_rio\files\gfx\env\riobk.tga
 -NoDownload
 ```
 
+Na ausência de `-CommunityMapsDir`, o script pode assumir `-FromRelease`.
+
 ### Regras de segurança
+
+#### Para release
+
+- Baixar somente do repositório `modcsbr/community-maps`.
+- Preferir release explícito quando `-ReleaseTag` for informado.
+- Quando usar o release mais recente, registrar no log qual tag foi usada.
+- Validar o ZIP baixado contra `manifest-index.json` e/ou `checksums.sha256`.
+- Não instalar pacotes cujo manifesto interno esteja ausente ou inválido.
+- Não tratar o ZIP da branch do GitHub como fonte final quando houver release disponível.
+
+#### Para qualquer fonte
 
 - Se `manifest.json` existir, validar hash antes de copiar.
 - Se o arquivo de destino existir com hash diferente, falhar por padrão.
@@ -117,6 +178,18 @@ C:\dev\community-maps\maps\cs_rio\files\gfx\env\riobk.tga
 - Não copiar arquivos fora de `runtime/xash3d/modcsbr`.
 - Não instalar arquivos marcados como `redistribution: unknown`, `not-allowed`, `valve-owned` ou `remove`.
 - Não copiar artefatos temporários de `.downloads`.
+
+### Fluxo de cópia
+
+Exemplo conceitual:
+
+```text
+.downloads/community-maps/community-maps-123-1/maps/cs_rio/files/maps/cs_rio.bsp
+        -> runtime\xash3d\modcsbr\maps\cs_rio.bsp
+
+C:\dev\community-maps\maps\cs_rio\files\gfx\env\riobk.tga
+        -> runtime\xash3d\modcsbr\gfx\env\riobk.tga
+```
 
 ## Fluxo para Xash3D FWGS
 
@@ -171,8 +244,9 @@ Ordem recomendada quando tudo for usado:
 3. gerar `runtime/xash3d/modcsbr`;
 4. aplicar overlay de `mod/modcsbr`;
 5. copiar DLLs compiladas;
-6. opcionalmente instalar mapas comunitários;
-7. executar smoke test com `-game modcsbr`.
+6. opcionalmente baixar release do `community-maps` para `.downloads/community-maps`;
+7. opcionalmente instalar mapas comunitários;
+8. executar smoke test com `-game modcsbr`.
 
 ## Fora de escopo do primeiro script
 
@@ -188,8 +262,9 @@ Ordem recomendada quando tudo for usado:
 
 ## Hipóteses
 
-- Desenvolvedores podem ter `C:\dev\community-maps` localmente.
-- O repo `modcsbr/community-maps` pode ser clonado quando necessário.
+- Desenvolvedores comuns não precisam ter `C:\dev\community-maps` localmente se houver release publicado.
+- Mantenedores do catálogo podem ter `C:\dev\community-maps` localmente.
+- O repo `modcsbr/community-maps` publica releases com ZIPs por mapa e catálogo completo.
 - Manifests do `community-maps` são a fonte de validação para hashes e status de redistribuição.
 - O Xash3D FWGS continuará sendo usado como binário oficial, não como submódulo ou fork.
 - O ambiente de desenvolvimento principal continua sendo Windows.
@@ -199,7 +274,8 @@ Ordem recomendada quando tudo for usado:
 - Qual URL/release oficial do Xash3D FWGS será considerada a versão fixada inicial?
 - Onde registrar a versão/hash esperados do Xash3D?
 - O instalador atual deve incorporar o download do Xash3D ou isso deve ser um script separado?
-- O script de mapas deve clonar o repo `community-maps` automaticamente ou exigir caminho local na primeira versão?
+- O script de mapas deve começar já por GitHub Release ou manter checkout local como primeira implementação incremental?
+- Qual endpoint usar para descobrir o último release: GitHub API, URL estável de latest release ou parâmetro obrigatório `-ReleaseTag`?
 - Map packs devem ser instalados todos por padrão quando `-All` for usado ou apenas uma allowlist inicial?
 - Como reportar arquivos ausentes referenciados por `.res` mas não presentes no pacote preservado?
 - O script deve gerar algum índice local de mapas instalados?
@@ -207,16 +283,18 @@ Ordem recomendada quando tudo for usado:
 ## MVP recomendado
 
 1. Adicionar `.downloads/` ao `.gitignore`.
-2. Criar script de instalação opcional de mapas comunitários a partir de um `CommunityMapsDir` local.
-3. Validar manifests e hashes antes da cópia.
-4. Copiar apenas para `runtime/xash3d/modcsbr`.
-5. Documentar o uso em `docs/setup/xash3d-windows.md`.
-6. Só depois evoluir para download/clonagem automática do `community-maps`.
-7. Tratar download/atualização do Xash3D como etapa separada, com versão fixada e hash conhecido.
+2. Criar workflow no `community-maps` para publicar releases com ZIPs por mapa, pacote completo, índice e checksums.
+3. Criar script de instalação opcional de mapas comunitários a partir de GitHub Release.
+4. Manter `-CommunityMapsDir` como modo alternativo para manutenção local do catálogo.
+5. Validar manifests e hashes antes da cópia.
+6. Copiar apenas para `runtime/xash3d/modcsbr`.
+7. Documentar o uso em `docs/setup/xash3d-windows.md`.
+8. Tratar download/atualização do Xash3D como etapa separada, com versão fixada e hash conhecido.
 
 ## Critérios de sucesso
 
-- Um dev com `C:\dev\community-maps` consegue instalar `cs_rio`, `de_sampa`, `fy_pool_day` e `fy_poolparty` no runtime local sem copiar manualmente arquivos.
+- Um dev sem `C:\dev\community-maps` consegue baixar um release do `modcsbr/community-maps` e instalar `cs_rio`, `de_sampa`, `fy_pool_day` e `fy_poolparty` no runtime local sem copiar manualmente arquivos.
+- Um mantenedor com `C:\dev\community-maps` consegue instalar a partir do checkout local para testar antes de publicar.
 - O repo principal continua sem binários de mapas comunitários.
 - O script falha se um hash de manifesto não bater.
 - O script não copia nada para fora de `runtime/xash3d/modcsbr`.
@@ -225,8 +303,8 @@ Ordem recomendada quando tudo for usado:
 
 ## Recomendação final
 
-A ideia é boa e deve virar fluxo oficial de desenvolvimento, mas em duas fases.
+A ideia é boa e deve virar fluxo oficial de desenvolvimento, mas em fases.
 
-Na primeira fase, implementar apenas instalação opcional de mapas a partir de um checkout local de `community-maps`, usando `.downloads/` só como cache futuro e `runtime/` como destino gerado.
+Na primeira fase, implementar release automatizado no `community-maps` e instalação opcional de mapas a partir desses releases, usando `.downloads/` como cache e `runtime/` como destino gerado.
 
-Na segunda fase, adicionar download/clonagem automática do `community-maps` e preparação do Xash3D FWGS com versão fixada, hash conhecido e atualização explícita.
+O modo por checkout local deve existir, mas como caminho de manutenção. A preparação do Xash3D FWGS fica para uma fase seguinte, com versão fixada, hash conhecido e atualização explícita.
