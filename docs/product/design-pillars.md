@@ -71,7 +71,7 @@ Dinheiro e compra não fazem parte do loop normal. O jogador nasce com o kit do 
 - A partida MVP usa 20 rodadas, troca de lados após 10 rodadas, vitória da primeira equipe a 11 rodadas e empate 10–10 permitido sem overtime. Os tempos internos da rodada começam nas baselines do CS 1.6.
 - Breacher escolhe pump-action/M3 ou semiautomática/XM1014 como variações laterais exclusivas, ambas com teto exato de 40 cartuchos, pistola, faca, duas flashbangs e uma smoke; não acumula SMG, fragmentação, ferramenta de ruptura ou bônus passivo.
 - Sobreviventes preservam uma arma coletada entre rodadas somente como substituição do mesmo slot; o teto de munição e o dano continuam pertencendo à categoria da arma, e trocar tipo ou variação restaura o kit.
-- A Fase 1 usa munição agregada, recarga clássica e HUD exato legados. Carregadores individuais e recarga tática são uma Fase 2 experimental.
+- A Fase 1 usa munição agregada, recarga clássica e HUD exato legados, exceto para arma coletada ainda não verificada. Nesse caso, a munição do carregador inserido fica desconhecida até check magazine ou recarga. Carregadores individuais e recarga tática são uma Fase 2 experimental.
 
 ## 6. Conteúdo comunitário dentro das regras
 

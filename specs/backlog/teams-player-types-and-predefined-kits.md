@@ -51,6 +51,7 @@ Esta spec registra uma exploração de ideia e uma proposta de MVP. Ela não aut
 - **Decisão de MVP:** a primeira fase usa munição reserva agregada, HUD exato de carregador/reserva e recarga clássica do CS 1.6. Carregadores individuais e recarga tática permanecem como segunda configuração experimental, depois de validar equipes, tipos e kits.
 - **Decisão de MVP:** lanterna é universal. Visão noturna reutiliza o sistema legado e pode ser concedida simetricamente por configuração global do servidor/kit, sem compra e sem exclusividade por equipe.
 - **Decisão de MVP:** drop, coleta, slots e estado da arma no chão reutilizam a base do CS 1.6; persistência da arma carregada pelo sobrevivente entre rodadas continua sendo regra adicional do mod.
+- **Decisão de UX:** ao coletar uma arma do chão, o jogador não recebe imediatamente pelo HUD a quantidade exata de munição no carregador inserido. O HUD marca a munição do carregador como desconhecida até o jogador executar a ação **check magazine**, que toca uma animação de remover/verificar o carregador e então atualiza o contador com o valor autoritativo do servidor.
 - **Decisão de MVP:** bots reutilizam navegação, combate e execução dos objetivos legados, mas devem receber um tipo/variação e kit válidos sem passar pelo estado de compra.
 - **Decisão de contrato:** o catálogo inicial de pistolas possui dois perfis normais, `backup_pistol_45_standard` e `backup_pistol_9mm_capacity`, disponíveis para Assault, Support, Breacher e Marksman. Somente Marksman pode usar os perfis silenciados `marksman_pistol_45_suppressed` e `marksman_pistol_9mm_suppressed`. O pacote comunitário pode mapear uma opção normal ou silenciada da allowlist global, sujeita ao mesmo contrato e orçamento de poder; cenário, mapa e modo não selecionam nem filtram esse perfil. Modelo, nome, som, recuo, cadência e precisão podem variar apenas dentro do intervalo do perfil escolhido, sem alterar dano, calibre mecânico, recarga, teto ou disponibilidade.
 - **Decisão de MVP:** ajustes comunitários de manuseio de pistolas usam presets inteiros (`controlled`, `baseline` ou `quick`) por arma temática. Pistola é backup, não arma principal; presets não alteram dano, calibre, recarga, teto de 45, disponibilidade, silenciador, burst ou categoria.
@@ -132,7 +133,7 @@ Separar equipe, lado operacional e tipo de jogador permite que uma equipe ataque
 ## 4. Partes que podem prejudicar ritmo ou clareza
 
 - Dois comandos de recarga, inspeção, seleção manual e consolidação de carregadores sobrecarregam o gunplay rápido.
-- Esconder a munição de uma arma coletada por muito tempo produz mortes percebidas como arbitrárias.
+- Esconder a munição de uma arma coletada por muito tempo produz mortes percebidas como arbitrárias; por isso a informação deve poder ser revelada por uma ação curta e explícita de check magazine.
 - Saquear corpo, munição, acessórios e carregadores desvia o foco do objetivo.
 - Cura em rodadas sem respawn pode tornar o Medic obrigatório e apagar a importância do dano acumulado.
 - Supressão com tremor, blur, lentidão ou perda de precisão reduz controle e pode premiar spam.
@@ -730,7 +731,12 @@ O sistema precisa impedir cancelamento que duplique ou restaure munição. A tra
 
 - A arma no chão preserva exatamente o carregador inserido, o modo de disparo e configurações mecânicas que pertençam à própria entidade.
 - Pegar a arma não concede reservas, kit, tipo nem acessórios externos do antigo dono.
-- A quantidade do carregador é desconhecida antes da coleta, mas o HUD a revela exatamente após a animação normal de equipar. Não exigir inspeção no MVP.
+- A quantidade do carregador é desconhecida antes da coleta e continua desconhecida no HUD após equipar a arma coletada.
+- O jogador pode executar **check magazine** com uma tecla configurável enquanto segura a arma. A ação toca uma animação curta de remover/verificar o carregador e, ao completar, atualiza o HUD com a quantidade exata de munição do carregador inserido.
+- O valor revelado por check magazine vem do servidor. O cliente pode apresentar a animação, mas não inventa nem recalcula a contagem escondida.
+- Check magazine é cancelado por troca de arma, recarga, drop, morte ou ação incompatível. Se cancelado antes do ponto autoritativo, o HUD continua desconhecido.
+- A ação não concede munição, não reorganiza carregadores, não consolida reservas e não altera o estado da arma; ela apenas revela ao dono atual a contagem do carregador inserido.
+- Recarregar uma arma coletada substitui o carregador conforme a regra normal de recarga e passa a exibir o novo estado conhecido do carregador colocado pelo próprio jogador.
 - A coleta interrompe ações incompatíveis conforme as regras já legíveis de troca de arma.
 - Qualquer tipo pode usar a arma coletada; restrições rígidas por cenário reduziriam jogadas emergentes e não fazem parte do contrato atual.
 - Reservas próprias só funcionam quando o tipo de carregador for compatível. Mesmo calibre não implica compatibilidade.
@@ -786,7 +792,7 @@ Consequências:
 | Trocar equipe obtém kit | Contrabando e desequilíbrio | Morte/limpeza de inventário e cooldown/regras do servidor. |
 | Pickup restaura reserva | Munição criada | Arma carrega apenas seu estado inserido; reservas são inventário separado. |
 | Entidade altera munição | Inconsistência/dessincronização | Serialização autoritativa do estado da arma no chão. |
-| HUD revela estado remoto | Informação indevida | Mensagens apenas ao possuidor; espectador segue política explícita. |
+| HUD revela estado remoto | Informação indevida | Arma no chão e arma recém-coletada não revelam contagem exata até check magazine; mensagens apenas ao possuidor; espectador segue política explícita. |
 | Compatibilidade por calibre | Uso indevido | ID de família de carregador, não somente tipo de munição. |
 | Objetos acumulam | Desempenho e poluição | Reservas não caem; limite e expiração das armas. |
 | Sem economia, repetição | Baixa variedade | Medir antes de adicionar recursos; variar objetivo/rotas e pequenas opções. |
@@ -845,7 +851,8 @@ Se equipes baseadas em organizações reais forem consideradas depois:
 | Início da rodada | Confirma tipo e variação; preserva arma elegível do sobrevivente ou limpa estado transitório. | Servidor |
 | Spawn | Concede o kit correspondente, substituindo o slot normal por arma coletada persistente quando elegível. | Servidor |
 | Troca/recarga | Mantém arma e carregadores como estados separados e validados. | Servidor; cliente apresenta/prediz |
-| Coleta de arma | Transfere entidade com carregador inserido; sem reservas. | Servidor |
+| Coleta de arma | Transfere entidade com carregador inserido; sem reservas; HUD marca munição inserida como desconhecida até check magazine ou recarga. | Servidor |
+| Check magazine | Revela ao dono atual a munição exata do carregador inserido após animação concluída; não altera munição. | Servidor autoriza; cliente anima e atualiza HUD |
 | Coleta de munição | Inexistente no MVP. | Servidor |
 | Morte | Derruba arma elegível; descarta reservas; encerra ações. | Servidor |
 | Encerramento da rodada | Registra arma carregada pelo sobrevivente, seu slot e categoria; não preserva objetos soltos. | Servidor |
@@ -865,12 +872,13 @@ Se equipes baseadas em organizações reais forem consideradas depois:
 - arma atual;
 - na Fase 1, munição exata no carregador inserido e reserva agregada exata, usando o HUD legado;
 - na Fase 2 experimental, número de carregadores reserva e indicação de quantos estão parciais;
+- para arma coletada ainda não verificada, indicador de carregador desconhecido até check magazine ou recarga;
 - aviso de incompatibilidade ao tentar usar reserva/pickup;
 - marcador de arma coletada até a primeira troca ou por curto período;
 - composição atual da própria equipe, sem bloquear escolhas;
 - mensagens claras quando uma escolha só valerá no próximo spawn.
 
-Permanecem desconhecidos: reservas de inimigos, munição de arma no chão antes de coletar e composição inimiga antes de ser observada, salvo regra explícita do modo. Espectador competitivo não pode virar fonte de informação privilegiada.
+Permanecem desconhecidos: reservas de inimigos, munição de arma no chão antes de coletar, munição de arma coletada ainda não verificada e composição inimiga antes de ser observada, salvo regra explícita do modo. Espectador competitivo não pode virar fonte de informação privilegiada.
 
 ### Divisão de responsabilidades de alto nível
 
@@ -878,11 +886,11 @@ Permanecem desconhecidos: reservas de inimigos, munição de arma no chão antes
 
 O servidor também é autoritativo para contagem de jogadores ativos, disponibilidade de adesão e validação de troca. O cliente apenas apresenta as opções liberadas e a razão de uma rejeição.
 
-**CS16Client:** menus de cenário/equipe/tipo; aliases por equipe; HUD; ícones; composição informativa e feedback de falha; apresentação de carregadores; animações e sons; aplicação dos parâmetros aceitos pelo servidor na previsão; localização.
+**CS16Client:** menus de cenário/equipe/tipo; aliases por equipe; HUD; ícones; composição informativa e feedback de falha; apresentação de carregadores; ação/binding de check magazine; animações e sons; aplicação dos parâmetros aceitos pelo servidor na previsão; localização.
 
 **Mensagens de rede:** precisam transportar somente o estado necessário ao destinatário, com identificadores estáveis para equipe, lado, tipo base, alias, kit, família de carregador e arma. A forma e o custo são investigação técnica futura.
 
-**Conteúdo:** modelos legíveis, sons/vozes, ícones, textos neutros, cenários/mapas e animações. Não assumir que as animações atuais suportam dois tipos de recarga.
+**Conteúdo:** modelos legíveis, sons/vozes, ícones, textos neutros, cenários/mapas e animações. Não assumir que as animações atuais suportam dois tipos de recarga ou check magazine.
 
 **Compatibilidade de mapas:** a implementação futura deve manter leitura das entidades legadas de spawn e objetivo. Metadados opcionais podem definir somente equipes, aliases e contexto; nunca substituir o modo, o objetivo, as condições de vitória ou a allowlist global de perfis. Mapas CS 1.6 sem metadados devem continuar funcionando por fallback.
 
@@ -934,7 +942,7 @@ O menor protótipo capaz de validar a tese contém:
 - recarga clássica e munição agregada na primeira fase;
 - carregadores individuais, recarga tática e seleção automática pelo “mais cheio” somente na segunda configuração experimental;
 - HUD exato de carregador/reserva agregada na Fase 1 e de carregadores individuais na Fase 2;
-- coleta de arma com o carregador inserido e revelação após equipar;
+- coleta de arma com o carregador inserido, HUD inicialmente desconhecido e revelação exata por check magazine ou por recarga;
 - reservas do morto descartadas;
 - composição totalmente livre, inclusive para Marksman;
 - supressão apenas emergente por som, impacto e ameaça real;
