@@ -2,6 +2,8 @@
 
 Status: pilares iniciais confirmados
 
+Direção de prototipagem: a Direção C — identidade própria intermediária — está autorizada como hipótese do MVP. O produto deve buscar diferenciação por equipes, tipos e kits, preservando ritmo, clareza e retrocompatibilidade dos modos legados do CS 1.6.
+
 ## 1. Retrocompatibilidade antes de reinvenção de mapas
 
 Mapas e modos do Counter-Strike 1.6 devem continuar sendo uma base utilizável do mod.

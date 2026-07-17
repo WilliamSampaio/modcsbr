@@ -1,6 +1,6 @@
 # Equipes, tipos de jogador e kits predefinidos
 
-Status: backlog — exploração de produto, não aprovada
+Status: backlog — Direção C autorizada como hipótese de prototipagem; spec ainda não aprovada para implementação
 
 ## Convenções desta spec
 
@@ -20,6 +20,7 @@ Esta spec registra uma exploração de ideia e uma proposta de MVP. Ela não aut
 - **Decisão de balanceamento:** o MVP usa **10 contra 10** como referência principal de balanceamento. A faixa obrigatória de validação é **6 contra 6 até 12 contra 12**. Partidas até **16 contra 16** continuam suportadas quando mapa e servidor comportarem, mas não são o centro do balanceamento inicial. Nenhum kit deve ser balanceado exclusivamente para 5 contra 5.
 - **Decisão:** a composição de tipos é livre. Todos os jogadores de uma equipe podem escolher o mesmo tipo, sem cotas, reservas, filas ou tipos obrigatórios.
 - **Decisão de MVP:** os quatro tipos iniciais fixos são Assault, Support, Marksman e Breacher, disponíveis simetricamente para as duas equipes.
+- **Decisão de produto:** a **Direção C — Identidade própria intermediária** está autorizada como hipótese de prototipagem. Isso aprova o caminho de produto para preparar o primeiro corte técnico, mas não move esta spec para `approved` nem autoriza implementar todos os sistemas descritos de uma vez.
 - **Decisão de MVP:** as duas primeiras equipes fictícias de playtest são **Atlas** e **Vesper**. Elas existem para validar identidade, aliases e leitura visual no MVP; não representam aprovação de lore final, organizações reais ou vantagem mecânica.
 - **Decisão de MVP:** o primeiro contexto narrativo é um exercício operacional competitivo em instalação de teste. O modo legado de instalar/desarmar dispositivo será apresentado como instalar/desarmar dispositivo de validação, preservando as regras do CS 1.6 sem enquadrar automaticamente uma equipe como “terrorista” ou “contra-terrorista”.
 - **Decisão de produto:** quatro tipos não é um limite estrutural. O catálogo poderá crescer após o MVP, desde que cada novo tipo possua contrato simétrico, função distinta, contrajogo e suporte de conteúdo e interface.
@@ -924,6 +925,8 @@ Maximiza fantasia de esquadrão, porém conflita com resposta rápida, mapas peq
 
 Entrega diferenciação suficiente para teste, mantendo regras legíveis. Seu perigo é acumular gradualmente todas as complexidades da Direção B; por isso, precisa de limites explícitos de escopo.
 
+**Decisão:** Direção C está autorizada como hipótese de prototipagem do MVP. O recorte permanece disciplinado pela Direção A no ritmo e na clareza: modos legados do CS 1.6, equipes fictícias, tipos simétricos, kits predefinidos, economia removida, munição agregada na Fase 1 e sistemas táticos adicionais apenas quando necessários para validar a tese principal.
+
 ### Direção D — Modos competitivos próprios
 
 Direção rejeitada para esta spec. Controle de território, captura de pontos, escolta e múltiplos objetivos ampliariam o produto além da retrocompatibilidade decidida. A variedade deve vir das equipes, aliases, kits e conteúdo temático sobre os modos legados do CS 1.6.
@@ -1104,17 +1107,16 @@ Os valores concretos de armas, munição, tempos e utilidades só devem ser defi
 ### Decisões pendentes
 
 1. Qual é a visão oficial e quais pilares arbitram ritmo versus realismo?
-2. A Direção C é autorizada para prototipagem?
-3. Quais valores iniciais de kit preservam funções distintas entre Assault, Support, Marksman e Breacher?
-4. Qual é a política futura para equipes baseadas em organizações reais e conflitos contemporâneos?
-5. Qual nível de suporte a tipos/kits é necessário para considerar os bots publicáveis?
+2. Quais valores iniciais de kit preservam funções distintas entre Assault, Support, Marksman e Breacher?
+3. Qual é a política futura para equipes baseadas em organizações reais e conflitos contemporâneos?
+4. Qual nível de suporte a tipos/kits é necessário para considerar os bots publicáveis?
 
 ## 28. Recomendação final
 
-Adotar como hipótese a Direção C, com disciplina de Direção A no escopo. A primeira identidade do mod deve ser “modos legados do CS 1.6 com equipes sem rótulo moral fixo, tipos legíveis e kits previsíveis”, não “simulação detalhada de equipamentos” nem um catálogo de modos novos.
+A Direção C fica adotada como hipótese de prototipagem, com disciplina de Direção A no escopo. A primeira identidade do mod deve ser “modos legados do CS 1.6 com equipes sem rótulo moral fixo, tipos legíveis e kits previsíveis”, não “simulação detalhada de equipamentos” nem um catálogo de modos novos.
 
 Separar equipe, lado operacional e tipo base permanece uma decisão robusta. O contrato do tipo é simétrico; alias, apresentação e mapeamento temático permitido podem mudar por equipe. A economia foi removida por decisão. Assault, Support, Marksman e Breacher formam o catálogo fixo do MVP; seus valores e a munição física continuam sujeitos a playtest, e novos tipos só serão considerados depois dessa validação.
 
 Começar por equipes fictícias com contratos simétricos, um objetivo claro, kits predefinidos e munição simples. Validar tipos, limites e mapeamentos comunitários antes de acrescentar carregadores individuais; validar carregadores antes de saque. Se o sistema de carregadores não criar decisões compreendidas e valorizadas, voltar ao contador agregado. Se rodadas iguais parecerem repetitivas, ajustar objetivos e kits antes de inventar requisição, tickets ou cooldowns.
 
-Não avançar esta spec para `approved` até o responsável do produto decidir explicitamente os itens centrais da seção 27 e aprovar uma hipótese de MVP.
+Não avançar esta spec para `approved` até o responsável do produto decidir explicitamente o recorte técnico do primeiro corte implementável e os itens centrais restantes da seção 27.
